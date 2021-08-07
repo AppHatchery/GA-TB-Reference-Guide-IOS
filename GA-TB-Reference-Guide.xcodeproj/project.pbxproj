@@ -8,18 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		AD570DE826BE28290085726E /* GA_TB_Reference_GuideApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD570DE726BE28290085726E /* GA_TB_Reference_GuideApp.swift */; };
-		AD570DEA26BE28290085726E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD570DE926BE28290085726E /* ContentView.swift */; };
 		AD570DEC26BE282A0085726E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD570DEB26BE282A0085726E /* Assets.xcassets */; };
 		AD570DEF26BE282A0085726E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD570DEE26BE282A0085726E /* Preview Assets.xcassets */; };
+		AD570DF926BE2A550085726E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD570DF826BE2A550085726E /* MainView.swift */; };
+		AD570DFB26BE2C180085726E /* SavedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD570DFA26BE2C180085726E /* SavedView.swift */; };
+		AD570DFD26BE2EF70085726E /* GuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD570DFC26BE2EF70085726E /* GuideView.swift */; };
+		AD570DFF26BE38400085726E /* TableOfContentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD570DFE26BE38400085726E /* TableOfContentsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		AD570DE426BE28290085726E /* GA-TB-Reference-Guide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GA-TB-Reference-Guide.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD570DE726BE28290085726E /* GA_TB_Reference_GuideApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GA_TB_Reference_GuideApp.swift; sourceTree = "<group>"; };
-		AD570DE926BE28290085726E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AD570DEB26BE282A0085726E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AD570DEE26BE282A0085726E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AD570DF026BE282A0085726E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AD570DF826BE2A550085726E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		AD570DFA26BE2C180085726E /* SavedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedView.swift; sourceTree = "<group>"; };
+		AD570DFC26BE2EF70085726E /* GuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideView.swift; sourceTree = "<group>"; };
+		AD570DFE26BE38400085726E /* TableOfContentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableOfContentsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,8 +58,11 @@
 		AD570DE626BE28290085726E /* GA-TB-Reference-Guide */ = {
 			isa = PBXGroup;
 			children = (
+				AD570DFE26BE38400085726E /* TableOfContentsView.swift */,
+				AD570DFA26BE2C180085726E /* SavedView.swift */,
+				AD570DFC26BE2EF70085726E /* GuideView.swift */,
 				AD570DE726BE28290085726E /* GA_TB_Reference_GuideApp.swift */,
-				AD570DE926BE28290085726E /* ContentView.swift */,
+				AD570DF826BE2A550085726E /* MainView.swift */,
 				AD570DEB26BE282A0085726E /* Assets.xcassets */,
 				AD570DF026BE282A0085726E /* Info.plist */,
 				AD570DED26BE282A0085726E /* Preview Content */,
@@ -138,8 +147,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD570DEA26BE28290085726E /* ContentView.swift in Sources */,
+				AD570DFB26BE2C180085726E /* SavedView.swift in Sources */,
+				AD570DF926BE2A550085726E /* MainView.swift in Sources */,
 				AD570DE826BE28290085726E /* GA_TB_Reference_GuideApp.swift in Sources */,
+				AD570DFD26BE2EF70085726E /* GuideView.swift in Sources */,
+				AD570DFF26BE38400085726E /* TableOfContentsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

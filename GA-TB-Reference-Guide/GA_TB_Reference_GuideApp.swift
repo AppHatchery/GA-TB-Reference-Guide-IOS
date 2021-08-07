@@ -11,7 +11,7 @@ import SwiftUI
 struct GA_TB_Reference_GuideApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView()
         }
     }
 }
