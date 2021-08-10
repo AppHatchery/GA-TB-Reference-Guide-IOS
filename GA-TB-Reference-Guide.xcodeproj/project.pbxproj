@@ -11,9 +11,23 @@
 		AD570DEC26BE282A0085726E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD570DEB26BE282A0085726E /* Assets.xcassets */; };
 		AD570DEF26BE282A0085726E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD570DEE26BE282A0085726E /* Preview Assets.xcassets */; };
 		AD570DF926BE2A550085726E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD570DF826BE2A550085726E /* MainView.swift */; };
-		AD570DFB26BE2C180085726E /* SavedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD570DFA26BE2C180085726E /* SavedView.swift */; };
+		AD570DFB26BE2C180085726E /* shader-example.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD570DFA26BE2C180085726E /* shader-example.swift */; };
 		AD570DFD26BE2EF70085726E /* GuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD570DFC26BE2EF70085726E /* GuideView.swift */; };
-		AD570DFF26BE38400085726E /* TableOfContentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD570DFE26BE38400085726E /* TableOfContentsView.swift */; };
+		AD570DFF26BE38400085726E /* ChapterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD570DFE26BE38400085726E /* ChapterListView.swift */; };
+		AD570E0126BEAFA90085726E /* SwiftUIWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD570E0026BEAFA90085726E /* SwiftUIWebView.swift */; };
+		AD570E0326BEB2630085726E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD570E0226BEB2630085726E /* ContentView.swift */; };
+		AD570E0526BEB3AD0085726E /* II. Diagnostic Tests for Latent TB Infection (LTBI).html in Resources */ = {isa = PBXBuildFile; fileRef = AD570E0426BEB3AD0085726E /* II. Diagnostic Tests for Latent TB Infection (LTBI).html */; };
+		AD570E0726BEC2FD0085726E /* I. Epidemiology.html in Resources */ = {isa = PBXBuildFile; fileRef = AD570E0626BEC2FD0085726E /* I. Epidemiology.html */; };
+		AD570E0926BEC63A0085726E /* Chapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD570E0826BEC63A0085726E /* Chapter.swift */; };
+		AD570E0B26BEC7320085726E /* A. Tuberculin Skin Test (TST).html in Resources */ = {isa = PBXBuildFile; fileRef = AD570E0A26BEC7320085726E /* A. Tuberculin Skin Test (TST).html */; };
+		AD570E0D26BEC77D0085726E /* B. Criteria for a Positive Tuberculin Test, by Risk Group.html in Resources */ = {isa = PBXBuildFile; fileRef = AD570E0C26BEC77D0085726E /* B. Criteria for a Positive Tuberculin Test, by Risk Group.html */; };
+		AD570E0F26BED51B0085726E /* SubChapterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD570E0E26BED51B0085726E /* SubChapterListView.swift */; };
+		AD570E1126BED58B0085726E /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD570E1026BED58B0085726E /* Data.swift */; };
+		AD570E1326BF15E50085726E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD570E1226BF15E50085726E /* SettingsView.swift */; };
+		AD570E1526BF16230085726E /* ContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD570E1426BF16230085726E /* ContactsView.swift */; };
+		AD570E1726BF16BC0085726E /* SavedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD570E1626BF16BC0085726E /* SavedView.swift */; };
+		AD570E1A26C03FF10085726E /* E. Interferon-γ Release Assays (IGRAs).html in Resources */ = {isa = PBXBuildFile; fileRef = AD570E1926C03FF10085726E /* E. Interferon-γ Release Assays (IGRAs).html */; };
+		AD570E1C26C042530085726E /* II. Introduction.html in Resources */ = {isa = PBXBuildFile; fileRef = AD570E1B26C042530085726E /* II. Introduction.html */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,9 +37,23 @@
 		AD570DEE26BE282A0085726E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AD570DF026BE282A0085726E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD570DF826BE2A550085726E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		AD570DFA26BE2C180085726E /* SavedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedView.swift; sourceTree = "<group>"; };
+		AD570DFA26BE2C180085726E /* shader-example.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "shader-example.swift"; sourceTree = "<group>"; };
 		AD570DFC26BE2EF70085726E /* GuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideView.swift; sourceTree = "<group>"; };
-		AD570DFE26BE38400085726E /* TableOfContentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableOfContentsView.swift; sourceTree = "<group>"; };
+		AD570DFE26BE38400085726E /* ChapterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterListView.swift; sourceTree = "<group>"; };
+		AD570E0026BEAFA90085726E /* SwiftUIWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIWebView.swift; sourceTree = "<group>"; };
+		AD570E0226BEB2630085726E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		AD570E0426BEB3AD0085726E /* II. Diagnostic Tests for Latent TB Infection (LTBI).html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "II. Diagnostic Tests for Latent TB Infection (LTBI).html"; sourceTree = "<group>"; };
+		AD570E0626BEC2FD0085726E /* I. Epidemiology.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "I. Epidemiology.html"; sourceTree = "<group>"; };
+		AD570E0826BEC63A0085726E /* Chapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chapter.swift; sourceTree = "<group>"; };
+		AD570E0A26BEC7320085726E /* A. Tuberculin Skin Test (TST).html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "A. Tuberculin Skin Test (TST).html"; sourceTree = "<group>"; };
+		AD570E0C26BEC77D0085726E /* B. Criteria for a Positive Tuberculin Test, by Risk Group.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "B. Criteria for a Positive Tuberculin Test, by Risk Group.html"; sourceTree = "<group>"; };
+		AD570E0E26BED51B0085726E /* SubChapterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubChapterListView.swift; sourceTree = "<group>"; };
+		AD570E1026BED58B0085726E /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		AD570E1226BF15E50085726E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		AD570E1426BF16230085726E /* ContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsView.swift; sourceTree = "<group>"; };
+		AD570E1626BF16BC0085726E /* SavedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedView.swift; sourceTree = "<group>"; };
+		AD570E1926C03FF10085726E /* E. Interferon-γ Release Assays (IGRAs).html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "E. Interferon-γ Release Assays (IGRAs).html"; sourceTree = "<group>"; };
+		AD570E1B26C042530085726E /* II. Introduction.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "II. Introduction.html"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,12 +86,21 @@
 		AD570DE626BE28290085726E /* GA-TB-Reference-Guide */ = {
 			isa = PBXGroup;
 			children = (
-				AD570DFE26BE38400085726E /* TableOfContentsView.swift */,
-				AD570DFA26BE2C180085726E /* SavedView.swift */,
-				AD570DFC26BE2EF70085726E /* GuideView.swift */,
-				AD570DE726BE28290085726E /* GA_TB_Reference_GuideApp.swift */,
 				AD570DF826BE2A550085726E /* MainView.swift */,
+				AD570DFC26BE2EF70085726E /* GuideView.swift */,
+				AD570DFE26BE38400085726E /* ChapterListView.swift */,
+				AD570E0E26BED51B0085726E /* SubChapterListView.swift */,
+				AD570E1626BF16BC0085726E /* SavedView.swift */,
+				AD570E1426BF16230085726E /* ContactsView.swift */,
+				AD570E1226BF15E50085726E /* SettingsView.swift */,
+				AD570E1026BED58B0085726E /* Data.swift */,
+				AD570E0826BEC63A0085726E /* Chapter.swift */,
+				AD570E0226BEB2630085726E /* ContentView.swift */,
+				AD570E0026BEAFA90085726E /* SwiftUIWebView.swift */,
+				AD570DE726BE28290085726E /* GA_TB_Reference_GuideApp.swift */,
+				AD570DFA26BE2C180085726E /* shader-example.swift */,
 				AD570DEB26BE282A0085726E /* Assets.xcassets */,
+				AD570E1826BF20BD0085726E /* content */,
 				AD570DF026BE282A0085726E /* Info.plist */,
 				AD570DED26BE282A0085726E /* Preview Content */,
 			);
@@ -76,6 +113,19 @@
 				AD570DEE26BE282A0085726E /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		AD570E1826BF20BD0085726E /* content */ = {
+			isa = PBXGroup;
+			children = (
+				AD570E0626BEC2FD0085726E /* I. Epidemiology.html */,
+				AD570E0426BEB3AD0085726E /* II. Diagnostic Tests for Latent TB Infection (LTBI).html */,
+				AD570E1B26C042530085726E /* II. Introduction.html */,
+				AD570E0A26BEC7320085726E /* A. Tuberculin Skin Test (TST).html */,
+				AD570E0C26BEC77D0085726E /* B. Criteria for a Positive Tuberculin Test, by Risk Group.html */,
+				AD570E1926C03FF10085726E /* E. Interferon-γ Release Assays (IGRAs).html */,
+			);
+			path = content;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,7 +185,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD570E1A26C03FF10085726E /* E. Interferon-γ Release Assays (IGRAs).html in Resources */,
+				AD570E0D26BEC77D0085726E /* B. Criteria for a Positive Tuberculin Test, by Risk Group.html in Resources */,
+				AD570E1C26C042530085726E /* II. Introduction.html in Resources */,
+				AD570E0526BEB3AD0085726E /* II. Diagnostic Tests for Latent TB Infection (LTBI).html in Resources */,
 				AD570DEF26BE282A0085726E /* Preview Assets.xcassets in Resources */,
+				AD570E0B26BEC7320085726E /* A. Tuberculin Skin Test (TST).html in Resources */,
+				AD570E0726BEC2FD0085726E /* I. Epidemiology.html in Resources */,
 				AD570DEC26BE282A0085726E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -147,11 +203,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD570DFB26BE2C180085726E /* SavedView.swift in Sources */,
+				AD570DFB26BE2C180085726E /* shader-example.swift in Sources */,
 				AD570DF926BE2A550085726E /* MainView.swift in Sources */,
+				AD570E0F26BED51B0085726E /* SubChapterListView.swift in Sources */,
+				AD570E1526BF16230085726E /* ContactsView.swift in Sources */,
+				AD570E0326BEB2630085726E /* ContentView.swift in Sources */,
+				AD570E1126BED58B0085726E /* Data.swift in Sources */,
+				AD570E1726BF16BC0085726E /* SavedView.swift in Sources */,
 				AD570DE826BE28290085726E /* GA_TB_Reference_GuideApp.swift in Sources */,
+				AD570E0126BEAFA90085726E /* SwiftUIWebView.swift in Sources */,
 				AD570DFD26BE2EF70085726E /* GuideView.swift in Sources */,
-				AD570DFF26BE38400085726E /* TableOfContentsView.swift in Sources */,
+				AD570DFF26BE38400085726E /* ChapterListView.swift in Sources */,
+				AD570E0926BEC63A0085726E /* Chapter.swift in Sources */,
+				AD570E1326BF15E50085726E /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
