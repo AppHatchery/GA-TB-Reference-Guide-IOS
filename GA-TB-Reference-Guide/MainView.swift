@@ -10,6 +10,7 @@ import SwiftUI
 struct MainView: View {
     var body: some View {
         
+//        LinearGradient(gradient: Gradient(colors: [Color.customLightBrown, Color.customDarkBrown]), startPoint: .trailing, endPoint: .leading)
         // We declare two tabs here
         TabView {
             

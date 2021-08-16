@@ -30,6 +30,7 @@
 		AD570E1C26C042530085726E /* II. Introduction.html in Resources */ = {isa = PBXBuildFile; fileRef = AD570E1B26C042530085726E /* II. Introduction.html */; };
 		AD79904F26C21C5600D42BB2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD79904E26C21C5600D42BB2 /* GoogleService-Info.plist */; };
 		AD79905126C21DF300D42BB2 /* SwiftUISearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD79905026C21DF300D42BB2 /* SwiftUISearchBarView.swift */; };
+		D4DD2FA526CADE5D00A61BA8 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DD2FA426CADE5D00A61BA8 /* Color+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		AD570E1B26C042530085726E /* II. Introduction.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "II. Introduction.html"; sourceTree = "<group>"; };
 		AD79904E26C21C5600D42BB2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AD79905026C21DF300D42BB2 /* SwiftUISearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUISearchBarView.swift; sourceTree = "<group>"; };
+		D4DD2FA426CADE5D00A61BA8 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 		AD570DE626BE28290085726E /* GA-TB-Reference-Guide */ = {
 			isa = PBXGroup;
 			children = (
+				D4DD2FA726CADE9100A61BA8 /* Extensions */,
 				AD570DF826BE2A550085726E /* MainView.swift */,
 				AD570DFC26BE2EF70085726E /* GuideView.swift */,
 				AD570DFE26BE38400085726E /* ChapterListView.swift */,
@@ -132,6 +135,14 @@
 				AD570E1926C03FF10085726E /* E. Interferon-γ Release Assays (IGRAs).html */,
 			);
 			path = content;
+			sourceTree = "<group>";
+		};
+		D4DD2FA726CADE9100A61BA8 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D4DD2FA426CADE5D00A61BA8 /* Color+Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -211,6 +222,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD79905126C21DF300D42BB2 /* SwiftUISearchBarView.swift in Sources */,
+				D4DD2FA526CADE5D00A61BA8 /* Color+Extensions.swift in Sources */,
 				AD570DFB26BE2C180085726E /* shader-example.swift in Sources */,
 				AD570DF926BE2A550085726E /* MainView.swift in Sources */,
 				AD570E0F26BED51B0085726E /* SubChapterListView.swift in Sources */,

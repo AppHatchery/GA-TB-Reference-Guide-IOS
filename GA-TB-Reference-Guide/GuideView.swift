@@ -32,62 +32,62 @@ struct GuideView: View {
                 
                 HStack {
                     NavigationLink(destination: ContentView(chapter: IIA)) {
-                        Text("LTBI Diagnosis")
-                        .frame(minWidth: 0, maxWidth: 160)
+                        Text("Epidemiology")
+                        .frame(minWidth: 0, maxWidth: 160, minHeight: 30,maxHeight: 77)
                         .padding()
                         .foregroundColor(.black)
-                        .background(Color.init(lightBrown))
+                            .background(Color.customLightBrown)
                         .cornerRadius(5)
-                        .font(.title)
-                            .multilineTextAlignment(.center)
-                            
-                            
+                        .multilineTextAlignment(.center)
                     }
                     
                     NavigationLink(destination: ContentView(chapter: IIA)) {
                         Text("LTBI Diagnosis")
-                        .frame(minWidth: 0, maxWidth: 160)
+                        .frame(minWidth: 10, maxWidth: 160, minHeight: 30,maxHeight: 77)
                         .padding()
-                        .foregroundColor(.black)
-                        .background(Color.init(lightBrown))
+                            .foregroundColor(.black)
+                        .background(Color.customLightBrown)
                         .cornerRadius(5)
-                        .font(.title)
                             .multilineTextAlignment(.center)
                             
                     }
                 }
-                    
+                .padding(.leading)
+                .padding(.trailing)
                     
                 HStack {
                     NavigationLink(destination: ContentView(chapter: IIA)) {
                         Text("LTBI Diagnosis")
-                        .frame(minWidth: 0, maxWidth: 160)
-                        .padding()
+                        .frame(minWidth: 0, maxWidth: 160, minHeight: 30,maxHeight: 77)
+                            .padding()
                         .foregroundColor(.black)
-                        .background(Color.init(lightBrown))
+                        .background(Color.customLightBrown)
                         .cornerRadius(5)
-                        .font(.title)
                             .multilineTextAlignment(.center)
                             
                     }
                     NavigationLink(destination: ContentView(chapter: IIA)) {
                         Text("LTBI Diagnosis")
-                        .frame(minWidth: 0, maxWidth: 160)
+                        .frame(minWidth: 0, maxWidth: 160, minHeight: 30,maxHeight: 77)
                         .padding()
                         .foregroundColor(.black)
-                        .background(Color.init(lightBrown))
+                            .background(Color.customLightBrown)
                         .cornerRadius(5)
-                        .font(.title)
-                            .multilineTextAlignment(.center)
-                            
+                        .multilineTextAlignment(.center)
                     }
                 }
+                .padding(.leading)
+                .padding(.trailing)
+                
                 
                 // Charts
                 HStack {
                     Text("Charts")
-                        .font(.title)
+                        .font(.title2)
+                        .fontWeight(.semibold)
                         .padding(.leading)
+                        
+                        
                     Spacer()
                     Text("All Charts >")
                         .padding(.trailing)
@@ -99,30 +99,28 @@ struct GuideView: View {
                         Text("LTBI Regimens")
                         .frame(minWidth: 0, maxWidth: 160, minHeight: 45)
                         .padding()
-                        .foregroundColor(.black)
-                        .background(Color.init(darkBrown))
+                        .foregroundColor(.white)
+                        .background(Color.customDarkBrown)
                         .cornerRadius(5)
-                        
-                            .multilineTextAlignment(.center)
+                        .multilineTextAlignment(.center)
                             
                     }
                     NavigationLink(destination: ContentView(chapter: IIA)) {
                         Text("Dosages")
                         .frame(minWidth: 0, maxWidth: 160, minHeight: 45)
                         .padding()
-                        .foregroundColor(.black)
-                        .background(Color.init(darkBrown))
+                        .foregroundColor(.white)
+                        .background(Color.customDarkBrown)
                         .cornerRadius(5)
-                     
-                            .multilineTextAlignment(.center)
+                        .multilineTextAlignment(.center)
                             
                     }
                     NavigationLink(destination: ContentView(chapter: IIA)) {
                         Text("Drug Adverse")
                         .frame(minWidth: 0, maxWidth: 160, minHeight: 45)
                         .padding()
-                        .foregroundColor(.black)
-                        .background(Color.init(darkBrown))
+                        .foregroundColor(.white)
+                        .background(Color.customDarkBrown)
                         .cornerRadius(5)
                         
                             .multilineTextAlignment(.center)
@@ -137,8 +135,8 @@ struct GuideView: View {
                         Text("LTBI Regimens")
                         .frame(minWidth: 0, maxWidth: 160, minHeight: 45)
                         .padding()
-                        .foregroundColor(.black)
-                        .background(Color.init(darkBrown))
+                        .foregroundColor(.white)
+                        .background(Color.customDarkBrown)
                         .cornerRadius(5)
                         
                             .multilineTextAlignment(.center)
@@ -148,8 +146,8 @@ struct GuideView: View {
                         Text("Dosages")
                         .frame(minWidth: 0, maxWidth: 160, minHeight: 45)
                         .padding()
-                        .foregroundColor(.black)
-                        .background(Color.init(darkBrown))
+                        .foregroundColor(.white)
+                        .background(Color.customDarkBrown)
                         .cornerRadius(5)
                      
                             .multilineTextAlignment(.center)
@@ -159,8 +157,8 @@ struct GuideView: View {
                         Text("Drug Adverse")
                         .frame(minWidth: 0, maxWidth: 160, minHeight: 45)
                         .padding()
-                        .foregroundColor(.black)
-                        .background(Color.init(darkBrown))
+                        .foregroundColor(.white)
+                        .background(Color.customDarkBrown)
                         .cornerRadius(5)
                         
                             .multilineTextAlignment(.center)
@@ -175,9 +173,6 @@ struct GuideView: View {
         
             .navigationTitle("Guide")
             .navigationBarTitleDisplayMode(/*@START_MENU_TOKEN@*/.inline/*@END_MENU_TOKEN@*/)
-         
-          
-            
         }
        
         
