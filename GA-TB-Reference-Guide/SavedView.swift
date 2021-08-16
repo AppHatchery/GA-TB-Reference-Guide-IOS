@@ -8,9 +8,29 @@
 import SwiftUI
 
 struct SavedView: View {
+    
+    @State private var searchText = ""
+    
+    let names = ["jupiter", "mars", "another planet"]
+    
     var body: some View {
-        Text("Saved View Coming Soon!")
+       
+        NavigationView {
+        List {
+            
+            SearchBar(text: $searchText)
+            
+            ForEach(self.names.filter {
+                        self.searchText.isEmpty ? true : $0.localizedCaseInsensitiveContains(self.searchText)}
+            
+            , id: \.self) { name in
+                Text(name)
+            }
+        }
+        }
+        
     }
+    
 }
 
 struct SavedView_Previews: PreviewProvider {

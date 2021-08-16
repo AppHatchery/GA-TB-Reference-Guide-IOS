@@ -18,14 +18,15 @@ struct ChapterRow: View {
 
 // TODO: Skip SubChapterList if no Subchapters
 struct ChapterListView: View {
-   
+    
+    
     // TODO: If there are no subchapters, go directly to content
     var body: some View {
         List(chapters) { chapter in
             NavigationLink(destination: SubChapterListView(chapter: chapter)) {
                 ChapterRow(chapter: chapter)
             }
-                }
+        }
         .navigationTitle("All Chapters")
         .navigationBarTitleDisplayMode(.inline)
     }

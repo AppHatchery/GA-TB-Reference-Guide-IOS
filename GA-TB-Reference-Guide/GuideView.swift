@@ -8,21 +8,17 @@
 import SwiftUI
 
 struct GuideView: View {
-    @State private var searchText = ""
+    
     
     var body: some View {
         
         // For the Guide View, we wrap it in a NavigationView
         NavigationView {
             
-                
-            
             // TODO: Maybe turn this into a lazyVGrid?
             // TODO: Add shadow
             // TODO: Correct links when content ready
             VStack {
-                Text("Searching for \(searchText)")
-                                
                 
                 HStack {
                     Spacer()

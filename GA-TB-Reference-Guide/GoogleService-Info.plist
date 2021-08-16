@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>775187534127-hhg5u5s94c9g4e28gb1nom9jk2i4q6ts.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.775187534127-hhg5u5s94c9g4e28gb1nom9jk2i4q6ts</string>
+	<key>API_KEY</key>
+	<string>AIzaSyABcIUeO0F-_Ka0WAFqmsDrtSbdeOQjqSY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>775187534127</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>org.apphatchery.GA-TB-Reference-Guide</string>
+	<key>PROJECT_ID</key>
+	<string>ga-tb-reference-dev</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ga-tb-reference-dev.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:775187534127:ios:66f3987cc34153bc3bd1da</string>
+	<key>DATABASE_URL</key>
+	<string>https://ga-tb-reference-dev-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>

@@ -28,6 +28,8 @@
 		AD570E1726BF16BC0085726E /* SavedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD570E1626BF16BC0085726E /* SavedView.swift */; };
 		AD570E1A26C03FF10085726E /* E. Interferon-γ Release Assays (IGRAs).html in Resources */ = {isa = PBXBuildFile; fileRef = AD570E1926C03FF10085726E /* E. Interferon-γ Release Assays (IGRAs).html */; };
 		AD570E1C26C042530085726E /* II. Introduction.html in Resources */ = {isa = PBXBuildFile; fileRef = AD570E1B26C042530085726E /* II. Introduction.html */; };
+		AD79904F26C21C5600D42BB2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD79904E26C21C5600D42BB2 /* GoogleService-Info.plist */; };
+		AD79905126C21DF300D42BB2 /* SwiftUISearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD79905026C21DF300D42BB2 /* SwiftUISearchBarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +56,8 @@
 		AD570E1626BF16BC0085726E /* SavedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedView.swift; sourceTree = "<group>"; };
 		AD570E1926C03FF10085726E /* E. Interferon-γ Release Assays (IGRAs).html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "E. Interferon-γ Release Assays (IGRAs).html"; sourceTree = "<group>"; };
 		AD570E1B26C042530085726E /* II. Introduction.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "II. Introduction.html"; sourceTree = "<group>"; };
+		AD79904E26C21C5600D42BB2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		AD79905026C21DF300D42BB2 /* SwiftUISearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUISearchBarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,11 +101,13 @@
 				AD570E0826BEC63A0085726E /* Chapter.swift */,
 				AD570E0226BEB2630085726E /* ContentView.swift */,
 				AD570E0026BEAFA90085726E /* SwiftUIWebView.swift */,
+				AD79905026C21DF300D42BB2 /* SwiftUISearchBarView.swift */,
 				AD570DE726BE28290085726E /* GA_TB_Reference_GuideApp.swift */,
 				AD570DFA26BE2C180085726E /* shader-example.swift */,
 				AD570DEB26BE282A0085726E /* Assets.xcassets */,
 				AD570E1826BF20BD0085726E /* content */,
 				AD570DF026BE282A0085726E /* Info.plist */,
+				AD79904E26C21C5600D42BB2 /* GoogleService-Info.plist */,
 				AD570DED26BE282A0085726E /* Preview Content */,
 			);
 			path = "GA-TB-Reference-Guide";
@@ -187,6 +193,7 @@
 			files = (
 				AD570E1A26C03FF10085726E /* E. Interferon-γ Release Assays (IGRAs).html in Resources */,
 				AD570E0D26BEC77D0085726E /* B. Criteria for a Positive Tuberculin Test, by Risk Group.html in Resources */,
+				AD79904F26C21C5600D42BB2 /* GoogleService-Info.plist in Resources */,
 				AD570E1C26C042530085726E /* II. Introduction.html in Resources */,
 				AD570E0526BEB3AD0085726E /* II. Diagnostic Tests for Latent TB Infection (LTBI).html in Resources */,
 				AD570DEF26BE282A0085726E /* Preview Assets.xcassets in Resources */,
@@ -203,6 +210,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD79905126C21DF300D42BB2 /* SwiftUISearchBarView.swift in Sources */,
 				AD570DFB26BE2C180085726E /* shader-example.swift in Sources */,
 				AD570DF926BE2A550085726E /* MainView.swift in Sources */,
 				AD570E0F26BED51B0085726E /* SubChapterListView.swift in Sources */,
