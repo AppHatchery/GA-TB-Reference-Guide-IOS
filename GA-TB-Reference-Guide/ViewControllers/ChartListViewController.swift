@@ -1,0 +1,92 @@
+//
+//  ChartListViewController.swift
+//  GA-TB-Reference-Guide
+//
+//  Created by Yago Arconada on 8/27/21.
+//
+
+import UIKit
+
+class ChartListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    @IBOutlet weak var tableView: UITableView!
+
+    var tableViewCells: [Int : UITableViewCell] = [:]
+    var url: URL!
+    var subChapterURL: URL!
+    
+    var arrayPointer = 0
+    
+    let chapterIndex = ChapterIndex()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor : UIColor.white]
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register( UITableViewCell.self, forCellReuseIdentifier: type(of: self).description())
+        tableView.estimatedRowHeight = 80
+        tableView.estimatedRowHeight = UITableView.automaticDimension
+        // Do any additional setup after loading the view.
+    }
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return chapterIndex.charts.count
+    }
+    
+    private func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        var cell: UITableViewCell! = tableViewCells[indexPath.row]
+        
+        if cell != nil
+        {
+            return cell
+        }
+        else
+        {
+            cell = UITableViewCell(frame: CGRect( x: 0, y: 0, width: tableView.frame.width, height: tableView.rowHeight ))
+            
+            cell.accessoryType = .disclosureIndicator
+            
+            cell.textLabel?.text = chapterIndex.charts[indexPath.row]
+            cell.textLabel?.lineBreakMode = .byWordWrapping
+            cell.textLabel?.numberOfLines = 6
+            
+            tableViewCells[indexPath.row] = cell
+            
+        }
+                
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        // Need to add logic to insert table view or html content based on what was clicked
+        
+        
+//        let urlstring = chapterIndex.chapterCode[chapterIndex.chapterTitle.firstIndex(of: tableViewCells[indexPath.row]?.textLabel?.text ?? "") ?? 0]
+//        print("This is the string for the url",urlstring)
+//        subChapterURL = Bundle.main.url(forResource: urlstring, withExtension: "html")!
+        arrayPointer = indexPath.row
+        
+        performSegue( withIdentifier: "SegueToWebViewViewController", sender: nil )
+    }
+    
+    //--------------------------------------------------------------------------------------------------
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if let webViewViewController = segue.destination as? WebViewViewController
+        {
+            webViewViewController.url = Bundle.main.url(forResource: chapterIndex.chartURLs[arrayPointer], withExtension: "html")!
+            webViewViewController.titlelabel = chapterIndex.charts[arrayPointer]
+            webViewViewController.uniqueAddress = chapterIndex.chartURLs[arrayPointer]
+        }
+    }
+}

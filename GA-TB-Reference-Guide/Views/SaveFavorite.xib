@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SaveFavorite" customModule="GA_TB_Reference_Guide" customModuleProvider="target">
+            <connections>
+                <outlet property="cancelButton" destination="SFX-bn-Y9J" id="qGh-6p-bZZ"/>
+                <outlet property="closeButton" destination="zhC-pa-mu8" id="E09-Y7-TYR"/>
+                <outlet property="contentView" destination="JK4-hO-ZtF" id="cRH-bR-MFU"/>
+                <outlet property="nameField" destination="Hvg-ww-zZ7" id="OEW-us-U1P"/>
+                <outlet property="overlayView" destination="TXs-7l-xT7" id="xGK-W3-HhB"/>
+                <outlet property="saveButton" destination="dJo-Uu-q1T" id="V6i-GT-v6j"/>
+                <outlet property="titleLabel" destination="qBp-Jh-RMt" id="dO0-Wy-U43"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TXs-7l-xT7">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JK4-hO-ZtF">
+                    <rect key="frame" x="40" y="363" width="334" height="170"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bookmark Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qBp-Jh-RMt">
+                            <rect key="frame" x="20" y="20" width="294" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SFX-bn-Y9J">
+                            <rect key="frame" x="20" y="114.5" width="137" height="40"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="bma-rW-t1p"/>
+                            </constraints>
+                            <color key="tintColor" name="dialogIcons"/>
+                            <state key="normal" title="Cancel">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <state key="highlighted">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dJo-Uu-q1T">
+                            <rect key="frame" x="177" y="114.5" width="137" height="40"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="khf-oj-P2d"/>
+                            </constraints>
+                            <color key="tintColor" name="dialogIcons"/>
+                            <state key="normal" title="Save" image="checkmark" catalog="system">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="saveButtonPressed:" destination="-1" eventType="touchUpInside" id="x4x-s7-MPK"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zhC-pa-mu8">
+                            <rect key="frame" x="304" y="7" width="25" height="20.5"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="25" id="VZg-F7-UQn"/>
+                                <constraint firstAttribute="height" constant="25" id="yEt-ax-PKP"/>
+                            </constraints>
+                            <color key="tintColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" backgroundImage="xmark" catalog="system">
+                                <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                        </button>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="Hvg-ww-zZ7">
+                            <rect key="frame" x="20" y="60.5" width="294" height="34"/>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                    </subviews>
+                    <color key="backgroundColor" name="dialogColor"/>
+                    <constraints>
+                        <constraint firstItem="dJo-Uu-q1T" firstAttribute="leading" secondItem="SFX-bn-Y9J" secondAttribute="trailing" constant="20" id="1yx-nS-Xq5"/>
+                        <constraint firstItem="SFX-bn-Y9J" firstAttribute="leading" secondItem="JK4-hO-ZtF" secondAttribute="leading" constant="20" id="229-4s-4a6"/>
+                        <constraint firstAttribute="trailing" secondItem="qBp-Jh-RMt" secondAttribute="trailing" constant="20" id="2b7-1V-aVi"/>
+                        <constraint firstItem="SFX-bn-Y9J" firstAttribute="top" secondItem="Hvg-ww-zZ7" secondAttribute="bottom" constant="20" id="CtC-Tn-bev"/>
+                        <constraint firstItem="dJo-Uu-q1T" firstAttribute="width" secondItem="SFX-bn-Y9J" secondAttribute="width" id="EPX-4b-59N"/>
+                        <constraint firstAttribute="height" constant="170" id="LfE-XS-Muc"/>
+                        <constraint firstItem="Hvg-ww-zZ7" firstAttribute="top" secondItem="qBp-Jh-RMt" secondAttribute="bottom" constant="20" id="Sta-d8-OH8"/>
+                        <constraint firstItem="dJo-Uu-q1T" firstAttribute="top" secondItem="Hvg-ww-zZ7" secondAttribute="bottom" constant="20" id="XVJ-IQ-KBs"/>
+                        <constraint firstItem="zhC-pa-mu8" firstAttribute="top" secondItem="JK4-hO-ZtF" secondAttribute="top" constant="5" id="deL-qq-Vg7"/>
+                        <constraint firstItem="qBp-Jh-RMt" firstAttribute="top" secondItem="JK4-hO-ZtF" secondAttribute="top" constant="20" id="dhP-mU-KeQ"/>
+                        <constraint firstItem="Hvg-ww-zZ7" firstAttribute="leading" secondItem="JK4-hO-ZtF" secondAttribute="leading" constant="20" id="e5X-8D-PyG"/>
+                        <constraint firstItem="qBp-Jh-RMt" firstAttribute="leading" secondItem="JK4-hO-ZtF" secondAttribute="leading" constant="20" id="f56-dZ-nCX"/>
+                        <constraint firstAttribute="trailing" secondItem="dJo-Uu-q1T" secondAttribute="trailing" constant="20" id="mRh-HG-Azx"/>
+                        <constraint firstAttribute="trailing" secondItem="Hvg-ww-zZ7" secondAttribute="trailing" constant="20" symbolic="YES" id="p2Q-1E-w5H"/>
+                        <constraint firstAttribute="trailing" secondItem="zhC-pa-mu8" secondAttribute="trailing" constant="5" id="zBE-aq-6hg"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="4"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="TXs-7l-xT7" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="614-na-1nd"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="TXs-7l-xT7" secondAttribute="bottom" id="70h-BL-3aM"/>
+                <constraint firstItem="JK4-hO-ZtF" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="40" id="JXY-Sp-Sit"/>
+                <constraint firstItem="TXs-7l-xT7" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="O8k-ZV-g4b"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="JK4-hO-ZtF" secondAttribute="trailing" constant="40" id="gPh-29-MYi"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="TXs-7l-xT7" secondAttribute="trailing" id="qxc-gH-eWZ"/>
+                <constraint firstItem="JK4-hO-ZtF" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="vWf-Hj-afS"/>
+            </constraints>
+            <point key="canvasLocation" x="134.78260869565219" y="93.75"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="checkmark" catalog="system" width="128" height="114"/>
+        <image name="xmark" catalog="system" width="128" height="113"/>
+        <namedColor name="dialogColor">
+            <color red="0.78823529411764703" green="0.51764705882352946" blue="0.38823529411764707" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="dialogIcons">
+            <color red="0.61176470588235299" green="0.20000000000000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
