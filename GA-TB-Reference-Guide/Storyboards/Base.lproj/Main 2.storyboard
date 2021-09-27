@@ -627,7 +627,7 @@
         <!--Web View View Controller-->
         <scene sceneID="QDC-NP-wCp">
             <objects>
-                <viewController storyboardIdentifier="web" id="MDz-7h-Sal" customClass="WebViewViewController" customModule="GA_TB_Reference_Guide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="MDz-7h-Sal" customClass="WebViewViewController" customModule="GA_TB_Reference_Guide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Z8y-iW-y0h">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -23,6 +23,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     var titlelabel = "Placeholder Title"
     var navTitle = ""
     var comingFromSearch = false
+    var comingFromHyperLink = false
     
     // Initialize the Realm database
     let realm = try! Realm()
@@ -67,6 +68,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         contentView.topAnchor.constraint(equalTo: separator.bottomAnchor, constant: 5).isActive = true
 //        setupUI()
         
+        // Realm
         try! realm.write
         {
             // Should only add a new entry if this entry is not already added there
@@ -75,8 +77,6 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
                 currentContent.openedTimes += 1
                 // Assign the older entry to the current variable
                 content = currentContent
-                
-                print("It's an old content",currentContent)
             } else {
                 content = ContentPage()
                 content.name = titlelabel
@@ -88,11 +88,14 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
                 realm.add(content)
             }
             
+            // Save recently viewed chapters list
             let lastAccessed = realm.objects(ContentAccess.self)
             // This determines the buffer that we are allowing
             if lastAccessed.count > 7 {
                 realm.delete(lastAccessed[0])
             }
+            
+            // Save history
             if content.isHistory == false {
                 print("Thinks history is false")
                 let currentAccessedContent = ContentAccess()
@@ -115,12 +118,6 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         // Create WebView Content
         let config = WKWebViewConfiguration()
         
-//        let js = try! String(contentsOfFile: path3).replacingOccurrences(of: "\n", with: "", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
-//        let script = WKUserScript(source: js, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
-//        
-//        config.userContentController.addUserScript(script)
-//        config.userContentController.add(self, name: "uikit")
-        
         webView = WKWebView(frame: .zero, configuration: config)
         webView.uiDelegate = self
         webView.navigationDelegate = self
@@ -129,18 +126,25 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         setupUI()
         
         webView.load( URLRequest( url: url ))
-//        var test = URL(string: "https://www.currytbcenter.ucsf.edu/products/pediatric-")!
-//        webView.load(URLRequest(url: test))
-        
-        webView.addObserver(self, forKeyPath: "URL", options: [.new, .old], context: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-                
+        
+        // Load table if there are notes saved for this chapter
         if content.notes.count > 0 {
             loadTable()
         }
+        
+        // Add observer to the WebView so that when the URL changes it triggers our detection function
+        webView.addObserver(self, forKeyPath: "URL", options: [.new, .old], context: nil)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(false)
+        
+        // Navigate back to the previous screen so that when the viewcontroller comes back the screen is present
+        webView.goBack()
     }
     
     //--------------------------------------------------------------------------------------------------
@@ -153,17 +157,75 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             //Value not Changed
             print("old key is ",change?[.oldKey] ?? "Couldn't print the old key")
         }
+
         // Find the actual string
-        if let newValue = change?[.newKey], (newValue as AnyObject).debugDescription.hasPrefix("file:///"){
-            let newURL = change?[.newKey].debugDescription.components(separatedBy: ".app/")[1] ?? "Couldn't print the new key"
-            let urlsarray = Array(chapterIndex.chapterCode.joined()).firstIndex(of: newURL.components(separatedBy: ".")[0])
-            // Load all the header view components
-            titleLabel.text = chapterIndex.subChapterNames[urlsarray ?? 0]
+        // When you click a link that becomes the new key
+        // Even if the page doesn't change because you had it blocked, the new link becomes the old link, so I want to put a checker condition that only when both links come from within the app you should go through this function
+        if let newValue = change?[.newKey], (newValue as AnyObject).debugDescription.hasPrefix("file:///"), let oldValue = change?[.oldKey], (oldValue as AnyObject).debugDescription.hasPrefix("file:///"){
+            let newURL = change?[.newKey].debugDescription.components(separatedBy: "GA-TB-Reference-Guide.app/")[1] ?? "Couldn't print the new key"
+            print("Loading within the app content", newURL)
+            // Check if we are not going into a within page anchor link or we came from an anchor link and it's resetting the view regardless
+            let oldURL = change?[.oldKey].debugDescription.components(separatedBy: "GA-TB-Reference-Guide.app/")[1] ?? "Couldn't print the old key"
+            if (!newURL.contains("#") && !oldURL.contains("#")) || oldURL.hasPrefix("table_"){
+                let urlsarray = Array(chapterIndex.chapterCode.joined()).firstIndex(of: newURL.components(separatedBy: ".")[0])
+                
+                // push view controller but animate modally
+                let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let vc = storyBoard.instantiateViewController(withIdentifier: "web") as! WebViewViewController
+
+                let navigationController = self.navigationController
+                
+                vc.url = Bundle.main.url(forResource: Array(chapterIndex.chapterCode.joined())[urlsarray ?? 0], withExtension: "html")!
+                vc.titlelabel = Array(chapterIndex.chapterNested.joined())[urlsarray ?? 0]
+                vc.navTitle = chapterIndex.chaptermapsubchapter[urlsarray ?? 0]
+                vc.uniqueAddress = Array(chapterIndex.chapterCode.joined())[urlsarray ?? 0]
+                
+                // Remove the observer for the previous screen so that it won't double fire when the URL changes again
+                webView.removeObserver(self, forKeyPath: "URL")
+
+                navigationController?.pushViewController(vc, animated: true)
+            }
         } else {
-            print("Loading an external website")
+            print("Loading outside of the app content")
+            let newURL = change?[.newKey] as! URL
+            comingFromHyperLink = true
+            
+            let alertDelete = UIAlertController(title: "This link will open in your browser, do you want to continue?", message: "", preferredStyle: .alert)
+            alertDelete.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in
+                self.comingFromHyperLink = false
+                UIApplication.shared.open(newURL, options: [:], completionHandler: nil)
+            }))
+            alertDelete.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+                self.comingFromHyperLink = false
+            }))
+            self.present(alertDelete, animated: true, completion: nil)
+            
+            // Remove the observer for the previous screen so that it won't double fire when the URL changes again
+//            webView.removeObserver(self, forKeyPath: "URL")
+//            UIApplication.shared.open(newURL, options: Any, completionHandler: true)
+//            webView.goBack()
         }
     }
     
+    // This function is just preventing the within the app pages to move to the web links because there is no new page that we need to call the goBack() function from
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        if comingFromHyperLink == true {
+            decisionHandler(.cancel)
+            comingFromHyperLink = false
+        } else {
+            decisionHandler(.allow)
+        }
+    }
+//
+//    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+//        if let url = navigationAction.request.url, ...handle in Safari … {
+//            decisionHandler(.cancel)
+//            UIApplication.shared.openURL(url)
+//        } else {
+//            decisionHandler(.allow)
+//        }
+//    }
+
     //--------------------------------------------------------------------------------------------------
     @IBAction func toggleFavorite(_ sender: UIButton){
         let windowScene = UIApplication.shared.connectedScenes.first as! UIWindowScene
@@ -211,7 +273,6 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
                 
         if let urlHeader = webView.url?.absoluteString, urlHeader.hasPrefix("file:///"){
-            print("you are inside the app ")
             
             let path = Bundle.main.path(forResource: "uikit", ofType: "css")!
             // This converts a multiline string into a single file, the .whitespacesandnewlines doesn't work to do that job
@@ -230,12 +291,12 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             webView.evaluateJavaScript(jsString2, completionHandler: nil)
             
     //        let js = getMyJavaScript()
-            let path3 = Bundle.main.path(forResource: "uikit", ofType: "js")!
-            let js = try! String(contentsOfFile: path3)
+//            let path3 = Bundle.main.path(forResource: "uikit", ofType: "js")!
+//            let js = try! String(contentsOfFile: path3)
                 //.replacingOccurrences(of: "\n", with: "", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
     //        let js = "var script = document.createElement('script'); script.src = 'uikit-copy.js'; document.body.appendChild(script);"
 
-            webView.evaluateJavaScript(js, completionHandler: nil)
+//            webView.evaluateJavaScript(js, completionHandler: nil)
             
             let js3 = "var script2 = document.createElement('script'); script2.src = 'uikit-icons.js'; document.body.appendChild(script2);"
             webView.evaluateJavaScript(js3, completionHandler: nil)
@@ -296,6 +357,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     //--------------------------------------------------------------------------------------------------
     @objc func tapGlobalSearch(){
         // If you came from the search controller then pop back the view controller, otherwise navigate there
+        webView.removeObserver(self, forKeyPath: "URL")
         if comingFromSearch == true {
             self.navigationController?.popViewController(animated: true)
         } else {

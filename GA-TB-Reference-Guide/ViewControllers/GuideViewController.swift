@@ -34,9 +34,11 @@ class GuideViewController: UIViewController, UISearchBarDelegate {
 //        navigationController?.navigationItem.searchController = search
         
         let tapSearchGesture = UITapGestureRecognizer(target: self, action: #selector(tapSearch(_:)))
+        let tapSearchGesture2 = UITapGestureRecognizer(target: self, action: #selector(tapSearch(_:)))
         
         search.delegate = self
         search.searchTextField.addGestureRecognizer(tapSearchGesture)
+        search.addGestureRecognizer(tapSearchGesture2)
 
         let textFieldInsideSearchBar = search.value(forKey: "searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = UIColor.darkGray
@@ -61,6 +63,12 @@ class GuideViewController: UIViewController, UISearchBarDelegate {
         }
         
         // Do any additional setup after loading the view.
+    }
+    
+    //--------------------------------------------------------------------------------------------------
+    @objc func dismissKeyboard() {
+        // To hide the keyboard when the user clicks search
+        self.view.endEditing(true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
