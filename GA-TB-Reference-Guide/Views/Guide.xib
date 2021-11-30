@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Guide" customModule="GA_TB_Reference_Guide" customModuleProvider="target">
+            <connections>
+                <outlet property="allChapters" destination="ATq-q7-0SS" id="nXm-1h-zOp"/>
+                <outlet property="allCharts" destination="Pl6-ta-CCm" id="AHw-gC-TJu"/>
+                <outletCollection property="topQuickLinks" destination="E9d-Xf-hkA" collectionClass="NSMutableArray" id="JKM-kW-8Yh"/>
+                <outletCollection property="topQuickLinks" destination="uiS-cD-LIK" collectionClass="NSMutableArray" id="KOI-GC-Dz4"/>
+                <outletCollection property="topQuickLinks" destination="S5J-ng-iwP" collectionClass="NSMutableArray" id="6eO-FT-N9L"/>
+                <outletCollection property="topQuickLinks" destination="0fq-fU-pZf" collectionClass="NSMutableArray" id="bAC-gu-dgo"/>
+                <outletCollection property="bottomQuickLinks" destination="NXJ-G6-pKw" collectionClass="NSMutableArray" id="QoC-vC-ptu"/>
+                <outletCollection property="bottomQuickLinks" destination="iOX-uC-bGp" collectionClass="NSMutableArray" id="FqC-cK-bZH"/>
+                <outletCollection property="bottomQuickLinks" destination="Igd-XX-ZEe" collectionClass="NSMutableArray" id="1MQ-j4-8uE"/>
+                <outletCollection property="bottomQuickLinks" destination="XsG-R7-hzl" collectionClass="NSMutableArray" id="rY0-Y4-xTG"/>
+                <outletCollection property="bottomQuickLinks" destination="wKn-5L-Uaw" collectionClass="NSMutableArray" id="Myr-r0-yHh"/>
+                <outletCollection property="bottomQuickLinks" destination="Azu-U9-710" collectionClass="NSMutableArray" id="b13-Cd-ZuI"/>
+                <outletCollection property="topQuickLinks" destination="I49-0P-LNJ" collectionClass="NSMutableArray" id="dZi-mk-byR"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1ko-iI-XVM">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <subviews>
+                        <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="E9d-Xf-hkA">
+                            <rect key="frame" x="20" y="59" width="179.5" height="77"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="77" id="TlH-tX-EKG"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
+                            <state key="normal" title="Diagnosis of Active TB" backgroundImage="topCard">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <state key="highlighted" backgroundImage="topCardPressed">
+                                <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="tapTopButton:" destination="-2" eventType="touchUpInside" id="XRZ-36-VXH"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="uiS-cD-LIK">
+                            <rect key="frame" x="214.5" y="59" width="179.5" height="77"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="77" id="Cnm-dA-uNc"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
+                            <state key="normal" title="Treatment for Active TB" backgroundImage="topCard">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <state key="highlighted" backgroundImage="topCardPressed">
+                                <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="tapTopButton:" destination="-2" eventType="touchUpInside" id="UUg-H2-P46"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="S5J-ng-iwP">
+                            <rect key="frame" x="20" y="151" width="179.5" height="77"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="77" id="stA-sd-7lP"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
+                            <state key="normal" title="Diagnosis of LTBI" backgroundImage="topCard">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <state key="highlighted" backgroundImage="topCardPressed">
+                                <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="tapTopButton:" destination="-2" eventType="touchUpInside" id="emM-q8-I3H"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="0fq-fU-pZf">
+                            <rect key="frame" x="214.5" y="151" width="179.5" height="77"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="77" id="0eR-pk-c0O"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
+                            <state key="normal" title="Treatment for LTBI" backgroundImage="topCard">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <state key="highlighted" title="Treatment for LTBI" backgroundImage="topCardPressed">
+                                <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="tapTopButton:" destination="-2" eventType="touchUpInside" id="1mE-Qv-DYk"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Charts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="grL-IE-LFK">
+                            <rect key="frame" x="20" y="350" width="187" height="21"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="21" id="oT6-Bi-Eqf"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="NXJ-G6-pKw">
+                            <rect key="frame" x="20" y="384" width="114.5" height="55"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="55" id="i28-9X-eNH"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <inset key="contentEdgeInsets" minX="4" minY="0.0" maxX="4" maxY="0.0"/>
+                            <state key="normal" title="First line TB drugs for adults" backgroundImage="bottomCard">
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <state key="highlighted" backgroundImage="bottomCardPressed"/>
+                            <connections>
+                                <action selector="tapBottomButton:" destination="-2" eventType="touchUpInside" id="3lZ-xb-KK5"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="14" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="iOX-uC-bGp">
+                            <rect key="frame" x="149.5" y="384" width="115" height="55"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="55" id="42k-5k-sPT"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <inset key="contentEdgeInsets" minX="4" minY="0.0" maxX="4" maxY="0.0"/>
+                            <state key="normal" title="IV Therapy Drugs" backgroundImage="bottomCard">
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <state key="highlighted" backgroundImage="bottomCardPressed"/>
+                            <connections>
+                                <action selector="tapBottomButton:" destination="-2" eventType="touchUpInside" id="X7Y-xK-Y8z"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="15" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Igd-XX-ZEe">
+                            <rect key="frame" x="279.5" y="384" width="114.5" height="55"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="55" id="5om-6V-rVA"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <inset key="contentEdgeInsets" minX="4" minY="0.0" maxX="4" maxY="0.0"/>
+                            <state key="normal" title="Alternative regimens" backgroundImage="bottomCard">
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <state key="highlighted" backgroundImage="bottomCardPressed"/>
+                            <connections>
+                                <action selector="tapBottomButton:" destination="-2" eventType="touchUpInside" id="Ymg-9U-jww"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="XsG-R7-hzl">
+                            <rect key="frame" x="20" y="454" width="114.5" height="55"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="55" id="yEh-HF-TYp"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <inset key="contentEdgeInsets" minX="4" minY="0.0" maxX="4" maxY="0.0"/>
+                            <state key="normal" title="Dosages for LTBI regimens" backgroundImage="bottomCard">
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <state key="highlighted" backgroundImage="bottomCardPressed"/>
+                            <connections>
+                                <action selector="tapBottomButton:" destination="-2" eventType="touchUpInside" id="9Uv-y4-nQp"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="wKn-5L-Uaw">
+                            <rect key="frame" x="149.5" y="454" width="115" height="55"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="55" id="gAv-9y-KYn"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <inset key="contentEdgeInsets" minX="4" minY="0.0" maxX="4" maxY="0.0"/>
+                            <state key="normal" title="Use of TB drugs in Special Situations" backgroundImage="bottomCard">
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <state key="highlighted" backgroundImage="bottomCardPressed"/>
+                            <connections>
+                                <action selector="tapBottomButton:" destination="-2" eventType="touchUpInside" id="JCR-Ks-Dey"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="19" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Azu-U9-710">
+                            <rect key="frame" x="279.5" y="454" width="114.5" height="55"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="55" id="AtR-4p-Qb0"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <inset key="contentEdgeInsets" minX="4" minY="0.0" maxX="4" maxY="0.0"/>
+                            <state key="normal" title="Treatment of extrapulmonary TB" backgroundImage="bottomCard">
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <state key="highlighted" backgroundImage="bottomCardPressed"/>
+                            <connections>
+                                <action selector="tapBottomButton:" destination="-2" eventType="touchUpInside" id="CXP-Zg-MqP"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ATq-q7-0SS">
+                            <rect key="frame" x="207" y="25" width="187" height="21"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="21" id="TsD-YE-C6g"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="2" maxY="0.0"/>
+                            <state key="normal" title="See all Chapters &gt;">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pl6-ta-CCm">
+                            <rect key="frame" x="207" y="346" width="187" height="33"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="2" maxY="0.0"/>
+                            <state key="normal" title="See all Charts &gt;">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chapters" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XkQ-l0-h3a">
+                            <rect key="frame" x="20" y="25" width="187" height="21"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="21" id="7og-KC-dcH"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I49-0P-LNJ">
+                            <rect key="frame" x="20" y="243" width="179.5" height="77"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="77" id="nrj-cA-AdY"/>
+                            </constraints>
+                            <state key="normal" backgroundImage="topCard"/>
+                            <state key="highlighted" backgroundImage="topCardPressed"/>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="Igd-XX-ZEe" firstAttribute="leading" secondItem="iOX-uC-bGp" secondAttribute="trailing" constant="15" id="0J7-RS-5NY"/>
+                        <constraint firstItem="uiS-cD-LIK" firstAttribute="top" secondItem="ATq-q7-0SS" secondAttribute="bottom" constant="13" id="1V9-gr-LKY"/>
+                        <constraint firstItem="iOX-uC-bGp" firstAttribute="width" secondItem="NXJ-G6-pKw" secondAttribute="width" id="1eu-z2-0UH"/>
+                        <constraint firstAttribute="trailing" secondItem="Pl6-ta-CCm" secondAttribute="trailing" constant="20" id="2k1-gV-N8I"/>
+                        <constraint firstItem="E9d-Xf-hkA" firstAttribute="leading" secondItem="1ko-iI-XVM" secondAttribute="leading" constant="20" id="2nN-LR-TYG"/>
+                        <constraint firstItem="0fq-fU-pZf" firstAttribute="leading" secondItem="S5J-ng-iwP" secondAttribute="trailing" constant="15" id="3QE-c2-WUu"/>
+                        <constraint firstItem="Igd-XX-ZEe" firstAttribute="width" secondItem="NXJ-G6-pKw" secondAttribute="width" id="4Qs-sV-BuD"/>
+                        <constraint firstItem="wKn-5L-Uaw" firstAttribute="width" secondItem="XsG-R7-hzl" secondAttribute="width" id="4fE-iY-kec"/>
+                        <constraint firstAttribute="trailing" secondItem="Azu-U9-710" secondAttribute="trailing" constant="20" id="50U-fm-UhZ"/>
+                        <constraint firstItem="uiS-cD-LIK" firstAttribute="width" secondItem="E9d-Xf-hkA" secondAttribute="width" id="8ZS-b6-HTm"/>
+                        <constraint firstItem="Igd-XX-ZEe" firstAttribute="top" secondItem="grL-IE-LFK" secondAttribute="bottom" constant="13" id="9aj-k6-8w6"/>
+                        <constraint firstItem="S5J-ng-iwP" firstAttribute="leading" secondItem="1ko-iI-XVM" secondAttribute="leading" constant="20" symbolic="YES" id="9fa-Op-HUx"/>
+                        <constraint firstItem="Pl6-ta-CCm" firstAttribute="leading" secondItem="grL-IE-LFK" secondAttribute="trailing" id="Ams-n1-MB5"/>
+                        <constraint firstItem="Pl6-ta-CCm" firstAttribute="width" secondItem="grL-IE-LFK" secondAttribute="width" id="B4E-iX-51x"/>
+                        <constraint firstItem="Igd-XX-ZEe" firstAttribute="top" secondItem="Pl6-ta-CCm" secondAttribute="bottom" constant="5" id="BCj-Hd-JJc"/>
+                        <constraint firstItem="I49-0P-LNJ" firstAttribute="leading" secondItem="1ko-iI-XVM" secondAttribute="leading" constant="20" id="HMz-uo-k67"/>
+                        <constraint firstItem="Azu-U9-710" firstAttribute="top" secondItem="Igd-XX-ZEe" secondAttribute="bottom" constant="15" id="Hft-Bj-1Wa"/>
+                        <constraint firstItem="S5J-ng-iwP" firstAttribute="top" secondItem="E9d-Xf-hkA" secondAttribute="bottom" constant="15" id="INz-4Q-VNp"/>
+                        <constraint firstItem="wKn-5L-Uaw" firstAttribute="leading" secondItem="XsG-R7-hzl" secondAttribute="trailing" constant="15" id="Jg7-HZ-Z5Y"/>
+                        <constraint firstItem="wKn-5L-Uaw" firstAttribute="top" secondItem="iOX-uC-bGp" secondAttribute="bottom" constant="15" id="K8z-v9-J7M"/>
+                        <constraint firstItem="0fq-fU-pZf" firstAttribute="width" secondItem="S5J-ng-iwP" secondAttribute="width" id="Lom-bW-qDj"/>
+                        <constraint firstItem="Azu-U9-710" firstAttribute="leading" secondItem="wKn-5L-Uaw" secondAttribute="trailing" constant="15" id="ODL-u6-ZV6"/>
+                        <constraint firstItem="NXJ-G6-pKw" firstAttribute="leading" secondItem="1ko-iI-XVM" secondAttribute="leading" constant="20" symbolic="YES" id="PLx-DG-2ew"/>
+                        <constraint firstItem="ATq-q7-0SS" firstAttribute="width" secondItem="XkQ-l0-h3a" secondAttribute="width" id="PdK-9W-3zM"/>
+                        <constraint firstItem="I49-0P-LNJ" firstAttribute="width" secondItem="E9d-Xf-hkA" secondAttribute="width" id="Qzc-6d-vvZ"/>
+                        <constraint firstItem="ATq-q7-0SS" firstAttribute="leading" secondItem="XkQ-l0-h3a" secondAttribute="trailing" id="SIR-OF-dfB"/>
+                        <constraint firstAttribute="trailing" secondItem="uiS-cD-LIK" secondAttribute="trailing" constant="20" id="TUO-eJ-jsu"/>
+                        <constraint firstAttribute="trailing" secondItem="Igd-XX-ZEe" secondAttribute="trailing" constant="20" id="UMo-7f-YSF"/>
+                        <constraint firstItem="ATq-q7-0SS" firstAttribute="top" secondItem="1ko-iI-XVM" secondAttribute="top" constant="25" id="WKX-GE-1e6"/>
+                        <constraint firstItem="E9d-Xf-hkA" firstAttribute="top" secondItem="XkQ-l0-h3a" secondAttribute="bottom" constant="13" id="bTH-Um-Vog"/>
+                        <constraint firstItem="grL-IE-LFK" firstAttribute="leading" secondItem="1ko-iI-XVM" secondAttribute="leading" constant="20" symbolic="YES" id="bjB-sP-hc4"/>
+                        <constraint firstItem="XkQ-l0-h3a" firstAttribute="top" secondItem="1ko-iI-XVM" secondAttribute="top" constant="25" id="c6b-cS-jGn"/>
+                        <constraint firstItem="XsG-R7-hzl" firstAttribute="top" secondItem="NXJ-G6-pKw" secondAttribute="bottom" constant="15" id="fJJ-2Y-ASi"/>
+                        <constraint firstItem="0fq-fU-pZf" firstAttribute="top" secondItem="uiS-cD-LIK" secondAttribute="bottom" constant="15" id="hx9-Ep-i35"/>
+                        <constraint firstAttribute="trailing" secondItem="0fq-fU-pZf" secondAttribute="trailing" constant="20" id="lLH-0X-hCl"/>
+                        <constraint firstItem="uiS-cD-LIK" firstAttribute="leading" secondItem="E9d-Xf-hkA" secondAttribute="trailing" constant="15" id="mAh-2p-j4e"/>
+                        <constraint firstItem="NXJ-G6-pKw" firstAttribute="top" secondItem="grL-IE-LFK" secondAttribute="bottom" constant="13" id="my9-Vn-3rf"/>
+                        <constraint firstItem="grL-IE-LFK" firstAttribute="top" secondItem="I49-0P-LNJ" secondAttribute="bottom" constant="30" id="oG0-Z9-Tno"/>
+                        <constraint firstAttribute="trailing" secondItem="ATq-q7-0SS" secondAttribute="trailing" constant="20" symbolic="YES" id="pgp-nw-peC"/>
+                        <constraint firstItem="iOX-uC-bGp" firstAttribute="leading" secondItem="NXJ-G6-pKw" secondAttribute="trailing" constant="15" id="sK2-72-CZH"/>
+                        <constraint firstItem="iOX-uC-bGp" firstAttribute="top" secondItem="grL-IE-LFK" secondAttribute="bottom" constant="13" id="sWP-di-08J"/>
+                        <constraint firstItem="XsG-R7-hzl" firstAttribute="leading" secondItem="1ko-iI-XVM" secondAttribute="leading" constant="20" symbolic="YES" id="skA-xf-ymy"/>
+                        <constraint firstItem="I49-0P-LNJ" firstAttribute="top" secondItem="S5J-ng-iwP" secondAttribute="bottom" constant="15" id="utj-0o-sPI"/>
+                        <constraint firstItem="Azu-U9-710" firstAttribute="width" secondItem="XsG-R7-hzl" secondAttribute="width" id="vJx-hs-L38"/>
+                        <constraint firstItem="XkQ-l0-h3a" firstAttribute="leading" secondItem="1ko-iI-XVM" secondAttribute="leading" constant="20" id="zIo-YM-dWA"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="1ko-iI-XVM" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="7LH-fW-fes"/>
+                <constraint firstItem="1ko-iI-XVM" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="9Xc-yY-REU"/>
+                <constraint firstItem="1ko-iI-XVM" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="LBT-Np-q6Q"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="1ko-iI-XVM" secondAttribute="bottom" id="mt4-hJ-5kp"/>
+            </constraints>
+            <point key="canvasLocation" x="137.68115942028987" y="86.383928571428569"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="bottomCard" width="107" height="56"/>
+        <image name="bottomCardPressed" width="107" height="56"/>
+        <image name="topCard" width="162" height="77"/>
+        <image name="topCardPressed" width="162" height="77"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

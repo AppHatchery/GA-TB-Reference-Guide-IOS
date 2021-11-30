@@ -15,6 +15,9 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var headertitle: UILabel!
+    @IBOutlet weak var emptyView: UIView!
+    @IBOutlet weak var emptyMessage: UILabel!
+    @IBOutlet weak var editButton: UIButton!
     var isGradientAdded: Bool = false
     
     // Initialize the Realm database
@@ -115,7 +118,7 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }
         }
         
-        let historyDatabase = realm.objects(ContentAccess.self)
+        let historyDatabase = realm.objects(ContentAccess.self).sorted(byKeyPath: "date",ascending: false)
         for content in historyDatabase{
             historyURLs.append(content.url)
             historyNames.append(content.name)
@@ -133,8 +136,16 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         
         tableView.reloadData()
+        // If number of cells is 0, then
+        if tableView.visibleCells.count == 0 {
+            emptyView.isHidden = false
+            editButton.isHidden = true
+        } else {
+            emptyView.isHidden = true
+            editButton.isHidden = false
+        }
     }
-    
+        
     //--------------------------------------------------------------------------------------------------
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Decide what to display according to the corresponding filter
@@ -215,12 +226,8 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
                     favoriteSubChapters.remove(at: indexPath.row)
                     favoriteChapters.remove(at: indexPath.row)
                 } else if isLastOpened {
-                    let historyDatabase = realm.objects(ContentAccess.self)
-                    realm.delete(historyDatabase[indexPath.row])
-                    
-                    if let contentDatabase = realm.object(ofType: ContentPage.self, forPrimaryKey: historyURLs[indexPath.row]){
-                        contentDatabase.isHistory = false
-                    }
+                    let historyDatabase = realm.objects(ContentAccess.self).filter("url == '\(historyURLs[indexPath.row])'")
+                    realm.delete(historyDatabase)
                     
                     historyNames.remove(at: indexPath.row)
                     historyURLs.remove(at: indexPath.row)
@@ -259,31 +266,61 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBAction func toggleState(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
-            print("selected segment 1")
             headertitle.text = "Last Opened"
             search.placeholder = "Search Recents"
             isLastOpened = true
             isFavorite = false
             isNotes = false
+            emptyMessage.text = """
+            Content you view will appear here.
+
+            Start by opening any subchapter or chart.
+            """
         case 1:
-            print("selected segment 2")
             headertitle.text = "Your Bookmarks"
             search.placeholder = "Search Bookmarks"
             isLastOpened = false
             isFavorite = true
             isNotes = false
+            
+            let attributedString = NSMutableAttributedString(string: "Content you bookmark will appear here.\n\n")
+            attributedString.append(NSAttributedString(string: "Tap "))
+
+            let loveAttachment = NSTextAttachment()
+            loveAttachment.image = UIImage(systemName: "star")
+            loveAttachment.bounds = CGRect(x: 0, y: -3, width: 20, height: 20)
+            attributedString.append(NSAttributedString(attachment: loveAttachment))
+            attributedString.append(NSAttributedString(string: " on any chart or subchapter."))
+
+            emptyMessage.attributedText = attributedString
         case 2:
-            print("selected segment 3")
             headertitle.text = "Your Notes"
             search.placeholder = "Search Notes"
             isLastOpened = false
             isFavorite = false
             isNotes = true
+            let attributedString = NSMutableAttributedString(string: "Notes you create will appear here.\n\n")
+            attributedString.append(NSAttributedString(string: "Tap "))
+
+            let loveAttachment = NSTextAttachment()
+            loveAttachment.image = UIImage(systemName: "square.and.pencil")
+            loveAttachment.bounds = CGRect(x: 0, y: -3, width: 20, height: 20)
+            attributedString.append(NSAttributedString(attachment: loveAttachment))
+            attributedString.append(NSAttributedString(string: " on any chart or subchapter."))
+
+            emptyMessage.attributedText = attributedString
         default:
             print("nothing selected")
         }
         
         tableView.reloadData()
+        if tableView.visibleCells.count == 0 {
+            emptyView.isHidden = false
+            editButton.isHidden = true
+        } else {
+            emptyView.isHidden = true
+            editButton.isHidden = false
+        }
     }
     
     //--------------------------------------------------------------------------------------------------

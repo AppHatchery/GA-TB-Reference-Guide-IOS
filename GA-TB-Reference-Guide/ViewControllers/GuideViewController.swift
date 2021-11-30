@@ -14,6 +14,9 @@ class GuideViewController: UIViewController, UISearchBarDelegate {
     
     @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var search: UISearchBar!
+    @IBOutlet weak var contentView: UIView!
+    var scrollView: UIScrollView!
+    var guideView: Guide!
     
     var url: URL!
     var header: String!
@@ -51,17 +54,6 @@ class GuideViewController: UIViewController, UISearchBarDelegate {
         
 //        searchView.setGradientBackground()
         
-        for button in topQuickLinks {
-            button.layer.cornerRadius = 5
-            button.dropShadow()
-        }
-        
-        for button in bottomQuickLinks {
-            button.layer.cornerRadius = 5
-            button.titleLabel?.textAlignment = NSTextAlignment.center
-            button.dropShadow()
-        }
-        
         // Do any additional setup after loading the view.
     }
     
@@ -77,6 +69,22 @@ class GuideViewController: UIViewController, UISearchBarDelegate {
         if !isGradientAdded {
             searchView.setGradientBackground(size: searchView.layer.bounds)
             isGradientAdded = true
+        }
+        
+        if scrollView == nil {
+            
+            scrollView = UIScrollView( frame: view.frame )
+            scrollView.backgroundColor = UIColor.clear
+            contentView.addSubview( scrollView )
+            scrollView.delaysContentTouches = false
+                    
+            guideView = Guide(frame: CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height))
+            scrollView.addSubview(guideView)
+                    
+            scrollView.contentSize = CGSize(width: contentView.frame.width, height: 700)
+
+            guideView.allChapters.addTarget( self, action: #selector( self.tapAllChapters( _:)), for: .touchUpInside )
+            guideView.allCharts.addTarget( self, action: #selector( self.tapAllCharts( _:)), for: .touchUpInside )
         }
     }
     
@@ -95,6 +103,14 @@ class GuideViewController: UIViewController, UISearchBarDelegate {
         quickTitle = bible.charts[sender.tag-1]
         quickPointer = sender.tag-1
         performSegue( withIdentifier: "SegueToWebViewViewController", sender: nil )
+    }
+    
+    @IBAction func tapAllChapters(_ sender: UIButton){
+        performSegue(withIdentifier: "SegueToAllChaptersViewController", sender: nil)
+    }
+    
+    @IBAction func tapAllCharts(_ sender: UIButton){
+        performSegue(withIdentifier: "SegueToAllChartsViewController", sender: nil)
     }
     
     //--------------------------------------------------------------------------------------------------

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>775187534127-hdhh3pmcr9ek6itv6cirh52lfi8cb5f2.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.775187534127-hdhh3pmcr9ek6itv6cirh52lfi8cb5f2</string>
+	<key>API_KEY</key>
+	<string>AIzaSyABcIUeO0F-_Ka0WAFqmsDrtSbdeOQjqSY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>775187534127</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>edu.emory.tb.guide</string>
+	<key>PROJECT_ID</key>
+	<string>ga-tb-reference-dev</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ga-tb-reference-dev.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true/>
+	<key>IS_GCM_ENABLED</key>
+	<true/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:775187534127:ios:50ae31b47354793f3bd1da</string>
+	<key>DATABASE_URL</key>
+	<string>https://ga-tb-reference-dev-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>

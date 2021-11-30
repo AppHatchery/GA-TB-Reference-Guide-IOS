@@ -13,10 +13,12 @@ class ChapterNoteTableViewCell: UITableViewCell {
     @IBOutlet weak var colorTag: UIView!
     @IBOutlet weak var content: UILabel!
     @IBOutlet weak var edit: UIButton!
+    @IBOutlet weak var shadowView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+//        shadowView.dropShadow()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

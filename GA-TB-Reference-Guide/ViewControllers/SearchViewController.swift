@@ -53,8 +53,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         navigationController?.navigationBar.setGradientBackground(to: self.navigationController!)
         navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.shadowImage = UIImage()
-//        searchView.setGradientBackground()
-        searchView.setGradientBackground(size: searchView.bounds)
+        // Set Gradient to the width of the navigationBar
+        searchView.setGradientBackground(size: CGRect(x: searchView.bounds.origin.x, y: searchView.bounds.origin.y, width: self.navigationController?.navigationBar.bounds.width ?? searchView.bounds.width, height: searchView.bounds.height))
         // Do any additional setup after loading the view.
         
         tableView.delegate = self
@@ -77,15 +77,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         // Load the htmls on the array - needs to be on viewDidLoad otherwise it duplicates the content
         for items in chapterIndex.chapterCode.joined() {
             let path = Bundle.main.path(forResource: items.components(separatedBy: ".")[0], ofType: "html")!
-            //        // This converts a multiline string into a single file, the .whitespacesandnewlines doesn't work to do that job
+            // This converts a multiline string into a single file, the .whitespacesandnewlines doesn't work to do that job
             var htmlString = try! String(contentsOfFile: path).replacingOccurrences(of: "[\\s\n]+", with: " ", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
             htmlString = htmlString.replacingOccurrences(of: "<.*?>", with: "", options: .regularExpression, range: nil)
             tempHTML.append(htmlString)
         }
-                
-        // Playground
-//        let strAF = "      fdjkff      djk      "
-//        print(strAF.replacingOccurrences(of: "[\\s\n]+", with: " ", options: .regularExpression, range: nil))
     }
     
     //--------------------------------------------------------------------------------------------------
@@ -93,11 +89,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         super.viewDidAppear(true)
         
         search.becomeFirstResponder()
-        
-//        if !isGradientAdded {
-//            searchView.setGradientBackground()
-//            isGradientAdded = true
-//        }
         
         // Leave this for when we import from JSON and just use that order because right now it's giving me a headache
 //        let fileManager = FileManager.default
@@ -145,8 +136,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             cell.contentLabel.text = "..."+String(searchResults[indexPath.row][startRange..<endRange]) + "..."
             // Bolding the specific section in the display summary
             let boldText:NSString = searchTerm.lowercased() as NSString
-            let boldTextCap:NSString = searchTerm.capitalized as NSString
-            cell.contentLabel.attributedText = addBoldText(fullString: cell.contentLabel.text! as NSString, boldPartsOfString: [boldText,boldTextCap])
+            let boldTextUp:NSString = searchTerm.uppercased() as NSString
+            let boldTextCap: NSString = searchTerm.capitalized as NSString
+            cell.contentLabel.attributedText = addBoldText(fullString: cell.contentLabel.text! as NSString, boldPartsOfString: [boldText,boldTextUp,boldTextCap])
         } else {
             // to add here the history searches from the past - need Realm queries
             cell.subchapterLabel.text = chapterIndex.subChapterNames[indexPath.row]

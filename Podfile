@@ -7,5 +7,6 @@ target 'GA-TB-Reference-Guide' do
 
   # Pods for GA-TB-Reference-Guide
   pod 'RealmSwift', '=10.1.4'
+  pod 'Firebase/Analytics'
 
 end

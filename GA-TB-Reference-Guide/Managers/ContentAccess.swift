@@ -14,6 +14,7 @@ class ContentAccess : Object
     dynamic var name : String = ""
     dynamic var url : String = ""
     dynamic var chapterParent : String = ""
+    dynamic var date : Date = Date()
     
     dynamic var id: Int = UUID().hashValue
     

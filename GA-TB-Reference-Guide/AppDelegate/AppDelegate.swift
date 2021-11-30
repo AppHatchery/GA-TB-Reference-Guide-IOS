@@ -3,10 +3,10 @@
 //  GA-TB-Reference-Guide
 //
 //  Created by Yago Arconada on 8/20/21.
-//
 
 import UIKit
 import RealmSwift
+import Firebase
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -37,6 +37,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         Realm.Configuration.defaultConfiguration = config
+        
+        FirebaseApp.configure()
         
         return true
     }

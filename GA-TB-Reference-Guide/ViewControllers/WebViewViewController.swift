@@ -13,7 +13,9 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
 
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var separator: UIView!
+    @IBOutlet weak var pseudoseparator: UIView!
     @IBOutlet weak var favoriteIcon: UIButton!
     
     var identifier = ""
@@ -30,12 +32,21 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     var content : ContentPage!
     var note : Notes!
     var chapterIndex = ChapterIndex()
-        
+            
     var tableView: UITableView = ContentSizedTableView()
     var tableViewCells: [Int : UITableViewCell] = [:]
+    var tableViewOriginalHeight = 0.0
+    var tableFrame = CGRect()
+    var tableButton = UIButton()
+    var tableSeparator = UIView()
     var colorTags = [UIColor.black, UIColor.systemRed, UIColor.systemOrange, UIColor.systemYellow, UIColor.systemGreen, UIColor.systemTeal, UIColor.systemBlue, UIColor.systemIndigo, UIColor.systemPurple]
     
     var webView: WKWebView!
+    var webViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var separatorHeightConstraint: NSLayoutConstraint!
+    
+    var addNoteDialogView: SaveNote!
+    var addFeedbackDialogView: FeedbackForm!
     
 //    lazy var webView: WKWebView = {
 //        let webConfiguration = WKWebViewConfiguration()
@@ -63,9 +74,8 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         
         titleLabel.text = titlelabel
         
-//        loadTable()
-
-        contentView.topAnchor.constraint(equalTo: separator.bottomAnchor, constant: 5).isActive = true
+        contentView.topAnchor.constraint(equalTo: pseudoseparator.bottomAnchor, constant: 5).isActive = true
+        
 //        setupUI()
         
         // Realm
@@ -94,20 +104,22 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             if lastAccessed.count > 7 {
                 realm.delete(lastAccessed[0])
             }
-            
+
             // Save history
-            if content.isHistory == false {
+            if lastAccessed.filter("url == '\(content.url)'").count == 0 {
                 print("Thinks history is false")
                 let currentAccessedContent = ContentAccess()
                 currentAccessedContent.name = titlelabel
                 currentAccessedContent.url = uniqueAddress
                 currentAccessedContent.chapterParent = navTitle
+                currentAccessedContent.date = Date()
                 realm.add(currentAccessedContent)
                 
-                content.isHistory = true
+                content.isHistory = true // This statement is useless unless I also change the variable when content is history gets refreshed
             } else {
-                // Should move this to the top of the list...
-                
+                // Should move entry to the top of the history list...
+                let newAccessed = lastAccessed.filter("url == '\(content.url)'")
+                newAccessed[0].date = Date()                
             }
         }
         
@@ -128,6 +140,15 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         webView.load( URLRequest( url: url ))
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        // Load table if there are notes saved for this chapter
+//        if content.notes.count > 0 {
+//            loadTable()
+//        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
@@ -138,6 +159,16 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         
         // Add observer to the WebView so that when the URL changes it triggers our detection function
         webView.addObserver(self, forKeyPath: "URL", options: [.new, .old], context: nil)
+        // Only automate zoom feature for charts
+//        if content.name.contains("Table"){
+//            // Zoom to maximum capacity
+//            webView.scrollView.setZoomScale(0.1, animated: true)
+//            let rw = webView.scrollView.zoomScale
+//            webView.scrollView.minimumZoomScale = rw
+//            webView.scrollView.maximumZoomScale = rw
+//            webView.scrollView.zoomScale = rw
+//
+//        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -149,6 +180,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     
     //--------------------------------------------------------------------------------------------------
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        
         if let newValue = change?[.newKey] as? Int, let oldValue = change?[.oldKey] as? Int, newValue != oldValue {
             // Value Changed
             // .components(separatorBy: ".app/")
@@ -166,7 +198,10 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             print("Loading within the app content", newURL)
             // Check if we are not going into a within page anchor link or we came from an anchor link and it's resetting the view regardless
             let oldURL = change?[.oldKey].debugDescription.components(separatedBy: "GA-TB-Reference-Guide.app/")[1] ?? "Couldn't print the old key"
-            if (!newURL.contains("#") && !oldURL.contains("#")) || oldURL.hasPrefix("table_"){
+            print(newURL)
+            print(oldURL)
+            if (!newURL.contains("#") /*&& !oldURL.contains("#")*/) || oldURL.hasPrefix("table_"){
+                
                 let urlsarray = Array(chapterIndex.chapterCode.joined()).firstIndex(of: newURL.components(separatedBy: ".")[0])
                 
                 // push view controller but animate modally
@@ -216,15 +251,6 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             decisionHandler(.allow)
         }
     }
-//
-//    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-//        if let url = navigationAction.request.url, ...handle in Safari … {
-//            decisionHandler(.cancel)
-//            UIApplication.shared.openURL(url)
-//        } else {
-//            decisionHandler(.allow)
-//        }
-//    }
 
     //--------------------------------------------------------------------------------------------------
     @IBAction func toggleFavorite(_ sender: UIButton){
@@ -248,26 +274,13 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     
     //--------------------------------------------------------------------------------------------------
     @IBAction func addNote(_ sender: UIButton){
-        let windowScene = UIApplication.shared.connectedScenes.first as! UIWindowScene
-        let sceneDelegate = windowScene.delegate as! SceneDelegate
-        
-        if let window = sceneDelegate.window
-        {
-            // Need to feed in here the note that you tap on, otherwise feed in a totally new note
-            // Look at the sender, either the UIButton or the UITableViewCell
-            let addNoteDialogView = SaveNote( frame: window.bounds, content: content, oldNote: Notes(), delegate: self )
-            addNoteDialogView.contentView.transform = CGAffineTransform( scaleX: 0, y: 0 )
-            addNoteDialogView.overlayView.alpha = 0
-            window.addSubview( addNoteDialogView )
-            
-            UIView.animate( withDuration: 0.25, delay: 0.0, options: UIView.AnimationOptions(), animations: {
-                addNoteDialogView.overlayView.alpha = 0.5
-                addNoteDialogView.contentView.transform = CGAffineTransform( scaleX: 1.0, y: 1.0 )
-            }, completion: { (value: Bool) in
-            })
-        }
+        openNoteWindow(noteChosen: Notes())
     }
     
+    //--------------------------------------------------------------------------------------------------
+    @IBAction func addFeedback(_ sender: UIButton){
+        openFeedbackWindow(parent: navTitle, title: titlelabel)
+    }
     
     //--------------------------------------------------------------------------------------------------
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
@@ -279,27 +292,17 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             let cssString = try! String(contentsOfFile: path).replacingOccurrences(of: "\n", with: "", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
             let jsString = "var style = document.createElement('style'); style.innerHTML = '\(cssString)'; document.head.appendChild(style);"
             
-            
             let path2 = Bundle.main.path(forResource: "style", ofType: "css")!
             let cssString2 = try! String(contentsOfFile: path2).replacingOccurrences(of: "\n", with: "", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
             // Could potentially replace this with just the link to the file rather than having to convert it to string, save some computational power
             let jsString2 = "var style2 = document.createElement('style'); style2.innerHTML = '\(cssString2)'; document.head.appendChild(style2);"
             
-    //        let jsString2 = "var style2 = document.createElement('style'); style2.rel='stylesheet'; style2.href = 'style.css'; document.head.appendChild(style2);"
-            
             webView.evaluateJavaScript(jsString, completionHandler: nil)
             webView.evaluateJavaScript(jsString2, completionHandler: nil)
-            
-    //        let js = getMyJavaScript()
-//            let path3 = Bundle.main.path(forResource: "uikit", ofType: "js")!
-//            let js = try! String(contentsOfFile: path3)
-                //.replacingOccurrences(of: "\n", with: "", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
-    //        let js = "var script = document.createElement('script'); script.src = 'uikit-copy.js'; document.body.appendChild(script);"
 
-//            webView.evaluateJavaScript(js, completionHandler: nil)
-            
             let js3 = "var script2 = document.createElement('script'); script2.src = 'uikit-icons.js'; document.body.appendChild(script2);"
             webView.evaluateJavaScript(js3, completionHandler: nil)
+            
         } else {
             print("outside the app, don't apply styling")
         }
@@ -311,32 +314,101 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     
     //--------------------------------------------------------------------------------------------------
     func loadTable() {
-        tableView = ContentSizedTableView(frame: CGRect( x: 20, y: separator.frame.origin.y+10, width: view.frame.width-20, height: 120 ))
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(UINib(nibName: "ChapterNoteTableViewCell", bundle: nil), forCellReuseIdentifier: "chapterNote")
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = UITableView.automaticDimension
-        tableView.separatorStyle = .none
-//        tableView.isScrollEnabled = false
-                
-        view.addSubview(tableView)
+        if tableView.superview == nil {
+            print("making a new tbale")
+            tableView = ContentSizedTableView(frame: CGRect( x: 20, y: pseudoseparator.frame.origin.y+10, width: view.frame.width-20, height: 65 ))
+            tableView.delegate = self
+            tableView.dataSource = self
+            tableView.register(UINib(nibName: "ChapterNoteTableViewCell", bundle: nil), forCellReuseIdentifier: "chapterNote")
+            tableView.rowHeight = UITableView.automaticDimension
+            tableView.estimatedRowHeight = UITableView.automaticDimension
+            tableView.separatorStyle = .none
+
+    //        tableView.isScrollEnabled = false
+            // the frame trully is not the entire contentsize because you need to scroll down for the table to register the entire size of the content
+            tableFrame = tableView.frame
+            
+            separatorHeightConstraint.isActive = false
+//            separator.removeConstraint(separatorHeightConstraint)
+
+            view.addSubview(tableView)
+            
+            // Constraint the tableview to fit between the webview and the separators
+            tableView.leftAnchor.constraint( equalTo: view.leftAnchor, constant: 20 ).isActive = true
+            tableView.rightAnchor.constraint( equalTo: view.rightAnchor ).isActive = true
+            tableView.topAnchor.constraint(equalTo: pseudoseparator.topAnchor,constant: 0.5).isActive = true
+            
+            tableViewOriginalHeight = Double(tableView.frame.height)
+            
+            UIView.animate(withDuration: 0.25, delay: 0.01, options: .curveLinear, animations: {
+                self.contentView.topAnchor.constraint(equalTo: self.tableView.bottomAnchor).isActive = true
+                self.view.layoutIfNeeded()
+            }, completion: { finished in
+            })
+//            contentView.topAnchor.constraint(equalTo: tableView.bottomAnchor).isActive = true
+            
+            tableSeparator = UIView(frame: CGRect(x: 20, y: 15, width: view.frame.width - 40, height: 0.5))
+            tableSeparator.backgroundColor = UIColor.lightGray
+            contentView.addSubview(tableSeparator)
+            
+            tableButton = UIButton(frame: CGRect(x: tableSeparator.frame.width/2 - 5, y: tableSeparator.frame.origin.y-15.25, width: 30, height: 30))
+            tableButton.layer.cornerRadius = 15
+            tableButton.setBackgroundImage(UIImage(named: "downArrow"), for: .normal)
+            tableButton.isUserInteractionEnabled = true
+            tableButton.dropShadow()
+            
+            tableButton.addTarget(self, action: #selector(expandNotes), for: .touchUpInside)
+            tableButton.isHidden = true
+            contentView.addSubview(tableButton)
+            // Update constraint of webview top to make space for the incoming button
+            webViewTopConstraint.constant = 30
+            if content.notes.count > 1 {
+                tableButton.isHidden = false
+                tableSeparator.isHidden = false
+            }
+        }
+    }
+    
+    @objc func expandNotes(_ sender: UIButton, expand: Bool){
+        // Would be nice to make it as big as the amount of rows, rather than a fixed height governed by the view
+        if sender.backgroundImage(for: .normal) == UIImage(named: "downArrow") {
+            tableFrame.size.height = tableView.contentSize.height
+            sender.setBackgroundImage(UIImage(named: "upArrow"), for: .normal)
+        } else {
+            tableFrame.size.height = 65
+            sender.setBackgroundImage(UIImage(named: "downArrow"), for: .normal)
+        }
+        // Condition for only expanding table
+        if expand == true {
+            tableFrame.size.height = tableView.contentSize.height+65
+            sender.setBackgroundImage(UIImage(named: "upArrow"), for: .normal)
+        }
         
-        // Constraint the tableview to fit between the webview and the separators
-        tableView.leftAnchor.constraint( equalTo: view.leftAnchor, constant: 20 ).isActive = true
-        tableView.rightAnchor.constraint( equalTo: view.rightAnchor ).isActive = true
-        tableView.topAnchor.constraint(equalTo: separator.bottomAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: tableView.topAnchor,constant: 120).isActive = true
-        
-        contentView.topAnchor.constraint(equalTo: tableView.bottomAnchor).isActive = true
+        print(tableView.contentSize.height)
+        if content.notes.count > 1 {
+            tableButton.isHidden = false
+            tableSeparator.isHidden = false
+        }
+        UIView.animate(withDuration: 0.25, delay: 0.01, options: .curveLinear, animations: {
+            self.tableView.frame = self.tableFrame
+          self.view.layoutIfNeeded()
+        }, completion: { finished in
+            print("table changed height",self.tableView.frame.height)
+            print("size of contentFrame",self.tableView.contentSize)
+        })
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if ( content.notes.count > 1){
+            print("content is more than 1")
+            tableButton.isHidden = false
+            tableSeparator.isHidden = false
+        }
         return content.notes.count
     }
     
     private func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        return tableView.estimatedRowHeight //UITableView.automaticDimension
     }
     
     private func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -346,12 +418,56 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
         let cell = tableView.dequeueReusableCell(withIdentifier: "chapterNote", for: indexPath) as! ChapterNoteTableViewCell
-        cell.header.text = "Note - Last Edited \(content.notes[indexPath.row].lastEdited )"
-        cell.content.text = content.notes[indexPath.row].content
-        cell.colorTag.backgroundColor = colorTags[content.notes[indexPath.row].colorTag]
-        tableViewCells[indexPath.row] = cell
+        cell.header.text = "Note - Last Edited \(content.notes[content.notes.count-1-indexPath.row].lastEdited )"
+        cell.content.text = content.notes[content.notes.count-1-indexPath.row].content
+        cell.colorTag.backgroundColor = colorTags[content.notes[content.notes.count-1-indexPath.row].colorTag]
+        tableViewCells[content.notes.count-1-indexPath.row] = cell
+        // remove the grey background selector for cells after selected a note
+        cell.selectionStyle = .none
                 
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        print(cell.frame.size.height)
+        tableFrame.size.height += cell.frame.size.height
+//        self.tableViewHeight += cell.frame.size.height
+//        tableViewBillsHeight.constant = self.tableViewHeight
+    }
+    
+    // Missing the Edit note function which can come here
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if let pickedNote = realm.object(ofType: Notes.self, forPrimaryKey: content.notes[content.notes.count-1-indexPath.row].id){
+            
+            openNoteWindow(noteChosen: pickedNote)
+        }
+    }
+    // Need to populate with content of note coming from the cell selection itself
+    // Potentially will need to attach an observer on that edit button that triggers the view as well
+    
+    private func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool
+    {
+        return true
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == .delete
+         {
+            try! realm.write
+            {
+                if let contentDatabase = realm.object(ofType: Notes.self, forPrimaryKey: content.notes[content.notes.count-1-indexPath.row].id){
+                    realm.delete(contentDatabase)
+                }
+            }
+            
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+            expandNotes(tableButton,expand: true)
+            if content.notes.count == 0 {
+                removeTable()
+           }
+         }
     }
     
     //--------------------------------------------------------------------------------------------------
@@ -370,9 +486,10 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         self.view.backgroundColor = .white
         contentView.addSubview(webView)
         
+        webViewTopConstraint = webView.topAnchor
+            .constraint(equalTo: self.contentView.safeAreaLayoutGuide.topAnchor)
         NSLayoutConstraint.activate([
-            webView.topAnchor
-                .constraint(equalTo: self.contentView.safeAreaLayoutGuide.topAnchor),
+            webViewTopConstraint,
             webView.leftAnchor
                 .constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 10),
             webView.bottomAnchor
@@ -429,19 +546,21 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
                 realm.add(note)
                 // Save to the chapter
                 content.notes.append(note)
+                expandNotes(tableButton,expand: true)
             }
             // Add the content changes necessary to the tableview or refresh it if necessary, though I could maybe do this in another view and just throw it on top of this one, much like the protocols in HomeTown
             
         }
-        if tableView.frame.isEmpty {
+        if content.notes.count == 1  {
             loadTable()
+            tableView.reloadData()
         } else {
             tableView.reloadData()
         }
     }
     
     //--------------------------------------------------------------------------------------------------
-    func didDeleteNote( )
+    func didDeleteNote(_ note: Notes )
     {
         let realm = try! Realm()
         
@@ -449,7 +568,12 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         {
             realm.delete(note)
         }
-        tableView.reloadData()
+        if content.notes.count > 0 {
+            tableView.reloadData()
+            expandNotes(tableButton,expand: true)
+        } else {
+            removeTable()
+        }
     }
     
     
@@ -460,5 +584,117 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         {
             searchViewController.size = CGRect.init(x: 0, y: 0, width: view.frame.width, height: 60)
         }
+    }
+    
+    //--------------------------------------------------------------------------------------------------
+    func removeTable()
+    {
+        UIView.animate(withDuration: 0.3, delay: 0.01, options: .curveLinear, animations: {
+            self.tableView.frame.size.height = 0
+            self.separatorHeightConstraint = self.pseudoseparator.heightAnchor.constraint(equalToConstant: 0.5)
+            self.separatorHeightConstraint.isActive = true
+            self.view.layoutIfNeeded()
+        }, completion: { finished in
+            self.tableView.removeFromSuperview()
+            self.tableButton.removeFromSuperview()
+            self.tableSeparator.removeFromSuperview()
+            self.webViewTopConstraint.constant = 0.5
+        })
+    }
+    
+    func openNoteWindow(noteChosen: Notes)
+    {
+        let windowScene = UIApplication.shared.connectedScenes.first as! UIWindowScene
+        let sceneDelegate = windowScene.delegate as! SceneDelegate
+        
+        if let window = sceneDelegate.window
+        {
+            // Need to feed in here the note that you tap on, otherwise feed in a totally new note
+            // Look at the sender, either the UIButton or the UITableViewCell
+            addNoteDialogView = SaveNote( frame: window.bounds, content: content, oldNote: noteChosen, delegate: self )
+            if noteChosen != Notes() {
+                note = noteChosen
+            }
+            addNoteDialogView.contentView.transform = CGAffineTransform( scaleX: 0, y: 0 )
+            addNoteDialogView.overlayView.alpha = 0
+                        
+            window.addSubview( addNoteDialogView )
+            
+            UIView.animate( withDuration: 0.25, delay: 0.0, options: UIView.AnimationOptions(), animations: {
+                self.addNoteDialogView.overlayView.alpha = 0.5
+                self.addNoteDialogView.contentView.transform = CGAffineTransform( scaleX: 1.0, y: 1.0 )
+            }, completion: { (value: Bool) in
+                // Load the correct button sizes and shapes
+                for button in self.addNoteDialogView.colors {
+                    button.layer.cornerRadius = button.frame.width/2
+                }
+
+                self.addNoteDialogView.highlightedColor = UIView(frame: self.addNoteDialogView.colors[0].bounds)
+                self.addNoteDialogView.highlightedColor.frame.origin.x -= 3
+                self.addNoteDialogView.highlightedColor.frame.origin.y -= 3
+                self.addNoteDialogView.highlightedColor.frame.size.width += 6
+                self.addNoteDialogView.highlightedColor.frame.size.height += 6
+
+                self.addNoteDialogView.highlightedColor.layer.cornerRadius = self.addNoteDialogView.highlightedColor.frame.width/2
+            
+                self.addNoteDialogView.highlightedColor.backgroundColor = UIColor.clear
+                self.addNoteDialogView.highlightedColor.layer.borderWidth = 1.5
+                self.addNoteDialogView.highlightedColor.layer.borderColor = UIColor.systemBlue.cgColor
+                self.addNoteDialogView.highlightedColor.layer.cornerRadius = self.addNoteDialogView.highlightedColor.frame.width/2
+                // Defaulting to black color selected
+                self.addNoteDialogView.colors[self.note.colorTag].addSubview(self.addNoteDialogView.highlightedColor)
+            })
+            
+            let customView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
+            customView.backgroundColor = UIColor( red: 0xd5/255.0, green: 0xd8/255.0, blue: 0xdc/255.0, alpha: 1)
+
+            let doneButton = UIButton( frame: CGRect( x: view.frame.width - 70 - 10, y: 0, width: 70, height: 44 ))
+            doneButton.setTitle( "Dismiss", for: .normal )
+            doneButton.setTitleColor( UIColor.systemBlue, for: .normal)
+            doneButton.addTarget( self, action: #selector( self.dismissKeyboard), for: .touchUpInside )
+            customView.addSubview( doneButton )
+            addNoteDialogView.noteField.inputAccessoryView = customView
+        }
+    }
+    
+    func openFeedbackWindow(parent: String, title: String)
+    {
+        let windowScene = UIApplication.shared.connectedScenes.first as! UIWindowScene
+        let sceneDelegate = windowScene.delegate as! SceneDelegate
+        
+        if let window = sceneDelegate.window
+        {
+            // Need to feed in here the note that you tap on, otherwise feed in a totally new note
+            // Look at the sender, either the UIButton or the UITableViewCell
+            addFeedbackDialogView = FeedbackForm( frame: window.bounds, parent: parent, title: title )
+            
+            addFeedbackDialogView.contentView.transform = CGAffineTransform( scaleX: 0, y: 0 )
+            addFeedbackDialogView.overlayView.alpha = 0
+                        
+            window.addSubview( addFeedbackDialogView )
+            
+            UIView.animate( withDuration: 0.25, delay: 0.0, options: UIView.AnimationOptions(), animations: {
+                self.addFeedbackDialogView.overlayView.alpha = 0.5
+                self.addFeedbackDialogView.contentView.transform = CGAffineTransform( scaleX: 1.0, y: 1.0 )
+            }, completion: { (value: Bool) in
+                // Load the correct button sizes and shapes
+            })
+            
+//            let customView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
+//            customView.backgroundColor = UIColor( red: 0xd5/255.0, green: 0xd8/255.0, blue: 0xdc/255.0, alpha: 1)
+//
+//            let doneButton = UIButton( frame: CGRect( x: view.frame.width - 70 - 10, y: 0, width: 70, height: 44 ))
+//            doneButton.setTitle( "Dismiss", for: .normal )
+//            doneButton.setTitleColor( UIColor.systemBlue, for: .normal)
+//            doneButton.addTarget( self, action: #selector( self.dismissKeyboard), for: .touchUpInside )
+//            customView.addSubview( doneButton )
+//            addFeedbackDialogView.noteField.inputAccessoryView = customView
+        }
+    }
+    
+    //--------------------------------------------------------------------------------------------------
+    @objc func dismissKeyboard() {
+        // To hide the keyboard when the user clicks search
+        self.addNoteDialogView.endEditing(true)
     }
 }

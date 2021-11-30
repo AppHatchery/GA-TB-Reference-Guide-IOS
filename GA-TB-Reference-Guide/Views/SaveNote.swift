@@ -6,12 +6,13 @@
 //
 
 import UIKit
+import RealmSwift
 
 protocol SaveNoteDelegate
 {
     func didSaveNote( _ note: Notes )
     
-    func didDeleteNote()
+    func didDeleteNote( _ note: Notes)
 }
 
 class SaveNote: UIView {
@@ -31,8 +32,10 @@ class SaveNote: UIView {
     var delegate: SaveNoteDelegate!
     var subChapter: ContentPage!
     var note: Notes!
-    let highlightedColor = UIView(frame: CGRect(x: -3, y: -3, width: 26, height: 26))
+    var highlightedColor: UIView!
     var colorTags = [UIColor]()
+    var colorTagChosen = 0
+    let realm = try! Realm()
 
     //------------------------------------------------------------------------------
     init( frame: CGRect, content: ContentPage, oldNote: Notes, delegate: SaveNoteDelegate )
@@ -92,17 +95,14 @@ class SaveNote: UIView {
         for button in colors {
             button.addTarget(self, action: #selector(self.pickColor), for: .touchDown)
         }
-        
-        highlightedColor.backgroundColor = UIColor.clear
-        highlightedColor.layer.borderWidth = 1.5
-        highlightedColor.layer.borderColor = UIColor.systemBlue.cgColor
-        highlightedColor.layer.cornerRadius = 13
-        // Defaulting to black color selected
-        colors[0].addSubview(highlightedColor)
+        highlightedColor = UIView(frame: colors[0].bounds)
         
         if note.savedToRealm == true {
             titleLabel.text = "Edit Note"
             noteField.text = note.content
+            colors[note.colorTag].addSubview(highlightedColor)
+            highlightedColor.isUserInteractionEnabled = false
+            colorTagChosen = note.colorTag
             cancelButton.setTitle("Delete", for: .normal)
             saveButton.setTitle("Update", for: .normal)
             cancelButton.addTarget(self, action: #selector(self.deleteButtonPressed), for: .touchUpInside)
@@ -117,10 +117,12 @@ class SaveNote: UIView {
         for button in colors {
             button.willRemoveSubview(highlightedColor)
         }
+
         sender.addSubview(highlightedColor)
         
         // Assign color to tag
-        note.colorTag = sender.tag
+//        note.colorTag = sender.tag
+        colorTagChosen = sender.tag
     }
     
     //------------------------------------------------------------------------------
@@ -130,7 +132,12 @@ class SaveNote: UIView {
             self.overlayView.alpha = 0
             self.contentView.transform = CGAffineTransform( scaleX: 0.001, y: 0.001 )
         }, completion: { (value: Bool) in
-            self.note.content = self.noteField.text
+            // Realm
+            try! self.realm.write
+            {
+                self.note.content = self.noteField.text
+                self.note.colorTag = self.colorTagChosen
+            }
             self.delegate.didSaveNote(self.note)
             self.removeFromSuperview()
         })
@@ -148,14 +155,14 @@ class SaveNote: UIView {
     }
     
     //------------------------------------------------------------------------------
-    @objc func deleteButtonPressed()
+    @objc func deleteButtonPressed(_ sender: Any)
     {
         UIView.animate( withDuration: 0.25, delay: 0.0, options: UIView.AnimationOptions(), animations: {
             self.overlayView.alpha = 0
             self.contentView.transform = CGAffineTransform( scaleX: 0.001, y: 0.001 )
         }, completion: { (value: Bool) in
             
-            self.delegate.didDeleteNote()
+            self.delegate.didDeleteNote(self.note)
             self.removeFromSuperview()
         })
     }
