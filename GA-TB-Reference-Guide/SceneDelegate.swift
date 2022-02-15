@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import Pendo
+import Firebase
+import AppTrackingTransparency
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -29,6 +31,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+        
+        // Need to include this here because we are using the SceneDelegate so it overrides all functions in AppDelegate
+        // https://stackoverflow.com/questions/69418845/app-tracking-transparency-dialog-does-not-appear-on-ios
+        // This is to ask user if they are okay being tracked or not
+//        if #available(iOS 14.0, *){
+//        ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
+//            // Tracking authorization completed. Start loading ads here.
+//          })
+//        }
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
@@ -47,6 +58,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+       if let url = URLContexts.first?.url, url.scheme?.range(of: "pendo") !=
+     nil {
+         PendoManager.shared().initWith(url)
+       }
+       // your code here…
+     }
 
 }
 

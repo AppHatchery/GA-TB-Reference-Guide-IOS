@@ -17,6 +17,7 @@ class Guide: UIView {
     @IBOutlet weak var allChapters: UIButton!
     @IBOutlet weak var allCharts: UIButton!
     @IBOutlet weak var testbttn: UIButton!
+    @IBOutlet weak var lateralConstraint: NSLayoutConstraint!
 
     //------------------------------------------------------------------------------
     override init( frame: CGRect )
@@ -42,22 +43,36 @@ class Guide: UIView {
         
         nibView.translatesAutoresizingMaskIntoConstraints = false
         
-        nibView.leftAnchor.constraint( equalTo: self.leftAnchor ).isActive = true
-        nibView.rightAnchor.constraint( equalTo: self.rightAnchor ).isActive = true
+        // For iPads
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            nibView.leftAnchor.constraint( equalTo: self.leftAnchor,constant: 100 ).isActive = true
+            nibView.rightAnchor.constraint( equalTo: self.rightAnchor,constant: -100 ).isActive = true
+            contentViewTopConstraint = nibView.topAnchor.constraint( equalTo: self.topAnchor,constant: 70 )
+        } else {
+            nibView.leftAnchor.constraint( equalTo: self.leftAnchor ).isActive = true
+            nibView.rightAnchor.constraint( equalTo: self.rightAnchor ).isActive = true
+            contentViewTopConstraint = nibView.topAnchor.constraint( equalTo: self.topAnchor )
+        }
         nibView.bottomAnchor.constraint( equalTo: self.bottomAnchor ).isActive = true
-        contentViewTopConstraint = nibView.topAnchor.constraint( equalTo: self.topAnchor )
 
         contentViewTopConstraint.isActive = true
         
         for button in topQuickLinks {
             button.layer.cornerRadius = 5
+            button.titleLabel?.textAlignment = NSTextAlignment.center
             button.dropShadow()
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                button.titleLabel?.font = button.titleLabel?.font.withSize(20)
+            }
         }
         
         for button in bottomQuickLinks {
             button.layer.cornerRadius = 5
             button.titleLabel?.textAlignment = NSTextAlignment.center
             button.dropShadow()
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                button.titleLabel?.font = button.titleLabel?.font.withSize(20)
+            }
         }
     }
 

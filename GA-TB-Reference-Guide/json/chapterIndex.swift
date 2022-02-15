@@ -114,6 +114,8 @@ public class ChapterIndex {
     "V. Treatment of Current (Active) Disease Therapy",
     "VI. Pregnancy and TB","X. TB Infection Control: Hospital Isolation Procedures","V. Treatment of Current (Active) Disease Therapy"]
     
+let updateDates = [["November 2021"],["April 2020","April 2020","April 2020","April 2020","April 2020","November 2021","November 2021","April 2020","April 2020"],["April 2020","November 2021","April 2020","November 2021"],["April 2020","April 2020","April 2020","April 2020","April 2020"],["April 2020","April 2020","April 2020","April 2020","April 2020","April 2020","April 2020","April 2020","April 2020","April 2020","April 2020","April 2020"],["April 2020","April 2020","April 2020"],["April 2020","April 2020"],["April 2020"],["April 2020"],["April 2020","April 2020","April 2020","April 2020","April 2020"],["April 2020","April 2020","April 2020","April 2020","April 2020","April 2020"],["April 2020"],["April 2020"],["November 2021"],["November 2021"],["April 2020"],["April 2020"],["April 2020"],["April 2020"],["April 2020","April 2020","April 2020","April 2020","April 2020","April 2020","April 2020","April 2020","April 2020","April 2020","April 2020","April 2020","April 2020","April 2020","April 2020","April 2020","April 2020","April 2020","April 2020","April 2020","April 2020","April 2020"]]
+    
 let JSON = """
     [
     {

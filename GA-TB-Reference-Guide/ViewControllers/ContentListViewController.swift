@@ -25,8 +25,16 @@ class ContentListViewController: UIViewController, UITableViewDelegate, UITableV
         super.viewDidLoad()
         
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor : UIColor.white]
+        let navbarTitle = UILabel()
+        navbarTitle.text = "All Chapters"
+        navbarTitle.textColor = UIColor.white
+        navbarTitle.font = UIFont.boldSystemFont(ofSize: 16.0)
+        navbarTitle.numberOfLines = 2
+        navbarTitle.textAlignment = .center
+        navbarTitle.minimumScaleFactor = 0.5
+        navbarTitle.adjustsFontSizeToFitWidth = true
+        navigationItem.titleView = navbarTitle
         
-        self.title = "All Chapters"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(tapGlobalSearch))
         
         tableView.delegate = self
@@ -57,6 +65,7 @@ class ContentListViewController: UIViewController, UITableViewDelegate, UITableV
         else
         {
             cell = UITableViewCell(frame: CGRect( x: 0, y: 0, width: tableView.frame.width, height: tableView.rowHeight ))
+            cell.backgroundColor = UIColor.backgroundColor
             
             cell.accessoryType = .disclosureIndicator
             

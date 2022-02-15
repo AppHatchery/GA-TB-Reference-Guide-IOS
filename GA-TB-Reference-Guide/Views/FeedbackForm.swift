@@ -16,6 +16,10 @@ class FeedbackForm: UIView {
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var webview: WKWebView!
+    
+    // Dialog Constraints
+    @IBOutlet weak var dialogLeftConstraint: NSLayoutConstraint!
+    @IBOutlet weak var dialogRightConstraint: NSLayoutConstraint!
         
     var contentViewTopConstraint: NSLayoutConstraint!
     var parent: String = ""
@@ -52,6 +56,11 @@ class FeedbackForm: UIView {
         nibView.rightAnchor.constraint( equalTo: self.rightAnchor ).isActive = true
         nibView.bottomAnchor.constraint( equalTo: self.bottomAnchor ).isActive = true
         contentViewTopConstraint = nibView.topAnchor.constraint( equalTo: self.topAnchor )
+        
+        if self.frame.width > 1000 {
+            dialogLeftConstraint.constant = 240
+            dialogRightConstraint.constant = 240
+        }
 
         contentViewTopConstraint.isActive = true
         
@@ -62,7 +71,8 @@ class FeedbackForm: UIView {
         
         // Load webview
         let parentChapter = parent.replacingOccurrences(of: " ", with: "", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
-        let subChapter = title.replacingOccurrences(of: " ", with: "", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
+        let subChapter = title.replacingOccurrences(of: " ", with: "", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: "γ", with: "")
+        print("https://emorymedicine.sjc1.qualtrics.com/jfe/form/SV_4NEG4bjuyBGono9?page="+"chapter:\(parentChapter)_subchapter:\(subChapter)")
         webview.load( URLRequest( url: URL(string: "https://emorymedicine.sjc1.qualtrics.com/jfe/form/SV_4NEG4bjuyBGono9?page="+"chapter:\(parentChapter)_subchapter:\(subChapter)")! ))
     }
     

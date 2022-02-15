@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class Settings: UIView {
     
@@ -13,8 +14,12 @@ class Settings: UIView {
     @IBOutlet weak var privacyPolicy: UIButton!
     @IBOutlet weak var about: UIButton!
     @IBOutlet weak var resetApp: UIButton!
+    @IBOutlet weak var fontSize: UIButton!
+    @IBOutlet weak var toggleNotifications: UISwitch!
     
     var contentViewTopConstraint: NSLayoutConstraint!
+    let realm = try! Realm()
+    var userSettings: UserSettings!
 
     //------------------------------------------------------------------------------
     override init( frame: CGRect )
@@ -46,6 +51,22 @@ class Settings: UIView {
         nibView.leftAnchor.constraint( equalTo: self.leftAnchor ).isActive = true
         nibView.rightAnchor.constraint( equalTo: self.rightAnchor ).isActive = true
         nibView.bottomAnchor.constraint( equalTo: self.bottomAnchor ).isActive = true
+        
+        // Realm
+        try! realm.write
+        {
+            // Should only add a new entry if this entry is not already added there
+            if let currentSettings = realm.object(ofType: UserSettings.self, forPrimaryKey: "savedSettings"){
+                toggleNotifications.setOn(currentSettings.pushNotifications, animated: false)
+                // Assign the older entry to the current variable
+                userSettings = currentSettings
+                
+            } else {
+                userSettings = UserSettings()
+                // Add it to Realm
+                realm.add(userSettings)
+            }
+        }
     }
 
 }

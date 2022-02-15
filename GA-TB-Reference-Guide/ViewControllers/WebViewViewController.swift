@@ -8,6 +8,7 @@
 import UIKit
 import WebKit
 import RealmSwift
+import FirebaseAnalytics
 
 class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, SaveFavoriteDelegate, SaveNoteDelegate, UITableViewDataSource, UITableViewDelegate, WKScriptMessageHandler {
 
@@ -23,9 +24,12 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     var url: URL!
     var uniqueAddress: String!
     var titlelabel = "Placeholder Title"
+    var datetemporary = "Updated"
     var navTitle = ""
     var comingFromSearch = false
     var comingFromHyperLink = false
+    var userSettings : UserSettings!
+    var fontNumber = 100
     
     // Initialize the Realm database
     let realm = try! Realm()
@@ -71,12 +75,90 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         navigationItem.titleView = navbarTitle
 //        self.title = navTitle
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(tapGlobalSearch))
-        
+                
         titleLabel.text = titlelabel
+        dateLabel.text = "Updated \( Array(chapterIndex.updateDates.joined())[Array(chapterIndex.chapterCode.joined()).firstIndex(of: uniqueAddress) ?? 0])"
         
         contentView.topAnchor.constraint(equalTo: pseudoseparator.bottomAnchor, constant: 5).isActive = true
         
 //        setupUI()
+        
+//        // Realm
+//        try! realm.write
+//        {
+//            // Should only add a new entry if this entry is not already added there
+//            if let currentContent = realm.object(ofType:ContentPage.self, forPrimaryKey: uniqueAddress){
+//                currentContent.lastOpened = Date()
+//                currentContent.openedTimes += 1
+//                // Assign the older entry to the current variable
+//                content = currentContent
+//            } else {
+//                content = ContentPage()
+//                content.name = titlelabel
+//                content.url = uniqueAddress
+//                content.chapterParent = navTitle
+//                content.lastOpened = Date()
+//                content.openedTimes += 1
+//                // Add it to Realm
+//                realm.add(content)
+//            }
+//
+//            // Save recently viewed chapters list
+//            let lastAccessed = realm.objects(ContentAccess.self)
+//            // This determines the buffer that we are allowing
+//            if lastAccessed.count > 7 {
+//                realm.delete(lastAccessed[0])
+//            }
+//
+//            // Save history
+//            if lastAccessed.filter("url == '\(content.url)'").count == 0 {
+//                print("Thinks history is false")
+//                let currentAccessedContent = ContentAccess()
+//                currentAccessedContent.name = titlelabel
+//                currentAccessedContent.url = uniqueAddress
+//                currentAccessedContent.chapterParent = navTitle
+//                currentAccessedContent.date = Date()
+//                realm.add(currentAccessedContent)
+//
+//                content.isHistory = true // This statement is useless unless I also change the variable when content is history gets refreshed
+//            } else {
+//                // Should move entry to the top of the history list...
+//                let newAccessed = lastAccessed.filter("url == '\(content.url)'")
+//                newAccessed[0].date = Date()
+//            }
+//        }
+//
+//        if content.favorite == true {
+//            favoriteIcon.setBackgroundImage(UIImage(systemName: "star.fill"), for: .normal)
+//        }
+        
+        // Create WebView Content
+        let config = WKWebViewConfiguration()
+        
+        webView = WKWebView(frame: .zero, configuration: config)
+        webView.uiDelegate = self
+        webView.navigationDelegate = self
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        
+        setupUI()
+        
+        // Log the page load
+        Analytics.logEvent("page", parameters: [
+            "page": (uniqueAddress ) as String,
+        ])
+        
+        if let currentSettings = realm.object(ofType: UserSettings.self, forPrimaryKey: "savedSettings"){
+            // Assign the older entry to the current variable
+            userSettings = currentSettings
+            fontNumber = userSettings.fontSize
+        }
+
+        
+        webView.load( URLRequest( url: url ))
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         
         // Realm
         try! realm.write
@@ -119,29 +201,13 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             } else {
                 // Should move entry to the top of the history list...
                 let newAccessed = lastAccessed.filter("url == '\(content.url)'")
-                newAccessed[0].date = Date()                
+                newAccessed[0].date = Date()
             }
         }
         
         if content.favorite == true {
             favoriteIcon.setBackgroundImage(UIImage(systemName: "star.fill"), for: .normal)
         }
-        
-        // Create WebView Content
-        let config = WKWebViewConfiguration()
-        
-        webView = WKWebView(frame: .zero, configuration: config)
-        webView.uiDelegate = self
-        webView.navigationDelegate = self
-        webView.translatesAutoresizingMaskIntoConstraints = false
-        
-        setupUI()
-        
-        webView.load( URLRequest( url: url ))
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
         
         // Load table if there are notes saved for this chapter
 //        if content.notes.count > 0 {
@@ -152,9 +218,19 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
+        // This removes the favoriting if it gets deleted in the saved page
+        if content.favorite == false {
+            favoriteIcon.setBackgroundImage(UIImage(systemName: "star"), for: .normal)
+        }
         // Load table if there are notes saved for this chapter
         if content.notes.count > 0 {
-            loadTable()
+            if tableView.superview == nil {
+                loadTable()
+            } else {
+                tableView.reloadData()
+            }
+        } else {
+            removeTable()
         }
         
         // Add observer to the WebView so that when the URL changes it triggers our detection function
@@ -210,7 +286,15 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
 
                 let navigationController = self.navigationController
                 
-                vc.url = Bundle.main.url(forResource: Array(chapterIndex.chapterCode.joined())[urlsarray ?? 0], withExtension: "html")!
+                // If there is an anchor present we want to take the user to that position on the file
+                if newURL.contains("#"){
+                    let anchor = "#"+newURL.components(separatedBy: "#")[1].replacingOccurrences(of: ")", with: "")
+                    print("this is the anchor", anchor)
+                    let baseURL = Bundle.main.url(forResource: Array(chapterIndex.chapterCode.joined())[urlsarray ?? 0], withExtension: "html")!
+                    vc.url = URL(string: anchor, relativeTo: baseURL)
+                } else {
+                    vc.url = Bundle.main.url(forResource: Array(chapterIndex.chapterCode.joined())[urlsarray ?? 0], withExtension: "html")!
+                }
                 vc.titlelabel = Array(chapterIndex.chapterNested.joined())[urlsarray ?? 0]
                 vc.navTitle = chapterIndex.chaptermapsubchapter[urlsarray ?? 0]
                 vc.uniqueAddress = Array(chapterIndex.chapterCode.joined())[urlsarray ?? 0]
@@ -222,13 +306,18 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             }
         } else {
             print("Loading outside of the app content")
+            // newURL stays as the chapter because the webview stopsloading
             let newURL = change?[.newKey] as! URL
+            let oldURL = change?[.oldKey] as! URL
             comingFromHyperLink = true
+            webView.stopLoading()
             
             let alertDelete = UIAlertController(title: "This link will open in your browser, do you want to continue?", message: "", preferredStyle: .alert)
             alertDelete.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in
                 self.comingFromHyperLink = false
-                UIApplication.shared.open(newURL, options: [:], completionHandler: nil)
+                print("fires?",oldURL)
+                print(newURL)
+                UIApplication.shared.open(oldURL, options: [:], completionHandler: nil)
             }))
             alertDelete.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
                 self.comingFromHyperLink = false
@@ -244,12 +333,19 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     
     // This function is just preventing the within the app pages to move to the web links because there is no new page that we need to call the goBack() function from
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        if comingFromHyperLink == true {
-            decisionHandler(.cancel)
-            comingFromHyperLink = false
-        } else {
-            decisionHandler(.allow)
-        }
+        // Comes to this function before knowing what the url is so it's always false")
+//        if comingFromHyperLink == true {
+//            decisionHandler(.cancel)
+//            comingFromHyperLink = false
+//        } else {
+//            decisionHandler(.allow)
+//        }
+        decisionHandler(.allow)
+    }
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
+        preferences.preferredContentMode = .mobile
+        decisionHandler(.allow,preferences)
     }
 
     //--------------------------------------------------------------------------------------------------
@@ -283,6 +379,13 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     }
     
     //--------------------------------------------------------------------------------------------------
+    @IBAction func shareContent(_ sender: UIButton){
+        let items = [titleLabel.text]
+        let sharingController = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        present(sharingController, animated: true)
+    }
+    
+    //--------------------------------------------------------------------------------------------------
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
                 
         if let urlHeader = webView.url?.absoluteString, urlHeader.hasPrefix("file:///"){
@@ -297,11 +400,18 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             // Could potentially replace this with just the link to the file rather than having to convert it to string, save some computational power
             let jsString2 = "var style2 = document.createElement('style'); style2.innerHTML = '\(cssString2)'; document.head.appendChild(style2);"
             
-            webView.evaluateJavaScript(jsString, completionHandler: nil)
-            webView.evaluateJavaScript(jsString2, completionHandler: nil)
+//            webView.evaluateJavaScript(jsString, completionHandler: nil)
 
             let js3 = "var script2 = document.createElement('script'); script2.src = 'uikit-icons.js'; document.body.appendChild(script2);"
+            webView.evaluateJavaScript(jsString2, completionHandler: nil)
             webView.evaluateJavaScript(js3, completionHandler: nil)
+            
+            let textSize = fontNumber > 75 ? fontNumber : 100
+            let javascript = "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '\(textSize)%'"
+            webView.evaluateJavaScript(javascript) { (response, error) in
+                print()
+            }
+            
             
         } else {
             print("outside the app, don't apply styling")
@@ -323,6 +433,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             tableView.rowHeight = UITableView.automaticDimension
             tableView.estimatedRowHeight = UITableView.automaticDimension
             tableView.separatorStyle = .none
+            tableView.backgroundColor = UIColor.backgroundColor
 
     //        tableView.isScrollEnabled = false
             // the frame trully is not the entire contentsize because you need to scroll down for the table to register the entire size of the content
@@ -418,6 +529,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
         let cell = tableView.dequeueReusableCell(withIdentifier: "chapterNote", for: indexPath) as! ChapterNoteTableViewCell
+        cell.backgroundColor = UIColor.backgroundColor
         cell.header.text = "Note - Last Edited \(content.notes[content.notes.count-1-indexPath.row].lastEdited )"
         cell.content.text = content.notes[content.notes.count-1-indexPath.row].content
         cell.colorTag.backgroundColor = colorTags[content.notes[content.notes.count-1-indexPath.row].colorTag]
@@ -483,7 +595,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     
     //--------------------------------------------------------------------------------------------------
     func setupUI() {
-        self.view.backgroundColor = .white
+//        self.view.backgroundColor = .white
         contentView.addSubview(webView)
         
         webViewTopConstraint = webView.topAnchor
@@ -510,6 +622,10 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             content.favorite = true
             favoriteIcon.setBackgroundImage(UIImage(systemName: "star.fill"), for: .normal)
         }
+        
+        Analytics.logEvent("bookmark", parameters: [
+            "bookmark": (uniqueAddress ) as String,
+        ])
     }
     
     //--------------------------------------------------------------------------------------------------
@@ -664,7 +780,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         
         if let window = sceneDelegate.window
         {
-            // Need to feed in here the note that you tap on, otherwise feed in a totally new note
+            // Need to feed in here the note that you tap on, otherwise feed-in a totally new note
             // Look at the sender, either the UIButton or the UITableViewCell
             addFeedbackDialogView = FeedbackForm( frame: window.bounds, parent: parent, title: title )
             
@@ -679,16 +795,6 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             }, completion: { (value: Bool) in
                 // Load the correct button sizes and shapes
             })
-            
-//            let customView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
-//            customView.backgroundColor = UIColor( red: 0xd5/255.0, green: 0xd8/255.0, blue: 0xdc/255.0, alpha: 1)
-//
-//            let doneButton = UIButton( frame: CGRect( x: view.frame.width - 70 - 10, y: 0, width: 70, height: 44 ))
-//            doneButton.setTitle( "Dismiss", for: .normal )
-//            doneButton.setTitleColor( UIColor.systemBlue, for: .normal)
-//            doneButton.addTarget( self, action: #selector( self.dismissKeyboard), for: .touchUpInside )
-//            customView.addSubview( doneButton )
-//            addFeedbackDialogView.noteField.inputAccessoryView = customView
         }
     }
     

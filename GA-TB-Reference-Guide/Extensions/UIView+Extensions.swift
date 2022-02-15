@@ -25,6 +25,12 @@ extension UIView {
 //        layer.rasterizationScale = scale ? UIScreen.main.scale : 1
     }
     
+    func dropShadowNote() {
+        layer.shadowOffset = CGSize(width: 1, height: 1)
+        layer.shadowOpacity = 0.2
+        layer.shadowRadius = 2.0
+    }
+    
     func setGradientBackground(size: CGRect) {
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = [UIColor.init(red: 156/255, green: 51/255, blue: 0, alpha: 1.0).cgColor, UIColor.init(red: 156/255, green: 51/255, blue: 0, alpha: 0.6).cgColor]
@@ -34,6 +40,10 @@ extension UIView {
         gradientLayer.frame = size
 
         layer.insertSublayer(gradientLayer, at: 0)        
+    }
+    
+    func removeGradientBackground(){
+        layer.sublayers?[0].removeFromSuperlayer()
     }
     
     

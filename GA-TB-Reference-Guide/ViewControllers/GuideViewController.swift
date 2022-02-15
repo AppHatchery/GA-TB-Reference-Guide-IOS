@@ -34,6 +34,15 @@ class GuideViewController: UIViewController, UISearchBarDelegate {
         super.viewDidLoad()
         
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor : UIColor.white]
+        let navbarTitle = UILabel()
+        navbarTitle.text = "Guide"
+        navbarTitle.textColor = UIColor.white
+        navbarTitle.font = UIFont.boldSystemFont(ofSize: 16.0)
+        navbarTitle.numberOfLines = 2
+        navbarTitle.textAlignment = .center
+        navbarTitle.minimumScaleFactor = 0.5
+        navbarTitle.adjustsFontSizeToFitWidth = true
+        navigationItem.titleView = navbarTitle
 //        navigationController?.navigationItem.searchController = search
         
         let tapSearchGesture = UITapGestureRecognizer(target: self, action: #selector(tapSearch(_:)))
@@ -44,18 +53,34 @@ class GuideViewController: UIViewController, UISearchBarDelegate {
         search.addGestureRecognizer(tapSearchGesture2)
 
         let textFieldInsideSearchBar = search.value(forKey: "searchField") as? UITextField
-        textFieldInsideSearchBar?.textColor = UIColor.darkGray
+        textFieldInsideSearchBar?.textColor = UIColor.searchBarText
         textFieldInsideSearchBar?.layer.cornerRadius = 60
-        textFieldInsideSearchBar?.backgroundColor = UIColor.init(white: 255/255, alpha: 1.0)
+        textFieldInsideSearchBar?.backgroundColor = UIColor.searchBar
+        textFieldInsideSearchBar?.attributedPlaceholder = NSAttributedString(string: "Search Guide",attributes: [NSAttributedString.Key.foregroundColor: UIColor.searchBarText])
+        searchView.frame = CGRect(x: searchView.frame.origin.x, y: searchView.frame.origin.x, width: searchView.frame.width, height: search.frame.height+10)
                 
         navigationController?.navigationBar.setGradientBackground(to: self.navigationController!)
-        navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
 //        searchView.setGradientBackground()
+        // Register for `UIContentSizeCategory.didChangeNotification`
+//        NotificationCenter.default.addObserver(self, selector: #selector(preferredContentSizeChanged(_:)), name: UIContentSizeCategory.didChangeNotification, object: nil)
+
         
         // Do any additional setup after loading the view.
     }
+    
+    // Code below is to shift the size of the view's gradient layer if the user changes Dynamic Font Size while the app is open
+//    @objc func preferredContentSizeChanged(_ notification: Notification) {
+//        print(search.frame)
+//        // Need to remove the gradient somehow and put a new gradient
+//        let newFrame = CGRect(x: searchView.frame.origin.x, y: searchView.frame.origin.x, width: searchView.frame.width, height: search.frame.height+10)
+//        searchView.removeGradientBackground()
+//        searchView.frame = newFrame
+//        searchView.setGradientBackground(size: newFrame)
+//            /* perform other operations if necessary */
+//        }
+
     
     //--------------------------------------------------------------------------------------------------
     @objc func dismissKeyboard() {
@@ -66,10 +91,10 @@ class GuideViewController: UIViewController, UISearchBarDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
         
-        if !isGradientAdded {
-            searchView.setGradientBackground(size: searchView.layer.bounds)
-            isGradientAdded = true
-        }
+//        if !isGradientAdded {
+//            searchView.setGradientBackground(size: searchView.layer.bounds)
+//            isGradientAdded = true
+//        }
         
         if scrollView == nil {
             

@@ -65,6 +65,7 @@ class SubChapterViewController: UIViewController, UITableViewDelegate, UITableVi
         else
         {
             cell = UITableViewCell(frame: CGRect( x: 0, y: 0, width: tableView.frame.width, height: tableView.rowHeight ))
+            cell.backgroundColor = UIColor.backgroundColor
             
             cell.accessoryType = .disclosureIndicator
             

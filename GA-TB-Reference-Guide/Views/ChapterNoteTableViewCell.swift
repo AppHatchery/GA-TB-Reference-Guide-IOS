@@ -19,6 +19,10 @@ class ChapterNoteTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
 //        shadowView.dropShadow()
+        shadowView.layer.cornerRadius = 5
+        shadowView.layer.borderWidth = 0.25
+        shadowView.layer.borderColor = UIColor.lightGray.cgColor
+        shadowView.dropShadowNote()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

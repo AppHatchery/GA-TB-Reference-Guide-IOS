@@ -13,6 +13,8 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var search: UISearchBar!
     
+    @IBOutlet weak var contentTabs: UISegmentedControl!
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var headertitle: UILabel!
     @IBOutlet weak var emptyView: UIView!
@@ -40,8 +42,8 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
     var notesColors = [Int]()
     var colorTags = [UIColor.black, UIColor.systemRed, UIColor.systemOrange, UIColor.systemYellow, UIColor.systemGreen, UIColor.systemTeal, UIColor.systemBlue, UIColor.systemIndigo, UIColor.systemPurple]
     
-    var isFavorite : Bool = false
-    var isLastOpened : Bool = true
+    var isFavorite : Bool = true
+    var isLastOpened : Bool = false
     var isNotes : Bool = false
     
     var arrayPointer : Int = 0
@@ -83,16 +85,18 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         customView.addSubview( doneButton )
         
         search.inputAccessoryView = customView
+        
+        toggleState(contentTabs)
     }
     
     //--------------------------------------------------------------------------------------------------
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
-        if !isGradientAdded {
-            searchView.setGradientBackground(size: searchView.bounds)
-            isGradientAdded = true
-        }
+//        if !isGradientAdded {
+//            searchView.setGradientBackground(size: searchView.bounds)
+//            isGradientAdded = true
+//        }
         
         // Refresh the Arrays everytime the view appears, might want to add some sort of observer event to these arrays to not keep loading them everytime on start
         favoriteURLs = [String]()
@@ -168,6 +172,7 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         if isNotes {
             let cell = tableView.dequeueReusableCell(withIdentifier: "noteCell", for: indexPath) as! NoteTableViewCell
+            cell.backgroundColor = UIColor.backgroundColor
             cell.header.text = "In \(notesTitles[indexPath.row])"
             cell.content.text = notesContent[indexPath.row]
             cell.colorTag.backgroundColor = colorTags[notesColors[indexPath.row]]
@@ -178,6 +183,7 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
             var cell: UITableViewCell! = tableViewCells[indexPath.row]
             
             cell = UITableViewCell(frame: CGRect( x: 0, y: 0, width: tableView.frame.width, height: tableView.rowHeight ))
+            cell.backgroundColor = UIColor.backgroundColor
                 
             cell.accessoryType = .disclosureIndicator
             
@@ -266,44 +272,47 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBAction func toggleState(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
-            headertitle.text = "Last Opened"
-            search.placeholder = "Search Recents"
-            isLastOpened = true
-            isFavorite = false
-            isNotes = false
-            emptyMessage.text = """
-            Content you view will appear here.
-
-            Start by opening any subchapter or chart.
-            """
-        case 1:
             headertitle.text = "Your Bookmarks"
             search.placeholder = "Search Bookmarks"
             isLastOpened = false
             isFavorite = true
             isNotes = false
-            
+            tableView.separatorStyle = .singleLine
             let attributedString = NSMutableAttributedString(string: "Content you bookmark will appear here.\n\n")
             attributedString.append(NSAttributedString(string: "Tap "))
 
+            
             let loveAttachment = NSTextAttachment()
-            loveAttachment.image = UIImage(systemName: "star")
+            loveAttachment.image = UIImage(systemName: "star")?.withTintColor(UIColor.label)
             loveAttachment.bounds = CGRect(x: 0, y: -3, width: 20, height: 20)
             attributedString.append(NSAttributedString(attachment: loveAttachment))
             attributedString.append(NSAttributedString(string: " on any chart or subchapter."))
 
             emptyMessage.attributedText = attributedString
+        case 1:
+            headertitle.text = "Last Opened"
+            search.placeholder = "Search Recents"
+            isLastOpened = true
+            isFavorite = false
+            isNotes = false
+            tableView.separatorStyle = .singleLine
+            emptyMessage.text = """
+            Content you view will appear here.
+
+            Start by opening any subchapter or chart.
+            """
         case 2:
             headertitle.text = "Your Notes"
             search.placeholder = "Search Notes"
             isLastOpened = false
             isFavorite = false
             isNotes = true
+            tableView.separatorStyle = .none
             let attributedString = NSMutableAttributedString(string: "Notes you create will appear here.\n\n")
             attributedString.append(NSAttributedString(string: "Tap "))
 
             let loveAttachment = NSTextAttachment()
-            loveAttachment.image = UIImage(systemName: "square.and.pencil")
+            loveAttachment.image = UIImage(systemName: "square.and.pencil")?.withTintColor(UIColor.label)
             loveAttachment.bounds = CGRect(x: 0, y: -3, width: 20, height: 20)
             attributedString.append(NSAttributedString(attachment: loveAttachment))
             attributedString.append(NSAttributedString(string: " on any chart or subchapter."))

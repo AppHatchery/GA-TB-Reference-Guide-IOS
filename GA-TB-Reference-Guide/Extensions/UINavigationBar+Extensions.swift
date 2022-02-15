@@ -39,4 +39,17 @@ extension UINavigationBar {
         return gradientImage
     }
     
+    func getGradient(to navController: UINavigationController) -> CAGradientLayer {
+        
+        let gradient = CAGradientLayer()
+        var bounds = navController.navigationBar.bounds
+        bounds.size.height += window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+        gradient.frame = bounds
+        gradient.colors = [UIColor.init(red: 156/255, green: 51/255, blue: 0, alpha: 1.0).cgColor, UIColor.init(red: 156/255, green: 51/255, blue: 0, alpha: 0.6).cgColor]
+        gradient.startPoint = CGPoint(x: 0, y: 0)
+        gradient.endPoint = CGPoint(x: 1, y: 0)
+        
+        return gradient
+    }
+    
 }

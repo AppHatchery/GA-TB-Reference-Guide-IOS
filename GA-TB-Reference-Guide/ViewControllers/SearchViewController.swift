@@ -7,6 +7,7 @@
 
 import UIKit
 import Foundation
+import FirebaseAnalytics
 
 class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
     
@@ -41,20 +42,31 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         super.viewDidLoad()
         
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor : UIColor.white]
+        let navbarTitle = UILabel()
+        navbarTitle.text = "Search"
+        navbarTitle.textColor = UIColor.white
+        navbarTitle.font = UIFont.boldSystemFont(ofSize: 16.0)
+        navbarTitle.numberOfLines = 2
+        navbarTitle.textAlignment = .center
+        navbarTitle.minimumScaleFactor = 0.5
+        navbarTitle.adjustsFontSizeToFitWidth = true
+        navigationItem.titleView = navbarTitle
         
         search.delegate = self
 //        searchReturns.isHidden = true
 
         let textFieldInsideSearchBar = search.value(forKey: "searchField") as? UITextField
-        textFieldInsideSearchBar?.textColor = UIColor.darkGray
+        textFieldInsideSearchBar?.textColor = UIColor.searchBarText
+        textFieldInsideSearchBar?.attributedPlaceholder = NSAttributedString(string: "Search Guide",attributes: [NSAttributedString.Key.foregroundColor: UIColor.searchBarText])
         textFieldInsideSearchBar?.layer.cornerRadius = 60
-        textFieldInsideSearchBar?.backgroundColor = UIColor.init(white: 255/255, alpha: 1.0)
+        textFieldInsideSearchBar?.backgroundColor = UIColor.searchBar
+        searchView.frame = CGRect(x: searchView.frame.origin.x, y: searchView.frame.origin.x, width: searchView.frame.width, height: search.frame.height+10)
                 
         navigationController?.navigationBar.setGradientBackground(to: self.navigationController!)
         navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.shadowImage = UIImage()
         // Set Gradient to the width of the navigationBar
-        searchView.setGradientBackground(size: CGRect(x: searchView.bounds.origin.x, y: searchView.bounds.origin.y, width: self.navigationController?.navigationBar.bounds.width ?? searchView.bounds.width, height: searchView.bounds.height))
+//        searchView.setGradientBackground(size: CGRect(x: searchView.bounds.origin.x, y: searchView.bounds.origin.y, width: self.navigationController?.navigationBar.bounds.width ?? searchView.bounds.width, height: searchView.bounds.height))
         // Do any additional setup after loading the view.
         
         tableView.delegate = self
@@ -122,6 +134,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 
 //        cell = UITableViewCell(frame: CGRect( x: 0, y: 0, width: tableView.frame.width, height: tableView.rowHeight ))
         let cell = tableView.dequeueReusableCell(withIdentifier: "searchCell", for: indexPath) as! SearchCell
+        cell.backgroundColor = UIColor.backgroundColor
         
         cell.accessoryType = .disclosureIndicator
         
@@ -168,6 +181,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         
         navTitle = chapterIndex.chaptermapsubchapter[indexPath.row]
         
+        Analytics.logEvent("search", parameters: [
+            "search": (searchTerm ) as String,
+        ])
+        
         performSegue( withIdentifier: "SegueToWebViewViewController", sender: nil )
     }
     
@@ -211,12 +228,18 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     // To hide the keyboard when the user clicks search
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.view.endEditing(true)
+        Analytics.logEvent("search", parameters: [
+            "query": (searchTerm ) as String,
+        ])
     }
     
     //--------------------------------------------------------------------------------------------------
     @objc func dismissKeyboard() {
         // To hide the keyboard when the user clicks search
         self.view.endEditing(true)
+        Analytics.logEvent("search", parameters: [
+            "query": (searchTerm ) as String,
+        ])
     }
     
     //--------------------------------------------------------------------------------------------------

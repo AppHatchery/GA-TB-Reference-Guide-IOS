@@ -12,6 +12,8 @@
             <connections>
                 <outlet property="closeButton" destination="0ef-W5-qh2" id="kMG-k4-KwI"/>
                 <outlet property="contentView" destination="Ynv-sQ-Vyg" id="Km8-Wr-MX0"/>
+                <outlet property="dialogLeftConstraint" destination="dgg-qO-9Hb" id="knU-cQ-9HI"/>
+                <outlet property="dialogRightConstraint" destination="I37-dc-gsz" id="ltO-Fc-HSB"/>
                 <outlet property="overlayView" destination="zjn-nA-EhA" id="nAR-ab-oir"/>
                 <outlet property="titleLabel" destination="NQa-jg-a9v" id="hHm-ah-wiJ"/>
                 <outlet property="webview" destination="gJn-Me-Sco" id="vuT-jK-GnU"/>
@@ -92,7 +94,7 @@
     <resources>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <namedColor name="dialogColor">
-            <color red="0.78823529411764703" green="0.51764705882352946" blue="0.38823529411764707" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.78799998760223389" green="0.51800000667572021" blue="0.3880000114440918" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

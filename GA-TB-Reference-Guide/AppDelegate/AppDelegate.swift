@@ -7,6 +7,7 @@
 import UIKit
 import RealmSwift
 import Firebase
+import Pendo
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,10 +15,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        // Setting up Pendo
+        // Set up Pendo
+        let appKey = "eyJhbGciOiJSUzI1NiIsImtpZCI6IiIsInR5cCI6IkpXVCJ9.eyJkYXRhY2VudGVyIjoidXMiLCJrZXkiOiJlYThlNjdmNTAwOGIwODYzOTdmMzI0NDA4NGNjZjkxYzVjNTYyOTMxNjRkZWQ4ZDdjZDEwNGY3NzcxYjAyNDZjNDNjZjQ4OGYzMjhiNWFhMmE0ZDExZTI1NWRmMDU3YzZhMGQ5ZDgyZmI5N2NjYjcxNTg5Zjc3ZDlhNWFjMGRhMS5iOTY3ZjEyODMzZDRkZWMyZDk0ZjY1NTNiMzNkZTU0ZC44ZWQyYjFhYWIyMWIzNTZiNjhkMGM0MzNkNWE2ZGU2OTJkYTcxZjQwODI5YWYzNTQ4NGQ4YzBjYzE0OTRmNWRiIn0.iqVDaCeOBxH8egrKUGdDn4F-ITFmmbXVp_VJ2hk7_MaZSJXiPvuFCTc1nx-jyAqTfT0b-toHLPMP2EvxA1Qoi7GKscbSgb2O8WBg6Uy-QuvZVNym6n-bVnn4CLrX1j7I-oEuTrKec5PCP_bYVeOs0RrHaLF8qiX-o-HYCQCgqaM"
+         PendoManager.shared().setup(appKey)
+        
+        // Set up Pendo
+        // TODO: Add firebase installation
+        // Set visitor as "" to anonymize the entries
+        let visitorId = ""
+        let accountId = "GTRG"
+        
+        PendoManager.shared().startSession(
+             visitorId,
+             accountId: accountId,
+             visitorData: [:],
+             accountData: [:]
+         )
+        
         // Setting up Realm
         
         // Schema version represents the version of the database being used
-        let schemaVersion: UInt64 = 0
+        let schemaVersion: UInt64 = 2 //1 //0
                 
         var config = Realm.Configuration()
         config.schemaVersion = schemaVersion
@@ -39,6 +58,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Realm.Configuration.defaultConfiguration = config
         
         FirebaseApp.configure()
+        
+//        if #available(iOS 15, *) {
+//            print("skip to appDidBecomeActive")
+//        } else {
+//            ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
+//                // Tracking authorization completed. Start loading ads here.
+//              })
+//        }
         
         return true
     }
@@ -111,6 +138,54 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     //--------------------------------------------------------------------------------------------------
+    // Pendo Setup - disable it for now to test the dynamic links first
+//    func application(_ app: UIApplication,
+//     open url: URL,
+//     options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool
+//     {
+//         if url.scheme?.range(of: "pendo") != nil {
+//             PendoManager.shared().initWith(url)
+//             return true
+//         }
+//         // your code here…
+//         return true
+//     }
+    
+    //--------------------------------------------------------------------------------------------------
+    // Dynamic Links
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity,
+                     restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
+      let handled = DynamicLinks.dynamicLinks()
+        .handleUniversalLink(userActivity.webpageURL!) { dynamiclink, error in
+          // ...
+        }
+
+      return handled
+    }
+    
+    @available(iOS 9.0, *)
+    func application(_ app: UIApplication, open url: URL,
+                     options: [UIApplication.OpenURLOptionsKey: Any]) -> Bool {
+      return application(app, open: url,
+                         sourceApplication: options[UIApplication.OpenURLOptionsKey
+                           .sourceApplication] as? String,
+                         annotation: "")
+    }
+
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?,
+                     annotation: Any) -> Bool {
+      if let dynamicLink = DynamicLinks.dynamicLinks().dynamicLink(fromCustomSchemeURL: url) {
+        // Handle the deep link. For example, show the deep-linked content or
+        // apply a promotional offer to the user's account.
+        // ...
+          print("this is the dynamic link",dynamicLink)
+          
+        return true
+      }
+      return false
+    }
+
+
 
 }
 

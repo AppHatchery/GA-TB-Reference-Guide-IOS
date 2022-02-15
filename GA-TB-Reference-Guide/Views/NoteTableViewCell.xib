@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,48 +18,55 @@
                 <rect key="frame" x="0.0" y="0.0" width="361" height="144"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ESe-rn-oKq">
+                        <rect key="frame" x="5" y="0.0" width="351" height="139"/>
+                        <color key="backgroundColor" name="backgroundColor"/>
+                    </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1iM-qo-BO9">
-                        <rect key="frame" x="5" y="35" width="8" height="109"/>
+                        <rect key="frame" x="10" y="35" width="8" height="99"/>
                         <color key="backgroundColor" systemColor="systemPinkColor"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="8" id="qVi-ZG-3rz"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Note Chapter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jqP-Rf-dyH">
-                        <rect key="frame" x="5" y="5" width="336" height="20"/>
+                        <rect key="frame" x="10" y="5" width="331" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="d9a-xE-TIb"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Show in chapter &gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3qY-fg-rIA">
-                        <rect key="frame" x="23" y="75" width="313" height="64"/>
+                        <rect key="frame" x="28" y="75" width="308" height="64"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="textColor" name="customDarkGray"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GE7-Tv-xY4">
-                        <rect key="frame" x="23" y="35" width="328" height="40"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <rect key="frame" x="28" y="35" width="323" height="40"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="12"/>
+                        <color key="textColor" name="customDarkGray"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="GE7-Tv-xY4" firstAttribute="top" secondItem="jqP-Rf-dyH" secondAttribute="bottom" constant="10" id="01E-z2-5KT"/>
                     <constraint firstAttribute="trailing" secondItem="jqP-Rf-dyH" secondAttribute="trailing" constant="20" id="0uv-vc-Sxy"/>
-                    <constraint firstItem="1iM-qo-BO9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="1vO-PA-4Z8"/>
-                    <constraint firstItem="jqP-Rf-dyH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="9Ax-RE-aGA"/>
+                    <constraint firstItem="1iM-qo-BO9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="1vO-PA-4Z8"/>
+                    <constraint firstItem="jqP-Rf-dyH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="9Ax-RE-aGA"/>
                     <constraint firstItem="3qY-fg-rIA" firstAttribute="leading" secondItem="1iM-qo-BO9" secondAttribute="trailing" constant="10" id="BPM-BX-IOH"/>
                     <constraint firstAttribute="trailingMargin" secondItem="3qY-fg-rIA" secondAttribute="trailing" constant="5" id="Om2-uy-mky"/>
+                    <constraint firstAttribute="bottom" secondItem="ESe-rn-oKq" secondAttribute="bottom" constant="5" id="W3s-tS-iIZ"/>
                     <constraint firstItem="1iM-qo-BO9" firstAttribute="top" secondItem="jqP-Rf-dyH" secondAttribute="bottom" constant="10" id="bMC-gJ-NPf"/>
                     <constraint firstItem="3qY-fg-rIA" firstAttribute="top" secondItem="GE7-Tv-xY4" secondAttribute="bottom" constant="10" id="d6O-3o-W8c"/>
-                    <constraint firstAttribute="bottom" secondItem="3qY-fg-rIA" secondAttribute="bottom" constant="5" id="gaJ-Kf-xIZ"/>
-                    <constraint firstAttribute="bottom" secondItem="1iM-qo-BO9" secondAttribute="bottom" id="oYn-N3-YKM"/>
+                    <constraint firstItem="ESe-rn-oKq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="fxI-fY-zSy"/>
+                    <constraint firstAttribute="bottom" secondItem="3qY-fg-rIA" secondAttribute="bottom" constant="10" id="gaJ-Kf-xIZ"/>
+                    <constraint firstAttribute="bottom" secondItem="1iM-qo-BO9" secondAttribute="bottom" constant="10" id="oYn-N3-YKM"/>
                     <constraint firstItem="jqP-Rf-dyH" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="qBB-Y7-0sc"/>
                     <constraint firstAttribute="trailing" secondItem="GE7-Tv-xY4" secondAttribute="trailing" constant="10" id="r2F-qJ-ppC"/>
+                    <constraint firstItem="ESe-rn-oKq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="rdN-3k-Bhw"/>
+                    <constraint firstAttribute="trailing" secondItem="ESe-rn-oKq" secondAttribute="trailing" constant="5" id="yHC-F0-a5u"/>
                     <constraint firstItem="GE7-Tv-xY4" firstAttribute="leading" secondItem="1iM-qo-BO9" secondAttribute="trailing" constant="10" id="yXp-Ig-JxS"/>
                 </constraints>
             </tableViewCellContentView>
@@ -68,11 +76,18 @@
                 <outlet property="content" destination="GE7-Tv-xY4" id="tqt-Uh-5AK"/>
                 <outlet property="header" destination="jqP-Rf-dyH" id="OMw-XE-bG8"/>
                 <outlet property="linkToChapter" destination="3qY-fg-rIA" id="XM9-7Q-8f9"/>
+                <outlet property="shadowView" destination="ESe-rn-oKq" id="y2N-nc-SG0"/>
             </connections>
             <point key="canvasLocation" x="167.39130434782609" y="138.61607142857142"/>
         </tableViewCell>
     </objects>
     <resources>
+        <namedColor name="backgroundColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="customDarkGray">
+            <color red="0.33300000429153442" green="0.33300000429153442" blue="0.33300000429153442" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemPinkColor">
             <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

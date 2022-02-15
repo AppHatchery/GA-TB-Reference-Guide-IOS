@@ -24,6 +24,10 @@ class SaveFavorite: UIView {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var nameField: UITextField!
     
+    // Dialog Constraints
+    @IBOutlet weak var dialogLeftConstraint: NSLayoutConstraint!
+    @IBOutlet weak var dialogRightConstraint: NSLayoutConstraint!
+    
     var contentViewTopConstraint: NSLayoutConstraint!
     var delegate: SaveFavoriteDelegate!
     var subChapter: ContentPage!
@@ -61,6 +65,11 @@ class SaveFavorite: UIView {
         nibView.rightAnchor.constraint( equalTo: self.rightAnchor ).isActive = true
         nibView.bottomAnchor.constraint( equalTo: self.bottomAnchor ).isActive = true
         contentViewTopConstraint = nibView.topAnchor.constraint( equalTo: self.topAnchor )
+        
+        if self.frame.width > 1000 {
+            dialogLeftConstraint.constant = 240
+            dialogRightConstraint.constant = 240
+        }
 
         contentViewTopConstraint.isActive = true
         
@@ -70,12 +79,12 @@ class SaveFavorite: UIView {
         cancelButton.layer.borderWidth = 0.5
         cancelButton.layer.cornerRadius = 4
         cancelButton.layer.masksToBounds = true
-        cancelButton.layer.borderColor = UIColor.black.cgColor
+        cancelButton.layer.borderColor = UIColor.label.cgColor
 
         saveButton.layer.borderWidth = 0.5
         saveButton.layer.cornerRadius = 4
         saveButton.layer.masksToBounds = true
-        saveButton.layer.borderColor = UIColor.black.cgColor
+        saveButton.layer.borderColor = UIColor.label.cgColor
         
         if subChapter.favorite == true {
             titleLabel.text = "Edit Bookmark Title"

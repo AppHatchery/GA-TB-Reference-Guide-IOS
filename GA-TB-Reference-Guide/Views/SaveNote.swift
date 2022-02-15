@@ -26,6 +26,10 @@ class SaveNote: UIView {
     @IBOutlet weak var noteField: UITextView!
     @IBOutlet weak var tagLabel: UILabel!
     
+    // Dialog Constraints
+    @IBOutlet weak var dialogLeftConstraint: NSLayoutConstraint!
+    @IBOutlet weak var dialogRightConstraint: NSLayoutConstraint!
+    
     @IBOutlet var colors: [UIButton]!
     
     var contentViewTopConstraint: NSLayoutConstraint!
@@ -68,7 +72,13 @@ class SaveNote: UIView {
         nibView.leftAnchor.constraint( equalTo: self.leftAnchor ).isActive = true
         nibView.rightAnchor.constraint( equalTo: self.rightAnchor ).isActive = true
         nibView.bottomAnchor.constraint( equalTo: self.bottomAnchor ).isActive = true
+
         contentViewTopConstraint = nibView.topAnchor.constraint( equalTo: self.topAnchor )
+        
+        if self.frame.width > 1000 {
+            dialogLeftConstraint.constant = 240
+            dialogRightConstraint.constant = 240
+        }
 
         contentViewTopConstraint.isActive = true
         
@@ -81,12 +91,12 @@ class SaveNote: UIView {
         cancelButton.layer.borderWidth = 0.5
         cancelButton.layer.cornerRadius = 4
         cancelButton.layer.masksToBounds = true
-        cancelButton.layer.borderColor = UIColor.black.cgColor
+        cancelButton.layer.borderColor = UIColor.label.cgColor
 
         saveButton.layer.borderWidth = 0.5
         saveButton.layer.cornerRadius = 4
         saveButton.layer.masksToBounds = true
-        saveButton.layer.borderColor = UIColor.black.cgColor
+        saveButton.layer.borderColor = UIColor.label.cgColor
         
         closeButton.addTarget(self, action: #selector(self.cancelButtonPressed), for: .touchUpInside)
         
