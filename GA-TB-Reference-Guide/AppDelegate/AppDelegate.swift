@@ -155,8 +155,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Dynamic Links
     func application(_ application: UIApplication, continue userActivity: NSUserActivity,
                      restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
-      let handled = DynamicLinks.dynamicLinks()
-        .handleUniversalLink(userActivity.webpageURL!) { dynamiclink, error in
+        if let incomingURL = userActivity.webpageURL {
+            print("incoming URL is \(incomingURL)")
+        } else {
+            print("note")
+        }
+        
+      let handled = DynamicLinks.dynamicLinks().handleUniversalLink(userActivity.webpageURL!) { dynamiclink, error in
+            print("came here")
           // ...
         }
 
@@ -166,6 +172,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     @available(iOS 9.0, *)
     func application(_ app: UIApplication, open url: URL,
                      options: [UIApplication.OpenURLOptionsKey: Any]) -> Bool {
+        print("after here")
       return application(app, open: url,
                          sourceApplication: options[UIApplication.OpenURLOptionsKey
                            .sourceApplication] as? String,
@@ -182,6 +189,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           
         return true
       }
+        print("but not here")
       return false
     }
 

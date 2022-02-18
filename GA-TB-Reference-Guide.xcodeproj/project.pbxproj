@@ -126,7 +126,6 @@
 		D4710CE6274AB5E000F6EBFF /* georgia-tb-privacy-policy.html in Resources */ = {isa = PBXBuildFile; fileRef = D4710CE5274AB5E000F6EBFF /* georgia-tb-privacy-policy.html */; };
 		D4710CE9274ABA4700F6EBFF /* FeedbackForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4710CE8274ABA4700F6EBFF /* FeedbackForm.swift */; };
 		D4710CEC274ABA5700F6EBFF /* FeedbackForm.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4710CEB274ABA5700F6EBFF /* FeedbackForm.xib */; };
-		D473786327B5CC7B00ADE3D2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D4CD67B92791BC55006989F3 /* GoogleService-Info.plist */; };
 		D47A4DD7276686D00095815A /* about_us.html in Resources */ = {isa = PBXBuildFile; fileRef = D47A4DD6276686D00095815A /* about_us.html */; };
 		D47A4DDC276686FA0095815A /* Emory_healthcare.png in Resources */ = {isa = PBXBuildFile; fileRef = D47A4DD9276686FA0095815A /* Emory_healthcare.png */; };
 		D47A4DDD276686FA0095815A /* DPH.png in Resources */ = {isa = PBXBuildFile; fileRef = D47A4DDA276686FA0095815A /* DPH.png */; };
@@ -163,6 +162,7 @@
 		D4B0B0EE26D0693F003BD1EA /* SubChapterContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B0B0ED26D0693F003BD1EA /* SubChapterContentView.swift */; };
 		D4B0B0F126D06952003BD1EA /* SubChapterContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4B0B0F026D06952003BD1EA /* SubChapterContentView.xib */; };
 		D4B0B13326D174F9003BD1EA /* chapterIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B0B13226D174F9003BD1EA /* chapterIndex.swift */; };
+		D4D3C95A27BEA2C700DBB62F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D44B84FA272701C400A5B0E9 /* GoogleService-Info.plist */; };
 		D4FD8D8E26FE47F500126B5B /* figure1.png in Resources */ = {isa = PBXBuildFile; fileRef = D4FD8D8926FE47F100126B5B /* figure1.png */; };
 		D4FD8D8F26FE47F500126B5B /* signature_susan_m_ray_m_d.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D4FD8D8A26FE47F200126B5B /* signature_susan_m_ray_m_d.jpg */; };
 		D4FD8D9026FE47F500126B5B /* table18.png in Resources */ = {isa = PBXBuildFile; fileRef = D4FD8D8B26FE47F300126B5B /* table18.png */; };
@@ -807,7 +807,7 @@
 				D4710CAE2744129000F6EBFF /* Settings.xib in Resources */,
 				D4515E7126DAE60600EE6592 /* style.css in Resources */,
 				D42F266126EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__e__monitoring_patients_on_therapy_for_response_and_adverse_events.html in Resources */,
-				D473786327B5CC7B00ADE3D2 /* GoogleService-Info.plist in Resources */,
+				D4D3C95A27BEA2C700DBB62F /* GoogleService-Info.plist in Resources */,
 				D42F268826EF821B009DC942 /* 7_childhood_tuberculosis.html in Resources */,
 				D4515E6526DAE5CF00EE6592 /* 16_for_more_information_image_1.gif in Resources */,
 				D42F266826EF821B009DC942 /* 7_childhood_tuberculosis__a__management_considerations.html in Resources */,
