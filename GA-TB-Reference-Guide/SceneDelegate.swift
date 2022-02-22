@@ -13,12 +13,21 @@ import AppTrackingTransparency
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    let chapterIndex = ChapterIndex()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
+        
+//        This person is a genius https://www.donnywals.com/handling-deeplinks-in-your-app/
+        if let userActivity = connectionOptions.userActivities.first {
+            self.scene(scene, continue: userActivity)
+          }
+        
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+        
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -65,6 +74,77 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
        }
        // your code here…
      }
-
+    
+//    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+//
+//        print("after here")
+//      return application(app, open: url,
+//                         sourceApplication: options[UIApplication.OpenURLOptionsKey
+//                           .sourceApplication] as? String,
+//                         annotation: "")
+//    }
+//
+//    func application(_ application: UIApplication, open url: URL, sourceApplication: String?,
+//                     annotation: Any) -> Bool {
+//      if let dynamicLink = DynamicLinks.dynamicLinks().dynamicLink(fromCustomSchemeURL: url) {
+//        // Handle the deep link. For example, show the deep-linked content or
+//        // apply a promotional offer to the user's account.
+//        // ...
+//          print("this is the dynamic link",dynamicLink)
+//
+//        return true
+//      }
+//        print("but not here")
+//      return false
+//    }
+    
+    func handleIncomingDynamicLink(_ dynamicLink: DynamicLink){
+        guard let url = dynamicLink.url else {
+            print("Dynamic link doesn't have a URL")
+            return
+        }
+        print("your dynamic link parameter is \(url.absoluteString)")
+        
+        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false), let queryItems = components.queryItems else { return }
+        
+        if components.path == "/share" {
+            // Loading specific piece of content
+            if let chapterIdQueryItem = queryItems.first(where: {$0.name == "chapterId"}) {
+                guard let chapterId = chapterIdQueryItem.value else { return }
+                let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                guard let newWebVC = storyboard.instantiateViewController(withIdentifier: "web") as? WebViewViewController else { return }
+                // Pass parameters to VC
+                newWebVC.uniqueAddress = chapterId
+                newWebVC.url = Bundle.main.url(forResource: chapterId, withExtension: "html")!
+                newWebVC.titlelabel = chapterIndex.subChapterNames[Array(chapterIndex.chapterCode.joined()).firstIndex(of: chapterId) ?? 0]
+                                 
+                let tabBC = self.window?.rootViewController as? UITabBarController
+                let navigationController = tabBC?.selectedViewController as? UINavigationController
+                navigationController?.pushViewController(newWebVC, animated: true)
+                
+                // Modal presentation also works, with less casts too
+//                self.window?.rootViewController?.present(newWebVC, animated: true, completion: {
+//                    print("presented the controller")
+//                })
+            }
+        }
+    }
+    
+    func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
+        if let incomingURL = userActivity.webpageURL {
+            print("incoming URL is \(incomingURL)")
+            _ = DynamicLinks.dynamicLinks().handleUniversalLink(userActivity.webpageURL!) { dynamiclink, error in
+                guard error == nil else {
+                    print("Found an error! \(error!.localizedDescription)")
+                    return
+                }
+                if let dynamicLink = dynamiclink {
+                    self.handleIncomingDynamicLink(dynamicLink)
+                }
+                // ...
+              }
+            print("App doesn't handle any other links so no need for extra handling")
+        }
+    }
 }
 

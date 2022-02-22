@@ -85,7 +85,6 @@
 		D42F268526EF821B009DC942 /* table_20_use_of_anti-tb_medications_in_special_situations_pregnancy_tuberculosis_meningitis_and_renal_failure.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F263726EF8219009DC942 /* table_20_use_of_anti-tb_medications_in_special_situations_pregnancy_tuberculosis_meningitis_and_renal_failure.html */; };
 		D42F268626EF821B009DC942 /* fig1_factors_to_be_considered.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F263826EF8219009DC942 /* fig1_factors_to_be_considered.html */; };
 		D42F268726EF821B009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__a__tuberculin_skin_test.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F263926EF821A009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__a__tuberculin_skin_test.html */; };
-		D42F268826EF821B009DC942 /* 7_childhood_tuberculosis.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F263A26EF821A009DC942 /* 7_childhood_tuberculosis.html */; };
 		D42F268926EF821B009DC942 /* table_4_recommendations_for_regimens_to_treat_latent_tuberculosis_infection.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F263B26EF821B009DC942 /* table_4_recommendations_for_regimens_to_treat_latent_tuberculosis_infection.html */; };
 		D42F269526F05B64009DC942 /* ChapterNoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42F269326F05B64009DC942 /* ChapterNoteTableViewCell.swift */; };
 		D42F269626F05B64009DC942 /* ChapterNoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D42F269426F05B64009DC942 /* ChapterNoteTableViewCell.xib */; };
@@ -135,10 +134,6 @@
 		D47A4DE6276687610095815A /* acknowledge.svg in Resources */ = {isa = PBXBuildFile; fileRef = D47A4DE4276687610095815A /* acknowledge.svg */; };
 		D47A4DE9276688650095815A /* logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D47A4DE8276688650095815A /* logo.jpg */; };
 		D47A4DEC276691CA0095815A /* quote.html in Resources */ = {isa = PBXBuildFile; fileRef = D47A4DEB276691CA0095815A /* quote.html */; };
-		D47A4DF22766A4880095815A /* subchapter.json in Resources */ = {isa = PBXBuildFile; fileRef = D47A4DEE2766A4880095815A /* subchapter.json */; };
-		D47A4DF32766A4880095815A /* chart.json in Resources */ = {isa = PBXBuildFile; fileRef = D47A4DEF2766A4880095815A /* chart.json */; };
-		D47A4DF42766A4880095815A /* chapter.json in Resources */ = {isa = PBXBuildFile; fileRef = D47A4DF02766A4880095815A /* chapter.json */; };
-		D47A4DF52766A4880095815A /* abrreviation.json in Resources */ = {isa = PBXBuildFile; fileRef = D47A4DF12766A4880095815A /* abrreviation.json */; };
 		D48BD7802779F13800D8A25D /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48BD77F2779F13800D8A25D /* UIButton+Extensions.swift */; };
 		D48BD797277E4F5300D8A25D /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48BD796277E4F5200D8A25D /* UserSettings.swift */; };
 		D4A06A5526E6D2330093D144 /* ContentPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A06A5426E6D2330093D144 /* ContentPage.swift */; };
@@ -162,7 +157,12 @@
 		D4B0B0EE26D0693F003BD1EA /* SubChapterContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B0B0ED26D0693F003BD1EA /* SubChapterContentView.swift */; };
 		D4B0B0F126D06952003BD1EA /* SubChapterContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4B0B0F026D06952003BD1EA /* SubChapterContentView.xib */; };
 		D4B0B13326D174F9003BD1EA /* chapterIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B0B13226D174F9003BD1EA /* chapterIndex.swift */; };
-		D4D3C95A27BEA2C700DBB62F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D44B84FA272701C400A5B0E9 /* GoogleService-Info.plist */; };
+		D4CCBF5227C023AB00E42BC9 /* 7_childhood_tuberculosis.html in Resources */ = {isa = PBXBuildFile; fileRef = D4CCBF5127C023AB00E42BC9 /* 7_childhood_tuberculosis.html */; };
+		D4CCBF5727C032B400E42BC9 /* subchapter.json in Resources */ = {isa = PBXBuildFile; fileRef = D4CCBF5327C032B400E42BC9 /* subchapter.json */; };
+		D4CCBF5827C032B400E42BC9 /* abrreviation.json in Resources */ = {isa = PBXBuildFile; fileRef = D4CCBF5427C032B400E42BC9 /* abrreviation.json */; };
+		D4CCBF5927C032B400E42BC9 /* chapter.json in Resources */ = {isa = PBXBuildFile; fileRef = D4CCBF5527C032B400E42BC9 /* chapter.json */; };
+		D4CCBF5A27C032B400E42BC9 /* chart.json in Resources */ = {isa = PBXBuildFile; fileRef = D4CCBF5627C032B400E42BC9 /* chart.json */; };
+		D4CCBF8127C558F900E42BC9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D4CD67B92791BC55006989F3 /* GoogleService-Info.plist */; };
 		D4FD8D8E26FE47F500126B5B /* figure1.png in Resources */ = {isa = PBXBuildFile; fileRef = D4FD8D8926FE47F100126B5B /* figure1.png */; };
 		D4FD8D8F26FE47F500126B5B /* signature_susan_m_ray_m_d.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D4FD8D8A26FE47F200126B5B /* signature_susan_m_ray_m_d.jpg */; };
 		D4FD8D9026FE47F500126B5B /* table18.png in Resources */ = {isa = PBXBuildFile; fileRef = D4FD8D8B26FE47F300126B5B /* table18.png */; };
@@ -250,7 +250,6 @@
 		D42F263726EF8219009DC942 /* table_20_use_of_anti-tb_medications_in_special_situations_pregnancy_tuberculosis_meningitis_and_renal_failure.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "table_20_use_of_anti-tb_medications_in_special_situations_pregnancy_tuberculosis_meningitis_and_renal_failure.html"; sourceTree = "<group>"; };
 		D42F263826EF8219009DC942 /* fig1_factors_to_be_considered.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = fig1_factors_to_be_considered.html; sourceTree = "<group>"; };
 		D42F263926EF821A009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__a__tuberculin_skin_test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "2_diagnostic_tests_for_latent_tb_infection_(ltbi)__a__tuberculin_skin_test.html"; sourceTree = "<group>"; };
-		D42F263A26EF821A009DC942 /* 7_childhood_tuberculosis.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = 7_childhood_tuberculosis.html; path = "../../../../../Documents/GitHub/GA-TB-Reference-Guide-Web/pages/7_childhood_tuberculosis.html"; sourceTree = "<group>"; };
 		D42F263B26EF821B009DC942 /* table_4_recommendations_for_regimens_to_treat_latent_tuberculosis_infection.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = table_4_recommendations_for_regimens_to_treat_latent_tuberculosis_infection.html; sourceTree = "<group>"; };
 		D42F269326F05B64009DC942 /* ChapterNoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterNoteTableViewCell.swift; sourceTree = "<group>"; };
 		D42F269426F05B64009DC942 /* ChapterNoteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChapterNoteTableViewCell.xib; sourceTree = "<group>"; };
@@ -297,10 +296,6 @@
 		D47A4DE4276687610095815A /* acknowledge.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = acknowledge.svg; sourceTree = "<group>"; };
 		D47A4DE8276688650095815A /* logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = logo.jpg; sourceTree = "<group>"; };
 		D47A4DEB276691CA0095815A /* quote.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = quote.html; sourceTree = "<group>"; };
-		D47A4DEE2766A4880095815A /* subchapter.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = subchapter.json; path = "../../../../Documents/GitHub/GA-TB-Reference-Guide-Web/json/subchapter.json"; sourceTree = "<group>"; };
-		D47A4DEF2766A4880095815A /* chart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = chart.json; path = "../../../../Documents/GitHub/GA-TB-Reference-Guide-Web/json/chart.json"; sourceTree = "<group>"; };
-		D47A4DF02766A4880095815A /* chapter.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = chapter.json; path = "../../../../Documents/GitHub/GA-TB-Reference-Guide-Web/json/chapter.json"; sourceTree = "<group>"; };
-		D47A4DF12766A4880095815A /* abrreviation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = abrreviation.json; path = "../../../../Documents/GitHub/GA-TB-Reference-Guide-Web/json/abrreviation.json"; sourceTree = "<group>"; };
 		D48BD77F2779F13800D8A25D /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		D48BD786277CA0D100D8A25D /* GA-TB-Reference-Guide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GA-TB-Reference-Guide.entitlements"; sourceTree = "<group>"; };
 		D48BD796277E4F5200D8A25D /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
@@ -327,6 +322,11 @@
 		D4B0B0ED26D0693F003BD1EA /* SubChapterContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubChapterContentView.swift; sourceTree = "<group>"; };
 		D4B0B0F026D06952003BD1EA /* SubChapterContentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubChapterContentView.xib; sourceTree = "<group>"; };
 		D4B0B13226D174F9003BD1EA /* chapterIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chapterIndex.swift; sourceTree = "<group>"; };
+		D4CCBF5127C023AB00E42BC9 /* 7_childhood_tuberculosis.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = 7_childhood_tuberculosis.html; sourceTree = "<group>"; };
+		D4CCBF5327C032B400E42BC9 /* subchapter.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = subchapter.json; sourceTree = "<group>"; };
+		D4CCBF5427C032B400E42BC9 /* abrreviation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = abrreviation.json; sourceTree = "<group>"; };
+		D4CCBF5527C032B400E42BC9 /* chapter.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = chapter.json; sourceTree = "<group>"; };
+		D4CCBF5627C032B400E42BC9 /* chart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = chart.json; sourceTree = "<group>"; };
 		D4CD67B92791BC55006989F3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D4FD8D8926FE47F100126B5B /* figure1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = figure1.png; sourceTree = "<group>"; };
 		D4FD8D8A26FE47F200126B5B /* signature_susan_m_ray_m_d.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = signature_susan_m_ray_m_d.jpg; sourceTree = "<group>"; };
@@ -364,6 +364,7 @@
 		D42F25ED26EF81C8009DC942 /* pages */ = {
 			isa = PBXGroup;
 			children = (
+				D4CCBF5127C023AB00E42BC9 /* 7_childhood_tuberculosis.html */,
 				D47A4DEB276691CA0095815A /* quote.html */,
 				D47A4DD6276686D00095815A /* about_us.html */,
 				D46313AB2721A27F00C7D9EC /* 5_treatment_of_current_(active)_disease_therapy.html */,
@@ -403,7 +404,6 @@
 				D42F260326EF8201009DC942 /* 6_pregnancy_and_tb__a__treatment_for_ltbi_and_risk_factors.html */,
 				D42F263026EF8216009DC942 /* 6_pregnancy_and_tb__b__treatment_of_active_tb_in_pregnancy.html */,
 				D42F261A26EF820C009DC942 /* 7_childhood_tuberculosis__a__management_considerations.html */,
-				D42F263A26EF821A009DC942 /* 7_childhood_tuberculosis.html */,
 				D42F25FF26EF81FF009DC942 /* 8_tuberculosis_and_long-term_care_facilities.html */,
 				D42F261526EF8209009DC942 /* 9_bcg_vaccination.html */,
 				D42F25EF26EF81F8009DC942 /* 10_tb_infection_control_hospital_isolation_procedures__a__administrative_controls.html */,
@@ -664,10 +664,10 @@
 		D4B0B12E26D159EB003BD1EA /* json */ = {
 			isa = PBXGroup;
 			children = (
-				D47A4DF12766A4880095815A /* abrreviation.json */,
-				D47A4DF02766A4880095815A /* chapter.json */,
-				D47A4DEF2766A4880095815A /* chart.json */,
-				D47A4DEE2766A4880095815A /* subchapter.json */,
+				D4CCBF5427C032B400E42BC9 /* abrreviation.json */,
+				D4CCBF5527C032B400E42BC9 /* chapter.json */,
+				D4CCBF5627C032B400E42BC9 /* chart.json */,
+				D4CCBF5327C032B400E42BC9 /* subchapter.json */,
 				D4B0B13226D174F9003BD1EA /* chapterIndex.swift */,
 			);
 			path = json;
@@ -760,6 +760,7 @@
 				D42F267326EF821B009DC942 /* 17_acknowledgements.html in Resources */,
 				D4515E7226DAE60600EE6592 /* uikit-icons.js in Resources */,
 				D42F264726EF821B009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis.html in Resources */,
+				D4CCBF5727C032B400E42BC9 /* subchapter.json in Resources */,
 				D42F264E26EF821B009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi)__c__contacts_of_mdr_tb_cases.html in Resources */,
 				D42F265126EF821B009DC942 /* 6_pregnancy_and_tb__a__treatment_for_ltbi_and_risk_factors.html in Resources */,
 				D42F266226EF821B009DC942 /* 16_for_more_information.html in Resources */,
@@ -782,21 +783,20 @@
 				D42F268426EF821B009DC942 /* table_6_ltbi_treatment_drug_adverse_reactions.html in Resources */,
 				D42F266F26EF821B009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__e__rapid_molecular_drug_susceptibility_tests_(dst).html in Resources */,
 				D4631308271CD35A00C7D9EC /* Guide.xib in Resources */,
-				D47A4DF42766A4880095815A /* chapter.json in Resources */,
 				D42F267526EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__c__special_clinical_situations.html in Resources */,
 				D42F267C26EF821B009DC942 /* 11_community_tuberculosis_control__b__tb_case_definitions_for_public_health_surveillance.html in Resources */,
 				D42F263F26EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__a__considerations.html in Resources */,
 				D42F26B326F94FC5009DC942 /* uikit-copy.js in Resources */,
+				D4CCBF5A27C032B400E42BC9 /* chart.json in Resources */,
 				D4FD8D8E26FE47F500126B5B /* figure1.png in Resources */,
 				D4710CEC274ABA5700F6EBFF /* FeedbackForm.xib in Resources */,
 				D42F264A26EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__h__immune_reconstitution_inflammatory_syndrome.html in Resources */,
 				D47A4DE5276687610095815A /* face.svg in Resources */,
 				D4515E6626DAE5CF00EE6592 /* 1_epidemiology_image_1_number_of_tb_cases_city_of_atlanta_metro_atlanta_georgia_1998_2018.jpg in Resources */,
-				D47A4DF32766A4880095815A /* chart.json in Resources */,
 				D42F266626EF821B009DC942 /* table_11_pediatric_dosages_ethambutol_in_children_(birth_to_15_years).html in Resources */,
 				D42F263D26EF821B009DC942 /* 10_tb_infection_control_hospital_isolation_procedures__a__administrative_controls.html in Resources */,
-				D47A4DF52766A4880095815A /* abrreviation.json in Resources */,
 				D42F265226EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__d__drug_resistance.html in Resources */,
+				D4CCBF5227C023AB00E42BC9 /* 7_childhood_tuberculosis.html in Resources */,
 				D42F268226EF821B009DC942 /* table_17_what_to_start_choice_of_tb_therapy_and_antiretroviral_therapy_(art)_when)treating_co-infected_patients.html in Resources */,
 				D42F267726EF821B009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi)__b__monitoring_of_patients_on_treatment_for_ltbi.html in Resources */,
 				D42F264226EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__f__tb_and_hiv.html in Resources */,
@@ -807,12 +807,11 @@
 				D4710CAE2744129000F6EBFF /* Settings.xib in Resources */,
 				D4515E7126DAE60600EE6592 /* style.css in Resources */,
 				D42F266126EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__e__monitoring_patients_on_therapy_for_response_and_adverse_events.html in Resources */,
-				D4D3C95A27BEA2C700DBB62F /* GoogleService-Info.plist in Resources */,
-				D42F268826EF821B009DC942 /* 7_childhood_tuberculosis.html in Resources */,
 				D4515E6526DAE5CF00EE6592 /* 16_for_more_information_image_1.gif in Resources */,
 				D42F266826EF821B009DC942 /* 7_childhood_tuberculosis__a__management_considerations.html in Resources */,
 				D42F264C26EF821B009DC942 /* 10_tb_infection_control_hospital_isolation_procedures.html in Resources */,
 				D42F265826EF821B009DC942 /* 11_community_tuberculosis_control__c__role_of_the_health_department.html in Resources */,
+				D4CCBF5927C032B400E42BC9 /* chapter.json in Resources */,
 				D42F265E26EF821B009DC942 /* table_3_high_prevalence_and_high_risk_groups.html in Resources */,
 				D42F266926EF821B009DC942 /* 11_community_tuberculosis_control__a__tb_surveillance_in_georgia.html in Resources */,
 				D42F265726EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__j__adjunctive_use_of_corticosteroid_therapy.html in Resources */,
@@ -824,7 +823,6 @@
 				D47A4DDE276686FA0095815A /* Emory_university.png in Resources */,
 				D4B0B0B426D01CA6003BD1EA /* Main.storyboard in Resources */,
 				D47A4DDC276686FA0095815A /* Emory_healthcare.png in Resources */,
-				D47A4DF22766A4880095815A /* subchapter.json in Resources */,
 				D42F267426EF821B009DC942 /* table_16_when_to_start_hiv_therapy.html in Resources */,
 				D42F264D26EF821B009DC942 /* 8_tuberculosis_and_long-term_care_facilities.html in Resources */,
 				D4515E6F26DAE60600EE6592 /* uikit.css in Resources */,
@@ -833,6 +831,7 @@
 				D42F266026EF821B009DC942 /* 1_epidemiology.html in Resources */,
 				D42F265C26EF821B009DC942 /* table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html in Resources */,
 				D42F268926EF821B009DC942 /* table_4_recommendations_for_regimens_to_treat_latent_tuberculosis_infection.html in Resources */,
+				D4CCBF8127C558F900E42BC9 /* GoogleService-Info.plist in Resources */,
 				D42F268026EF821B009DC942 /* 10_tb_infection_control_hospital_isolation_procedures__d__personal_respiratory_protection.html in Resources */,
 				D42F264526EF821B009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__c__two_step_testing_and_the_booster_reaction.html in Resources */,
 				D42F267F26EF821B009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__h__reporting_of_pediatric_positive_tests_for_ltbi.html in Resources */,
@@ -858,6 +857,7 @@
 				D42F268126EF821B009DC942 /* table_21_grady_hospital_tb_isolation_policy.html in Resources */,
 				D4515E6726DAE5CF00EE6592 /* 1_epidemiology_image_2_us_born_and_foreign_born_tb_cases_georgia_1998_2018.jpg in Resources */,
 				D4B0B0F126D06952003BD1EA /* SubChapterContentView.xib in Resources */,
+				D4CCBF5827C032B400E42BC9 /* abrreviation.json in Resources */,
 				D42F268626EF821B009DC942 /* fig1_factors_to_be_considered.html in Resources */,
 				D42F25E926EEFA8F009DC942 /* NoteTableViewCell.xib in Resources */,
 				D42F267E26EF821B009DC942 /* 6_pregnancy_and_tb__b__treatment_of_active_tb_in_pregnancy.html in Resources */,
@@ -1128,7 +1128,7 @@
 				CODE_SIGN_ENTITLEMENTS = "GA-TB-Reference-Guide/GA-TB-Reference-Guide.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 3RQHVA7936;
 				INFOPLIST_FILE = "GA-TB-Reference-Guide/Info.plist";
@@ -1137,7 +1137,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.emory.tb.guide;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Georgia TB Reference Guide";
@@ -1155,7 +1155,7 @@
 				CODE_SIGN_ENTITLEMENTS = "GA-TB-Reference-Guide/GA-TB-Reference-Guide.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 3RQHVA7936;
 				INFOPLIST_FILE = "GA-TB-Reference-Guide/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
@@ -1163,7 +1163,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.emory.tb.guide;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Georgia TB Reference Guide";

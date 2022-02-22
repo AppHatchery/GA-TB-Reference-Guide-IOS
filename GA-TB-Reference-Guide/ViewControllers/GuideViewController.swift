@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseDynamicLinks
 
 class GuideViewController: UIViewController, UISearchBarDelegate {
 

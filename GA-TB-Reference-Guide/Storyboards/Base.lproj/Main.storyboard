@@ -382,7 +382,7 @@ Start by opening any subchapter or chart.</string>
         <!--Guide Navigation Controller-->
         <scene sceneID="5EE-qa-sT3">
             <objects>
-                <navigationController id="wC5-QA-rI3" userLabel="Guide Navigation Controller" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="Guide" id="wC5-QA-rI3" userLabel="Guide Navigation Controller" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Guide" image="house.fill" catalog="system" id="4th-bs-XoX"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="QiT-A0-Uf0">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -664,14 +664,14 @@ Start by opening any subchapter or chart.</string>
                                             <constraint firstAttribute="width" constant="30" id="cBl-LX-eGd"/>
                                             <constraint firstAttribute="height" constant="30" id="kRP-ni-iAW"/>
                                         </constraints>
-                                        <color key="tintColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="tintColor" name="custom333"/>
                                         <state key="normal" backgroundImage="square.and.arrow.up" catalog="system"/>
                                         <connections>
                                             <action selector="shareContent:" destination="MDz-7h-Sal" eventType="touchUpInside" id="FzT-2U-vrj"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UEn-Wx-H5A">
-                                        <rect key="frame" x="55" y="5.5" width="30" height="29"/>
+                                        <rect key="frame" x="10" y="5.5" width="30" height="29"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="30" id="awm-Uc-2XR"/>
                                             <constraint firstAttribute="height" constant="30" id="pPR-sn-6Zc"/>
@@ -685,7 +685,6 @@ Start by opening any subchapter or chart.</string>
                                 </subviews>
                                 <color key="backgroundColor" name="backgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="1uh-gr-z8Z" firstAttribute="leading" secondItem="UEn-Wx-H5A" secondAttribute="trailing" constant="15" id="0qU-g8-LXu"/>
                                     <constraint firstAttribute="bottom" secondItem="OlF-iW-Oph" secondAttribute="bottom" constant="5" id="2D6-6R-pbd"/>
                                     <constraint firstItem="OlF-iW-Oph" firstAttribute="top" secondItem="yK7-Bb-A0r" secondAttribute="top" constant="5" id="3ed-6R-AYC"/>
                                     <constraint firstItem="1uh-gr-z8Z" firstAttribute="top" secondItem="yK7-Bb-A0r" secondAttribute="top" constant="5" id="3ul-Pu-Fx9"/>
@@ -701,11 +700,6 @@ Start by opening any subchapter or chart.</string>
                                     <constraint firstAttribute="width" constant="180" id="rvO-jI-HJ7"/>
                                     <constraint firstAttribute="height" constant="40" id="y1U-s1-P6Q"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="subviews">
-                                        <exclude reference="7m9-0t-Q9K"/>
-                                    </mask>
-                                </variation>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uyt-6T-1jJ">
                                 <rect key="frame" x="20" y="195" width="389" height="0.5"/>

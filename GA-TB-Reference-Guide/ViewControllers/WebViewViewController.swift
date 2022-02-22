@@ -9,6 +9,7 @@ import UIKit
 import WebKit
 import RealmSwift
 import FirebaseAnalytics
+import FirebaseDynamicLinks
 
 class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, SaveFavoriteDelegate, SaveNoteDelegate, UITableViewDataSource, UITableViewDelegate, WKScriptMessageHandler {
 
@@ -380,9 +381,65 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     
     //--------------------------------------------------------------------------------------------------
     @IBAction func shareContent(_ sender: UIButton){
-        let items = [titleLabel.text]
-        let sharingController = UIActivityViewController(activityItems: items, applicationActivities: nil)
-        present(sharingController, animated: true)
+        // Add activity indicator if using short link
+        
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "apphatcherygatbreferenceguide.page.link"
+        components.path = "/share"
+        
+        let chapterIDQueryItem = URLQueryItem(name: "chapterId", value: uniqueAddress)
+        let isChartQueryItem = URLQueryItem(name: "androidIsPage", value: uniqueAddress.contains("table") ? "0" : "1")
+        components.queryItems = [chapterIDQueryItem,isChartQueryItem]
+        
+        guard let linkParameter = components.url else { return }
+        print("I am sharing \(linkParameter.absoluteString)")
+        
+        // Dynamic Link
+        guard let shareLink = DynamicLinkComponents.init(link: linkParameter, domainURIPrefix: "https://apphatcherygatbreferenceguide.page.link") else {
+            print("Couldn't create Dynamic Link Component")
+            return
+        }
+        
+        if let myBundleID = Bundle.main.bundleIdentifier {
+            shareLink.iOSParameters = DynamicLinkIOSParameters(bundleID: myBundleID)
+        }
+        shareLink.iOSParameters?.appStoreID = "1583294462"
+        shareLink.androidParameters = DynamicLinkAndroidParameters(packageName: "com.apphatchery.tb.guide")
+        shareLink.socialMetaTagParameters = DynamicLinkSocialMetaTagParameters()
+        shareLink.socialMetaTagParameters?.title = navTitle
+        shareLink.socialMetaTagParameters?.descriptionText = titleLabel.text
+        // Grab this from github
+//        shareLink.socialMetaTagParameters?.imageURL = URL.init(string: "https://github.com/AppHatchery/GA-TB-Reference-Guide-Web/blob/main/pages/figure1.png")
+        
+        guard let longURL = shareLink.url else { return }
+        print("The long dynamic link is \(longURL.absoluteString)")
+//        shareChapter(url: longURL)
+        
+        // Sets a drawback because it's slow, so we might make it long and that's it
+        shareLink.shorten { [weak self] url, warnings, error in
+            if let error = error {
+                print("Got an error shortening the dynamic link \(error)")
+                return
+            }
+
+            if let warnings = warnings {
+                for warning in warnings {
+                    print("FDL Warning: \(warning)")
+                }
+            }
+
+            guard let url = url else { return }
+            print("I have a short URL \(url.absoluteString)")
+            self?.shareChapter(url: url)
+        }
+    }
+    
+    func shareChapter(url: URL){
+        // This is text to accompany the
+//        let promoText = "Check out this subchapter of the TB Reference Guide "
+        let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+        present(activityVC, animated: true)
     }
     
     //--------------------------------------------------------------------------------------------------
@@ -797,6 +854,8 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             })
         }
     }
+    
+    
     
     //--------------------------------------------------------------------------------------------------
     @objc func dismissKeyboard() {
