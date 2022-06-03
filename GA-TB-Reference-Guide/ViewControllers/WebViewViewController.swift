@@ -33,7 +33,8 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     var fontNumber = 100
     
     // Initialize the Realm database
-    let realm = try! Realm()
+    let realm = RealmHelper.sharedInstance.mainRealm()
+//    let realm = try! Realm()
     var content : ContentPage!
     var note : Notes!
     var chapterIndex = ChapterIndex()
@@ -85,10 +86,10 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
 //        setupUI()
         
 //        // Realm
-//        try! realm.write
+//        try! realm!.write
 //        {
 //            // Should only add a new entry if this entry is not already added there
-//            if let currentContent = realm.object(ofType:ContentPage.self, forPrimaryKey: uniqueAddress){
+//            if let currentContent = realm!.object(ofType:ContentPage.self, forPrimaryKey: uniqueAddress){
 //                currentContent.lastOpened = Date()
 //                currentContent.openedTimes += 1
 //                // Assign the older entry to the current variable
@@ -101,14 +102,14 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
 //                content.lastOpened = Date()
 //                content.openedTimes += 1
 //                // Add it to Realm
-//                realm.add(content)
+//                realm!.add(content)
 //            }
 //
 //            // Save recently viewed chapters list
-//            let lastAccessed = realm.objects(ContentAccess.self)
+//            let lastAccessed = realm!.objects(ContentAccess.self)
 //            // This determines the buffer that we are allowing
 //            if lastAccessed.count > 7 {
-//                realm.delete(lastAccessed[0])
+//                realm!.delete(lastAccessed[0])
 //            }
 //
 //            // Save history
@@ -119,7 +120,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
 //                currentAccessedContent.url = uniqueAddress
 //                currentAccessedContent.chapterParent = navTitle
 //                currentAccessedContent.date = Date()
-//                realm.add(currentAccessedContent)
+//                realm!.add(currentAccessedContent)
 //
 //                content.isHistory = true // This statement is useless unless I also change the variable when content is history gets refreshed
 //            } else {
@@ -148,7 +149,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             "page": (uniqueAddress ) as String,
         ])
         
-        if let currentSettings = realm.object(ofType: UserSettings.self, forPrimaryKey: "savedSettings"){
+        if let currentSettings = realm!.object(ofType: UserSettings.self, forPrimaryKey: "savedSettings"){
             // Assign the older entry to the current variable
             userSettings = currentSettings
             fontNumber = userSettings.fontSize
@@ -161,54 +162,125 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        // Realm
-        try! realm.write
-        {
-            // Should only add a new entry if this entry is not already added there
-            if let currentContent = realm.object(ofType:ContentPage.self, forPrimaryKey: uniqueAddress){
-                currentContent.lastOpened = Date()
-                currentContent.openedTimes += 1
-                // Assign the older entry to the current variable
-                content = currentContent
-            } else {
-                content = ContentPage()
-                content.name = titlelabel
-                content.url = uniqueAddress
-                content.chapterParent = navTitle
-                content.lastOpened = Date()
-                content.openedTimes += 1
-                // Add it to Realm
-                realm.add(content)
+        if let currentContent = realm!.object(ofType:ContentPage.self, forPrimaryKey: uniqueAddress){
+            RealmHelper.sharedInstance.update(currentContent, properties: [
+                "lastOpened": Date(),
+                "openedTimes": currentContent.openedTimes+1
+            ]) { [weak self] updated in
+                self!.content = currentContent
             }
             
-            // Save recently viewed chapters list
-            let lastAccessed = realm.objects(ContentAccess.self)
-            // This determines the buffer that we are allowing
-            if lastAccessed.count > 7 {
-                realm.delete(lastAccessed[0])
-            }
-
-            // Save history
-            if lastAccessed.filter("url == '\(content.url)'").count == 0 {
-                print("Thinks history is false")
-                let currentAccessedContent = ContentAccess()
-                currentAccessedContent.name = titlelabel
-                currentAccessedContent.url = uniqueAddress
-                currentAccessedContent.chapterParent = navTitle
-                currentAccessedContent.date = Date()
-                realm.add(currentAccessedContent)
-                
-                content.isHistory = true // This statement is useless unless I also change the variable when content is history gets refreshed
-            } else {
-                // Should move entry to the top of the history list...
-                let newAccessed = lastAccessed.filter("url == '\(content.url)'")
-                newAccessed[0].date = Date()
+        } else {
+            content = ContentPage()
+            content.name = titlelabel
+            content.url = uniqueAddress
+            content.chapterParent = navTitle
+            content.lastOpened = Date()
+            content.openedTimes += 1
+            // Add it to Realm
+//            try! realm.write
+//                    {
+//            realm.add(content)
+//                    }
+            RealmHelper.sharedInstance.save(content) { saved in
+                //
             }
         }
+        
+        // Save recently viewed chapters list
+        let lastAccessed  = realm!.objects(ContentAccess.self)
+        // This determines the buffer that we are allowing
+        if lastAccessed.count > 7 {
+            RealmHelper.sharedInstance.delete(lastAccessed[0]) { deleted in
+                //
+            }
+        }
+        
+        
+        // Save history
+        if lastAccessed.filter("url == '\(content.url)'").count == 0 {
+            print("Thinks history is false")
+            let currentAccessedContent = ContentAccess()
+            currentAccessedContent.name = titlelabel
+            currentAccessedContent.url = uniqueAddress
+            currentAccessedContent.chapterParent = navTitle
+            currentAccessedContent.date = Date()
+            RealmHelper.sharedInstance.save(currentAccessedContent) { [weak self] saved in
+                //
+                RealmHelper.sharedInstance.update(self!.content, properties: [
+                    "isHistory": true
+                ]) { [weak self] updated in
+                    //
+                }
+            }
+            
+//            content.isHistory = true // This statement is useless unless I also change the variable when content is history gets refreshed
+        } else {
+            // Should move entry to the top of the history list...
+            let newAccessed = lastAccessed.filter("url == '\(content.url)'")
+            RealmHelper.sharedInstance.update(newAccessed[0], properties: [
+                "date": Date()
+            ]) { [weak self] updated in
+                //
+            }
+            
+        }
+        
         
         if content.favorite == true {
             favoriteIcon.setBackgroundImage(UIImage(systemName: "star.fill"), for: .normal)
         }
+        
+        
+       
+        // Realm
+//        try! realm!.write
+//        {
+//            // Should only add a new entry if this entry is not already added there
+//            if let currentContent = RealmHelper.sharedInstance.mainRealm()!.object(ofType:ContentPage.self, forPrimaryKey: uniqueAddress){
+//                currentContent.lastOpened = Date()
+//                currentContent.openedTimes += 1
+//                // Assign the older entry to the current variable
+//                content = currentContent
+//            } else {
+//                content = ContentPage()
+//                content.name = titlelabel
+//                content.url = uniqueAddress
+//                content.chapterParent = navTitle
+//                content.lastOpened = Date()
+//                content.openedTimes += 1
+//                // Add it to Realm
+//                realm!.add(content)
+//            }
+//
+//            // Save recently viewed chapters list
+//            let lastAccessed = realm!.objects(ContentAccess.self)
+//            // This determines the buffer that we are allowing
+//            if lastAccessed.count > 7 {
+//                realm!.delete(lastAccessed[0])
+//            }
+//
+//            // Save history
+//            if lastAccessed.filter("url == '\(content.url)'").count == 0 {
+//                print("Thinks history is false")
+//                let currentAccessedContent = ContentAccess()
+//                currentAccessedContent.name = titlelabel
+//                currentAccessedContent.url = uniqueAddress
+//                currentAccessedContent.chapterParent = navTitle
+//                currentAccessedContent.date = Date()
+//                realm!.add(currentAccessedContent)
+//
+//                content.isHistory = true // This statement is useless unless I also change the variable when content is history gets refreshed
+//            } else {
+//                // Should move entry to the top of the history list...
+//                let newAccessed = lastAccessed.filter("url == '\(content.url)'")
+//                newAccessed[0].date = Date()
+//            }
+//        }
+//
+//        if content.favorite == true {
+//            favoriteIcon.setBackgroundImage(UIImage(systemName: "star.fill"), for: .normal)
+//        }
         
         // Load table if there are notes saved for this chapter
 //        if content.notes.count > 0 {
@@ -420,6 +492,8 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         shareLink.shorten { [weak self] url, warnings, error in
             if let error = error {
                 print("Got an error shortening the dynamic link \(error)")
+                // If for any reason the link shortening doesn't work, then send the long link URL
+                self?.shareChapter(url: longURL)
                 return
             }
 
@@ -463,7 +537,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             webView.evaluateJavaScript(jsString2, completionHandler: nil)
             webView.evaluateJavaScript(js3, completionHandler: nil)
             
-            let textSize = fontNumber > 75 ? fontNumber : 100
+            let textSize = fontNumber >= 75 ? fontNumber : 100
             let javascript = "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '\(textSize)%'"
             webView.evaluateJavaScript(javascript) { (response, error) in
                 print()
@@ -607,7 +681,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     // Missing the Edit note function which can come here
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if let pickedNote = realm.object(ofType: Notes.self, forPrimaryKey: content.notes[content.notes.count-1-indexPath.row].id){
+        if let pickedNote   = realm!.object(ofType: Notes.self, forPrimaryKey: content.notes[content.notes.count-1-indexPath.row].id){
             
             openNoteWindow(noteChosen: pickedNote)
         }
@@ -624,12 +698,18 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         
         if editingStyle == .delete
          {
-            try! realm.write
-            {
-                if let contentDatabase = realm.object(ofType: Notes.self, forPrimaryKey: content.notes[content.notes.count-1-indexPath.row].id){
-                    realm.delete(contentDatabase)
+            if let contentDatabase   = realm!.object(ofType: Notes.self, forPrimaryKey: content.notes[content.notes.count-1-indexPath.row].id){
+                RealmHelper.sharedInstance.delete(contentDatabase) { deleted in
+                    //
                 }
             }
+            
+//            try! realm!.write
+//            {
+//                if let contentDatabase = realm!.object(ofType: Notes.self, forPrimaryKey: content.notes[content.notes.count-1-indexPath.row].id){
+//                    realm!.delete(contentDatabase)
+//                }
+//            }
             
             self.tableView.deleteRows(at: [indexPath], with: .fade)
             expandNotes(tableButton,expand: true)
@@ -671,14 +751,23 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     //--------------------------------------------------------------------------------------------------
     func didSaveName( _ name: String)
     {
-        let realm = try! Realm()
+//         let realm = try! Realm()
         
-        try! realm.write
-        {
-            content.favoriteName = name
-            content.favorite = true
-            favoriteIcon.setBackgroundImage(UIImage(systemName: "star.fill"), for: .normal)
+        
+        RealmHelper.sharedInstance.update(content, properties: [
+            "favoriteName": name,
+            "favorite": true
+        ]) { [weak self] updated in
+            //
+            self?.favoriteIcon.setBackgroundImage(UIImage(systemName: "star.fill"), for: .normal)
         }
+            
+//        try! realm.write
+//        {
+//            content.favoriteName = name
+//            content.favorite = true
+//            favoriteIcon.setBackgroundImage(UIImage(systemName: "star.fill"), for: .normal)
+//        }
         
         Analytics.logEvent("bookmark", parameters: [
             "bookmark": (uniqueAddress ) as String,
@@ -688,14 +777,22 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     //--------------------------------------------------------------------------------------------------
     func didRemoveFavorite( )
     {
-        let realm = try! Realm()
+        // let realm = try! Realm() Realm()
         
-        try! realm.write
-        {
-            content.favoriteName = ""
-            content.favorite = false
-            favoriteIcon.setBackgroundImage(UIImage(systemName: "star"), for: .normal)
+        RealmHelper.sharedInstance.update(content, properties: [
+            "favoriteName": "",
+            "favorite": false
+        ]) { [weak self] updated in
+            //
+            self?.favoriteIcon.setBackgroundImage(UIImage(systemName: "star"), for: .normal)
         }
+        
+//        try!  realm!.write
+//        {
+//            content.favoriteName = ""
+//            content.favorite = false
+//            favoriteIcon.setBackgroundImage(UIImage(systemName: "star"), for: .normal)
+//        }
     }
     
     //--------------------------------------------------------------------------------------------------
@@ -704,26 +801,52 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         
         let formatter = DateFormatter()
         formatter.dateFormat = "MM-dd-YYYY"
-        let realm = try! Realm()
+        // let realm = try! Realm()
         
-        try! realm.write
-        {
-            note.lastEdited = formatter.string(from: Date())
-            note.subChapterName = titlelabel
-            
-            if !note.savedToRealm
-            {
-                note.subChapterURL = uniqueAddress
-                note.savedToRealm = true
-                // Add new entry to Realm
-                realm.add(note)
-                // Save to the chapter
-                content.notes.append(note)
-                expandNotes(tableButton,expand: true)
+        if !note.savedToRealm {
+            RealmHelper.sharedInstance.update(note, properties: [
+                "subChapterURL": uniqueAddress!,
+                "savedToRealm": true,
+                "lastEdited": formatter.string(from: Date()),
+                "subChapterName": titlelabel
+            ]) { updated in
+                //
+                RealmHelper.sharedInstance.appendNote(self.content, property: self.content.notes, itemToAppend: self.note) { appended in
+                        //
+                    print("appended the note properly?")
+                }
             }
-            // Add the content changes necessary to the tableview or refresh it if necessary, though I could maybe do this in another view and just throw it on top of this one, much like the protocols in HomeTown
-            
+        } else {
+            RealmHelper.sharedInstance.update(note, properties: [
+                "lastEdited": formatter.string(from: Date()),
+                "subChapterName": titlelabel
+            ]) { updated in
+                //
+            }
         }
+
+//        content.notes.append(note)
+        expandNotes(self.tableButton,expand: true)
+        
+        
+//        try! realm!.write
+//        {
+//            note.lastEdited = formatter.string(from: Date())
+//            note.subChapterName = titlelabel
+//
+//            if !note.savedToRealm
+//            {
+//                note.subChapterURL = uniqueAddress
+//                note.savedToRealm = true
+//                // Add new entry to Realm
+//                realm!.add(note)
+//                // Save to the chapter
+//                content.notes.append(note)
+//                expandNotes(tableButton,expand: true)
+//            }
+//            // Add the content changes necessary to the tableview or refresh it if necessary, though I could maybe do this in another view and just throw it on top of this one, much like the protocols in HomeTown
+//
+//        }
         if content.notes.count == 1  {
             loadTable()
             tableView.reloadData()
@@ -735,12 +858,15 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     //--------------------------------------------------------------------------------------------------
     func didDeleteNote(_ note: Notes )
     {
-        let realm = try! Realm()
-        
-        try! realm.write
-        {
-            realm.delete(note)
+//        // let realm = try! Realm() Realm()
+        RealmHelper.sharedInstance.delete(note) { deleted in
+            //
         }
+        
+//        try!  realm!.write
+//        {
+//            realm!.delete(note)
+//        }
         if content.notes.count > 0 {
             tableView.reloadData()
             expandNotes(tableButton,expand: true)

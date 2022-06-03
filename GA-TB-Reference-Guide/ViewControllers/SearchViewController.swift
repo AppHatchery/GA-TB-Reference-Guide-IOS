@@ -8,6 +8,7 @@
 import UIKit
 import Foundation
 import FirebaseAnalytics
+import Pendo
 
 class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
     
@@ -184,6 +185,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         Analytics.logEvent("search", parameters: [
             "search": (searchTerm ) as String,
         ])
+        
+        PendoManager.shared().track("search", properties: ["searchTerm":searchTerm, "selectedResult":chapterIndex.subChapterNames[indexPath.row]])
         
         performSegue( withIdentifier: "SegueToWebViewViewController", sender: nil )
     }

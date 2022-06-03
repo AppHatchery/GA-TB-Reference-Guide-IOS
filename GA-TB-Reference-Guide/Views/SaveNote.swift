@@ -39,7 +39,7 @@ class SaveNote: UIView {
     var highlightedColor: UIView!
     var colorTags = [UIColor]()
     var colorTagChosen = 0
-    let realm = try! Realm()
+    let realm = RealmHelper.sharedInstance.mainRealm()
 
     //------------------------------------------------------------------------------
     init( frame: CGRect, content: ContentPage, oldNote: Notes, delegate: SaveNoteDelegate )
@@ -143,11 +143,17 @@ class SaveNote: UIView {
             self.contentView.transform = CGAffineTransform( scaleX: 0.001, y: 0.001 )
         }, completion: { (value: Bool) in
             // Realm
-            try! self.realm.write
-            {
-                self.note.content = self.noteField.text
-                self.note.colorTag = self.colorTagChosen
+            RealmHelper.sharedInstance.update(self.note, properties: [
+                "content":self.noteField.text!,
+                "colorTag":self.colorTagChosen
+            ]) { updated in
+                //
             }
+//            try! self.realm!.write
+//            {
+//                self.note.content = self.noteField.text
+//                self.note.colorTag = self.colorTagChosen
+//            }
             self.delegate.didSaveNote(self.note)
             self.removeFromSuperview()
         })

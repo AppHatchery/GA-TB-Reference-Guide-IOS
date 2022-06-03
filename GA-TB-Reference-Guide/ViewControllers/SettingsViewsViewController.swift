@@ -23,7 +23,7 @@ class SettingsViewsViewController: UIViewController, WKUIDelegate, WKNavigationD
     
     var fontSizeLabel: String = "Regular"
     var fontNumber: Int = 100
-    let realm = try! Realm()
+    let realm = RealmHelper.sharedInstance.mainRealm()
     var userSettings : UserSettings!
     
     override func viewDidLoad() {
@@ -51,10 +51,22 @@ class SettingsViewsViewController: UIViewController, WKUIDelegate, WKNavigationD
         
         webView.load( URLRequest( url: url ))
         
-        if let currentSettings = realm.object(ofType: UserSettings.self, forPrimaryKey: "savedSettings"){
+        if let currentSettings = realm!.object(ofType: UserSettings.self, forPrimaryKey: "savedSettings"){
             // Assign the older entry to the current variable
             userSettings = currentSettings
             sliderControl(state: userSettings.fontSize)
+        } else {
+            // Remake the font size if it doesn't exist: This is exclusively for instances where the user deletes it
+            userSettings = UserSettings()
+            // Add it to Realm
+//            let realm = try! Realm()
+            RealmHelper.sharedInstance.save(userSettings) { saved in
+                //
+            }
+//            try! realm!.write {
+//                realm!.add(userSettings)
+//            }
+            sliderControl(state: 100)
         }
         
         switch UIDevice.current.userInterfaceIdiom {
@@ -127,9 +139,15 @@ class SettingsViewsViewController: UIViewController, WKUIDelegate, WKNavigationD
             }
         }
         
-        try! realm.write {
-            userSettings.fontSize = fontNumber
+        RealmHelper.sharedInstance.update(userSettings, properties: [
+            "fontSize":fontNumber
+        ]) { updated in
+            //
         }
+        
+//        try! realm!.write {
+//            userSettings.fontSize = fontNumber
+//        }
         webView.reload()
         
     }

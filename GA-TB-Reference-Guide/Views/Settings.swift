@@ -18,7 +18,7 @@ class Settings: UIView {
     @IBOutlet weak var toggleNotifications: UISwitch!
     
     var contentViewTopConstraint: NSLayoutConstraint!
-    let realm = try! Realm()
+    let realm = RealmHelper.sharedInstance.mainRealm()
     var userSettings: UserSettings!
 
     //------------------------------------------------------------------------------
@@ -53,10 +53,11 @@ class Settings: UIView {
         nibView.bottomAnchor.constraint( equalTo: self.bottomAnchor ).isActive = true
         
         // Realm
-        try! realm.write
-        {
+        
+//        try! realm!.write
+//        {
             // Should only add a new entry if this entry is not already added there
-            if let currentSettings = realm.object(ofType: UserSettings.self, forPrimaryKey: "savedSettings"){
+            if let currentSettings = realm!.object(ofType: UserSettings.self, forPrimaryKey: "savedSettings"){
                 toggleNotifications.setOn(currentSettings.pushNotifications, animated: false)
                 // Assign the older entry to the current variable
                 userSettings = currentSettings
@@ -64,9 +65,12 @@ class Settings: UIView {
             } else {
                 userSettings = UserSettings()
                 // Add it to Realm
-                realm.add(userSettings)
+                RealmHelper.sharedInstance.save(userSettings) { saved in
+                    //
+                }
+//                realm!.add(userSettings)
             }
-        }
+//        }
     }
 
 }

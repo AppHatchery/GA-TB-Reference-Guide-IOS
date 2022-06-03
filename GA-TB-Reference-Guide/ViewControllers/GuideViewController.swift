@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 import FirebaseDynamicLinks
 
 class GuideViewController: UIViewController, UISearchBarDelegate {
@@ -18,7 +19,6 @@ class GuideViewController: UIViewController, UISearchBarDelegate {
     @IBOutlet weak var contentView: UIView!
     var scrollView: UIScrollView!
     var guideView: Guide!
-    
     var url: URL!
     var header: String!
     

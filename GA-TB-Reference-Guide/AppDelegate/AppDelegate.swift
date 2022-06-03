@@ -33,16 +33,69 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
              accountData: [:]
          )
         
+        // Only open this database if the new one is empty, otherwise ignore it
+//        let realm = OldRealmFile.sharedInstance.mainRealm()
+//        print("Tis is the old realm",realm?.objects(ContentPage.self))
+        // My guess is this is triggering in the background from time to time and causing the app to launch and sometimes crash because it can't get the encryption properly, but clearly the rest of the documentation is there. Maybe the solution is to hide the failed opened state. Although something similar was failing on the previous version of the Realm architecture so maybe it just didn't get fixed with this change.
+        let newrealm = RealmHelper.sharedInstance.mainRealm()
+        
+        if newrealm!.isEmpty {
+            let realm = OldRealmFile.sharedInstance.mainRealm()
+            // If the old realm is empty then don't go through this code
+            if (!realm!.isEmpty){
+                try! newrealm?.write({
+                    // Would unwrapping this option make the application crash??
+                    if let contentRealm = realm?.objects(ContentPage.self){
+                        for object in contentRealm{
+                            newrealm?.create(ContentPage.self, value: object, update: .modified)
+                        }
+                    }
+                    if let accessedRealm = realm?.objects(ContentAccess.self){
+                        for object in accessedRealm{
+                            newrealm?.create(ContentAccess.self, value: object, update: .modified)
+                        }
+                    }
+                    if let notesRealm = realm?.objects(Notes.self){
+                        for object in notesRealm{
+                            newrealm?.create(Notes.self, value: object, update: .modified)
+                        }
+                    }
+                    
+                    if let settingsRealm = realm?.objects(UserSettings.self){
+                        for object in settingsRealm{
+                            newrealm?.create(UserSettings.self, value: object, update: .modified)
+                        }
+                    }
+                })
+                try! realm?.write({
+                    realm?.deleteAll()
+                })
+                
+            }
+        } else {
+            print("the database is already full of content from the past database!")
+//            try! newrealm?.write({
+//                newrealm?.deleteAll()
+//            })
+        }
+        
+        
+//        print("Tis is the new realm yo (pages)!",newrealm?.objects(ContentPage.self))
+//        print("Tis is the old realm after deleting supposedly",realm?.objects(ContentPage.self))
+//        print("Tis is the new realm yo (content history)!",newrealm?.objects(ContentAccess.self))
+//        print("Tis is the new realm yo (notes)!",newrealm?.objects(Notes.self))
+        
+        /*
         // Setting up Realm
         
         // Schema version represents the version of the database being used
         let schemaVersion: UInt64 = 2 //1 //0
-                
+
         var config = Realm.Configuration()
         config.schemaVersion = schemaVersion
         config.encryptionKey = getKey()
         config.migrationBlock = { migration, oldSchemaVersion in
-
+//
             if (oldSchemaVersion < schemaVersion)
             {
                 // New props are not initialized with their default values, so we manually init them here, like this:
@@ -54,9 +107,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print( "migration complete!" )
             }
         }
-        
+
         Realm.Configuration.defaultConfiguration = config
-        
+        */
         FirebaseApp.configure()
         
 //        if #available(iOS 15, *) {
@@ -84,45 +137,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
+    /*
     //--------------------------------------------------------------------------------------------------
     func getKey() -> Data
     {
         // Identifier for our keychain entry - should be unique for your application
-        
+
         let keychainIdentifier = "Emory.GA-TB-Reference-Guide.key"
         let keychainIdentifierData = keychainIdentifier.data(using: String.Encoding.utf8, allowLossyConversion: false)!
-        
+
         // First check in the keychain for an existing key
-        
+
         var query: [NSString: AnyObject] = [
             kSecClass: kSecClassKey,
             kSecAttrApplicationTag: keychainIdentifierData as AnyObject,
             kSecAttrKeySizeInBits: 512 as AnyObject,
             kSecReturnData: true as AnyObject
         ]
-        
+
         // To avoid Swift optimization bug, should use withUnsafeMutablePointer() function to retrieve the keychain item
         // See also: http://stackoverflow.com/questions/24145838/querying-ios-keychain-using-swift/27721328#27721328
-        
+
         var dataTypeRef: AnyObject?
         var status = withUnsafeMutablePointer(to: &dataTypeRef) { SecItemCopyMatching(query as CFDictionary, UnsafeMutablePointer($0)) }
-        
+
         if status == errSecSuccess
         {
             // swiftlint:disable:next force_cast
             return dataTypeRef as! Data
         }
-        
+
         // No pre-existing key from this application, so generate a new one
         // Generate a random encryption key
-        
+
         var key = Data(count: 64)
-        
+
         key.withUnsafeMutableBytes({ (pointer: UnsafeMutableRawBufferPointer) in
             let result = SecRandomCopyBytes(kSecRandomDefault, 64, pointer.baseAddress!)
             assert(result == 0, "Failed to get random bytes")
         })
-        
+
         // Store the key in the keychain
         query = [
             kSecClass: kSecClassKey,
@@ -130,11 +184,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             kSecAttrKeySizeInBits: 512 as AnyObject,
             kSecValueData: key as AnyObject
         ]
-        
+
         status = SecItemAdd(query as CFDictionary, nil)
+        if status != errSecSuccess {
+            fatalError("The encryption key could not be saved in the keychain") // you should throw an error or return nil so this can fail gracefully
+            // Added here from https://github.com/realm/realm-swift/issues/5615 as a way to test if the encryption fails the first time a user accesses it
+        }
         assert(status == errSecSuccess, "Failed to insert the new key in the keychain")
-        
+
         return key
+    }
+    */
+    //--------------------------------------------------------------------------------------------------
+    // Adding this for 1.5 release bringing in from HomeTown
+    func deleteRealm()
+    {
+        let realmURL = Realm.Configuration.defaultConfiguration.fileURL!
+        
+        let realmURLs = [
+            realmURL,
+            realmURL.appendingPathExtension("lock"),
+            realmURL.appendingPathExtension("note"),
+            realmURL.appendingPathExtension("management")
+        ]
+        
+        for URL in realmURLs
+        {
+            do
+            {
+                try FileManager.default.removeItem(at: URL)
+            }
+            catch
+            {
+                print( error )
+            }
+        }
     }
     
     //--------------------------------------------------------------------------------------------------

@@ -23,7 +23,8 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
     var isGradientAdded: Bool = false
     
     // Initialize the Realm database
-    let realm = try! Realm()
+//    let realm = try! Realm()
+    let realm = RealmHelper.sharedInstance.mainRealm()
     var content : ContentPage!
     
     var favoriteURLs = [String]()
@@ -112,7 +113,7 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         notesColors = [Int]()
         notesTitles = [String]()
                 
-        let contentDatabase = realm.objects(ContentPage.self)
+        let contentDatabase =  realm!.objects(ContentPage.self)
         for content in contentDatabase{
             if content.favorite == true {
                 favoriteURLs.append(content.url)
@@ -122,7 +123,7 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }
         }
         
-        let historyDatabase = realm.objects(ContentAccess.self).sorted(byKeyPath: "date",ascending: false)
+        let historyDatabase =  realm!.objects(ContentAccess.self).sorted(byKeyPath: "date",ascending: false)
         for content in historyDatabase{
             historyURLs.append(content.url)
             historyNames.append(content.name)
@@ -130,7 +131,7 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         
         // Should address the order in which the notes load up because it looks like it follows the last note clicked model rather than appending to the database linearly
-        let notesDatabase = realm.objects(Notes.self)
+        let notesDatabase =  realm!.objects(Notes.self)
         for content in notesDatabase{
             notesURLs.append(content.subChapterURL)
             notesTitles.append(content.subChapterName)
@@ -220,34 +221,69 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete
          {
-            try! realm.write
-            {
-                if isFavorite {
-                    if let contentDatabase = realm.object(ofType: ContentPage.self, forPrimaryKey: favoriteURLs[indexPath.row]){
-                        contentDatabase.favorite = false
-                        contentDatabase.favoriteName = ""
+            
+            if isFavorite {
+                if let contentDatabase =  realm!.object(ofType: ContentPage.self, forPrimaryKey: favoriteURLs[indexPath.row]){
+                    RealmHelper.sharedInstance.update(contentDatabase, properties: [
+                        "favorite": false,
+                        "favoriteName": ""
+                    ]) { updated in
+                        //
+                        self.favoriteURLs.remove(at: indexPath.row)
+                        self.favoriteNames.remove(at: indexPath.row)
+                        self.favoriteSubChapters.remove(at: indexPath.row)
+                        self.favoriteChapters.remove(at: indexPath.row)
                     }
-                    favoriteURLs.remove(at: indexPath.row)
-                    favoriteNames.remove(at: indexPath.row)
-                    favoriteSubChapters.remove(at: indexPath.row)
-                    favoriteChapters.remove(at: indexPath.row)
-                } else if isLastOpened {
-                    let historyDatabase = realm.objects(ContentAccess.self).filter("url == '\(historyURLs[indexPath.row])'")
-                    realm.delete(historyDatabase)
-                    
-                    historyNames.remove(at: indexPath.row)
-                    historyURLs.remove(at: indexPath.row)
-                    historyChapters.remove(at: indexPath.row)
-                } else if isNotes {
-                    let notesDatabase = realm.objects(Notes.self)
-                    realm.delete(notesDatabase[indexPath.row])
-                    
-                    notesContent.remove(at: indexPath.row)
-                    notesURLs.remove(at: indexPath.row)
-                    notesLastEdit.remove(at: indexPath.row)
-                    notesColors.remove(at: indexPath.row)
+                }
+            } else if isLastOpened {
+                let historyDatabase =  realm!.objects(ContentAccess.self).filter("url == '\(historyURLs[indexPath.row])'")
+                for entry in historyDatabase {
+                    RealmHelper.sharedInstance.delete(entry) { deleted in
+                        //
+                    }
+                }
+                historyNames.remove(at: indexPath.row)
+                historyURLs.remove(at: indexPath.row)
+                historyChapters.remove(at: indexPath.row)
+            } else if isNotes {
+                let notesDatabase =  realm!.objects(Notes.self)
+                RealmHelper.sharedInstance.delete(notesDatabase[indexPath.row]) { deleted in
+                    //
+                    self.notesContent.remove(at: indexPath.row)
+                    self.notesURLs.remove(at: indexPath.row)
+                    self.notesLastEdit.remove(at: indexPath.row)
+                    self.notesColors.remove(at: indexPath.row)
                 }
             }
+            
+//            try! realm!.write
+//            {
+//                if isFavorite {
+//                    if let contentDatabase = realm!.object(ofType: ContentPage.self, forPrimaryKey: favoriteURLs[indexPath.row]){
+//                        contentDatabase.favorite = false
+//                        contentDatabase.favoriteName = ""
+//                    }
+//                    favoriteURLs.remove(at: indexPath.row)
+//                    favoriteNames.remove(at: indexPath.row)
+//                    favoriteSubChapters.remove(at: indexPath.row)
+//                    favoriteChapters.remove(at: indexPath.row)
+//                } else if isLastOpened {
+//                    let historyDatabase = realm!.objects(ContentAccess.self).filter("url == '\(historyURLs[indexPath.row])'")
+//                    realm!.delete(historyDatabase)
+//
+//                    historyNames.remove(at: indexPath.row)
+//                    historyURLs.remove(at: indexPath.row)
+//                    historyChapters.remove(at: indexPath.row)
+//                } else if isNotes {
+//                    let notesDatabase = realm!.objects(Notes.self)
+//                    realm!.delete(notesDatabase[indexPath.row])
+//
+//                    notesContent.remove(at: indexPath.row)
+//                    notesURLs.remove(at: indexPath.row)
+//                    notesLastEdit.remove(at: indexPath.row)
+//                    notesColors.remove(at: indexPath.row)
+//                }
+//            }
             
             self.tableView.deleteRows(at: [indexPath], with: .fade)
          }

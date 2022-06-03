@@ -19,7 +19,7 @@ class SettingsViewController: UIViewController {
     var url: URL!
     var header: String!
     var bottomAnchor: CGFloat!
-    let realm = try! Realm()
+    let realm = RealmHelper.sharedInstance.mainRealm()
     var userSettings: UserSettings!
             
     override func viewDidLoad() {
@@ -55,7 +55,7 @@ class SettingsViewController: UIViewController {
             scrollView.addSubview(settingsView)
                     
             scrollView.contentSize = CGSize(width: contentView.frame.width, height: 700)
-            if let currentSettings = realm.object(ofType: UserSettings.self, forPrimaryKey: "savedSettings"){
+            if let currentSettings = realm!.object(ofType: UserSettings.self, forPrimaryKey: "savedSettings"){
                 // Assign the older entry to the current variable
                 userSettings = currentSettings
             }
@@ -96,14 +96,24 @@ class SettingsViewController: UIViewController {
     }
     
     @IBAction func toggleNotifications(_ sender: UISwitch){
-        try! realm.write {
-            userSettings.pushNotifications = sender.isOn
+        RealmHelper.sharedInstance.update(userSettings, properties:[
+            "pushNotifications": sender.isOn
+        ]) { updated in
+            //
             if sender.isOn {
                 print("notifications are on")
             } else {
                 print("notifications are off")
             }
         }
+//        try! realm!.write {
+//            userSettings.pushNotifications = sender.isOn
+//            if sender.isOn {
+//                print("notifications are on")
+//            } else {
+//                print("notifications are off")
+//            }
+//        }
     }
     
     // Toggle Light/Dark Mode, but need to reset to default state too so probably need to move to the next view controller
@@ -119,53 +129,14 @@ class SettingsViewController: UIViewController {
 //        }
 //    }
     
-    @IBAction func tapDynamicLink(_ sender: UIButton){
-        var components = URLComponents()
-        components.scheme = "https"
-        components.host = "www.example.com"
-        components.path = "/chapters"
-        
-        let chapterIDQueryItem = URLQueryItem(name: "chapterID", value: "1")
-        components.queryItems = [chapterIDQueryItem]
-        
-        guard let linkParameter = components.url else { return }
-        print("The long URL is: \(linkParameter)")
-        
-        guard let shareLink = DynamicLinkComponents.init(link: linkParameter, domainURIPrefix: "https://reciperally.page.link") else {
-            print("Couldn't create link")
-            return
-        }
-        
-        if let myBundleID = Bundle.main.bundleIdentifier {
-            shareLink.iOSParameters = DynamicLinkIOSParameters(bundleID: myBundleID)
-        }
-        shareLink.iOSParameters?.appStoreID = "962194608"
-        
-        shareLink.androidParameters = DynamicLinkAndroidParameters(packageName: "com.example.android")
-//        let dynamicLinksDomainURIPrefix = "https://reciperally.page.link"
-//        let linkBuilder = DynamicLinkComponents.init(link: link, domainURIPrefix: dynamicLinksDomainURIPrefix)
-//
-//        if let myBundleID = Bundle.main.bundleIdentifier {
-//            linkBuilder?.iOSParameters = DynamicLinkIOSParameters(bundleID: myBundleID)
-//        }
-//
-//        linkBuilder?.iOSParameters?.appStoreID = "962194608"
-//
-//        linkBuilder?.androidParameters = DynamicLinkAndroidParameters(packageName: "com.example.android")
-//
-//        guard let longDynamicLink = linkBuilder?.url else { return }
-//        print("The long URL is: \(longDynamicLink)")
-
-    }
-    
     @IBAction func tapReset(_ sender: UIButton){
         let alertDelete = UIAlertController(title: "Attention", message: "This will permanently reset the app to factory settings. Are you sure you want to proceed?", preferredStyle: .alert)
-        alertDelete.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction!) in
+        alertDelete.addAction(UIAlertAction(title: "Yes", style: .default, handler: { [self] (action: UIAlertAction!) in
             // Delete the realm contents
             // Check Android: If a user has a webview opened and favorited the app will crash when they go back to that screen because the realm object has been delete
-            let realm = try! Realm()
-            try! realm.write {
-              realm.deleteAll()
+//            let realm = try! Realm()
+            try! realm!.write {
+                realm!.deleteAll()
             }
         }))
         alertDelete.addAction(UIAlertAction(title: "No", style: .cancel, handler: { (action: UIAlertAction!) in
