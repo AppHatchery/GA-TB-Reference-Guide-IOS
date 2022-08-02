@@ -25,6 +25,7 @@ class GuideViewController: UIViewController, UISearchBarDelegate {
     var quickTitle = ""
     var quickPointer = 0
     
+    let shared = ChapterIndex.shared
     let bible = ChapterIndex()
     
     var isGradientAdded: Bool = false
@@ -62,6 +63,10 @@ class GuideViewController: UIViewController, UISearchBarDelegate {
                 
         navigationController?.navigationBar.setGradientBackground(to: self.navigationController!)
         self.navigationController?.navigationBar.shadowImage = UIImage()
+        
+        
+
+        
         
 //        searchView.setGradientBackground()
         // Register for `UIContentSizeCategory.didChangeNotification`

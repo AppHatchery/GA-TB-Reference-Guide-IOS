@@ -36,7 +36,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     let realm = try! Realm()
     var content : ContentPage!
     var note : Notes!
-    var chapterIndex = ChapterIndex()
+    var chapterIndex = ChapterIndex.shared
             
     var tableView: UITableView = ContentSizedTableView()
     var tableViewCells: [Int : UITableViewCell] = [:]
@@ -78,7 +78,9 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(tapGlobalSearch))
                 
         titleLabel.text = titlelabel
-        dateLabel.text = "Updated \( Array(chapterIndex.updateDates.joined())[Array(chapterIndex.chapterCode.joined()).firstIndex(of: uniqueAddress) ?? 0])"
+        
+        let index = Array(chapterIndex.chapterCode.joined()).firstIndex(of: uniqueAddress) ?? 0
+        dateLabel.text = "Updated \( Array(chapterIndex.updateDates.joined())[index])"
         
         contentView.topAnchor.constraint(equalTo: pseudoseparator.bottomAnchor, constant: 5).isActive = true
         

@@ -59,6 +59,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
+        if let current = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String?, current.compare(lastChapterIndexUpdate, options: .numeric) == .orderedDescending {
+            ChapterIndex.shared.updateDates = fetchDateFromJSON()
+        }
+
+
+        
+        
+        
 //        if #available(iOS 15, *) {
 //            print("skip to appDidBecomeActive")
 //        } else {
@@ -68,6 +76,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        }
         
         return true
+    }
+    
+    
+    func fetchDateFromJSON() -> [[String]] {
+        guard let subchapterURL = Bundle.main.url(forResource: "subchapter", withExtension: "json") else {
+            print("err: accessing json")
+            return []
+        }
+        
+        do {
+            let data = try Data(contentsOf: subchapterURL)
+            let decoder = JSONDecoder()
+            if let subchapters = try? decoder.decode([Subchapter].self, from: data) {
+                let dict = Dictionary(grouping: subchapters, by: {$0.chapterId}).sorted {$0.key < $1.key}
+                let arr = dict.map({$0.value}).map{$0.map({$0.lastUpdated})}
+//                let arr = dict.map({$0.map({$0.lastUpdated})})
+                return arr
+            } else {
+                print("err: casting json")
+            }
+        }
+        
+        catch {
+            print("err: \(error)")
+        }
+        
+        return []
     }
 
     // MARK: UISceneSession Lifecycle
