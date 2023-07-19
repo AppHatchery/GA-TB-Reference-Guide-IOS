@@ -95,7 +95,16 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             htmlString = htmlString.replacingOccurrences(of: "<.*?>", with: "", options: .regularExpression, range: nil)
             tempHTML.append(htmlString)
         }
+        
+        
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+
+        searchView.addGestureRecognizer(tap)
+        
     }
+
+
     
     //--------------------------------------------------------------------------------------------------
     override func viewDidAppear(_ animated: Bool) {
@@ -266,6 +275,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         let boldString = NSMutableAttributedString(string: fullString as String, attributes:nonBoldFontAttribute)
         for i in 0 ..< boldPartsOfString.count {
             boldString.addAttributes(boldFontAttribute, range: fullString.range(of: boldPartsOfString[i] as String))
+            boldString.addAttribute(.backgroundColor, value: UIColor.yellow, range: fullString.range(of: boldPartsOfString[i] as String))
         }
         return boldString
     }

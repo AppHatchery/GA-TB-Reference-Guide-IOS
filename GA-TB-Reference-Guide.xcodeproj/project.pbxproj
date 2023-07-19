@@ -3,11 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		8875431A7EA3AD5B65486139 /* Pods_GA_TB_Reference_Guide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF23FEBF71C372B82094033D /* Pods_GA_TB_Reference_Guide.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		8E93CD2B2A2839480097B53C /* table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html in Resources */ = {isa = PBXBuildFile; fileRef = 8E93CD2A2A2839480097B53C /* table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html */; };
 		D42F25E826EEFA8F009DC942 /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42F25E626EEFA8F009DC942 /* NoteTableViewCell.swift */; };
 		D42F25E926EEFA8F009DC942 /* NoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D42F25E726EEFA8F009DC942 /* NoteTableViewCell.xib */; };
 		D42F263C26EF821B009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi).html in Resources */ = {isa = PBXBuildFile; fileRef = D42F25EE26EF81F8009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi).html */; };
@@ -163,7 +164,6 @@
 		D4CCBF5827C032B400E42BC9 /* abrreviation.json in Resources */ = {isa = PBXBuildFile; fileRef = D4CCBF5427C032B400E42BC9 /* abrreviation.json */; };
 		D4CCBF5927C032B400E42BC9 /* chapter.json in Resources */ = {isa = PBXBuildFile; fileRef = D4CCBF5527C032B400E42BC9 /* chapter.json */; };
 		D4CCBF5A27C032B400E42BC9 /* chart.json in Resources */ = {isa = PBXBuildFile; fileRef = D4CCBF5627C032B400E42BC9 /* chart.json */; };
-		D4D72E4C2841160200172A84 /* table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html in Resources */ = {isa = PBXBuildFile; fileRef = D4D72E4B2841160200172A84 /* table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html */; };
 		D4D72E4F284116B600172A84 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D44B84FA272701C400A5B0E9 /* GoogleService-Info.plist */; };
 		D4FD8D8E26FE47F500126B5B /* figure1.png in Resources */ = {isa = PBXBuildFile; fileRef = D4FD8D8926FE47F100126B5B /* figure1.png */; };
 		D4FD8D8F26FE47F500126B5B /* signature_susan_m_ray_m_d.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D4FD8D8A26FE47F200126B5B /* signature_susan_m_ray_m_d.jpg */; };
@@ -173,6 +173,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8E93CD2A2A2839480097B53C /* table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html; path = ../../../../../Desktop/table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html; sourceTree = "<group>"; };
 		A4E783F70550BAD2B6B83131 /* Pods-GA-TB-Reference-Guide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GA-TB-Reference-Guide.debug.xcconfig"; path = "Target Support Files/Pods-GA-TB-Reference-Guide/Pods-GA-TB-Reference-Guide.debug.xcconfig"; sourceTree = "<group>"; };
 		BF23FEBF71C372B82094033D /* Pods_GA_TB_Reference_Guide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GA_TB_Reference_Guide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D42F25E626EEFA8F009DC942 /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
@@ -331,7 +332,6 @@
 		D4CCBF5527C032B400E42BC9 /* chapter.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = chapter.json; sourceTree = "<group>"; };
 		D4CCBF5627C032B400E42BC9 /* chart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = chart.json; sourceTree = "<group>"; };
 		D4CD67B92791BC55006989F3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		D4D72E4B2841160200172A84 /* table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html; path = "../../../../../GitHub/GA-TB-Reference-Guide-Web/pages/table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html"; sourceTree = "<group>"; };
 		D4FD8D8926FE47F100126B5B /* figure1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = figure1.png; sourceTree = "<group>"; };
 		D4FD8D8A26FE47F200126B5B /* signature_susan_m_ray_m_d.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = signature_susan_m_ray_m_d.jpg; sourceTree = "<group>"; };
 		D4FD8D8B26FE47F300126B5B /* table18.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = table18.png; sourceTree = "<group>"; };
@@ -368,7 +368,7 @@
 		D42F25ED26EF81C8009DC942 /* pages */ = {
 			isa = PBXGroup;
 			children = (
-				D4D72E4B2841160200172A84 /* table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html */,
+				8E93CD2A2A2839480097B53C /* table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html */,
 				D4CCBF5127C023AB00E42BC9 /* 7_childhood_tuberculosis.html */,
 				D47A4DEB276691CA0095815A /* quote.html */,
 				D47A4DD6276686D00095815A /* about_us.html */,
@@ -724,8 +724,9 @@
 		D4B0B0A126D01CA6003BD1EA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1240;
-				LastUpgradeCheck = 1240;
+				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					D4B0B0A826D01CA6003BD1EA = {
 						CreatedOnToolsVersion = 12.4;
@@ -803,7 +804,7 @@
 				D42F263D26EF821B009DC942 /* 10_tb_infection_control_hospital_isolation_procedures__a__administrative_controls.html in Resources */,
 				D42F265226EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__d__drug_resistance.html in Resources */,
 				D4CCBF5227C023AB00E42BC9 /* 7_childhood_tuberculosis.html in Resources */,
-				D4D72E4C2841160200172A84 /* table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html in Resources */,
+				8E93CD2B2A2839480097B53C /* table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html in Resources */,
 				D42F268226EF821B009DC942 /* table_17_what_to_start_choice_of_tb_therapy_and_antiretroviral_therapy_(art)_when)treating_co-infected_patients.html in Resources */,
 				D42F267726EF821B009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi)__b__monitoring_of_patients_on_treatment_for_ltbi.html in Resources */,
 				D42F264226EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__f__tb_and_hiv.html in Resources */,
