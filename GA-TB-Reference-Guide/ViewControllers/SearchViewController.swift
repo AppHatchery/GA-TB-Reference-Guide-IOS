@@ -157,11 +157,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             let startRange = searchResults[indexPath.row].index(TSTrange?.lowerBound ?? searchResults[indexPath.row].startIndex,offsetBy: -30, limitedBy: searchResults[indexPath.row].startIndex) ?? searchResults[indexPath.row].startIndex
             let endRange = searchResults[indexPath.row].index(TSTrange?.lowerBound ?? searchResults[indexPath.row].endIndex, offsetBy: 90, limitedBy: searchResults[indexPath.row].endIndex) ?? searchResults[indexPath.row].endIndex
             cell.contentLabel.text = "..."+String(searchResults[indexPath.row][startRange..<endRange]) + "..."
-            // Bolding the specific section in the display summary
-            let boldText:NSString = searchTerm.lowercased() as NSString
-            let boldTextUp:NSString = searchTerm.uppercased() as NSString
-            let boldTextCap: NSString = searchTerm.capitalized as NSString
-            cell.contentLabel.attributedText = addBoldText(fullString: cell.contentLabel.text! as NSString, boldPartsOfString: [boldText,boldTextUp,boldTextCap])
+            let terms = searchTerm.lowercased().split(separator: " ").map({String($0) as NSString}) + [searchTerm as NSString]
+            cell.contentLabel.attributedText = addBoldText(fullString: cell.contentLabel.text! as NSString, boldPartsOfString: terms)
         } else {
             // to add here the history searches from the past - need Realm queries
             cell.subchapterLabel.text = chapterIndex.subChapterNames[indexPath.row]
@@ -274,9 +271,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         let nonBoldFontAttribute = [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 12)]
         let boldFontAttribute = [NSAttributedString.Key.font:UIFont.boldSystemFont(ofSize: 12)]
         let boldString = NSMutableAttributedString(string: fullString as String, attributes:nonBoldFontAttribute)
+        let lowercase = fullString.lowercased as NSString
         for i in 0 ..< boldPartsOfString.count {
-            boldString.addAttributes(boldFontAttribute, range: fullString.range(of: boldPartsOfString[i] as String))
-            boldString.addAttribute(.backgroundColor, value: UIColor.yellow, range: fullString.range(of: boldPartsOfString[i] as String))
+            boldString.addAttributes(boldFontAttribute, range: lowercase.range(of: boldPartsOfString[i] as String))
+            boldString.addAttribute(.backgroundColor, value: UIColor.yellow, range: lowercase.range(of: boldPartsOfString[i] as String))
         }
         return boldString
     }
