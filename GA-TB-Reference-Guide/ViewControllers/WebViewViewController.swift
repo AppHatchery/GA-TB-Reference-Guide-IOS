@@ -28,6 +28,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     var datetemporary = "Updated"
     var navTitle = ""
     var comingFromSearch = false
+    var searchTerm: String?
     var comingFromHyperLink = false
     var userSettings : UserSettings!
     var fontNumber = 100
@@ -154,7 +155,6 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             userSettings = currentSettings
             fontNumber = userSettings.fontSize
         }
-
         
         webView.load( URLRequest( url: url ))
     }
@@ -516,9 +516,40 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         present(activityVC, animated: true)
     }
     
+    
+    func highlightSearch(term: String)  {
+        
+        let terms = term.split(separator: " ").map({String($0)}) + [term]
+        
+        if let path = Bundle.main.url(forResource: "WebView", withExtension: "js") {
+            do{
+                let data:Data = try Data(contentsOf: path)
+                let jsCode:String = String(decoding: data, as: UTF8.self)
+                
+                //print( jsCode)
+                
+                //inject the search code
+                webView.evaluateJavaScript(jsCode, completionHandler: nil)
+                //search function
+                for t in terms {
+                    let searchString = "WKWebView_HighlightAllOccurencesOfString('\(t)')"
+                    //perform search
+                    webView.evaluateJavaScript(searchString, completionHandler: nil)
+                }
+                
+
+                
+            } catch {
+                print("could not load javascript:\(error)")
+
+            }
+        
+            
+        }
+    }
+    
     //--------------------------------------------------------------------------------------------------
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-                
         if let urlHeader = webView.url?.absoluteString, urlHeader.hasPrefix("file:///"){
             
             let path = Bundle.main.path(forResource: "uikit", ofType: "css")!
@@ -532,16 +563,22 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             let jsString2 = "var style2 = document.createElement('style'); style2.innerHTML = '\(cssString2)'; document.head.appendChild(style2);"
             
 //            webView.evaluateJavaScript(jsString, completionHandler: nil)
-
             let js3 = "var script2 = document.createElement('script'); script2.src = 'uikit-icons.js'; document.body.appendChild(script2);"
             webView.evaluateJavaScript(jsString2, completionHandler: nil)
             webView.evaluateJavaScript(js3, completionHandler: nil)
-            
             let textSize = fontNumber >= 75 ? fontNumber : 100
             let javascript = "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '\(textSize)%'"
             webView.evaluateJavaScript(javascript) { (response, error) in
                 print()
             }
+            
+
+            
+            if let searchTerm = searchTerm {
+                print(searchTerm)
+                highlightSearch(term: searchTerm)
+            }
+            
             
             
         } else {

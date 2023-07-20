@@ -218,7 +218,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                         searchResults = searchResults.filter { $0.lowercased().contains(doubleString[i].lowercased())}
                     }
                 }
-                searchTerm = doubleString[0]
+                searchTerm = searchText
             } else {
                 searchResults = tempHTML.filter { $0.lowercased().contains(searchText.lowercased())}
                 searchTerm = searchText
@@ -263,6 +263,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             webViewViewController.titlelabel = Array(chapterIndex.chapterNested.joined())[subArrayPointer]
             webViewViewController.navTitle = navTitle
             webViewViewController.comingFromSearch = true
+            webViewViewController.searchTerm = search.text
             webViewViewController.uniqueAddress = Array(chapterIndex.chapterCode.joined())[subArrayPointer]
         }
     }

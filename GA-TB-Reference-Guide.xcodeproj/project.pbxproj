@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8875431A7EA3AD5B65486139 /* Pods_GA_TB_Reference_Guide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF23FEBF71C372B82094033D /* Pods_GA_TB_Reference_Guide.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		8E0132EA2A68FFB0001533AB /* WebView.js in Resources */ = {isa = PBXBuildFile; fileRef = 8E0132E82A68DCAB001533AB /* WebView.js */; };
 		8E93CD2B2A2839480097B53C /* table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html in Resources */ = {isa = PBXBuildFile; fileRef = 8E93CD2A2A2839480097B53C /* table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html */; };
 		D42F25E826EEFA8F009DC942 /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42F25E626EEFA8F009DC942 /* NoteTableViewCell.swift */; };
 		D42F25E926EEFA8F009DC942 /* NoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D42F25E726EEFA8F009DC942 /* NoteTableViewCell.xib */; };
@@ -173,6 +174,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8E0132E82A68DCAB001533AB /* WebView.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = WebView.js; sourceTree = "<group>"; };
 		8E93CD2A2A2839480097B53C /* table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html; path = ../../../../../Desktop/table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html; sourceTree = "<group>"; };
 		A4E783F70550BAD2B6B83131 /* Pods-GA-TB-Reference-Guide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GA-TB-Reference-Guide.debug.xcconfig"; path = "Target Support Files/Pods-GA-TB-Reference-Guide/Pods-GA-TB-Reference-Guide.debug.xcconfig"; sourceTree = "<group>"; };
 		BF23FEBF71C372B82094033D /* Pods_GA_TB_Reference_Guide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GA_TB_Reference_Guide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -559,6 +561,7 @@
 				D4B0B0AE26D01CA6003BD1EA /* SceneDelegate.swift */,
 				D4B0B0B026D01CA6003BD1EA /* ViewController.swift */,
 				D4B0B0BA26D01CA8003BD1EA /* Info.plist */,
+				8E0132E82A68DCAB001533AB /* WebView.js */,
 			);
 			path = "GA-TB-Reference-Guide";
 			sourceTree = "<group>";
@@ -835,6 +838,7 @@
 				D42F264D26EF821B009DC942 /* 8_tuberculosis_and_long-term_care_facilities.html in Resources */,
 				D4515E6F26DAE60600EE6592 /* uikit.css in Resources */,
 				D4D72E4F284116B600172A84 /* GoogleService-Info.plist in Resources */,
+				8E0132EA2A68FFB0001533AB /* WebView.js in Resources */,
 				D42F267126EF821B009DC942 /* table_1_interpretation_criteria_for_the_quantiferon_tb_gold_plus_test.html in Resources */,
 				D42F264926EF821B009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__d__laboratory_diagnosis_of_extrapulmary_tuberculosis.html in Resources */,
 				D42F266026EF821B009DC942 /* 1_epidemiology.html in Resources */,
