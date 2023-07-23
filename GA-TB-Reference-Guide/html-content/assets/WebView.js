@@ -33,6 +33,35 @@ function WKWebView_HighlightAllOccurencesOfStringForElement(element,keyword) {
     }
 }
 
+function WKWebView_RemoveAllHighlightsForElement(element) {
+    if (element) {
+        if (element.nodeType == 1) {
+            if (element.getAttribute("class") == "WKWebView_Highlight") {
+                var text = element.removeChild(element.firstChild);
+                element.parentNode.insertBefore(text,element);
+                element.parentNode.removeChild(element);
+                return true;
+            } else {
+                var normalize = false;
+                for (var i=element.childNodes.length-1; i>=0; i--) {
+                    if (WKWebView_RemoveAllHighlightsForElement(element.childNodes[i])) {
+                        normalize = true;
+                    }
+                }
+                if (normalize) {
+                    element.normalize();
+                }
+            }
+        }
+    }
+    return false;
+}
+
+
+function WKWebView_RemoveAllHighlights() {
+    WKWebView_RemoveAllHighlightsForElement(document.body);
+}
+
 
 function WKWebView_HighlightAllOccurencesOfString(keyword) {
     WKWebView_HighlightAllOccurencesOfStringForElement(document.body, keyword.toLowerCase());
