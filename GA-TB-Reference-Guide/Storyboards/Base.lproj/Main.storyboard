@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -532,13 +532,13 @@ Start by opening any subchapter or chart.</string>
         <!--Search-->
         <scene sceneID="MSV-d0-V4g">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="lY8-De-BGr" customClass="SearchViewController" customModule="GA_TB_Reference_Guide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="lY8-De-BGr" customClass="SearchViewController" customModule="GA_TB_Reference_Guide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BTy-HM-5iY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JQa-5h-3aq">
-                                <rect key="frame" x="0.0" y="92" width="414" height="770"/>
+                                <rect key="frame" x="0.0" y="92" width="414" height="721"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5d0-oJ-zMv">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="61"/>
@@ -570,7 +570,7 @@ Start by opening any subchapter or chart.</string>
                                         </constraints>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ezG-ZA-9lG">
-                                        <rect key="frame" x="0.0" y="96.5" width="414" height="673.5"/>
+                                        <rect key="frame" x="0.0" y="96.5" width="414" height="624.5"/>
                                         <color key="backgroundColor" name="backgroundColor"/>
                                     </tableView>
                                 </subviews>
