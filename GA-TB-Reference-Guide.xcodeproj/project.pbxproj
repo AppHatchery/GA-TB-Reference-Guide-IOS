@@ -503,6 +503,7 @@
 				D4515E6E26DAE60600EE6592 /* uikit-icons.js */,
 				D4515E6B26DAE60600EE6592 /* uikit.css */,
 				D4515E6C26DAE60600EE6592 /* uikit.js */,
+				8E0132E82A68DCAB001533AB /* WebView.js */,
 			);
 			path = assets;
 			sourceTree = "<group>";
@@ -561,7 +562,6 @@
 				D4B0B0AE26D01CA6003BD1EA /* SceneDelegate.swift */,
 				D4B0B0B026D01CA6003BD1EA /* ViewController.swift */,
 				D4B0B0BA26D01CA8003BD1EA /* Info.plist */,
-				8E0132E82A68DCAB001533AB /* WebView.js */,
 			);
 			path = "GA-TB-Reference-Guide";
 			sourceTree = "<group>";
