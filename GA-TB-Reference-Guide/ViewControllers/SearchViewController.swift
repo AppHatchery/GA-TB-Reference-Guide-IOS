@@ -269,11 +269,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     // Bolding function from online - https://exceptionshub.com/making-text-bold-using-attributed-string-in-swift.html
     func addBoldText(fullString: NSString, boldPartsOfString: Array<NSString>) -> NSAttributedString {
         let nonBoldFontAttribute = [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 12)]
-        let boldFontAttribute = [NSAttributedString.Key.font:UIFont.boldSystemFont(ofSize: 12)]
         let boldString = NSMutableAttributedString(string: fullString as String, attributes:nonBoldFontAttribute)
         let lowercase = fullString.lowercased as NSString
         for i in 0 ..< boldPartsOfString.count {
-            boldString.addAttributes(boldFontAttribute, range: lowercase.range(of: boldPartsOfString[i] as String))
             boldString.addAttribute(.backgroundColor, value: UIColor.yellow, range: lowercase.range(of: boldPartsOfString[i] as String))
         }
         return boldString
