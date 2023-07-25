@@ -14,16 +14,6 @@
 		</dict>
 		<dict>
 			<key>FooterText</key>
-			<string>https://www.pendo.io/legal/license-terms-and-conditions-may-2020/</string>
-			<key>License</key>
-			<string>Commercial</string>
-			<key>Title</key>
-			<string>Pendo</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>FooterText</key>
 			<string>TABLE OF CONTENTS
 
 1. Apache License version 2.0

@@ -91,6 +91,15 @@
       }
     },
     {
+      "identity" : "pendo-mobile-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pendo-io/pendo-mobile-ios",
+      "state" : {
+        "revision" : "262467824a096c18871f572fb5b7235177359b71",
+        "version" : "2.22.1"
+      }
+    },
+    {
       "identity" : "promises",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/promises.git",

@@ -104,6 +104,7 @@
 		D4515E7026DAE60600EE6592 /* uikit.js in Resources */ = {isa = PBXBuildFile; fileRef = D4515E6C26DAE60600EE6592 /* uikit.js */; };
 		D4515E7126DAE60600EE6592 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = D4515E6D26DAE60600EE6592 /* style.css */; };
 		D4515E7226DAE60600EE6592 /* uikit-icons.js in Resources */ = {isa = PBXBuildFile; fileRef = D4515E6E26DAE60600EE6592 /* uikit-icons.js */; };
+		D4597EA62A701B4E00EF8906 /* Pendo in Frameworks */ = {isa = PBXBuildFile; productRef = D4597EA52A701B4E00EF8906 /* Pendo */; };
 		D45BD0BB26E3936A0037E2A8 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45BD0B926E3936A0037E2A8 /* SearchCell.swift */; };
 		D45BD0BC26E3936A0037E2A8 /* SearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D45BD0BA26E3936A0037E2A8 /* SearchCell.xib */; };
 		D4631308271CD35A00C7D9EC /* Guide.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4631307271CD35A00C7D9EC /* Guide.xib */; };
@@ -346,6 +347,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D46BECDF2756E5BB000D8553 /* FirebaseDatabase in Frameworks */,
+				D4597EA62A701B4E00EF8906 /* Pendo in Frameworks */,
 				D46BECDB2756E5BB000D8553 /* FirebaseMessaging in Frameworks */,
 				D46BECD92756E5BB000D8553 /* FirebaseCrashlytics in Frameworks */,
 				D46BECD72756E5BB000D8553 /* FirebaseAnalytics in Frameworks */,
@@ -713,6 +715,7 @@
 				D46BECDA2756E5BB000D8553 /* FirebaseMessaging */,
 				D46BECDC2756E5BB000D8553 /* FirebaseDynamicLinks */,
 				D46BECDE2756E5BB000D8553 /* FirebaseDatabase */,
+				D4597EA52A701B4E00EF8906 /* Pendo */,
 			);
 			productName = "GA-TB-Reference-Guide";
 			productReference = D4B0B0A926D01CA6003BD1EA /* GA-TB-Reference-Guide.app */;
@@ -743,6 +746,7 @@
 			mainGroup = D4B0B0A026D01CA6003BD1EA;
 			packageReferences = (
 				D46BECD52756E5BB000D8553 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				D4597EA42A701B4E00EF8906 /* XCRemoteSwiftPackageReference "pendo-mobile-ios" */,
 			);
 			productRefGroup = D4B0B0AA26D01CA6003BD1EA /* Products */;
 			projectDirPath = "";
@@ -1134,8 +1138,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "GA-TB-Reference-Guide/GA-TB-Reference-Guide.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 3RQHVA7936;
@@ -1148,7 +1152,7 @@
 				MARKETING_VERSION = 1.7;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.emory.tb.guide;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Georgia TB Reference Guide";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1161,8 +1165,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "GA-TB-Reference-Guide/GA-TB-Reference-Guide.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 3RQHVA7936;
 				INFOPLIST_FILE = "GA-TB-Reference-Guide/Info.plist";
@@ -1174,7 +1178,7 @@
 				MARKETING_VERSION = 1.7;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.emory.tb.guide;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Georgia TB Reference Guide";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1204,6 +1208,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D4597EA42A701B4E00EF8906 /* XCRemoteSwiftPackageReference "pendo-mobile-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pendo-io/pendo-mobile-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		D46BECD52756E5BB000D8553 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -1215,6 +1227,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D4597EA52A701B4E00EF8906 /* Pendo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4597EA42A701B4E00EF8906 /* XCRemoteSwiftPackageReference "pendo-mobile-ios" */;
+			productName = Pendo;
+		};
 		D46BECD62756E5BB000D8553 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D46BECD52756E5BB000D8553 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

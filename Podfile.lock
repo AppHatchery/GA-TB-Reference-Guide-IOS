@@ -1,26 +1,22 @@
 PODS:
-  - Pendo (2.12.3.4708)
-  - Realm (10.1.4):
-    - Realm/Headers (= 10.1.4)
-  - Realm/Headers (10.1.4)
-  - RealmSwift (10.1.4):
-    - Realm (= 10.1.4)
+  - Realm (10.41.1):
+    - Realm/Headers (= 10.41.1)
+  - Realm/Headers (10.41.1)
+  - RealmSwift (10.41.1):
+    - Realm (= 10.41.1)
 
 DEPENDENCIES:
-  - Pendo
-  - RealmSwift (= 10.1.4)
+  - RealmSwift
 
 SPEC REPOS:
   trunk:
-    - Pendo
     - Realm
     - RealmSwift
 
 SPEC CHECKSUMS:
-  Pendo: 7ecb38affcefad3775b4ba25cdf1257c7c366c0c
-  Realm: 80f4fb2971ccb9adc27a47d0955ae8e533a7030b
-  RealmSwift: 0e566ca714edb377bba8ea0811eafcea0b93734e
+  Realm: 0cb0b0b24f9303543a1f0dc17de8dec2d5bbf3f0
+  RealmSwift: 00627521cd456626f4cb2f7a7b18e1b07f2812a9
 
-PODFILE CHECKSUM: 651bb900a795bfffb6ba9b95266076b365b31a30
+PODFILE CHECKSUM: 8fd244cc03cc3ff36ac344bfff2226fc30c7b9e8
 
-COCOAPODS: 1.10.2
+COCOAPODS: 1.12.1

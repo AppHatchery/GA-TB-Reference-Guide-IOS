@@ -6,9 +6,9 @@ target 'GA-TB-Reference-Guide' do
   use_frameworks!
 
   # Pods for GA-TB-Reference-Guide
-  pod 'RealmSwift', '=10.1.4'
+  pod 'RealmSwift'
 #  pod 'Firebase/Analytics'
 #  pod 'Firebase/Crashlytics'
-  pod 'Pendo'
+#  pod 'Pendo'
 
 end
