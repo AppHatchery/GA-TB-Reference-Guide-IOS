@@ -9,6 +9,6 @@ target 'GA-TB-Reference-Guide' do
   pod 'RealmSwift', '=10.1.4'
 #  pod 'Firebase/Analytics'
 #  pod 'Firebase/Crashlytics'
-  pod 'Pendo'
+#  pod 'Pendo'
 
 end

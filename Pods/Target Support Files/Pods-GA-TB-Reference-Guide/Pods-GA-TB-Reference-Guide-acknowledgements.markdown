@@ -1,10 +1,6 @@
 # Acknowledgements
 This application makes use of the following third party libraries:
 
-## Pendo
-
-https://www.pendo.io/legal/license-terms-and-conditions-may-2020/
-
 ## Realm
 
 TABLE OF CONTENTS
