@@ -69,7 +69,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let searchTerm = searchTerm, comingFromSearch {
+        if let searchTerm = searchTerm, comingFromSearch, !searchTerm.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty{
             searchView.isHidden = searchTerm.isEmpty
             searchTermView.text = searchTerm
         } else {
