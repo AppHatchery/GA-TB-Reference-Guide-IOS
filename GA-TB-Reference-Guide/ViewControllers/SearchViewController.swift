@@ -78,17 +78,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         tableView.register(UINib(nibName: "SearchCell", bundle: nil), forCellReuseIdentifier: "searchCell")
         tableView.rowHeight = 80
         
-//        let customView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
-//        customView.backgroundColor = UIColor( red: 0xd5/255.0, green: 0xd8/255.0, blue: 0xdc/255.0, alpha: 1)
-//
-//        let doneButton = UIButton( frame: CGRect( x: view.frame.width - 70 - 10, y: 0, width: 70, height: 44 ))
-//        doneButton.setTitle( "Dismiss", for: .normal )
-//        doneButton.setTitleColor( UIColor.systemBlue, for: .normal)
-//        doneButton.addTarget( self, action: #selector( self.dismissKeyboard), for: .touchUpInside )
-//        customView.addSubview( doneButton )
-//
-//        search.inputAccessoryView = customView
-        
         // Load the htmls on the array - needs to be on viewDidLoad otherwise it duplicates the content
         for items in chapterIndex.chapterCode.joined() {
             let path = Bundle.main.path(forResource: items.components(separatedBy: ".")[0], ofType: "html")!
@@ -175,8 +164,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     }
         
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        print("tapped row")
         
         // Need to add logic to insert table view or html content based on what was clicked
         // The first index is screwing me because there are multiple chapters with the same title i.e. considerations, or introduction, so it messes up the algorithm
