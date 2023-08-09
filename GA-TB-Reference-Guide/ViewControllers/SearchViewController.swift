@@ -39,6 +39,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     }()
     var isGradientAdded: Bool = false
     
+    let tap = UITapGestureRecognizer()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -76,16 +78,16 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         tableView.register(UINib(nibName: "SearchCell", bundle: nil), forCellReuseIdentifier: "searchCell")
         tableView.rowHeight = 80
         
-        let customView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
-        customView.backgroundColor = UIColor( red: 0xd5/255.0, green: 0xd8/255.0, blue: 0xdc/255.0, alpha: 1)
-
-        let doneButton = UIButton( frame: CGRect( x: view.frame.width - 70 - 10, y: 0, width: 70, height: 44 ))
-        doneButton.setTitle( "Dismiss", for: .normal )
-        doneButton.setTitleColor( UIColor.systemBlue, for: .normal)
-        doneButton.addTarget( self, action: #selector( self.dismissKeyboard), for: .touchUpInside )
-        customView.addSubview( doneButton )
-        
-        search.inputAccessoryView = customView
+//        let customView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
+//        customView.backgroundColor = UIColor( red: 0xd5/255.0, green: 0xd8/255.0, blue: 0xdc/255.0, alpha: 1)
+//
+//        let doneButton = UIButton( frame: CGRect( x: view.frame.width - 70 - 10, y: 0, width: 70, height: 44 ))
+//        doneButton.setTitle( "Dismiss", for: .normal )
+//        doneButton.setTitleColor( UIColor.systemBlue, for: .normal)
+//        doneButton.addTarget( self, action: #selector( self.dismissKeyboard), for: .touchUpInside )
+//        customView.addSubview( doneButton )
+//
+//        search.inputAccessoryView = customView
         
         // Load the htmls on the array - needs to be on viewDidLoad otherwise it duplicates the content
         for items in chapterIndex.chapterCode.joined() {
@@ -96,12 +98,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             tempHTML.append(htmlString)
         }
         
-        
-        
-        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-
-        searchView.addGestureRecognizer(tap)
-        
+        // Keyboard dismissal recognizer
+        tap.addTarget(self, action: #selector(dismissKeyboard))
+        self.view.addGestureRecognizer(tap)
     }
 
 
@@ -174,18 +173,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                 
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        if self.search.isFirstResponder {
-            self.search.endEditing(true)
-            return nil
-        }
-        return indexPath
-    }
-    
+        
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        
+        print("tapped row")
         
         // Need to add logic to insert table view or html content based on what was clicked
         // The first index is screwing me because there are multiple chapters with the same title i.e. considerations, or introduction, so it messes up the algorithm
@@ -205,6 +196,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         PendoManager.shared().track("search", properties: ["searchTerm":searchTerm, "selectedResult":chapterIndex.subChapterNames[indexPath.row]])
         
         performSegue( withIdentifier: "SegueToWebViewViewController", sender: nil )
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        tap.cancelsTouchesInView = true
+        tap.isEnabled = true
     }
     
     //--------------------------------------------------------------------------------------------------
@@ -246,16 +242,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     //--------------------------------------------------------------------------------------------------
     // To hide the keyboard when the user clicks search
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        self.view.endEditing(true)
-        Analytics.logEvent("search", parameters: [
-            "query": (searchTerm ) as String,
-        ])
+        dismissKeyboard()
     }
     
     //--------------------------------------------------------------------------------------------------
     @objc func dismissKeyboard() {
         // To hide the keyboard when the user clicks search
         self.view.endEditing(true)
+        tap.isEnabled = false
         Analytics.logEvent("search", parameters: [
             "query": (searchTerm ) as String,
         ])
