@@ -69,10 +69,11 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        searchView.isHidden = !comingFromSearch
-        print(comingFromSearch)
-        if let searchTerm = searchTerm {
+        if let searchTerm = searchTerm, comingFromSearch, !searchTerm.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty{
+            searchView.isHidden = searchTerm.isEmpty
             searchTermView.text = searchTerm
+        } else {
+            searchView.isHidden = true
         }
    
         let navbarTitle = UILabel()
