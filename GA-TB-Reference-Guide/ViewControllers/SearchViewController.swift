@@ -251,7 +251,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             webViewViewController.titlelabel = Array(chapterIndex.chapterNested.joined())[subArrayPointer]
             webViewViewController.navTitle = navTitle
             webViewViewController.comingFromSearch = true
-            webViewViewController.searchTerm = search.text
+            webViewViewController.searchTerm = search.text != "" ? search.text : nil
             webViewViewController.uniqueAddress = Array(chapterIndex.chapterCode.joined())[subArrayPointer]
         }
     }
