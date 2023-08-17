@@ -20,18 +20,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let appKey = "eyJhbGciOiJSUzI1NiIsImtpZCI6IiIsInR5cCI6IkpXVCJ9.eyJkYXRhY2VudGVyIjoidXMiLCJrZXkiOiJlYThlNjdmNTAwOGIwODYzOTdmMzI0NDA4NGNjZjkxYzVjNTYyOTMxNjRkZWQ4ZDdjZDEwNGY3NzcxYjAyNDZjNDNjZjQ4OGYzMjhiNWFhMmE0ZDExZTI1NWRmMDU3YzZhMGQ5ZDgyZmI5N2NjYjcxNTg5Zjc3ZDlhNWFjMGRhMS5iOTY3ZjEyODMzZDRkZWMyZDk0ZjY1NTNiMzNkZTU0ZC44ZWQyYjFhYWIyMWIzNTZiNjhkMGM0MzNkNWE2ZGU2OTJkYTcxZjQwODI5YWYzNTQ4NGQ4YzBjYzE0OTRmNWRiIn0.iqVDaCeOBxH8egrKUGdDn4F-ITFmmbXVp_VJ2hk7_MaZSJXiPvuFCTc1nx-jyAqTfT0b-toHLPMP2EvxA1Qoi7GKscbSgb2O8WBg6Uy-QuvZVNym6n-bVnn4CLrX1j7I-oEuTrKec5PCP_bYVeOs0RrHaLF8qiX-o-HYCQCgqaM"
          PendoManager.shared().setup(appKey)
         
-        // Set up Pendo
         // TODO: Add firebase installation
-        // Set visitor as "" to anonymize the entries
-        let visitorId = ""
-        let accountId = "GTRG"
         
-        PendoManager.shared().startSession(
-             visitorId,
-             accountId: accountId,
-             visitorData: [:],
-             accountData: [:]
-         )
+        // Set up Pendo
+        // Generate Visitor ID Upon Initial Launch
+        if UserDefaults.standard.string(forKey: "visitorId") == nil {
+            let visitorId = "Aug-23-\(UUID())"
+            UserDefaults.standard.set(visitorId, forKey: "visitorId")
+        }
+
+        let accountId = "Test"
+        
+        if let visitorId = UserDefaults.standard.string(forKey: "visitorId") {
+            // Use visitorID in your Pendo initialization code here
+            PendoManager.shared().startSession(
+                 visitorId,
+                 accountId: accountId,
+                 visitorData: [:],
+                 accountData: [:])
+        } else {
+            // Handle the case where visitorID is not available (unlikely to happen)
+            PendoManager.shared().startSession(
+                 "",
+                 accountId: accountId,
+                 visitorData: [:],
+                 accountData: [:])
+        }
         
         // Only open this database if the new one is empty, otherwise ignore it
 //        let realm = OldRealmFile.sharedInstance.mainRealm()
