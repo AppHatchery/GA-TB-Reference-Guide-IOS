@@ -63,7 +63,9 @@ function WKWebView_RemoveAllHighlights() {
 }
 
 
-function WKWebView_HighlightAllOccurencesOfString(keyword) {
-    WKWebView_RemoveAllHighlights();    
+function WKWebView_HighlightAllOccurencesOfString(keyword, first) {
+    if (first) {
+        WKWebView_RemoveAllHighlights();
+    }
     WKWebView_HighlightAllOccurencesOfStringForElement(document.body, keyword.toLowerCase());
 }

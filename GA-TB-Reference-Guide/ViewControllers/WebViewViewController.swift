@@ -532,25 +532,26 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     
     func highlightSearch(term: String)  {
         
-        let terms = term.split(separator: " ").map({String($0)}) + [term]
+        var terms = term.split(separator: " ").map({String($0)})
+        if !terms.contains(term) {terms.append(term)}
         
         if let path = Bundle.main.url(forResource: "WebView", withExtension: "js") {
             do{
                 let data:Data = try Data(contentsOf: path)
                 let jsCode:String = String(decoding: data, as: UTF8.self)
                 
+                
                 //print( jsCode)
                 
                 //inject the search code
                 webView.evaluateJavaScript(jsCode, completionHandler: nil)
+                
                 //search function
-                for t in terms {
-                    let searchString = "WKWebView_HighlightAllOccurencesOfString('\(t)')"
+                for (i, t) in terms.enumerated() {
+                    let searchString = "WKWebView_HighlightAllOccurencesOfString('\(t)', \(i == 0))"
                     //perform search
                     webView.evaluateJavaScript(searchString, completionHandler: nil)
                 }
-                
-
                 
             } catch {
                 print("could not load javascript:\(error)")
