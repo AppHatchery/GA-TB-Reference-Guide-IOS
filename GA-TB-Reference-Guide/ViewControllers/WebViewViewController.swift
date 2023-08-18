@@ -152,6 +152,9 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         webView.navigationDelegate = self
         webView.translatesAutoresizingMaskIntoConstraints = false
         
+        webView.isOpaque = false
+        webView.backgroundColor = .clear
+        
         setupUI()
         
         // Log the page load

@@ -64,7 +64,7 @@ class SettingsViewController: UIViewController {
 
     
     @IBAction func tapContactUs(_ sender: UIButton){
-        let email = "morgan.greenleaf@emory.edu"
+        let email = "support@apphatchery.org"
         if let url = URL(string: "mailto:\(email)") {
           if #available(iOS 10.0, *) {
             UIApplication.shared.open(url)

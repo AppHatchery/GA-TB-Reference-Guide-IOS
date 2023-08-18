@@ -37,6 +37,9 @@ class SettingsViewsViewController: UIViewController, WKUIDelegate, WKNavigationD
         webView.navigationDelegate = self
         webView.translatesAutoresizingMaskIntoConstraints = false
         
+        webView.isOpaque = false
+        webView.backgroundColor = .clear
+        
         let navbarTitle = UILabel()
         navbarTitle.text = titleLabel
         navbarTitle.textColor = UIColor.white
