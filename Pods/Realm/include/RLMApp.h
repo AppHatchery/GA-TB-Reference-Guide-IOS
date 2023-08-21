@@ -16,14 +16,14 @@
 //
 ////////////////////////////////////////////////////////////////////////////
 
-#import <Foundation/Foundation.h>
+#import <Realm/RLMConstants.h>
 #import <AuthenticationServices/AuthenticationServices.h>
 
-NS_ASSUME_NONNULL_BEGIN
+RLM_HEADER_AUDIT_BEGIN(nullability, sendability)
 
 @protocol RLMNetworkTransport, RLMBSON;
 
-@class RLMUser, RLMCredentials, RLMSyncManager, RLMEmailPasswordAuth, RLMPushClient;
+@class RLMUser, RLMCredentials, RLMSyncManager, RLMEmailPasswordAuth, RLMPushClient, RLMSyncTimeoutOptions;
 
 /// A block type used for APIs which asynchronously vend an `RLMUser`.
 typedef void(^RLMUserCompletionBlock)(RLMUser * _Nullable, NSError * _Nullable);
@@ -35,10 +35,10 @@ typedef void(^RLMOptionalErrorBlock)(NSError * _Nullable);
 
 /// Properties representing the configuration of a client
 /// that communicate with a particular Realm application.
-@interface RLMAppConfiguration : NSObject
+@interface RLMAppConfiguration : NSObject <NSCopying>
 
 /// A custom base URL to request against.
-@property (nonatomic, strong, nullable) NSString* baseURL;
+@property (nonatomic, strong, nullable) NSString *baseURL;
 
 /// The custom transport for network calls to the server.
 @property (nonatomic, strong, nullable) id<RLMNetworkTransport> transport;
@@ -51,6 +51,24 @@ typedef void(^RLMOptionalErrorBlock)(NSError * _Nullable);
 
 /// The default timeout for network requests.
 @property (nonatomic, assign) NSUInteger defaultRequestTimeoutMS;
+
+/// If enabled (the default), a single connection is used for all Realms opened
+/// with a single sync user. If disabled, a separate connection is used for each
+/// Realm.
+///
+/// Session multiplexing reduces resources used and typically improves
+/// performance. When multiplexing is enabled, the connection is not immediately
+/// closed when the last session is closed, and instead remains open for
+/// ``RLMSyncTimeoutOptions.connectionLingerTime`` milliseconds (30 seconds by
+/// default).
+@property (nonatomic, assign) BOOL enableSessionMultiplexing;
+
+/**
+ Options for the assorted types of connection timeouts for sync connections.
+
+ If nil default values for all timeouts are used instead.
+ */
+@property (nonatomic, nullable, copy) RLMSyncTimeoutOptions *syncTimeouts;
 
 /**
 Create a new Realm App configuration.
@@ -76,7 +94,7 @@ Create a new Realm App configuration.
  */
 - (instancetype)initWithBaseURL:(nullable NSString *) baseURL
                       transport:(nullable id<RLMNetworkTransport>)transport
-                   localAppName:(nullable NSString *) localAppName
+                   localAppName:(nullable NSString *)localAppName
                 localAppVersion:(nullable NSString *)localAppVersion
         defaultRequestTimeoutMS:(NSUInteger)defaultRequestTimeoutMS;
 
@@ -90,6 +108,7 @@ Create a new Realm App configuration.
 
  This interface provides access to login and authentication.
  */
+RLM_SWIFT_SENDABLE RLM_FINAL // internally thread-safe
 @interface RLMApp : NSObject
 
 /// The configuration for this Realm app.
@@ -103,6 +122,9 @@ Create a new Realm App configuration.
 
 /// Get the current user logged into the Realm app.
 @property (nonatomic, readonly, nullable) RLMUser *currentUser;
+
+/// The app ID for this Realm app.
+@property (nonatomic, readonly) NSString *appId;
 
 /**
   A client for the email/password authentication provider which
@@ -172,11 +194,7 @@ to obtain a reference to an RLMApp.
 
 @end
 
-NS_ASSUME_NONNULL_END
-
 #pragma mark - Sign In With Apple Extension
-
-NS_ASSUME_NONNULL_BEGIN
 
 API_AVAILABLE(ios(13.0), macos(10.15), tvos(13.0), watchos(6.0))
 /// Use this delegate to be provided a callback once authentication has succeed or failed
@@ -184,7 +202,7 @@ API_AVAILABLE(ios(13.0), macos(10.15), tvos(13.0), watchos(6.0))
 
 /// Callback that is invoked should the authentication fail.
 /// @param error An error describing the authentication failure.
-- (void)authenticationDidCompleteWithError:(NSError *)error NS_SWIFT_NAME(authenticationDidComplete(error:));
+- (void)authenticationDidFailWithError:(NSError *)error NS_SWIFT_NAME(authenticationDidComplete(error:));
 
 /// Callback that is invoked should the authentication succeed.
 /// @param user The newly authenticated user.
@@ -206,4 +224,4 @@ API_AVAILABLE(ios(13.0), macos(10.15), tvos(13.0), watchos(6.0))
 
 @end
 
-NS_ASSUME_NONNULL_END
+RLM_HEADER_AUDIT_END(nullability, sendability)

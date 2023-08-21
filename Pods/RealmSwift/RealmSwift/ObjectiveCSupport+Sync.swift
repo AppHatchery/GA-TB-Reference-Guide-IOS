@@ -24,7 +24,7 @@ import Realm
 public extension ObjectiveCSupport {
     /// Convert a `SyncConfiguration` to a `RLMSyncConfiguration`.
     static func convert(object: SyncConfiguration) -> RLMSyncConfiguration {
-        return object.asConfig()
+        return object.config
     }
 
     /// Convert a `RLMSyncConfiguration` to a `SyncConfiguration`.
@@ -39,6 +39,8 @@ public extension ObjectiveCSupport {
             return RLMCredentials(facebookToken: accessToken)
         case .google(let serverAuthCode):
             return RLMCredentials(googleAuthCode: serverAuthCode)
+        case .googleId(let token):
+            return RLMCredentials(googleIdToken: token)
         case .apple(let idToken):
             return RLMCredentials(appleToken: idToken)
         case .emailPassword(let email, let password):
@@ -46,7 +48,7 @@ public extension ObjectiveCSupport {
         case .jwt(let token):
             return RLMCredentials(jwt: token)
         case .function(let payload):
-            return RLMCredentials(functionPayload: ObjectiveCSupport.convert(object: AnyBSON(payload))! as! [String: RLMBSON])
+            return RLMCredentials(functionPayload: ObjectiveCSupport.convert(object: AnyBSON(payload)) as! [String: RLMBSON])
         case .userAPIKey(let APIKey):
             return RLMCredentials(userAPIKey: APIKey)
         case .serverAPIKey(let serverAPIKey):

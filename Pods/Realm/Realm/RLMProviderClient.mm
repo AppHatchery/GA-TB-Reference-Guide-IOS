@@ -19,8 +19,8 @@
 #import "RLMProviderClient_Private.hpp"
 
 #import "RLMApp_Private.hpp"
-#import "sync/app.hpp"
 
+#import <realm/object-store/sync/app.hpp>
 #import <realm/util/optional.hpp>
 
 @implementation RLMProviderClient
@@ -32,11 +32,13 @@
     return self;
 }
 
-- (void)handleResponse:(realm::util::Optional<realm::app::AppError>)error
-            completion:(RLMProviderClientOptionalErrorBlock)completion {
-    if (error && error->error_code) {
-        return completion(RLMAppErrorToNSError(*error));
-    }
-    completion(nil);
+realm::util::UniqueFunction<void(std::optional<realm::app::AppError>)>
+RLMWrapCompletion(RLMProviderClientOptionalErrorBlock completion) {
+    return [completion](std::optional<realm::app::AppError> error) {
+        if (error) {
+            return completion(makeError(*error));
+        }
+        completion(nil);
+    };
 }
 @end
