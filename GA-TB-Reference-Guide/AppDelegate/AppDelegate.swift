@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UserDefaults.standard.set(visitorId, forKey: "visitorId")
         }
 
-        let accountId = "Test"
+        let accountId = "GTRG"
         
         if let visitorId = UserDefaults.standard.string(forKey: "visitorId") {
             // Use visitorID in your Pendo initialization code here
