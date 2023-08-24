@@ -22,13 +22,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // TODO: Add firebase installation
         
+        let newrealm = RealmHelper.sharedInstance.mainRealm()
+        
+        // If newrealm is not Empty and the visitorId setting is also not empty, then it means the user installed the app in the past
+        
+        if !newrealm!.isEmpty {
+            if UserDefaults.standard.string(forKey: "visitorId") == nil {
+                let visitorId = "May-23-\(UUID())"
+                UserDefaults.standard.set(visitorId, forKey: "visitorId")
+            }
+        }
         // Set up Pendo
         // Generate Visitor ID Upon Initial Launch
-        if UserDefaults.standard.string(forKey: "visitorId") == nil {
-            let visitorId = "Aug-23-\(UUID())"
-            UserDefaults.standard.set(visitorId, forKey: "visitorId")
+        else {
+            // Generate Visitor ID Upon Initial Launch
+            if UserDefaults.standard.string(forKey: "visitorId") == nil {
+                let visitorId = "Aug-23-\(UUID())"
+                UserDefaults.standard.set(visitorId, forKey: "visitorId")
+            }
         }
-
+        
         let accountId = "GTRG"
         
         if let visitorId = UserDefaults.standard.string(forKey: "visitorId") {
@@ -51,7 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        let realm = OldRealmFile.sharedInstance.mainRealm()
 //        print("Tis is the old realm",realm?.objects(ContentPage.self))
         // My guess is this is triggering in the background from time to time and causing the app to launch and sometimes crash because it can't get the encryption properly, but clearly the rest of the documentation is there. Maybe the solution is to hide the failed opened state. Although something similar was failing on the previous version of the Realm architecture so maybe it just didn't get fixed with this change.
-        let newrealm = RealmHelper.sharedInstance.mainRealm()
+//        let newrealm = RealmHelper.sharedInstance.mainRealm()
         
         if newrealm!.isEmpty {
             let realm = OldRealmFile.sharedInstance.mainRealm()
