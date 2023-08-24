@@ -136,7 +136,7 @@
 		D47A4DE6276687610095815A /* acknowledge.svg in Resources */ = {isa = PBXBuildFile; fileRef = D47A4DE4276687610095815A /* acknowledge.svg */; };
 		D47A4DE9276688650095815A /* logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D47A4DE8276688650095815A /* logo.jpg */; };
 		D47A4DEC276691CA0095815A /* quote.html in Resources */ = {isa = PBXBuildFile; fileRef = D47A4DEB276691CA0095815A /* quote.html */; };
-		D480637B2A93C95B006C9861 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D4CD67B92791BC55006989F3 /* GoogleService-Info.plist */; };
+		D48063842A97BC7E006C9861 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D4CD67B92791BC55006989F3 /* GoogleService-Info.plist */; };
 		D48BD7802779F13800D8A25D /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48BD77F2779F13800D8A25D /* UIButton+Extensions.swift */; };
 		D48BD797277E4F5300D8A25D /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48BD796277E4F5200D8A25D /* UserSettings.swift */; };
 		D4A06A5526E6D2330093D144 /* ContentPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A06A5426E6D2330093D144 /* ContentPage.swift */; };
@@ -842,11 +842,11 @@
 				D42F264D26EF821B009DC942 /* 8_tuberculosis_and_long-term_care_facilities.html in Resources */,
 				D4515E6F26DAE60600EE6592 /* uikit.css in Resources */,
 				8E0132EA2A68FFB0001533AB /* WebView.js in Resources */,
-				D480637B2A93C95B006C9861 /* GoogleService-Info.plist in Resources */,
 				D42F267126EF821B009DC942 /* table_1_interpretation_criteria_for_the_quantiferon_tb_gold_plus_test.html in Resources */,
 				D42F264926EF821B009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__d__laboratory_diagnosis_of_extrapulmary_tuberculosis.html in Resources */,
 				D42F266026EF821B009DC942 /* 1_epidemiology.html in Resources */,
 				D42F268926EF821B009DC942 /* table_4_recommendations_for_regimens_to_treat_latent_tuberculosis_infection.html in Resources */,
+				D48063842A97BC7E006C9861 /* GoogleService-Info.plist in Resources */,
 				D42F268026EF821B009DC942 /* 10_tb_infection_control_hospital_isolation_procedures__d__personal_respiratory_protection.html in Resources */,
 				D42F264526EF821B009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__c__two_step_testing_and_the_booster_reaction.html in Resources */,
 				D42F267F26EF821B009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__h__reporting_of_pediatric_positive_tests_for_ltbi.html in Resources */,
