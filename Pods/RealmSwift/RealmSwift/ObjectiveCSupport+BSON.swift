@@ -22,12 +22,34 @@ import Realm
  :nodoc:
  **/
 public extension ObjectiveCSupport {
-    /// Convert an `AnyBSON` to a `RLMBSON`.
+    // FIXME: remove these and rename convertBson to convert on the next major
+    // version bump
     static func convert(object: AnyBSON?) -> RLMBSON? {
-        guard let object = object else {
-            return nil
+        if let converted = object.map(self.convertBson), !(converted is NSNull) {
+            return converted
         }
+        return nil
+    }
 
+    static func convert(object: RLMBSON?) -> AnyBSON? {
+        if let object = object {
+            let converted = convertBson(object: object)
+            if converted == .null {
+                return nil
+            }
+            return converted
+        }
+        return nil
+    }
+
+    static func convert(_ object: Document) -> [String: RLMBSON] {
+        object.reduce(into: Dictionary<String, RLMBSON>()) { (result: inout [String: RLMBSON], kvp) in
+            result[kvp.key] = kvp.value.map(convertBson) ?? NSNull()
+        }
+    }
+
+    /// Convert an `AnyBSON` to a `RLMBSON`.
+    static func convertBson(object: AnyBSON) -> RLMBSON {
         switch object {
         case .int32(let val):
             return val as NSNumber
@@ -41,16 +63,16 @@ public extension ObjectiveCSupport {
             return val as NSData
         case .datetime(let val):
             return val as NSDate
+        case .timestamp(let val):
+            return val as NSDate
         case .decimal128(let val):
             return val as RLMDecimal128
         case .objectId(let val):
             return val as RLMObjectId
         case .document(let val):
-            return val.reduce(into: Dictionary<String, RLMBSON?>()) { (result: inout [String: RLMBSON?], kvp) in
-                result[kvp.key] = convert(object: kvp.value) ?? NSNull()
-            } as NSDictionary
+            return convert(val) as NSDictionary
         case .array(let val):
-            return val.map(convert) as NSArray
+            return val.map { $0.map(convertBson) } as NSArray
         case .maxKey:
             return MaxKey()
         case .minKey:
@@ -59,20 +81,22 @@ public extension ObjectiveCSupport {
             return val
         case .bool(let val):
             return val as NSNumber
-        default:
-            return nil
+        case .uuid(let val):
+            return val as NSUUID
+        case .null:
+            return NSNull()
         }
     }
 
-    /// Convert a `RLMBSON` to an `AnyBSON`.
-    static func convert(object: RLMBSON?) -> AnyBSON? {
-        guard let bson = object else {
-            return nil
-        }
+    static func convert(_ object: [String: RLMBSON]) -> Document {
+        object.mapValues { convert(object: $0) }
+    }
 
+    /// Convert a `RLMBSON` to an `AnyBSON`.
+    static func convertBson(object bson: RLMBSON) -> AnyBSON? {
         switch bson.__bsonType {
         case .null:
-            return nil
+            return .null
         case .int32:
             guard let val = bson as? NSNumber else {
                 return nil
@@ -134,17 +158,25 @@ public extension ObjectiveCSupport {
         case .minKey:
             return .minKey
         case .document:
-            guard let val = bson as? Dictionary<String, RLMBSON?> else {
+            guard let val = bson as? Dictionary<String, RLMBSON> else {
                 return nil
             }
-            return .document(val.reduce(into: Dictionary<String, AnyBSON?>()) { (result: inout [String: AnyBSON?], kvp) in
-                result[kvp.key] = convert(object: kvp.value)
-            })
+            return .document(convert(val))
         case .array:
             guard let val = bson as? Array<RLMBSON?> else {
                 return nil
             }
-            return .array(val.map(convert))
+            return .array(val.compactMap {
+                if let value = $0 {
+                    return convertBson(object: value)
+                }
+                return .null
+            }.map { (v: AnyBSON) -> AnyBSON? in v == .null ? nil : v })
+        case .UUID:
+            guard let val = bson as? NSUUID else {
+                return nil
+            }
+            return .uuid(val as UUID)
         default:
             return nil
         }

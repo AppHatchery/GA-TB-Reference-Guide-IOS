@@ -18,13 +18,13 @@
 
 #import <Realm/RLMProviderClient.h>
 
-#import "sync/app.hpp"
+#import <realm/object-store/sync/app.hpp>
 
 @interface RLMProviderClient ()
 
 /// A block type used to report an error
 typedef void(^RLMProviderClientOptionalErrorBlock)(NSError * _Nullable);
 
-- (void)handleResponse:(realm::util::Optional<realm::app::AppError>)error
-            completion:(nonnull RLMProviderClientOptionalErrorBlock)completion;
+realm::util::UniqueFunction<void(std::optional<realm::app::AppError>)>
+RLMWrapCompletion(_Nonnull RLMProviderClientOptionalErrorBlock);
 @end
