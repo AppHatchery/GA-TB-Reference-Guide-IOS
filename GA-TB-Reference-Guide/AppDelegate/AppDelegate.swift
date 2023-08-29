@@ -37,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         else {
             // Generate Visitor ID Upon Initial Launch
             if UserDefaults.standard.string(forKey: "visitorId") == nil {
-                let visitorId = "Aug-23-\(UUID())"
+                let visitorId = "Sep-23-\(UUID())"
                 UserDefaults.standard.set(visitorId, forKey: "visitorId")
             }
         }
