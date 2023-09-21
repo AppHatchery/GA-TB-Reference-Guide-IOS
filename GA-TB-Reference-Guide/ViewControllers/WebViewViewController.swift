@@ -392,27 +392,32 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         } else {
             print("Loading outside of the app content")
             // newURL stays as the chapter because the webview stopsloading
-            let newURL = change?[.newKey] as! URL
-            let oldURL = change?[.oldKey] as! URL
-            comingFromHyperLink = true
-            webView.stopLoading()
             
-            let alertDelete = UIAlertController(title: "This link will open in your browser, do you want to continue?", message: "", preferredStyle: .alert)
-            alertDelete.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in
-                self.comingFromHyperLink = false
-                print("fires?",oldURL)
-                print(newURL)
-                UIApplication.shared.open(oldURL, options: [:], completionHandler: nil)
-            }))
-            alertDelete.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
-                self.comingFromHyperLink = false
-            }))
-            self.present(alertDelete, animated: true, completion: nil)
-            
-            // Remove the observer for the previous screen so that it won't double fire when the URL changes again
-//            webView.removeObserver(self, forKeyPath: "URL")
-//            UIApplication.shared.open(newURL, options: Any, completionHandler: true)
-//            webView.goBack()
+            // This has been added to optionally cast to a URL in the event that the devices observer was obsolete from a previous load
+            if let oldURL = change?[.oldKey] as? URL {
+                
+                //            let newURL = change?[.newKey] as! URL
+                //            let oldURL = change?[.oldKey] as! URL
+                comingFromHyperLink = true
+                webView.stopLoading()
+                
+                let alertDelete = UIAlertController(title: "This link will open in your browser, do you want to continue?", message: "", preferredStyle: .alert)
+                alertDelete.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in
+                    self.comingFromHyperLink = false
+                    print("fires?",oldURL)
+//                    print(newURL)
+                    UIApplication.shared.open(oldURL, options: [:], completionHandler: nil)
+                }))
+                alertDelete.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+                    self.comingFromHyperLink = false
+                }))
+                self.present(alertDelete, animated: true, completion: nil)
+                
+                // Remove the observer for the previous screen so that it won't double fire when the URL changes again
+                //            webView.removeObserver(self, forKeyPath: "URL")
+                //            UIApplication.shared.open(newURL, options: Any, completionHandler: true)
+                //            webView.goBack()
+            }
         }
     }
     
