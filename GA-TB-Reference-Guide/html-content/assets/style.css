@@ -5,6 +5,7 @@
   --body-color: #666;
   --link-color: #ba6233;
   --table-title-color: #8c352d;
+  --titles-color: #333;
 }
 
 @media screen and (prefers-color-scheme: dark) {
@@ -13,6 +14,7 @@
     --body-color: #fff;
     --link-color: #f3a479;
     --table-title-color: #d7958f;
+    --titles-color: #fff;
     /* --title-color: #ff8080;
     --subhead-color: #80ff80;
     --link-color: #93d5ff; */
@@ -53,6 +55,10 @@ a:hover,
 .uk-link-toggle:focus .uk-link {
   color: #0f6ecd;
   text-decoration: underline;
+}
+
+.uk-text-bold {
+  color: var(--titles-color);
 }
 
 b,
@@ -277,6 +283,10 @@ td.uk-text-truncate {
 
 table, td, th {
     border: 1px solid #adadad;
+}
+
+.res-width {
+  word-wrap: break-word;
 }
 
 .border-left-hidden {

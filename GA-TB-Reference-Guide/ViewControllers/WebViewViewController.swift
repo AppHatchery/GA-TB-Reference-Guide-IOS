@@ -89,7 +89,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(tapGlobalSearch))
                 
         titleLabel.text = titlelabel
-        dateLabel.text = "Updated \( Array(chapterIndex.updateDates.joined())[Array(chapterIndex.chapterCode.joined()).firstIndex(of: uniqueAddress) ?? 0])"
+        dateLabel.text = "Updated \( chapterIndex.updateDate)"
         
         contentView.topAnchor.constraint(equalTo: pseudoseparator.bottomAnchor, constant: 5).isActive = true
         
