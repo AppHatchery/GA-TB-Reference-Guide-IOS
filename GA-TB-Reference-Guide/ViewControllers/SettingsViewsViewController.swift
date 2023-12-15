@@ -16,6 +16,7 @@ class SettingsViewsViewController: UIViewController, WKUIDelegate, WKNavigationD
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var fontSlider: UISlider!
     @IBOutlet weak var fontSize: UILabel!
+    @IBOutlet var fontSizeElementCollection: [UIView]!
     
     var webView: WKWebView!
     var webViewTopConstraint: NSLayoutConstraint!
@@ -54,6 +55,13 @@ class SettingsViewsViewController: UIViewController, WKUIDelegate, WKNavigationD
         
         webView.load( URLRequest( url: url ))
         
+        // Hide font size elements if reading About Us page
+        if titleLabel == "About" {
+            for fontElement in fontSizeElementCollection {
+                fontElement.isHidden = true
+            }
+        }
+        
         if let currentSettings = realm!.object(ofType: UserSettings.self, forPrimaryKey: "savedSettings"){
             // Assign the older entry to the current variable
             userSettings = currentSettings
@@ -66,20 +74,7 @@ class SettingsViewsViewController: UIViewController, WKUIDelegate, WKNavigationD
             RealmHelper.sharedInstance.save(userSettings) { saved in
                 //
             }
-//            try! realm!.write {
-//                realm!.add(userSettings)
-//            }
             sliderControl(state: 100)
-        }
-        
-        switch UIDevice.current.userInterfaceIdiom {
-        case .phone:
-            print("phone")
-        case .pad:
-            print("ipad")
-        
-        @unknown default:
-            print("not sure!")
         }
     }
     
