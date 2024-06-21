@@ -14,8 +14,8 @@ class GuideViewController: UIViewController, UISearchBarDelegate {
     @IBOutlet var topQuickLinks: [UIButton]!
     @IBOutlet var bottomQuickLinks: [UIButton]!
     
-    @IBOutlet weak var searchView: UIView!
-    @IBOutlet weak var search: UISearchBar!
+//    @IBOutlet weak var searchView: UIView!
+//    @IBOutlet weak var search: UISearchBar!
     @IBOutlet weak var contentView: UIView!
     var scrollView: UIScrollView!
     var guideView: Guide!
@@ -114,10 +114,10 @@ class GuideViewController: UIViewController, UISearchBarDelegate {
         }
     }
     
-    @objc func tapSearch(_ sender: UITapGestureRecognizer){
-        print("tapped search")
-        performSegue(withIdentifier: "SegueToSearchViewController", sender: nil)
-    }
+//    @objc func tapSearch(_ sender: UITapGestureRecognizer){
+//        print("tapped search")
+//        performSegue(withIdentifier: "SegueToSearchViewController", sender: nil)
+//    }
     
     @IBAction func tapTopButton(_ sender: UIButton){
         quickTitle = bible.chapters[sender.tag-1]
@@ -165,9 +165,9 @@ class GuideViewController: UIViewController, UISearchBarDelegate {
             webViewViewController.uniqueAddress = bible.chartURLs[quickPointer]
         }
         
-        if let searchViewController = segue.destination as? SearchViewController
-        {
-            searchViewController.size = searchView.bounds
-        }
+//        if let searchViewController = segue.destination as? SearchViewController
+//        {
+//            searchViewController.size = searchView.bounds
+//        }
     }
 }

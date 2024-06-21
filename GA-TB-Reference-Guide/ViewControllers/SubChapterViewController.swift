@@ -34,9 +34,6 @@ class SubChapterViewController: UIViewController, UITableViewDelegate, UITableVi
 //        self.title = navTitle
         navigationItem.rightBarButtonItem?.isEnabled = true
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(tapGlobalSearch))
-//        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor : UIColor.white]
-        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register( UITableViewCell.self, forCellReuseIdentifier: type(of: self).description())
@@ -94,11 +91,6 @@ class SubChapterViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     //--------------------------------------------------------------------------------------------------
-    @objc func tapGlobalSearch(){
-        performSegue( withIdentifier: "SegueToSearchViewController", sender: nil )
-    }
-    
-    //--------------------------------------------------------------------------------------------------
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if let webViewViewController = segue.destination as? WebViewViewController
@@ -107,11 +99,6 @@ class SubChapterViewController: UIViewController, UITableViewDelegate, UITableVi
             webViewViewController.titlelabel = chapterIndex.chapterNested[arrayPointer][subArrayPointer]
             webViewViewController.navTitle = navTitle
             webViewViewController.uniqueAddress = chapterIndex.chapterCode[arrayPointer][subArrayPointer]
-        }
-        
-        if let searchViewController = segue.destination as? SearchViewController
-        {
-            searchViewController.size = CGRect.init(x: 0, y: 0, width: view.frame.width, height: 60)
         }
     }
 }
