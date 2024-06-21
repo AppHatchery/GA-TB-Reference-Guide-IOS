@@ -87,10 +87,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JeE-wx-uaD">
-                                <rect key="frame" x="0.0" y="48" width="414" height="814"/>
+                                <rect key="frame" x="0.0" y="48" width="414" height="765"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vup-hB-9ed">
-                                        <rect key="frame" x="0.0" y="90.5" width="414" height="723.5"/>
+                                        <rect key="frame" x="0.0" y="90.5" width="414" height="674.5"/>
                                         <color key="backgroundColor" name="backgroundColor"/>
                                     </tableView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N9s-Aa-H0a">
@@ -151,10 +151,10 @@
                                         </connections>
                                     </button>
                                     <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SFl-6P-9Hn">
-                                        <rect key="frame" x="0.0" y="85.5" width="414" height="728.5"/>
+                                        <rect key="frame" x="0.0" y="85.5" width="414" height="679.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1sc-g9-GWW">
-                                                <rect key="frame" x="40" y="323.5" width="334" height="81.5"/>
+                                                <rect key="frame" x="40" y="299" width="334" height="81.5"/>
                                                 <string key="text">
 Content you view will appear here.
 
@@ -422,18 +422,50 @@ Start by opening any subchapter or chart.</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wIY-HC-vhi">
-                                <rect key="frame" x="0.0" y="92" width="414" height="721"/>
-                                <color key="backgroundColor" name="backgroundColor"/>
-                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="lie-TQ-9FM">
+                                <rect key="frame" x="0.0" y="92" width="414" height="804"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eM7-co-utl">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="87"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aWb-0r-oxZ">
+                                                <rect key="frame" x="18" y="23" width="188" height="40"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="8" bottom="8" trailing="8"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="filled" image="bookmarks_folder_colored" imagePlacement="leading" title="My Bookmarks" imagePadding="8" buttonSize="small" titleAlignment="leading">
+                                                    <backgroundConfiguration key="background" cornerRadius="4"/>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="font" scale="default" weight="regular">
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    </preferredSymbolConfiguration>
+                                                    <color key="baseForegroundColor" systemColor="darkTextColor"/>
+                                                    <color key="baseBackgroundColor" name="groupBackgroundColor"/>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <segue destination="Dot-Zi-baJ" kind="show" id="Lwd-pG-On7"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" name="dialogColor"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wIY-HC-vhi">
+                                        <rect key="frame" x="0.0" y="87" width="414" height="717"/>
+                                        <color key="backgroundColor" name="backgroundColor"/>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="wIY-HC-vhi" firstAttribute="top" secondItem="lie-TQ-9FM" secondAttribute="top" constant="87" id="pwo-Ak-38Z"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="LvU-Tk-FN4"/>
                         <color key="backgroundColor" name="backgroundColor"/>
                         <constraints>
-                            <constraint firstItem="wIY-HC-vhi" firstAttribute="trailing" secondItem="LvU-Tk-FN4" secondAttribute="trailing" id="1WY-0j-9Xs"/>
-                            <constraint firstItem="wIY-HC-vhi" firstAttribute="top" secondItem="LvU-Tk-FN4" secondAttribute="top" id="4o5-98-fjd"/>
-                            <constraint firstItem="wIY-HC-vhi" firstAttribute="leading" secondItem="LvU-Tk-FN4" secondAttribute="leading" id="KBj-Fc-tWR"/>
-                            <constraint firstItem="wIY-HC-vhi" firstAttribute="bottom" secondItem="LvU-Tk-FN4" secondAttribute="bottom" id="cLO-rV-xtp"/>
+                            <constraint firstItem="lie-TQ-9FM" firstAttribute="top" secondItem="LvU-Tk-FN4" secondAttribute="top" id="gcd-QX-Ugj"/>
+                            <constraint firstItem="lie-TQ-9FM" firstAttribute="leading" secondItem="LvU-Tk-FN4" secondAttribute="leading" id="mSY-8T-yh0"/>
+                            <constraint firstAttribute="bottom" secondItem="lie-TQ-9FM" secondAttribute="bottom" id="q9c-ST-lDp"/>
+                            <constraint firstAttribute="trailing" secondItem="lie-TQ-9FM" secondAttribute="trailing" id="yY3-60-oye"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Guide" id="sjN-VY-Scq"/>
@@ -524,7 +556,7 @@ Start by opening any subchapter or chart.</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JQa-5h-3aq">
-                                <rect key="frame" x="0.0" y="48" width="414" height="765"/>
+                                <rect key="frame" x="0.0" y="92" width="414" height="721"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5d0-oJ-zMv">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="61"/>
@@ -556,7 +588,7 @@ Start by opening any subchapter or chart.</string>
                                         </constraints>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ezG-ZA-9lG">
-                                        <rect key="frame" x="0.0" y="96.5" width="414" height="668.5"/>
+                                        <rect key="frame" x="0.0" y="96.5" width="414" height="624.5"/>
                                         <color key="backgroundColor" name="backgroundColor"/>
                                     </tableView>
                                 </subviews>
@@ -794,7 +826,7 @@ Start by opening any subchapter or chart.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="em9-c3-RPA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-255.07246376811597" y="3005.3571428571427"/>
+            <point key="canvasLocation" x="2064" y="2233"/>
         </scene>
         <!--Sub Chapter View Controller-->
         <scene sceneID="Ld5-5d-3S0">
@@ -832,12 +864,14 @@ Start by opening any subchapter or chart.</string>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="sNt-ij-jaz"/>
-        <segue reference="WRJ-HX-g6R"/>
-        <segue reference="166-mH-bPt"/>
+        <segue reference="QdM-r2-YsT"/>
+        <segue reference="71I-Ok-Ej0"/>
         <segue reference="c87-MO-uwg"/>
+        <segue reference="Lwd-pG-On7"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="bookmark.fill" catalog="system" width="110" height="128"/>
+        <image name="bookmarks_folder_colored" width="24" height="24"/>
         <image name="gear" catalog="system" width="128" height="122"/>
         <image name="house.fill" catalog="system" width="128" height="104"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
@@ -863,6 +897,12 @@ Start by opening any subchapter or chart.</string>
         <namedColor name="dialogIcons">
             <color red="0.61176470588235299" green="0.20000000000000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <namedColor name="groupBackgroundColor">
+            <color red="0.94900000095367432" green="0.94900000095367432" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <systemColor name="darkTextColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

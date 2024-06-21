@@ -139,6 +139,10 @@ class GuideViewController: UIViewController, UISearchBarDelegate {
         performSegue(withIdentifier: "SegueToAllChartsViewController", sender: nil)
     }
     
+    @IBAction func tapBookmarks(_ sender: UIButton){
+        performSegue(withIdentifier: "SegueToSavedViewController", sender: nil)
+    }
+    
     //--------------------------------------------------------------------------------------------------
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
