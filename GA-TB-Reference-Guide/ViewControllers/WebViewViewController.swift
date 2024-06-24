@@ -86,7 +86,6 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         navbarTitle.adjustsFontSizeToFitWidth = true
         navigationItem.titleView = navbarTitle
 //        self.title = navTitle
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(tapGlobalSearch))
                 
         titleLabel.text = titlelabel
         dateLabel.text = "Updated \( chapterIndex.updateDate)"
@@ -787,17 +786,6 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
                 removeTable()
            }
          }
-    }
-    
-    //--------------------------------------------------------------------------------------------------
-    @objc func tapGlobalSearch(){
-        // If you came from the search controller then pop back the view controller, otherwise navigate there
-        webView.removeObserver(self, forKeyPath: "URL")
-        if comingFromSearch == true {
-            self.navigationController?.popViewController(animated: true)
-        } else {
-            performSegue(withIdentifier: "SegueToSearchViewController", sender: nil)
-        }
     }
     
     //--------------------------------------------------------------------------------------------------

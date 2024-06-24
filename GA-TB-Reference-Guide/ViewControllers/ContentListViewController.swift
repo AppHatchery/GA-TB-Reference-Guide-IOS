@@ -35,8 +35,6 @@ class ContentListViewController: UIViewController, UITableViewDelegate, UITableV
         navbarTitle.adjustsFontSizeToFitWidth = true
         navigationItem.titleView = navbarTitle
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(tapGlobalSearch))
-        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register( UITableViewCell.self, forCellReuseIdentifier: type(of: self).description())
@@ -94,22 +92,12 @@ class ContentListViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     //--------------------------------------------------------------------------------------------------
-    @objc func tapGlobalSearch(){
-        performSegue( withIdentifier: "SegueToSearchViewController", sender: nil )
-    }
-    
-    //--------------------------------------------------------------------------------------------------
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if let subChapterViewController = segue.destination as? SubChapterViewController
         {
             subChapterViewController.arrayPointer = arrayPointer
             subChapterViewController.navTitle = chapters[arrayPointer]
-        }
-        
-        if let searchViewController = segue.destination as? SearchViewController
-        {
-            searchViewController.size = CGRect.init(x: 0, y: 0, width: view.frame.width, height: 60)
         }
     }
 }

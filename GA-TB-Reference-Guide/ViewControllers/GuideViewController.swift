@@ -14,8 +14,8 @@ class GuideViewController: UIViewController, UISearchBarDelegate {
     @IBOutlet var topQuickLinks: [UIButton]!
     @IBOutlet var bottomQuickLinks: [UIButton]!
     
-    @IBOutlet weak var searchView: UIView!
-    @IBOutlet weak var search: UISearchBar!
+//    @IBOutlet weak var searchView: UIView!
+//    @IBOutlet weak var search: UISearchBar!
     @IBOutlet weak var contentView: UIView!
     var scrollView: UIScrollView!
     var guideView: Guide!
@@ -46,22 +46,22 @@ class GuideViewController: UIViewController, UISearchBarDelegate {
         navigationItem.titleView = navbarTitle
 //        navigationController?.navigationItem.searchController = search
         
-        let tapSearchGesture = UITapGestureRecognizer(target: self, action: #selector(tapSearch(_:)))
-        let tapSearchGesture2 = UITapGestureRecognizer(target: self, action: #selector(tapSearch(_:)))
+//        let tapSearchGesture = UITapGestureRecognizer(target: self, action: #selector(tapSearch(_:)))
+//        let tapSearchGesture2 = UITapGestureRecognizer(target: self, action: #selector(tapSearch(_:)))
         
-        search.delegate = self
-        search.searchTextField.addGestureRecognizer(tapSearchGesture)
-        search.addGestureRecognizer(tapSearchGesture2)
+//        search.delegate = self
+//        search.searchTextField.addGestureRecognizer(tapSearchGesture)
+//        search.addGestureRecognizer(tapSearchGesture2)
 
-        let textFieldInsideSearchBar = search.value(forKey: "searchField") as? UITextField
-        textFieldInsideSearchBar?.textColor = UIColor.searchBarText
-        textFieldInsideSearchBar?.layer.cornerRadius = 60
-        textFieldInsideSearchBar?.backgroundColor = UIColor.searchBar
-        textFieldInsideSearchBar?.attributedPlaceholder = NSAttributedString(string: "Search Guide",attributes: [NSAttributedString.Key.foregroundColor: UIColor.searchBarText])
-        searchView.frame = CGRect(x: searchView.frame.origin.x, y: searchView.frame.origin.x, width: searchView.frame.width, height: search.frame.height+10)
-                
-        navigationController?.navigationBar.setGradientBackground(to: self.navigationController!)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
+//        let textFieldInsideSearchBar = search.value(forKey: "searchField") as? UITextField
+//        textFieldInsideSearchBar?.textColor = UIColor.searchBarText
+//        textFieldInsideSearchBar?.layer.cornerRadius = 60
+//        textFieldInsideSearchBar?.backgroundColor = UIColor.searchBar
+//        textFieldInsideSearchBar?.attributedPlaceholder = NSAttributedString(string: "Search Guide",attributes: [NSAttributedString.Key.foregroundColor: UIColor.searchBarText])
+//        searchView.frame = CGRect(x: searchView.frame.origin.x, y: searchView.frame.origin.x, width: searchView.frame.width, height: search.frame.height+10)
+//                
+//        navigationController?.navigationBar.setGradientBackground(to: self.navigationController!)
+//        self.navigationController?.navigationBar.shadowImage = UIImage()
         
 //        searchView.setGradientBackground()
         // Register for `UIContentSizeCategory.didChangeNotification`
@@ -114,10 +114,10 @@ class GuideViewController: UIViewController, UISearchBarDelegate {
         }
     }
     
-    @objc func tapSearch(_ sender: UITapGestureRecognizer){
-        print("tapped search")
-        performSegue(withIdentifier: "SegueToSearchViewController", sender: nil)
-    }
+//    @objc func tapSearch(_ sender: UITapGestureRecognizer){
+//        print("tapped search")
+//        performSegue(withIdentifier: "SegueToSearchViewController", sender: nil)
+//    }
     
     @IBAction func tapTopButton(_ sender: UIButton){
         quickTitle = bible.chapters[sender.tag-1]
@@ -137,6 +137,10 @@ class GuideViewController: UIViewController, UISearchBarDelegate {
     
     @IBAction func tapAllCharts(_ sender: UIButton){
         performSegue(withIdentifier: "SegueToAllChartsViewController", sender: nil)
+    }
+    
+    @IBAction func tapBookmarks(_ sender: UIButton){
+        performSegue(withIdentifier: "SegueToSavedViewController", sender: nil)
     }
     
     //--------------------------------------------------------------------------------------------------
@@ -161,9 +165,9 @@ class GuideViewController: UIViewController, UISearchBarDelegate {
             webViewViewController.uniqueAddress = bible.chartURLs[quickPointer]
         }
         
-        if let searchViewController = segue.destination as? SearchViewController
-        {
-            searchViewController.size = searchView.bounds
-        }
+//        if let searchViewController = segue.destination as? SearchViewController
+//        {
+//            searchViewController.size = searchView.bounds
+//        }
     }
 }
