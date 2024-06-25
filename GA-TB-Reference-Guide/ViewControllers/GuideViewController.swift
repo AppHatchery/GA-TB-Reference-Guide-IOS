@@ -34,6 +34,9 @@ class GuideViewController: UIViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.hidesBottomBarWhenPushed = false
+        self.hidesBottomBarWhenPushed = false
+        
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor : UIColor.white]
         let navbarTitle = UILabel()
         navbarTitle.text = "Guide"
@@ -91,11 +94,12 @@ class GuideViewController: UIViewController, UISearchBarDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
-        
 //        if !isGradientAdded {
 //            searchView.setGradientBackground(size: searchView.layer.bounds)
 //            isGradientAdded = true
 //        }
+        navigationController?.hidesBottomBarWhenPushed = false
+        self.hidesBottomBarWhenPushed = false
         
         if scrollView == nil {
             
@@ -146,15 +150,34 @@ class GuideViewController: UIViewController, UISearchBarDelegate {
     //--------------------------------------------------------------------------------------------------
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
+        navigationController?.hidesBottomBarWhenPushed = false
+        self.hidesBottomBarWhenPushed = false
+        
+        if let guideViewController = segue.destination as? GuideViewController
+        {
+            guideViewController.hidesBottomBarWhenPushed = false
+        }
+        
+        if let savedViewController = segue.destination as? SavedViewController
+        {
+            savedViewController.hidesBottomBarWhenPushed = true
+        }
+        
         if let subChapterViewController = segue.destination as? SubChapterViewController
         {
             subChapterViewController.arrayPointer = quickPointer
             subChapterViewController.navTitle = quickTitle
+            subChapterViewController.hidesBottomBarWhenPushed = true
         }
         
         if let chartListViewController = segue.destination as? ChartListViewController
         {
             chartListViewController.arrayPointer = quickPointer
+            chartListViewController.hidesBottomBarWhenPushed = true
+        }
+        
+        if let contentListViewController = segue.destination as? ContentListViewController {
+            contentListViewController.hidesBottomBarWhenPushed = true
         }
         
         if let webViewViewController = segue.destination as? WebViewViewController
@@ -163,8 +186,10 @@ class GuideViewController: UIViewController, UISearchBarDelegate {
             webViewViewController.titlelabel = quickTitle
             webViewViewController.navTitle = "Charts"
             webViewViewController.uniqueAddress = bible.chartURLs[quickPointer]
+            webViewViewController.hidesBottomBarWhenPushed = true
         }
         
+
 //        if let searchViewController = segue.destination as? SearchViewController
 //        {
 //            searchViewController.size = searchView.bounds

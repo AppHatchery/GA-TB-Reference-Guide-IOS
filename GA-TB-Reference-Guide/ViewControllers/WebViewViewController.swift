@@ -86,6 +86,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         navbarTitle.adjustsFontSizeToFitWidth = true
         navigationItem.titleView = navbarTitle
 //        self.title = navTitle
+        self.hidesBottomBarWhenPushed = true
                 
         titleLabel.text = titlelabel
         dateLabel.text = "Updated \( chapterIndex.updateDate)"

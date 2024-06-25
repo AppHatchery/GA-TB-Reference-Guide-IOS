@@ -253,6 +253,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             webViewViewController.comingFromSearch = true
             webViewViewController.searchTerm = search.text != "" ? search.text : nil
             webViewViewController.uniqueAddress = Array(chapterIndex.chapterCode.joined())[subArrayPointer]
+            webViewViewController.hidesBottomBarWhenPushed = true
         }
     }
     
