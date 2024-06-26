@@ -630,57 +630,8 @@ Start by opening any subchapter or chart.</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jSc-wm-b9l">
-                                <rect key="frame" x="5" y="215" width="409" height="575.5"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="doE-r2-vu4">
-                                        <rect key="frame" x="14" y="386" width="368" height="48"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2pP-Bw-BQS">
-                                                <rect key="frame" x="20" y="12" width="62.5" height="24"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kdy-S2-KzM">
-                                                <rect key="frame" x="82.5" y="12" width="0.0" height="24"/>
-                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="close" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pta-Ef-nPC">
-                                                <rect key="frame" x="307.5" y="12" width="40.5" height="24"/>
-                                                <buttonConfiguration key="configuration" style="filled">
-                                                    <backgroundConfiguration key="background" cornerRadius="23">
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    </backgroundConfiguration>
-                                                </buttonConfiguration>
-                                                <connections>
-                                                    <action selector="closeSearchBar:" destination="MDz-7h-Sal" eventType="touchUpInside" id="YeA-ZY-G3l"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" name="dialogIcons"/>
-                                        <constraints>
-                                            <constraint firstItem="kdy-S2-KzM" firstAttribute="leading" secondItem="2pP-Bw-BQS" secondAttribute="trailing" id="2QO-fl-esw"/>
-                                            <constraint firstAttribute="bottom" secondItem="Pta-Ef-nPC" secondAttribute="bottom" constant="12" id="8HO-xD-IEq"/>
-                                            <constraint firstItem="kdy-S2-KzM" firstAttribute="top" secondItem="doE-r2-vu4" secondAttribute="top" constant="12" id="Cqx-QZ-hG5"/>
-                                            <constraint firstItem="2pP-Bw-BQS" firstAttribute="leading" secondItem="doE-r2-vu4" secondAttribute="leading" constant="20" symbolic="YES" id="KqI-DN-Ih9"/>
-                                            <constraint firstItem="Pta-Ef-nPC" firstAttribute="top" secondItem="doE-r2-vu4" secondAttribute="top" constant="12" id="W8I-RY-kre"/>
-                                            <constraint firstItem="Pta-Ef-nPC" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kdy-S2-KzM" secondAttribute="trailing" constant="8" symbolic="YES" id="a7b-OR-x3H"/>
-                                            <constraint firstAttribute="bottom" secondItem="kdy-S2-KzM" secondAttribute="bottom" constant="12" id="gIB-GV-c1T"/>
-                                            <constraint firstAttribute="trailing" secondItem="Pta-Ef-nPC" secondAttribute="trailing" constant="20" id="kCh-B6-G2Y"/>
-                                            <constraint firstAttribute="height" constant="48" id="lDz-Wf-sUZ"/>
-                                            <constraint firstItem="2pP-Bw-BQS" firstAttribute="top" secondItem="doE-r2-vu4" secondAttribute="top" constant="12" id="olo-oK-tPZ"/>
-                                            <constraint firstAttribute="bottom" secondItem="2pP-Bw-BQS" secondAttribute="bottom" constant="12" id="v8H-3b-4B8"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="doE-r2-vu4" firstAttribute="centerX" secondItem="jSc-wm-b9l" secondAttribute="centerX" constant="-6.5" id="Ac5-Ru-AeI"/>
-                                    <constraint firstItem="doE-r2-vu4" firstAttribute="top" secondItem="jSc-wm-b9l" secondAttribute="top" constant="386" id="DA8-tT-BWZ"/>
-                                    <constraint firstItem="doE-r2-vu4" firstAttribute="leading" secondItem="jSc-wm-b9l" secondAttribute="leading" constant="14" id="YWe-z8-nZH"/>
-                                </constraints>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jSc-wm-b9l">
+                                <rect key="frame" x="5" y="214" width="409" height="575.5"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Placeholder Title" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wxl-6c-aLt">
                                 <rect key="frame" x="20" y="112" width="374" height="20.5"/>
@@ -708,6 +659,47 @@ Start by opening any subchapter or chart.</string>
                                 <color key="textColor" name="customDarkGray"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="doE-r2-vu4">
+                                <rect key="frame" x="23" y="651" width="368" height="48"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2pP-Bw-BQS">
+                                        <rect key="frame" x="20" y="12" width="62.5" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kdy-S2-KzM">
+                                        <rect key="frame" x="82.5" y="12" width="0.0" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="close" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pta-Ef-nPC">
+                                        <rect key="frame" x="307.5" y="12" width="40.5" height="24"/>
+                                        <buttonConfiguration key="configuration" style="filled">
+                                            <backgroundConfiguration key="background" cornerRadius="23">
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </backgroundConfiguration>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="closeSearchBar:" destination="MDz-7h-Sal" eventType="touchUpInside" id="YeA-ZY-G3l"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" name="dialogIcons"/>
+                                <constraints>
+                                    <constraint firstItem="2pP-Bw-BQS" firstAttribute="leading" secondItem="doE-r2-vu4" secondAttribute="leading" constant="20" id="1DI-Bz-iPu"/>
+                                    <constraint firstItem="kdy-S2-KzM" firstAttribute="top" secondItem="Pta-Ef-nPC" secondAttribute="top" id="8wL-db-stO"/>
+                                    <constraint firstItem="kdy-S2-KzM" firstAttribute="centerY" secondItem="doE-r2-vu4" secondAttribute="centerY" id="FB3-Jb-mpJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="Pta-Ef-nPC" secondAttribute="trailing" constant="20" id="HE0-ZU-Joh"/>
+                                    <constraint firstItem="kdy-S2-KzM" firstAttribute="baseline" secondItem="2pP-Bw-BQS" secondAttribute="baseline" id="MWb-vR-DGY"/>
+                                    <constraint firstItem="kdy-S2-KzM" firstAttribute="top" secondItem="doE-r2-vu4" secondAttribute="top" constant="12" id="Ml1-fJ-tDl"/>
+                                    <constraint firstItem="kdy-S2-KzM" firstAttribute="top" secondItem="2pP-Bw-BQS" secondAttribute="top" id="VKI-oz-FMY"/>
+                                    <constraint firstItem="kdy-S2-KzM" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2pP-Bw-BQS" secondAttribute="trailing" id="dIY-OL-lrY"/>
+                                    <constraint firstItem="kdy-S2-KzM" firstAttribute="bottom" secondItem="Pta-Ef-nPC" secondAttribute="bottom" id="hVk-qo-5RZ"/>
+                                    <constraint firstItem="kdy-S2-KzM" firstAttribute="leading" secondItem="doE-r2-vu4" secondAttribute="leading" constant="82.5" id="paG-Vg-PDf"/>
+                                </constraints>
+                            </view>
                             <stackView clearsContextBeforeDrawing="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" insetsLayoutMarginsFromSafeArea="NO" distribution="fillEqually" alignment="center" spacing="-10" baselineRelativeArrangement="YES" id="1Sk-qE-mCt">
                                 <rect key="frame" x="0.0" y="783" width="414" height="49"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -860,12 +852,16 @@ Start by opening any subchapter or chart.</string>
                             <constraint firstItem="2T8-CA-J1j" firstAttribute="leading" secondItem="iku-5P-OPX" secondAttribute="leading" constant="20" id="Cxp-vc-dwD"/>
                             <constraint firstItem="jSc-wm-b9l" firstAttribute="trailing" secondItem="1Sk-qE-mCt" secondAttribute="trailing" id="EJc-rY-LWm"/>
                             <constraint firstItem="Uyt-6T-1jJ" firstAttribute="top" secondItem="cOo-xK-9O0" secondAttribute="bottom" constant="1" id="FhH-HA-AaQ"/>
+                            <constraint firstItem="1Sk-qE-mCt" firstAttribute="top" secondItem="doE-r2-vu4" secondAttribute="bottom" constant="84" id="GAw-bY-D5s"/>
                             <constraint firstItem="2T8-CA-J1j" firstAttribute="top" secondItem="wxl-6c-aLt" secondAttribute="bottom" constant="30" id="HLa-LE-upe"/>
                             <constraint firstItem="1Sk-qE-mCt" firstAttribute="bottom" secondItem="jSc-wm-b9l" secondAttribute="bottom" constant="41.5" id="OeY-sC-nkr"/>
                             <constraint firstItem="1Sk-qE-mCt" firstAttribute="top" secondItem="iku-5P-OPX" secondAttribute="top" constant="691" id="P4H-UI-sz9"/>
                             <constraint firstAttribute="trailingMargin" secondItem="2T8-CA-J1j" secondAttribute="trailing" constant="185" id="QkT-ZE-fb7"/>
+                            <constraint firstItem="doE-r2-vu4" firstAttribute="leading" secondItem="iku-5P-OPX" secondAttribute="leading" constant="23" id="TBF-92-HsX"/>
+                            <constraint firstItem="iku-5P-OPX" firstAttribute="trailing" secondItem="doE-r2-vu4" secondAttribute="trailing" constant="23" id="TOr-bg-nv7"/>
                             <constraint firstItem="iku-5P-OPX" firstAttribute="trailing" secondItem="1Sk-qE-mCt" secondAttribute="trailing" id="ZVd-Uw-4Ee"/>
                             <constraint firstItem="cOo-xK-9O0" firstAttribute="top" secondItem="2T8-CA-J1j" secondAttribute="bottom" constant="5" id="aMH-Fb-0uU"/>
+                            <constraint firstItem="doE-r2-vu4" firstAttribute="top" secondItem="Uyt-6T-1jJ" secondAttribute="bottom" constant="464.5" id="ats-ku-rCy"/>
                             <constraint firstItem="wxl-6c-aLt" firstAttribute="leading" secondItem="iku-5P-OPX" secondAttribute="leading" constant="20" id="etC-cF-6pH"/>
                             <constraint firstItem="jSc-wm-b9l" firstAttribute="top" secondItem="Uyt-6T-1jJ" secondAttribute="bottom" constant="28.5" id="fbM-PE-3om"/>
                             <constraint firstItem="iku-5P-OPX" firstAttribute="trailing" secondItem="cOo-xK-9O0" secondAttribute="trailing" constant="5" id="g5j-3e-4yK"/>
