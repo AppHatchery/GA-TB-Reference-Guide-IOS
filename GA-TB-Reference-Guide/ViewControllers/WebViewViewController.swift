@@ -66,6 +66,22 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
 //        return webView
 //    }()
     
+    let bookmarkText = NSAttributedString(
+        string: "Bookmark",
+        attributes: [
+            .foregroundColor: UIColor.label,
+            .font: UIFont.systemFont(ofSize: 9.0)
+        ]
+    )
+    
+    let bookmarkedText = NSAttributedString(
+        string: "Bookmarked",
+        attributes: [
+            .foregroundColor: UIColor.label,
+            .font: UIFont.systemFont(ofSize: 9.0)
+        ]
+    )
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -141,7 +157,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
 //        }
 //
 //        if content.favorite == true {
-//            favoriteIcon.setBackgroundImage(UIImage(systemName: "star.fill"), for: .normal)
+//            favoriteIcon.setImage(UIImage(systemName: "star.fill"), for: .normal)
 //        }
         
         // Create WebView Content
@@ -240,7 +256,8 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         
         
         if content.favorite == true {
-            favoriteIcon.setBackgroundImage(UIImage(systemName: "star.fill"), for: .normal)
+            favoriteIcon.setImage(UIImage(named: "icBookmarksFolderColored"), for: .normal)
+            favoriteIcon.setAttributedTitle(bookmarkedText, for: .normal)
         }
         
         
@@ -291,7 +308,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
 //        }
 //
 //        if content.favorite == true {
-//            favoriteIcon.setBackgroundImage(UIImage(systemName: "star.fill"), for: .normal)
+//            favoriteIcon.setImage(UIImage(systemName: "star.fill"), for: .normal)
 //        }
         
         // Load table if there are notes saved for this chapter
@@ -305,7 +322,8 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         
         // This removes the favoriting if it gets deleted in the saved page
         if content.favorite == false {
-            favoriteIcon.setBackgroundImage(UIImage(systemName: "star"), for: .normal)
+            favoriteIcon.setImage(UIImage(named: "icBookmarksFolder"), for: .normal)
+            favoriteIcon.setAttributedTitle(bookmarkText, for: .normal)
         }
         // Load table if there are notes saved for this chapter
         if content.notes.count > 0 {
@@ -464,8 +482,8 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     }
     
     //--------------------------------------------------------------------------------------------------
-    @IBAction func addFeedback(_ sender: UIButton){
-        openFeedbackWindow(parent: navTitle, title: titlelabel)
+    @IBAction func backToHomepage(_ sender: UIButton){
+        navigationController?.popToRootViewController(animated: true)
     }
     
     //--------------------------------------------------------------------------------------------------
@@ -810,22 +828,30 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     //--------------------------------------------------------------------------------------------------
     func didSaveName( _ name: String)
     {
-//         let realm = try! Realm()
+        let bookmarkedText = NSAttributedString(
+            string: "Bookmarked",
+            attributes: [
+                .foregroundColor: UIColor.label,
+                .font: UIFont.systemFont(ofSize: 9.0)
+            ]
+        )
         
+        // let realm = try! Realm()
         
         RealmHelper.sharedInstance.update(content, properties: [
             "favoriteName": name,
             "favorite": true
         ]) { [weak self] updated in
             //
-            self?.favoriteIcon.setBackgroundImage(UIImage(systemName: "star.fill"), for: .normal)
+            self?.favoriteIcon.setImage(UIImage(named: "icBookmarksFolderColored"), for: .normal)
+            self?.favoriteIcon.setAttributedTitle(bookmarkedText, for: .normal)
         }
             
 //        try! realm.write
 //        {
 //            content.favoriteName = name
 //            content.favorite = true
-//            favoriteIcon.setBackgroundImage(UIImage(systemName: "star.fill"), for: .normal)
+//            favoriteIcon.setImage(UIImage(systemName: "star.fill"), for: .normal)
 //        }
         
         Analytics.logEvent("bookmark", parameters: [
@@ -836,6 +862,14 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     //--------------------------------------------------------------------------------------------------
     func didRemoveFavorite( )
     {
+        let bookmarkText = NSAttributedString(
+            string: "Bookmark",
+            attributes: [
+                .foregroundColor: UIColor.label,
+                .font: UIFont.systemFont(ofSize: 9.0)
+            ]
+        )
+        
         // let realm = try! Realm() Realm()
         
         RealmHelper.sharedInstance.update(content, properties: [
@@ -843,14 +877,15 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             "favorite": false
         ]) { [weak self] updated in
             //
-            self?.favoriteIcon.setBackgroundImage(UIImage(systemName: "star"), for: .normal)
+            self?.favoriteIcon.setImage(UIImage(named: "icBookmarksFolder"), for: .normal)
+            self?.favoriteIcon.setAttributedTitle(bookmarkText, for: .normal)
         }
         
 //        try!  realm!.write
 //        {
 //            content.favoriteName = ""
 //            content.favorite = false
-//            favoriteIcon.setBackgroundImage(UIImage(systemName: "star"), for: .normal)
+//            favoriteIcon.setImage(UIImage(systemName: "star"), for: .normal)
 //        }
     }
     
