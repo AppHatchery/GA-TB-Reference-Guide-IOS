@@ -551,6 +551,12 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         present(activityVC, animated: true)
     }
     
+    //--------------------------------------------------------------------------------------------------
+    @IBAction func fontSettings(_ sender: UIButton){
+        let popUpOverlay = FontSettingsView()
+        popUpOverlay.displayPopUp(sender:self)
+    }
+    
     @IBAction func closeSearchBar(_ sender: UIButton) {
         searchView.isHidden = true
         removeHighlights()

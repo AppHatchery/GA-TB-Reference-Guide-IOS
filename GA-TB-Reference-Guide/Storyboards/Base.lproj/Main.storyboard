@@ -839,6 +839,9 @@ Start by opening any subchapter or chart.</string>
                                             </attributedString>
                                             <color key="baseForegroundColor" name="custom333"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="fontSettings:" destination="MDz-7h-Sal" eventType="touchUpInside" id="zC9-IG-KSc"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" name="backgroundColor"/>
@@ -952,7 +955,7 @@ Start by opening any subchapter or chart.</string>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="sNt-ij-jaz"/>
-        <segue reference="eA2-yB-9Oc"/>
+        <segue reference="WRJ-HX-g6R"/>
         <segue reference="c87-MO-uwg"/>
     </inferredMetricsTieBreakers>
     <resources>

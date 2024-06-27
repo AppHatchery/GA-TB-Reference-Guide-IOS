@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8875431A7EA3AD5B65486139 /* Pods_GA_TB_Reference_Guide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF23FEBF71C372B82094033D /* Pods_GA_TB_Reference_Guide.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		8E0132EA2A68FFB0001533AB /* WebView.js in Resources */ = {isa = PBXBuildFile; fileRef = 8E0132E82A68DCAB001533AB /* WebView.js */; };
+		B474B07E2C2DA54B0092F4F6 /* FontSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B474B07C2C2DA54B0092F4F6 /* FontSettingsView.swift */; };
+		B474B07F2C2DA54B0092F4F6 /* FontSettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B474B07D2C2DA54B0092F4F6 /* FontSettingsView.xib */; };
+		B474B0832C2DFE230092F4F6 /* Pods_GA_TB_Reference_Guide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF23FEBF71C372B82094033D /* Pods_GA_TB_Reference_Guide.framework */; };
 		D42F25E826EEFA8F009DC942 /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42F25E626EEFA8F009DC942 /* NoteTableViewCell.swift */; };
 		D42F25E926EEFA8F009DC942 /* NoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D42F25E726EEFA8F009DC942 /* NoteTableViewCell.xib */; };
 		D42F263C26EF821B009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi).html in Resources */ = {isa = PBXBuildFile; fileRef = D42F25EE26EF81F8009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi).html */; };
@@ -175,6 +177,8 @@
 /* Begin PBXFileReference section */
 		8E0132E82A68DCAB001533AB /* WebView.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = WebView.js; sourceTree = "<group>"; };
 		A4E783F70550BAD2B6B83131 /* Pods-GA-TB-Reference-Guide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GA-TB-Reference-Guide.debug.xcconfig"; path = "Target Support Files/Pods-GA-TB-Reference-Guide/Pods-GA-TB-Reference-Guide.debug.xcconfig"; sourceTree = "<group>"; };
+		B474B07C2C2DA54B0092F4F6 /* FontSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsView.swift; sourceTree = "<group>"; };
+		B474B07D2C2DA54B0092F4F6 /* FontSettingsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FontSettingsView.xib; sourceTree = "<group>"; };
 		BF23FEBF71C372B82094033D /* Pods_GA_TB_Reference_Guide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GA_TB_Reference_Guide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D42F25E626EEFA8F009DC942 /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
 		D42F25E726EEFA8F009DC942 /* NoteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteTableViewCell.xib; sourceTree = "<group>"; };
@@ -345,12 +349,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D46BECDF2756E5BB000D8553 /* FirebaseDatabase in Frameworks */,
+				B474B0832C2DFE230092F4F6 /* Pods_GA_TB_Reference_Guide.framework in Frameworks */,
 				D4597EA62A701B4E00EF8906 /* Pendo in Frameworks */,
 				D46BECDB2756E5BB000D8553 /* FirebaseMessaging in Frameworks */,
 				D46BECD92756E5BB000D8553 /* FirebaseCrashlytics in Frameworks */,
 				D46BECD72756E5BB000D8553 /* FirebaseAnalytics in Frameworks */,
 				D46BECDD2756E5BB000D8553 /* FirebaseDynamicLinks in Frameworks */,
-				8875431A7EA3AD5B65486139 /* Pods_GA_TB_Reference_Guide.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -612,6 +616,8 @@
 				D4710CAD2744129000F6EBFF /* Settings.xib */,
 				D4710CE8274ABA4700F6EBFF /* FeedbackForm.swift */,
 				D4710CEB274ABA5700F6EBFF /* FeedbackForm.xib */,
+				B474B07C2C2DA54B0092F4F6 /* FontSettingsView.swift */,
+				B474B07D2C2DA54B0092F4F6 /* FontSettingsView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -828,6 +834,7 @@
 				D42F264926EF821B009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__d__laboratory_diagnosis_of_extrapulmary_tuberculosis.html in Resources */,
 				D4A5D2A62B2C9BA500812C53 /* 16_for_more_information_image_2.jpg in Resources */,
 				D42F266026EF821B009DC942 /* 1_epidemiology.html in Resources */,
+				B474B07F2C2DA54B0092F4F6 /* FontSettingsView.xib in Resources */,
 				D42F268926EF821B009DC942 /* table_4_recommendations_for_regimens_to_treat_latent_tuberculosis_infection.html in Resources */,
 				D48063852A97BCFA006C9861 /* GoogleService-Info.plist in Resources */,
 				D42F268026EF821B009DC942 /* 10_tb_infection_control_hospital_isolation_procedures__d__personal_respiratory_protection.html in Resources */,
@@ -972,6 +979,7 @@
 				D4710CB1274418EC00F6EBFF /* SettingsViewController.swift in Sources */,
 				D4B0B0D726D02A02003BD1EA /* ContentListViewController.swift in Sources */,
 				D4710CB427441AD400F6EBFF /* SettingsViewsViewController.swift in Sources */,
+				B474B07E2C2DA54B0092F4F6 /* FontSettingsView.swift in Sources */,
 				D4710CAB2744128300F6EBFF /* Settings.swift in Sources */,
 				D4710CE9274ABA4700F6EBFF /* FeedbackForm.swift in Sources */,
 				D4A06A5B26E6E35E0093D144 /* SavedViewController.swift in Sources */,
