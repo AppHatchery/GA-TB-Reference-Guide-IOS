@@ -64,7 +64,7 @@
                                         </button>
                                     </subviews>
                                 </stackView>
-                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1.1000000000000001" minValue="0.75" maxValue="1.75" minimumValueImage="icFontSmall" maximumValueImage="icFontLarge" translatesAutoresizingMaskIntoConstraints="NO" id="BIX-sI-gyR" userLabel="fontSlider">
+                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1.1000000000000001" minValue="0.75" maxValue="1.75" continuous="NO" minimumValueImage="icFontSmall" maximumValueImage="icFontLarge" translatesAutoresizingMaskIntoConstraints="NO" id="BIX-sI-gyR" userLabel="fontSlider">
                                     <rect key="frame" x="12" y="64" width="269" height="31"/>
                                     <color key="tintColor" name="dialogColor"/>
                                     <color key="maximumTrackTintColor" systemColor="systemGray5Color"/>

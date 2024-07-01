@@ -76,10 +76,8 @@ class FontSettingsView: UIViewController {
             //
         }
         
-//        try! realm!.write {
-//            userSettings.fontSize = fontNumber
-//        }
-        webView.reload()
+        // Post or Send to the NotificationCenter so that the WebViewViewController can observe (listen to) the font changes
+        NotificationCenter.default.post(name: NSNotification.Name("FontSizeChanged"), object: nil, userInfo: ["fontSize": fontNumber])
     }
     
     override func viewDidLoad() {
@@ -93,15 +91,12 @@ class FontSettingsView: UIViewController {
         } else {
             // Remake the font size if it doesn't exist: This is exclusively for instances where the user deletes it
             userSettings = UserSettings()
-            // Add it to Realm
-//            let realm = try! Realm()
+
             RealmHelper.sharedInstance.save(userSettings) { saved in
                 //
             }
             sliderControl(state: 100)
         }
-        
-        webView.reload()
     }
     
     func sliderControl(state: Int){

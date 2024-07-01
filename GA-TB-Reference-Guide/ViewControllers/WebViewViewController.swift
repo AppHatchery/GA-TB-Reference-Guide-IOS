@@ -184,7 +184,24 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             fontNumber = userSettings.fontSize
         }
         
+        NotificationCenter.default.addObserver(self, selector: #selector(fontSizeChanged(_:)), name: NSNotification.Name("FontSizeChanged"), object: nil)
         webView.load( URLRequest( url: url ))
+    }
+    
+    @objc func fontSizeChanged(_ notification: Notification) {
+        if let userInfo = notification.userInfo, let newFontSize = userInfo["fontSize"] as? Int {
+            fontNumber = newFontSize
+            print("Changed the font size to \(fontNumber)")
+
+            try? realm?.write {
+                userSettings.fontSize = fontNumber
+            }
+            webView.reload()
+        }
+    }
+        
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("FontSizeChanged"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -552,7 +569,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     }
     
     //--------------------------------------------------------------------------------------------------
-    @IBAction func fontSettings(_ sender: UIButton){
+    @IBAction func fontSettings(_ sender: UIButton) {
         let popUpOverlay = FontSettingsView()
         popUpOverlay.displayPopUp(sender:self)
     }
