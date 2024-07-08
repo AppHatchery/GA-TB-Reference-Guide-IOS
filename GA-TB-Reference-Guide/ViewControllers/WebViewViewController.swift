@@ -668,7 +668,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     func loadTable() {
         if tableView.superview == nil {
             print("making a new tbale")
-            tableView = ContentSizedTableView(frame: CGRect( x: 20, y: pseudoseparator.frame.origin.y+10, width: view.frame.width-20, height: 65 ))
+            tableView = ContentSizedTableView(frame: CGRect( x: 20, y: pseudoseparator.frame.origin.y+10, width: view.frame.width-38, height: 65 ))
             tableView.delegate = self
             tableView.dataSource = self
             tableView.register(UINib(nibName: "ChapterNoteTableViewCell", bundle: nil), forCellReuseIdentifier: "chapterNote")
@@ -681,7 +681,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             // the frame trully is not the entire contentsize because you need to scroll down for the table to register the entire size of the content
             tableFrame = tableView.frame
             
-            separatorHeightConstraint.isActive = false
+//            separatorHeightConstraint.isActive = false
 //            separator.removeConstraint(separatorHeightConstraint)
 
             view.addSubview(tableView)
@@ -700,11 +700,11 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             })
 //            contentView.topAnchor.constraint(equalTo: tableView.bottomAnchor).isActive = true
             
-            tableSeparator = UIView(frame: CGRect(x: 20, y: 15, width: view.frame.width - 40, height: 0.5))
+            tableSeparator = UIView(frame: CGRect(x: 0, y: 15, width: view.frame.width-40, height: 0.5))
             tableSeparator.backgroundColor = UIColor.lightGray
             contentView.addSubview(tableSeparator)
             
-            tableButton = UIButton(frame: CGRect(x: tableSeparator.frame.width/2 - 5, y: tableSeparator.frame.origin.y-15.25, width: 30, height: 30))
+            tableButton = UIButton(frame: CGRect(x: tableSeparator.frame.width/2, y: tableSeparator.frame.origin.y-15.25, width: 30, height: 30))
             tableButton.layer.cornerRadius = 15
             tableButton.setBackgroundImage(UIImage(named: "downArrow"), for: .normal)
             tableButton.isUserInteractionEnabled = true
