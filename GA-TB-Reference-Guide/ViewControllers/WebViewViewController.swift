@@ -107,7 +107,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         titleLabel.text = titlelabel
         dateLabel.text = "Updated \( chapterIndex.updateDate)"
         
-        contentView.topAnchor.constraint(equalTo: pseudoseparator.bottomAnchor, constant: 5).isActive = true
+//        contentView.topAnchor.constraint(equalTo: pseudoseparator.bottomAnchor, constant: 5).isActive = true
         
 //        setupUI()
         
@@ -687,14 +687,14 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             view.addSubview(tableView)
             
             // Constraint the tableview to fit between the webview and the separators
-            tableView.leftAnchor.constraint( equalTo: view.leftAnchor, constant: 20 ).isActive = true
-            tableView.rightAnchor.constraint( equalTo: view.rightAnchor ).isActive = true
-            tableView.topAnchor.constraint(equalTo: pseudoseparator.topAnchor,constant: 0.5).isActive = true
+            tableView.topAnchor.constraint(equalTo: separator.topAnchor,constant: 0.5).isActive = true
             
             tableViewOriginalHeight = Double(tableView.frame.height)
             
             UIView.animate(withDuration: 0.25, delay: 0.01, options: .curveLinear, animations: {
-                self.contentView.topAnchor.constraint(equalTo: self.tableView.bottomAnchor).isActive = true
+                // Former constraint between separator and pseudoseparator creates an error in the constraint management in the console, to be refactored in future build
+                self.tableView.bottomAnchor.constraint(equalTo: self.pseudoseparator.topAnchor).isActive = true
+//                self.contentView.topAnchor.constraint(equalTo: self.tableView.bottomAnchor).isActive = true
                 self.view.layoutIfNeeded()
             }, completion: { finished in
             })
@@ -837,15 +837,17 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         
         webViewTopConstraint = webView.topAnchor
             .constraint(equalTo: self.contentView.safeAreaLayoutGuide.topAnchor)
+        
         NSLayoutConstraint.activate([
             webViewTopConstraint,
-            webView.leftAnchor
-                .constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 10),
+             webView.leftAnchor
+                .constraint(equalTo: contentView.leftAnchor, constant: 10),
             webView.bottomAnchor
-                .constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+                .constraint(equalTo: contentView.bottomAnchor),
             webView.rightAnchor
-                .constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -5)
+                .constraint(equalTo: contentView.rightAnchor, constant: -10)
         ])
+         
     }
     
     //--------------------------------------------------------------------------------------------------
@@ -1008,7 +1010,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         UIView.animate(withDuration: 0.3, delay: 0.01, options: .curveLinear, animations: {
             self.tableView.frame.size.height = 0
             self.separatorHeightConstraint = self.pseudoseparator.heightAnchor.constraint(equalToConstant: 0.5)
-            self.separatorHeightConstraint.isActive = true
+//            self.separatorHeightConstraint.isActive = true
             self.view.layoutIfNeeded()
         }, completion: { finished in
             self.tableView.removeFromSuperview()
