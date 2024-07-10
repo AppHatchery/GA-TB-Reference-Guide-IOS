@@ -858,12 +858,12 @@ Start by opening any subchapter or chart.</string>
                             <constraint firstItem="wxl-6c-aLt" firstAttribute="trailing" secondItem="2T8-CA-J1j" secondAttribute="trailing" id="KDd-Qw-Xes"/>
                             <constraint firstItem="wxl-6c-aLt" firstAttribute="leading" secondItem="2T8-CA-J1j" secondAttribute="leading" id="R0Z-PT-PEZ"/>
                             <constraint firstAttribute="trailing" secondItem="1Sk-qE-mCt" secondAttribute="trailing" id="Szs-hT-oJw"/>
+                            <constraint firstItem="Uyt-6T-1jJ" firstAttribute="top" secondItem="cOo-xK-9O0" secondAttribute="bottom" constant="1" id="VVm-sg-Dfo"/>
                             <constraint firstItem="cOo-xK-9O0" firstAttribute="leading" secondItem="Uyt-6T-1jJ" secondAttribute="leading" id="ZkH-v5-q5z"/>
                             <constraint firstItem="2T8-CA-J1j" firstAttribute="trailing" secondItem="cOo-xK-9O0" secondAttribute="trailing" id="a5m-Md-H5M"/>
                             <constraint firstItem="jSc-wm-b9l" firstAttribute="top" secondItem="Uyt-6T-1jJ" secondAttribute="bottom" constant="8.5" id="clT-Or-VlK"/>
                             <constraint firstItem="2T8-CA-J1j" firstAttribute="top" secondItem="wxl-6c-aLt" secondAttribute="bottom" constant="8.5" id="dfY-Jt-QSv"/>
                             <constraint firstItem="2T8-CA-J1j" firstAttribute="leading" secondItem="cOo-xK-9O0" secondAttribute="leading" id="fDX-l4-x84"/>
-                            <constraint firstItem="Uyt-6T-1jJ" firstAttribute="top" secondItem="cOo-xK-9O0" secondAttribute="bottom" constant="1" id="gQp-wk-gQo"/>
                             <constraint firstItem="cOo-xK-9O0" firstAttribute="trailing" secondItem="Uyt-6T-1jJ" secondAttribute="trailing" id="gmj-bR-Kxc"/>
                             <constraint firstItem="iku-5P-OPX" firstAttribute="trailing" secondItem="wxl-6c-aLt" secondAttribute="trailing" constant="20" id="hqI-dZ-bm4"/>
                             <constraint firstItem="wxl-6c-aLt" firstAttribute="leading" secondItem="iku-5P-OPX" secondAttribute="leading" constant="20" id="icl-rE-2sP"/>
@@ -884,6 +884,7 @@ Start by opening any subchapter or chart.</string>
                         <outlet property="searchTermView" destination="kdy-S2-KzM" id="Tn2-tn-dIX"/>
                         <outlet property="searchView" destination="doE-r2-vu4" id="WaS-11-H4l"/>
                         <outlet property="separator" destination="cOo-xK-9O0" id="Grg-GZ-fF5"/>
+                        <outlet property="separatorHeightConstraint" destination="DAy-Ph-QV9" id="KEd-e9-Z0x"/>
                         <outlet property="titleLabel" destination="wxl-6c-aLt" id="jd6-ec-PS8"/>
                     </connections>
                 </viewController>

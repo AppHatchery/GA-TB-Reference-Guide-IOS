@@ -23,6 +23,8 @@ class ChapterNoteTableViewCell: UITableViewCell {
         shadowView.layer.borderWidth = 0.25
         shadowView.layer.borderColor = UIColor.lightGray.cgColor
         shadowView.dropShadowNote()
+        
+//        contentView.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
