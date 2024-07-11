@@ -631,7 +631,7 @@ Start by opening any subchapter or chart.</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jSc-wm-b9l">
-                                <rect key="frame" x="20" y="135.5" width="374" height="671.5"/>
+                                <rect key="frame" x="20" y="135.5" width="374" height="655.5"/>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uyt-6T-1jJ">
                                 <rect key="frame" x="20" y="126" width="374" height="1"/>
@@ -657,7 +657,7 @@ Start by opening any subchapter or chart.</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="doE-r2-vu4">
-                                <rect key="frame" x="24" y="757" width="366" height="40"/>
+                                <rect key="frame" x="24" y="742" width="366" height="40"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2pP-Bw-BQS">
                                         <rect key="frame" x="20" y="12" width="62.5" height="16"/>
@@ -698,11 +698,21 @@ Start by opening any subchapter or chart.</string>
                                     <constraint firstItem="kdy-S2-KzM" firstAttribute="top" secondItem="Pta-Ef-nPC" secondAttribute="top" id="ukb-Dc-lec"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Placeholder Title" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="375" translatesAutoresizingMaskIntoConstraints="NO" id="wxl-6c-aLt">
+                                <rect key="frame" x="20" y="64" width="374" height="20.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="64" id="Fwa-Oi-bc9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <size key="shadowOffset" width="0.0" height="0.0"/>
+                            </label>
                             <stackView clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" distribution="fillEqually" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Sk-qE-mCt">
-                                <rect key="frame" x="0.0" y="807" width="414" height="64"/>
+                                <rect key="frame" x="0.0" y="792" width="414" height="70"/>
                                 <subviews>
                                     <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="UEn-Wx-H5A">
-                                        <rect key="frame" x="0.0" y="0.0" width="83" height="64"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="83" height="70"/>
                                         <color key="backgroundColor" name="backgroundColor"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                         <color key="tintColor" name="custom333"/>
@@ -712,7 +722,7 @@ Start by opening any subchapter or chart.</string>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             </preferredSymbolConfiguration>
                                         </state>
-                                        <buttonConfiguration key="configuration" style="plain" image="icHomeOutline" imagePlacement="top" imagePadding="0.0" buttonSize="small" titleAlignment="center">
+                                        <buttonConfiguration key="configuration" style="plain" image="icHomeOutline" imagePlacement="top" imagePadding="1" buttonSize="small" titleAlignment="center">
                                             <backgroundConfiguration key="background"/>
                                             <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="small" weight="light"/>
                                             <attributedString key="attributedTitle">
@@ -731,13 +741,13 @@ Start by opening any subchapter or chart.</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="7m9-0t-Q9K">
-                                        <rect key="frame" x="83" y="0.0" width="82.5" height="64"/>
+                                        <rect key="frame" x="83" y="0.0" width="82.5" height="70"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                         <color key="tintColor" name="custom333"/>
                                         <state key="normal" title="Share" image="icShare">
                                             <color key="titleColor" systemColor="labelColor"/>
                                         </state>
-                                        <buttonConfiguration key="configuration" style="plain" image="icShare" imagePlacement="top" imagePadding="0.0" buttonSize="small" titleAlignment="center">
+                                        <buttonConfiguration key="configuration" style="plain" image="icShare" imagePlacement="top" imagePadding="1" buttonSize="small" titleAlignment="center">
                                             <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="small" weight="light"/>
                                             <attributedString key="attributedTitle">
                                                 <fragment content="Share">
@@ -755,13 +765,13 @@ Start by opening any subchapter or chart.</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="1uh-gr-z8Z">
-                                        <rect key="frame" x="165.5" y="0.0" width="83" height="64"/>
+                                        <rect key="frame" x="165.5" y="0.0" width="83" height="70"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                         <color key="tintColor" name="custom333"/>
                                         <state key="normal" title="Bookmark" image="icBookmarksFolder">
                                             <color key="titleColor" systemColor="labelColor"/>
                                         </state>
-                                        <buttonConfiguration key="configuration" style="plain" image="icBookmarksFolder" imagePlacement="top" imagePadding="0.0" buttonSize="small" titleAlignment="center">
+                                        <buttonConfiguration key="configuration" style="plain" image="icBookmarksFolder" imagePlacement="top" imagePadding="1" buttonSize="small" titleAlignment="center">
                                             <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="small" weight="light"/>
                                             <attributedString key="attributedTitle">
                                                 <fragment content="Bookmark">
@@ -779,7 +789,7 @@ Start by opening any subchapter or chart.</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="OlF-iW-Oph">
-                                        <rect key="frame" x="248.5" y="0.0" width="82.5" height="64"/>
+                                        <rect key="frame" x="248.5" y="0.0" width="82.5" height="70"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                         <color key="tintColor" name="custom333"/>
                                         <state key="normal" title="Note" image="icEditNote">
@@ -787,7 +797,7 @@ Start by opening any subchapter or chart.</string>
                                             <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default" weight="light"/>
                                         </state>
-                                        <buttonConfiguration key="configuration" style="plain" image="icEditNote" imagePlacement="top" imagePadding="0.0" buttonSize="small" titleAlignment="center">
+                                        <buttonConfiguration key="configuration" style="plain" image="icEditNote" imagePlacement="top" imagePadding="1" buttonSize="small" titleAlignment="center">
                                             <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="small" weight="light"/>
                                             <attributedString key="attributedTitle">
                                                 <fragment content="Note">
@@ -805,7 +815,7 @@ Start by opening any subchapter or chart.</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="3ke-OD-JU3">
-                                        <rect key="frame" x="331" y="0.0" width="83" height="64"/>
+                                        <rect key="frame" x="331" y="0.0" width="83" height="70"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                         <color key="tintColor" name="custom333"/>
                                         <state key="normal" title="Note" image="icEditNote">
@@ -813,7 +823,7 @@ Start by opening any subchapter or chart.</string>
                                             <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default" weight="light"/>
                                         </state>
-                                        <buttonConfiguration key="configuration" style="plain" image="icFontSizeSettings" imagePlacement="top" imagePadding="0.0" buttonSize="small" titleAlignment="center">
+                                        <buttonConfiguration key="configuration" style="plain" image="icFontSizeSettings" imagePlacement="top" imagePadding="1" buttonSize="small" titleAlignment="center">
                                             <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="small" weight="light"/>
                                             <attributedString key="attributedTitle">
                                                 <fragment content="Font">
@@ -834,27 +844,17 @@ Start by opening any subchapter or chart.</string>
                                 <color key="backgroundColor" name="backgroundColor"/>
                                 <color key="tintColor" name="custom333"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="64" id="uDA-hx-jly"/>
+                                    <constraint firstAttribute="height" constant="70" id="uDA-hx-jly"/>
                                 </constraints>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Placeholder Title" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="375" translatesAutoresizingMaskIntoConstraints="NO" id="wxl-6c-aLt">
-                                <rect key="frame" x="20" y="64" width="374" height="20.5"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="64" id="Fwa-Oi-bc9"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                                <size key="shadowOffset" width="0.0" height="0.0"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="iku-5P-OPX"/>
                         <color key="backgroundColor" name="backgroundColor"/>
                         <constraints>
                             <constraint firstItem="doE-r2-vu4" firstAttribute="leading" secondItem="iku-5P-OPX" secondAttribute="leading" constant="24" id="2NK-XY-Qep"/>
                             <constraint firstItem="Uyt-6T-1jJ" firstAttribute="leading" secondItem="jSc-wm-b9l" secondAttribute="leading" id="5eX-z3-6JM"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="1Sk-qE-mCt" secondAttribute="bottom" constant="-9" id="7qy-cb-abF"/>
-                            <constraint firstItem="1Sk-qE-mCt" firstAttribute="top" secondItem="jSc-wm-b9l" secondAttribute="bottom" id="ECs-MY-ZlC"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="1Sk-qE-mCt" secondAttribute="bottom" id="7qy-cb-abF"/>
+                            <constraint firstItem="1Sk-qE-mCt" firstAttribute="top" secondItem="jSc-wm-b9l" secondAttribute="bottom" constant="1" id="ECs-MY-ZlC"/>
                             <constraint firstItem="wxl-6c-aLt" firstAttribute="trailing" secondItem="2T8-CA-J1j" secondAttribute="trailing" id="KDd-Qw-Xes"/>
                             <constraint firstItem="wxl-6c-aLt" firstAttribute="leading" secondItem="2T8-CA-J1j" secondAttribute="leading" id="R0Z-PT-PEZ"/>
                             <constraint firstAttribute="trailing" secondItem="1Sk-qE-mCt" secondAttribute="trailing" id="Szs-hT-oJw"/>
