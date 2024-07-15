@@ -108,10 +108,10 @@ class GuideViewController: UIViewController, UISearchBarDelegate {
             contentView.addSubview( scrollView )
             scrollView.delaysContentTouches = false
                     
-            guideView = Guide(frame: CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height))
+            guideView = Guide(frame: CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height + 300))
             scrollView.addSubview(guideView)
                     
-            scrollView.contentSize = CGSize(width: contentView.frame.width, height: view.frame.height + 350)
+            scrollView.contentSize = CGSize(width: contentView.frame.width, height: guideView.frame.height + 200)
 
             guideView.allChapters.addTarget( self, action: #selector( self.tapAllChapters( _:)), for: .touchUpInside)
             guideView.allCharts.addTarget( self, action: #selector( self.tapAllCharts( _:)), for: .touchUpInside)
