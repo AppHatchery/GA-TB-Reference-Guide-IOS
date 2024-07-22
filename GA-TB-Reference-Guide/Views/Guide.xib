@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
@@ -30,20 +30,20 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1ko-iI-XVM">
-                    <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="2X0-lR-igj" userLabel="Main Stack View">
-                            <rect key="frame" x="20" y="24" width="353" height="725"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="2X0-lR-igj" userLabel="Main Stack View">
+                            <rect key="frame" x="20" y="24" width="335" height="703.5"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="3KZ-Yh-gnJ" userLabel="Chapters Stack View">
-                                    <rect key="frame" x="0.0" y="0.0" width="353" height="253"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="3KZ-Yh-gnJ" userLabel="Chapters Stack View">
+                                    <rect key="frame" x="0.0" y="0.0" width="335" height="243.5"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chapters" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XkQ-l0-h3a">
-                                            <rect key="frame" x="0.0" y="0.0" width="353" height="24"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="335" height="24"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="24" id="WjN-hc-7eB"/>
                                             </constraints>
@@ -51,14 +51,14 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="UXl-1A-Dtn">
-                                            <rect key="frame" x="0.0" y="38" width="353" height="215"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="UXl-1A-Dtn">
+                                            <rect key="frame" x="0.0" y="38" width="335" height="205.5"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="vp9-Ne-PFj">
-                                                    <rect key="frame" x="0.0" y="0.0" width="353" height="57"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="335" height="54"/>
                                                     <subviews>
-                                                        <button opaque="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalCompressionResistancePriority="755" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="mMN-Je-xwe">
-                                                            <rect key="frame" x="0.0" y="0.0" width="165.66666666666666" height="57"/>
+                                                        <button opaque="NO" tag="5" contentMode="scaleAspectFill" horizontalHuggingPriority="249" verticalCompressionResistancePriority="755" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="mMN-Je-xwe">
+                                                            <rect key="frame" x="0.0" y="0.0" width="156.5" height="54"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="mMN-Je-xwe" secondAttribute="height" multiplier="180:62" id="cmI-9Y-C3k"/>
                                                             </constraints>
@@ -72,8 +72,8 @@
                                                                 <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
                                                         </button>
-                                                        <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="E9d-Xf-hkA">
-                                                            <rect key="frame" x="187.66666666666663" y="0.0" width="165.33333333333337" height="57"/>
+                                                        <button opaque="NO" tag="4" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="E9d-Xf-hkA">
+                                                            <rect key="frame" x="178.5" y="0.0" width="156.5" height="54"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
                                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -90,10 +90,10 @@
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="TlQ-qL-WN0">
-                                                    <rect key="frame" x="0.0" y="79" width="353" height="57"/>
+                                                    <rect key="frame" x="0.0" y="76" width="335" height="54"/>
                                                     <subviews>
-                                                        <button opaque="NO" tag="5" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="755" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="uiS-cD-LIK">
-                                                            <rect key="frame" x="0.0" y="0.0" width="165.66666666666666" height="57"/>
+                                                        <button opaque="NO" tag="5" contentMode="scaleAspectFill" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="755" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="uiS-cD-LIK">
+                                                            <rect key="frame" x="0.0" y="0.0" width="156.5" height="54"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="uiS-cD-LIK" secondAttribute="height" multiplier="180:62" id="uh3-Cv-EA5"/>
                                                             </constraints>
@@ -110,8 +110,8 @@
                                                                 <action selector="tapTopButton:" destination="-2" eventType="touchUpInside" id="UUg-H2-P46"/>
                                                             </connections>
                                                         </button>
-                                                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="S5J-ng-iwP">
-                                                            <rect key="frame" x="187.66666666666663" y="0.0" width="165.33333333333337" height="57"/>
+                                                        <button opaque="NO" tag="2" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="S5J-ng-iwP">
+                                                            <rect key="frame" x="178.5" y="0.0" width="156.5" height="54"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
                                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -128,10 +128,10 @@
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="BMw-Iz-z7d">
-                                                    <rect key="frame" x="0.0" y="158" width="353" height="57"/>
+                                                    <rect key="frame" x="0.0" y="152" width="335" height="53.5"/>
                                                     <subviews>
-                                                        <button opaque="NO" tag="3" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="0fq-fU-pZf">
-                                                            <rect key="frame" x="0.0" y="0.0" width="165.66666666666666" height="57"/>
+                                                        <button opaque="NO" tag="3" contentMode="scaleAspectFill" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="0fq-fU-pZf">
+                                                            <rect key="frame" x="0.0" y="0.0" width="156.5" height="53.5"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="0fq-fU-pZf" secondAttribute="height" multiplier="180:62" id="FE7-Vb-qAp"/>
                                                             </constraints>
@@ -148,8 +148,8 @@
                                                                 <action selector="tapTopButton:" destination="-2" eventType="touchUpInside" id="1mE-Qv-DYk"/>
                                                             </connections>
                                                         </button>
-                                                        <button opaque="NO" tag="15" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="I49-0P-LNJ">
-                                                            <rect key="frame" x="187.66666666666663" y="0.0" width="165.33333333333337" height="57"/>
+                                                        <button opaque="NO" tag="15" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="I49-0P-LNJ">
+                                                            <rect key="frame" x="178.5" y="0.0" width="156.5" height="53.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
                                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -167,11 +167,11 @@
                                         </stackView>
                                     </subviews>
                                 </stackView>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="nxJ-rt-siz" userLabel="Charts Stack View">
-                                    <rect key="frame" x="0.0" y="283" width="353" height="442"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" axis="vertical" distribution="equalSpacing" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="nxJ-rt-siz" userLabel="Charts Stack View">
+                                    <rect key="frame" x="0.0" y="257.5" width="335" height="446"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Charts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="grL-IE-LFK">
-                                            <rect key="frame" x="0.0" y="0.0" width="353" height="24"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="335" height="24"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="24" id="irh-B4-zEO"/>
                                             </constraints>
@@ -179,39 +179,37 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="wP5-Kf-NE5">
-                                            <rect key="frame" x="0.0" y="34" width="353" height="408"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="wP5-Kf-NE5">
+                                            <rect key="frame" x="0.0" y="38" width="335" height="408"/>
                                             <subviews>
-                                                <button opaque="NO" tag="8" contentMode="scaleToFill" verticalCompressionResistancePriority="754" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="NXJ-G6-pKw">
-                                                    <rect key="frame" x="0.0" y="0.0" width="353" height="48"/>
+                                                <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="NXJ-G6-pKw">
+                                                    <rect key="frame" x="0.0" y="0.0" width="335" height="48"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="48" id="ten-Wu-F0F"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="48" id="I0I-fp-kT0"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <inset key="contentEdgeInsets" minX="4" minY="0.0" maxX="4" maxY="0.0"/>
                                                     <state key="normal" title="All Charts &gt;" backgroundImage="bottomCard">
                                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <state key="highlighted" backgroundImage="bottomCardPressed"/>
                                                     <buttonConfiguration key="configuration" style="plain" title="All Charts &gt;">
-                                                        <backgroundConfiguration key="background" cornerRadius="10" image="bottomCard"/>
+                                                        <backgroundConfiguration key="background" cornerRadius="10" image="bottomCard" imageContentMode="redraw"/>
                                                         <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
                                                         <color key="baseForegroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </buttonConfiguration>
                                                 </button>
-                                                <button opaque="NO" tag="8" contentMode="scaleToFill" verticalCompressionResistancePriority="753" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="dqr-Px-3li">
-                                                    <rect key="frame" x="0.0" y="60" width="353" height="48"/>
+                                                <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="dqr-Px-3li">
+                                                    <rect key="frame" x="0.0" y="60" width="335" height="48"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="48" id="MBJ-pn-Ano"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="48" id="mVe-bO-EIq"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <inset key="contentEdgeInsets" minX="4" minY="0.0" maxX="4" maxY="0.0"/>
                                                     <state key="normal" title="First line TB drugs for adults" backgroundImage="bottomCard">
                                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <state key="highlighted" backgroundImage="bottomCardPressed"/>
                                                     <buttonConfiguration key="configuration" style="plain" title="First Line TB Drugs for Adults">
-                                                        <backgroundConfiguration key="background" cornerRadius="10" image="bottomCard"/>
+                                                        <backgroundConfiguration key="background" cornerRadius="10" image="bottomCard" imageContentMode="redraw"/>
                                                         <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
                                                         <color key="baseForegroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </buttonConfiguration>
@@ -219,19 +217,18 @@
                                                         <action selector="tapBottomButton:" destination="-2" eventType="touchUpInside" id="1tu-QI-hFU"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" tag="14" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="iOX-uC-bGp">
-                                                    <rect key="frame" x="0.0" y="120" width="353" height="48"/>
+                                                <button opaque="NO" tag="14" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="iOX-uC-bGp">
+                                                    <rect key="frame" x="0.0" y="120" width="335" height="48"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="48" id="HZ3-P6-4sw"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="48" id="dUL-Cu-p75"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <inset key="contentEdgeInsets" minX="4" minY="0.0" maxX="4" maxY="0.0"/>
                                                     <state key="normal" title="IV Therapy Drugs" backgroundImage="bottomCard">
                                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <state key="highlighted" backgroundImage="bottomCardPressed"/>
                                                     <buttonConfiguration key="configuration" style="plain" title="IV Therapy Drugs">
-                                                        <backgroundConfiguration key="background" cornerRadius="10" image="bottomCard"/>
+                                                        <backgroundConfiguration key="background" cornerRadius="10" image="bottomCard" imageContentMode="redraw"/>
                                                         <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
                                                         <color key="baseForegroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </buttonConfiguration>
@@ -239,19 +236,18 @@
                                                         <action selector="tapBottomButton:" destination="-2" eventType="touchUpInside" id="X7Y-xK-Y8z"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" tag="15" contentMode="scaleToFill" verticalCompressionResistancePriority="752" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Igd-XX-ZEe">
-                                                    <rect key="frame" x="0.0" y="180" width="353" height="48"/>
+                                                <button opaque="NO" tag="15" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Igd-XX-ZEe">
+                                                    <rect key="frame" x="0.0" y="180" width="335" height="48"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="48" id="Ifc-CG-9Jh"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="48" id="Asi-d1-tge"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <inset key="contentEdgeInsets" minX="4" minY="0.0" maxX="4" maxY="0.0"/>
                                                     <state key="normal" title="Alternative regimens" backgroundImage="bottomCard">
                                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <state key="highlighted" backgroundImage="bottomCardPressed"/>
                                                     <buttonConfiguration key="configuration" style="plain" title="Alternative Regimens">
-                                                        <backgroundConfiguration key="background" cornerRadius="10" image="bottomCard"/>
+                                                        <backgroundConfiguration key="background" cornerRadius="10" image="bottomCard" imageContentMode="redraw"/>
                                                         <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
                                                         <color key="baseForegroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </buttonConfiguration>
@@ -259,19 +255,18 @@
                                                         <action selector="tapBottomButton:" destination="-2" eventType="touchUpInside" id="Ymg-9U-jww"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" tag="5" contentMode="scaleToFill" verticalCompressionResistancePriority="753" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="XsG-R7-hzl">
-                                                    <rect key="frame" x="0.0" y="240" width="353" height="48"/>
+                                                <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="XsG-R7-hzl">
+                                                    <rect key="frame" x="0.0" y="240" width="335" height="48"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="48" id="oOi-Rz-MpL"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="48" id="WjS-lK-gX0"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <inset key="contentEdgeInsets" minX="4" minY="0.0" maxX="4" maxY="0.0"/>
                                                     <state key="normal" title="Dosages for LTBI regimens" backgroundImage="bottomCard">
                                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <state key="highlighted" backgroundImage="bottomCardPressed"/>
                                                     <buttonConfiguration key="configuration" style="plain" title="Dosages for LTBI regimens">
-                                                        <backgroundConfiguration key="background" cornerRadius="10" image="bottomCard"/>
+                                                        <backgroundConfiguration key="background" cornerRadius="10" image="bottomCard" imageContentMode="redraw"/>
                                                         <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
                                                         <color key="baseForegroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </buttonConfiguration>
@@ -279,19 +274,18 @@
                                                         <action selector="tapBottomButton:" destination="-2" eventType="touchUpInside" id="9Uv-y4-nQp"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="wKn-5L-Uaw">
-                                                    <rect key="frame" x="0.0" y="300" width="353" height="48"/>
+                                                <button opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="wKn-5L-Uaw">
+                                                    <rect key="frame" x="0.0" y="300" width="335" height="48"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="48" id="FZK-VH-1HB"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="48" id="aIT-IG-f81"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <inset key="contentEdgeInsets" minX="4" minY="0.0" maxX="4" maxY="0.0"/>
                                                     <state key="normal" title="TB drugs in Special Situations" backgroundImage="bottomCard">
                                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <state key="highlighted" backgroundImage="bottomCardPressed"/>
                                                     <buttonConfiguration key="configuration" style="plain" title="TB Drugs in Special Situations">
-                                                        <backgroundConfiguration key="background" cornerRadius="10" image="bottomCard"/>
+                                                        <backgroundConfiguration key="background" cornerRadius="10" image="bottomCard" imageContentMode="redraw"/>
                                                         <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
                                                         <color key="baseForegroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </buttonConfiguration>
@@ -299,19 +293,18 @@
                                                         <action selector="tapBottomButton:" destination="-2" eventType="touchUpInside" id="JCR-Ks-Dey"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" tag="19" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Azu-U9-710">
-                                                    <rect key="frame" x="0.0" y="360" width="353" height="48"/>
+                                                <button opaque="NO" tag="19" contentMode="scaleToFill" verticalHuggingPriority="240" verticalCompressionResistancePriority="754" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Azu-U9-710">
+                                                    <rect key="frame" x="0.0" y="360" width="335" height="48"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="48" id="FVf-6f-hfU"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="48" id="sXk-9w-BeC"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <inset key="contentEdgeInsets" minX="4" minY="0.0" maxX="4" maxY="0.0"/>
                                                     <state key="normal" title="Treatment of extrapulmonary TB" backgroundImage="bottomCard">
                                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <state key="highlighted" backgroundImage="bottomCardPressed"/>
                                                     <buttonConfiguration key="configuration" style="plain" title="Treatment of Extrapulmonary TB">
-                                                        <backgroundConfiguration key="background" cornerRadius="10" image="bottomCard"/>
+                                                        <backgroundConfiguration key="background" cornerRadius="10" image="bottomCard" imageContentMode="redraw"/>
                                                         <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
                                                         <color key="baseForegroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </buttonConfiguration>
@@ -329,7 +322,6 @@
                     <color key="backgroundColor" name="backgroundColor"/>
                     <constraints>
                         <constraint firstItem="2X0-lR-igj" firstAttribute="top" secondItem="1ko-iI-XVM" secondAttribute="top" constant="24" id="EhA-Un-YH9"/>
-                        <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="2X0-lR-igj" secondAttribute="bottom" priority="999" constant="24" id="XDJ-E8-aGJ"/>
                         <constraint firstAttribute="trailing" secondItem="2X0-lR-igj" secondAttribute="trailing" priority="999" constant="20" id="YXp-Bv-jcn"/>
                         <constraint firstItem="2X0-lR-igj" firstAttribute="leading" secondItem="1ko-iI-XVM" secondAttribute="leading" constant="20" id="tfT-tM-7EH"/>
                     </constraints>

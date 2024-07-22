@@ -103,16 +103,36 @@ class GuideViewController: UIViewController, UISearchBarDelegate {
         
         if scrollView == nil {
             
-            scrollView = UIScrollView( frame: view.frame )
-            scrollView.backgroundColor = UIColor.clear
-            contentView.addSubview( scrollView )
-            scrollView.delaysContentTouches = false
-                    
-            guideView = Guide(frame: CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height + 300))
-            scrollView.addSubview(guideView)
-                    
-            scrollView.contentSize = CGSize(width: contentView.frame.width, height: guideView.frame.height + 200)
+            // contentView -> scrollView -> guideView
 
+            scrollView = UIScrollView(frame: view.frame)
+            scrollView.backgroundColor = UIColor.clear
+            contentView.addSubview(scrollView)
+            scrollView.delaysContentTouches = true
+            scrollView.translatesAutoresizingMaskIntoConstraints = false
+            
+            
+            // Check the view (screen) height to apply appropriate spacing at the bottom to all the guideview to work
+            // If the guideView is too short the bottom chart buttons are not clickable
+            if view.frame.height <= 690 {
+                guideView = Guide(frame: CGRect(x: 0, y: 0, width: contentView.frame.width, height: view.frame.height + 200))
+            } else if view.frame.height >= 691 && view.frame.height <= 768 {
+                guideView = Guide(frame: CGRect(x: 0, y: 0, width: contentView.frame.width, height: view.frame.height + 100))
+            } else if view.frame.height >= 769 {
+                guideView = Guide(frame: CGRect(x: 0, y: 0, width: contentView.frame.width, height: view.frame.height ))
+            }
+            
+            scrollView.addSubview(guideView)
+            scrollView.contentSize = CGSize(width: contentView.frame.width, height: guideView.frame.height)
+//         scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 200, right: 0)
+            
+            NSLayoutConstraint.activate([
+                scrollView.topAnchor.constraint(equalTo: contentView.topAnchor),
+                scrollView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+                scrollView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+                scrollView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            ])
+            
             guideView.allChapters.addTarget( self, action: #selector( self.tapAllChapters( _:)), for: .touchUpInside)
             guideView.allCharts.addTarget( self, action: #selector( self.tapAllCharts( _:)), for: .touchUpInside)
         }
