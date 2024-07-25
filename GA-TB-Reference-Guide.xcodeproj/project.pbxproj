@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8E0132EA2A68FFB0001533AB /* WebView.js in Resources */ = {isa = PBXBuildFile; fileRef = 8E0132E82A68DCAB001533AB /* WebView.js */; };
+		B40EA6F42C46B90400C03A12 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B40EA6F32C46B90400C03A12 /* UserNotifications.framework */; };
 		B474B07E2C2DA54B0092F4F6 /* FontSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B474B07C2C2DA54B0092F4F6 /* FontSettingsView.swift */; };
 		B474B07F2C2DA54B0092F4F6 /* FontSettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B474B07D2C2DA54B0092F4F6 /* FontSettingsView.xib */; };
 		B474B0832C2DFE230092F4F6 /* Pods_GA_TB_Reference_Guide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF23FEBF71C372B82094033D /* Pods_GA_TB_Reference_Guide.framework */; };
@@ -177,6 +178,7 @@
 /* Begin PBXFileReference section */
 		8E0132E82A68DCAB001533AB /* WebView.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = WebView.js; sourceTree = "<group>"; };
 		A4E783F70550BAD2B6B83131 /* Pods-GA-TB-Reference-Guide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GA-TB-Reference-Guide.debug.xcconfig"; path = "Target Support Files/Pods-GA-TB-Reference-Guide/Pods-GA-TB-Reference-Guide.debug.xcconfig"; sourceTree = "<group>"; };
+		B40EA6F32C46B90400C03A12 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		B474B07C2C2DA54B0092F4F6 /* FontSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsView.swift; sourceTree = "<group>"; };
 		B474B07D2C2DA54B0092F4F6 /* FontSettingsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FontSettingsView.xib; sourceTree = "<group>"; };
 		BF23FEBF71C372B82094033D /* Pods_GA_TB_Reference_Guide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GA_TB_Reference_Guide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -348,6 +350,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B40EA6F42C46B90400C03A12 /* UserNotifications.framework in Frameworks */,
 				D46BECDF2756E5BB000D8553 /* FirebaseDatabase in Frameworks */,
 				B474B0832C2DFE230092F4F6 /* Pods_GA_TB_Reference_Guide.framework in Frameworks */,
 				D4597EA62A701B4E00EF8906 /* Pendo in Frameworks */,
@@ -364,6 +367,7 @@
 		52FB437B735727E7888CE188 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B40EA6F32C46B90400C03A12 /* UserNotifications.framework */,
 				BF23FEBF71C372B82094033D /* Pods_GA_TB_Reference_Guide.framework */,
 			);
 			name = Frameworks;
@@ -1139,7 +1143,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = RD62LTBAPA;
 				INFOPLIST_FILE = "GA-TB-Reference-Guide/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1165,7 +1169,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = RD62LTBAPA;
 				INFOPLIST_FILE = "GA-TB-Reference-Guide/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1210,7 +1214,7 @@
 			repositoryURL = "https://github.com/pendo-io/pendo-mobile-ios";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
+				minimumVersion = 3.3.0;
 			};
 		};
 		D46BECD52756E5BB000D8553 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {

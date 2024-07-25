@@ -182,6 +182,14 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             // Assign the older entry to the current variable
             userSettings = currentSettings
             fontNumber = userSettings.fontSize
+        } else {
+            // Remake the font size if it doesn't exist: This is exclusively for instances where the user deletes it
+            userSettings = UserSettings()
+            // Add it to Realm
+            // Let realm = try! Realm()
+            RealmHelper.sharedInstance.save(userSettings) { saved in
+            //
+            }
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(fontSizeChanged(_:)), name: NSNotification.Name("FontSizeChanged"), object: nil)
