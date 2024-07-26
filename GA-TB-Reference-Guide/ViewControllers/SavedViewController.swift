@@ -348,7 +348,7 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
             attributedString.append(NSAttributedString(string: "Tap "))
 
             let loveAttachment = NSTextAttachment()
-            loveAttachment.image = UIImage(systemName: "square.and.pencil")?.withTintColor(UIColor.label)
+            loveAttachment.image = UIImage(named: "icEditNote")
             loveAttachment.bounds = CGRect(x: 0, y: -3, width: 20, height: 20)
             attributedString.append(NSAttributedString(attachment: loveAttachment))
             attributedString.append(NSAttributedString(string: " on any chart or subchapter."))

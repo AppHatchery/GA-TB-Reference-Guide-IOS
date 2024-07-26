@@ -66,6 +66,22 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
 //        return webView
 //    }()
     
+    let bookmarkText = NSAttributedString(
+        string: "Bookmark",
+        attributes: [
+            .foregroundColor: UIColor.label,
+            .font: UIFont.systemFont(ofSize: 9.0)
+        ]
+    )
+    
+    let bookmarkedText = NSAttributedString(
+        string: "Bookmarked",
+        attributes: [
+            .foregroundColor: UIColor.label,
+            .font: UIFont.systemFont(ofSize: 9.0)
+        ]
+    )
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -86,11 +102,12 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         navbarTitle.adjustsFontSizeToFitWidth = true
         navigationItem.titleView = navbarTitle
 //        self.title = navTitle
+        self.hidesBottomBarWhenPushed = true
                 
         titleLabel.text = titlelabel
         dateLabel.text = "Updated \( chapterIndex.updateDate)"
         
-        contentView.topAnchor.constraint(equalTo: pseudoseparator.bottomAnchor, constant: 5).isActive = true
+//        contentView.topAnchor.constraint(equalTo: pseudoseparator.bottomAnchor, constant: 5).isActive = true
         
 //        setupUI()
         
@@ -140,7 +157,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
 //        }
 //
 //        if content.favorite == true {
-//            favoriteIcon.setBackgroundImage(UIImage(systemName: "star.fill"), for: .normal)
+//            favoriteIcon.setImage(UIImage(systemName: "star.fill"), for: .normal)
 //        }
         
         // Create WebView Content
@@ -165,9 +182,34 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             // Assign the older entry to the current variable
             userSettings = currentSettings
             fontNumber = userSettings.fontSize
+        } else {
+            // Remake the font size if it doesn't exist: This is exclusively for instances where the user deletes it
+            userSettings = UserSettings()
+            // Add it to Realm
+            // Let realm = try! Realm()
+            RealmHelper.sharedInstance.save(userSettings) { saved in
+            //
+            }
         }
         
+        NotificationCenter.default.addObserver(self, selector: #selector(fontSizeChanged(_:)), name: NSNotification.Name("FontSizeChanged"), object: nil)
         webView.load( URLRequest( url: url ))
+    }
+    
+    @objc func fontSizeChanged(_ notification: Notification) {
+        if let userInfo = notification.userInfo, let newFontSize = userInfo["fontSize"] as? Int {
+            fontNumber = newFontSize
+            print("Changed the font size to \(fontNumber)")
+
+            try? realm?.write {
+                userSettings.fontSize = fontNumber
+            }
+            webView.reload()
+        }
+    }
+        
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("FontSizeChanged"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -239,7 +281,8 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         
         
         if content.favorite == true {
-            favoriteIcon.setBackgroundImage(UIImage(systemName: "star.fill"), for: .normal)
+            favoriteIcon.setImage(UIImage(named: "icBookmarksFolderColored"), for: .normal)
+            favoriteIcon.setAttributedTitle(bookmarkedText, for: .normal)
         }
         
         
@@ -290,7 +333,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
 //        }
 //
 //        if content.favorite == true {
-//            favoriteIcon.setBackgroundImage(UIImage(systemName: "star.fill"), for: .normal)
+//            favoriteIcon.setImage(UIImage(systemName: "star.fill"), for: .normal)
 //        }
         
         // Load table if there are notes saved for this chapter
@@ -304,7 +347,8 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         
         // This removes the favoriting if it gets deleted in the saved page
         if content.favorite == false {
-            favoriteIcon.setBackgroundImage(UIImage(systemName: "star"), for: .normal)
+            favoriteIcon.setImage(UIImage(named: "icBookmarksFolder"), for: .normal)
+            favoriteIcon.setAttributedTitle(bookmarkText, for: .normal)
         }
         // Load table if there are notes saved for this chapter
         if content.notes.count > 0 {
@@ -463,8 +507,8 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     }
     
     //--------------------------------------------------------------------------------------------------
-    @IBAction func addFeedback(_ sender: UIButton){
-        openFeedbackWindow(parent: navTitle, title: titlelabel)
+    @IBAction func backToHomepage(_ sender: UIButton){
+        navigationController?.popToRootViewController(animated: true)
     }
     
     //--------------------------------------------------------------------------------------------------
@@ -530,6 +574,12 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
 //        let promoText = "Check out this subchapter of the TB Reference Guide "
         let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
         present(activityVC, animated: true)
+    }
+    
+    //--------------------------------------------------------------------------------------------------
+    @IBAction func fontSettings(_ sender: UIButton) {
+        let popUpOverlay = FontSettingsView()
+        popUpOverlay.displayPopUp(sender:self)
     }
     
     @IBAction func closeSearchBar(_ sender: UIButton) {
@@ -626,7 +676,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     func loadTable() {
         if tableView.superview == nil {
             print("making a new tbale")
-            tableView = ContentSizedTableView(frame: CGRect( x: 20, y: pseudoseparator.frame.origin.y+10, width: view.frame.width-20, height: 65 ))
+            tableView = ContentSizedTableView(frame: CGRect( x: 20, y: pseudoseparator.frame.origin.y+10, width: view.frame.width-38, height: 95 ))
             tableView.delegate = self
             tableView.dataSource = self
             tableView.register(UINib(nibName: "ChapterNoteTableViewCell", bundle: nil), forCellReuseIdentifier: "chapterNote")
@@ -634,6 +684,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             tableView.estimatedRowHeight = UITableView.automaticDimension
             tableView.separatorStyle = .none
             tableView.backgroundColor = UIColor.backgroundColor
+            tableView.contentInset = UIEdgeInsets(top: 16, left: 0, bottom: 16, right: 0)
 
     //        tableView.isScrollEnabled = false
             // the frame trully is not the entire contentsize because you need to scroll down for the table to register the entire size of the content
@@ -645,24 +696,24 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             view.addSubview(tableView)
             
             // Constraint the tableview to fit between the webview and the separators
-            tableView.leftAnchor.constraint( equalTo: view.leftAnchor, constant: 20 ).isActive = true
-            tableView.rightAnchor.constraint( equalTo: view.rightAnchor ).isActive = true
-            tableView.topAnchor.constraint(equalTo: pseudoseparator.topAnchor,constant: 0.5).isActive = true
+            tableView.topAnchor.constraint(equalTo: separator.topAnchor,constant: 0.5).isActive = true
             
             tableViewOriginalHeight = Double(tableView.frame.height)
             
             UIView.animate(withDuration: 0.25, delay: 0.01, options: .curveLinear, animations: {
-                self.contentView.topAnchor.constraint(equalTo: self.tableView.bottomAnchor).isActive = true
+                // Former constraint between separator and pseudoseparator creates an error in the constraint management in the console, to be refactored in future build
+                self.tableView.bottomAnchor.constraint(equalTo: self.pseudoseparator.topAnchor).isActive = true
+//                self.contentView.topAnchor.constraint(equalTo: self.tableView.bottomAnchor).isActive = true
                 self.view.layoutIfNeeded()
             }, completion: { finished in
             })
 //            contentView.topAnchor.constraint(equalTo: tableView.bottomAnchor).isActive = true
             
-            tableSeparator = UIView(frame: CGRect(x: 20, y: 15, width: view.frame.width - 40, height: 0.5))
+            tableSeparator = UIView(frame: CGRect(x: 0, y: 10, width: view.frame.width-40, height: 0.5))
             tableSeparator.backgroundColor = UIColor.lightGray
             contentView.addSubview(tableSeparator)
             
-            tableButton = UIButton(frame: CGRect(x: tableSeparator.frame.width/2 - 5, y: tableSeparator.frame.origin.y-15.25, width: 30, height: 30))
+            tableButton = UIButton(frame: CGRect(x: tableSeparator.frame.width/2 - 18, y: tableSeparator.frame.origin.y-14.25, width: 30, height: 30))
             tableButton.layer.cornerRadius = 15
             tableButton.setBackgroundImage(UIImage(named: "downArrow"), for: .normal)
             tableButton.isUserInteractionEnabled = true
@@ -795,36 +846,46 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         
         webViewTopConstraint = webView.topAnchor
             .constraint(equalTo: self.contentView.safeAreaLayoutGuide.topAnchor)
+        
         NSLayoutConstraint.activate([
             webViewTopConstraint,
-            webView.leftAnchor
-                .constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 10),
+             webView.leftAnchor
+                .constraint(equalTo: contentView.leftAnchor, constant: 10),
             webView.bottomAnchor
-                .constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+                .constraint(equalTo: contentView.bottomAnchor),
             webView.rightAnchor
-                .constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -5)
+                .constraint(equalTo: contentView.rightAnchor, constant: -10)
         ])
+         
     }
     
     //--------------------------------------------------------------------------------------------------
     func didSaveName( _ name: String)
     {
-//         let realm = try! Realm()
+        let bookmarkedText = NSAttributedString(
+            string: "Bookmarked",
+            attributes: [
+                .foregroundColor: UIColor.label,
+                .font: UIFont.systemFont(ofSize: 9.0)
+            ]
+        )
         
+        // let realm = try! Realm()
         
         RealmHelper.sharedInstance.update(content, properties: [
             "favoriteName": name,
             "favorite": true
         ]) { [weak self] updated in
             //
-            self?.favoriteIcon.setBackgroundImage(UIImage(systemName: "star.fill"), for: .normal)
+            self?.favoriteIcon.setImage(UIImage(named: "icBookmarksFolderColored"), for: .normal)
+            self?.favoriteIcon.setAttributedTitle(bookmarkedText, for: .normal)
         }
             
 //        try! realm.write
 //        {
 //            content.favoriteName = name
 //            content.favorite = true
-//            favoriteIcon.setBackgroundImage(UIImage(systemName: "star.fill"), for: .normal)
+//            favoriteIcon.setImage(UIImage(systemName: "star.fill"), for: .normal)
 //        }
         
         Analytics.logEvent("bookmark", parameters: [
@@ -835,6 +896,14 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     //--------------------------------------------------------------------------------------------------
     func didRemoveFavorite( )
     {
+        let bookmarkText = NSAttributedString(
+            string: "Bookmark",
+            attributes: [
+                .foregroundColor: UIColor.label,
+                .font: UIFont.systemFont(ofSize: 9.0)
+            ]
+        )
+        
         // let realm = try! Realm() Realm()
         
         RealmHelper.sharedInstance.update(content, properties: [
@@ -842,14 +911,15 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             "favorite": false
         ]) { [weak self] updated in
             //
-            self?.favoriteIcon.setBackgroundImage(UIImage(systemName: "star"), for: .normal)
+            self?.favoriteIcon.setImage(UIImage(named: "icBookmarksFolder"), for: .normal)
+            self?.favoriteIcon.setAttributedTitle(bookmarkText, for: .normal)
         }
         
 //        try!  realm!.write
 //        {
 //            content.favoriteName = ""
 //            content.favorite = false
-//            favoriteIcon.setBackgroundImage(UIImage(systemName: "star"), for: .normal)
+//            favoriteIcon.setImage(UIImage(systemName: "star"), for: .normal)
 //        }
     }
     
