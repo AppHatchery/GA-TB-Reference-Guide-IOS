@@ -96,8 +96,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pendo-io/pendo-mobile-ios",
       "state" : {
-        "revision" : "6e0a6e85945e212046865fc9a099eb635dcedc71",
-        "version" : "3.3.0"
+        "revision" : "e266cc0eff7d790966925d7114f5f71f3fa39888",
+        "version" : "3.3.1"
       }
     },
     {
@@ -114,8 +114,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-protobuf.git",
       "state" : {
-        "revision" : "d57a5aecf24a25b32ec4a74be2f5d0a995a47c4b",
-        "version" : "1.27.0"
+        "revision" : "e17d61f26df0f0e06f58f6977ba05a097a720106",
+        "version" : "1.27.1"
       }
     }
   ],
