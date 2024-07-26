@@ -115,11 +115,11 @@ class GuideViewController: UIViewController, UISearchBarDelegate {
             // Check the view (screen) height to apply appropriate spacing at the bottom to all the guideview to work
             // If the guideView is too short the bottom chart buttons are not clickable
             if view.frame.height <= 690 {
-                guideView = Guide(frame: CGRect(x: 0, y: 0, width: contentView.frame.width, height: view.frame.height + 150))
+                guideView = Guide(frame: CGRect(x: 0, y: 0, width: contentView.frame.width, height: view.frame.height + 250))
             } else if view.frame.height >= 691 && view.frame.height <= 768 {
-                guideView = Guide(frame: CGRect(x: 0, y: 0, width: contentView.frame.width, height: view.frame.height + 100))
+                guideView = Guide(frame: CGRect(x: 0, y: 0, width: contentView.frame.width, height: view.frame.height + 200))
             } else if view.frame.height >= 769 {
-                guideView = Guide(frame: CGRect(x: 0, y: 0, width: contentView.frame.width, height: view.frame.height - 100))
+                guideView = Guide(frame: CGRect(x: 0, y: 0, width: contentView.frame.width, height: view.frame.height))
             }
             
             scrollView.addSubview(guideView)
