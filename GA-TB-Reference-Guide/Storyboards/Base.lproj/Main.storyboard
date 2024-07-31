@@ -36,7 +36,7 @@
                 <navigationController id="E3Y-H7-aY9" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Settings" image="gear" catalog="system" id="v70-fC-ZmF"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4y2-7Y-aE3">
-                        <rect key="frame" x="0.0" y="20" width="320" height="50"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <navigationBarAppearance key="standardAppearance">
                             <color key="backgroundColor" name="dialogColor"/>
@@ -561,23 +561,23 @@ Start by opening any subchapter or chart.</string>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="66 Results " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kc6-cH-4BJ">
-                                        <rect key="frame" x="20" y="71" width="280" height="20"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <rect key="frame" x="20" y="71" width="280" height="21.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fhm-9y-n6Y">
-                                        <rect key="frame" x="0.0" y="96" width="320" height="0.5"/>
+                                        <rect key="frame" x="0.0" y="97.5" width="320" height="0.5"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="sJf-tR-swQ"/>
                                         </constraints>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ezG-ZA-9lG">
-                                        <rect key="frame" x="0.0" y="96.5" width="320" height="358.5"/>
+                                        <rect key="frame" x="0.0" y="98" width="320" height="357"/>
                                         <color key="backgroundColor" name="backgroundColor"/>
                                     </tableView>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="NuX-uE-T7Q" userLabel="Search Suggestions Table View">
-                                        <rect key="frame" x="0.0" y="96" width="320" height="359"/>
+                                        <rect key="frame" x="0.0" y="97.5" width="320" height="357.5"/>
                                         <color key="backgroundColor" name="backgroundColor"/>
                                     </tableView>
                                 </subviews>
