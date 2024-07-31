@@ -36,7 +36,7 @@
                 <navigationController id="E3Y-H7-aY9" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Settings" image="gear" catalog="system" id="v70-fC-ZmF"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4y2-7Y-aE3">
-                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <navigationBarAppearance key="standardAppearance">
                             <color key="backgroundColor" name="dialogColor"/>
@@ -241,7 +241,7 @@ Start by opening any subchapter or chart.</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YPN-gG-ViF">
-                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                                <rect key="frame" x="0.0" y="64" width="354" height="455"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lv2-F2-H6I">
                                         <rect key="frame" x="60.5" y="355" width="2" height="20"/>
@@ -305,7 +305,7 @@ Start by opening any subchapter or chart.</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Font Size: Regular" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5AO-Fj-zem">
-                                        <rect key="frame" x="20" y="395" width="280" height="21"/>
+                                        <rect key="frame" x="20" y="395" width="314" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -546,7 +546,7 @@ Start by opening any subchapter or chart.</string>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5d0-oJ-zMv">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="61"/>
                                         <subviews>
-                                            <searchBar contentMode="scaleToFill" searchBarStyle="minimal" placeholder="Search Guide" translatesAutoresizingMaskIntoConstraints="NO" id="nyJ-fO-t7R">
+                                            <searchBar contentMode="scaleToFill" searchBarStyle="minimal" text="" placeholder="Search Guide" translatesAutoresizingMaskIntoConstraints="NO" id="nyJ-fO-t7R">
                                                 <rect key="frame" x="12" y="5" width="296" height="56"/>
                                                 <color key="tintColor" name="customDarkGray"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -562,7 +562,7 @@ Start by opening any subchapter or chart.</string>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="66 Results " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kc6-cH-4BJ">
                                         <rect key="frame" x="20" y="71" width="280" height="20"/>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -576,6 +576,10 @@ Start by opening any subchapter or chart.</string>
                                         <rect key="frame" x="0.0" y="96.5" width="320" height="358.5"/>
                                         <color key="backgroundColor" name="backgroundColor"/>
                                     </tableView>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="NuX-uE-T7Q" userLabel="Search Suggestions Table View">
+                                        <rect key="frame" x="0.0" y="96" width="320" height="359"/>
+                                        <color key="backgroundColor" name="backgroundColor"/>
+                                    </tableView>
                                 </subviews>
                                 <color key="backgroundColor" name="backgroundColor"/>
                                 <constraints>
@@ -584,13 +588,17 @@ Start by opening any subchapter or chart.</string>
                                     <constraint firstItem="5d0-oJ-zMv" firstAttribute="leading" secondItem="JQa-5h-3aq" secondAttribute="leading" id="4o5-03-5Hl"/>
                                     <constraint firstAttribute="trailing" secondItem="5d0-oJ-zMv" secondAttribute="trailing" id="6Dw-p1-bhj"/>
                                     <constraint firstItem="kc6-cH-4BJ" firstAttribute="leading" secondItem="JQa-5h-3aq" secondAttribute="leading" constant="20" id="Bwi-8T-eW6"/>
+                                    <constraint firstAttribute="trailing" secondItem="NuX-uE-T7Q" secondAttribute="trailing" id="Cwh-sz-9ih"/>
                                     <constraint firstAttribute="trailing" secondItem="kc6-cH-4BJ" secondAttribute="trailing" constant="20" id="Ji1-KG-VB1"/>
+                                    <constraint firstItem="NuX-uE-T7Q" firstAttribute="leading" secondItem="JQa-5h-3aq" secondAttribute="leading" id="LN8-Le-ZJE"/>
                                     <constraint firstItem="fhm-9y-n6Y" firstAttribute="top" secondItem="kc6-cH-4BJ" secondAttribute="bottom" constant="5" id="Qvf-XY-4Io"/>
+                                    <constraint firstItem="NuX-uE-T7Q" firstAttribute="top" secondItem="fhm-9y-n6Y" secondAttribute="bottom" constant="-0.5" id="Yiu-sn-grP"/>
                                     <constraint firstItem="5d0-oJ-zMv" firstAttribute="top" secondItem="JQa-5h-3aq" secondAttribute="top" id="hQQ-Z8-EcJ"/>
                                     <constraint firstItem="kc6-cH-4BJ" firstAttribute="top" secondItem="5d0-oJ-zMv" secondAttribute="bottom" constant="10" id="lYw-e3-syt"/>
                                     <constraint firstAttribute="trailing" secondItem="ezG-ZA-9lG" secondAttribute="trailing" id="mQ7-nG-lTA"/>
                                     <constraint firstAttribute="bottom" secondItem="ezG-ZA-9lG" secondAttribute="bottom" id="neH-ZT-z0s"/>
                                     <constraint firstItem="ezG-ZA-9lG" firstAttribute="top" secondItem="fhm-9y-n6Y" secondAttribute="bottom" id="pcW-WS-sB4"/>
+                                    <constraint firstAttribute="bottom" secondItem="NuX-uE-T7Q" secondAttribute="bottom" id="vDQ-nx-jfQ"/>
                                     <constraint firstItem="ezG-ZA-9lG" firstAttribute="leading" secondItem="JQa-5h-3aq" secondAttribute="leading" id="xlT-WY-D6X"/>
                                 </constraints>
                             </view>
@@ -608,6 +616,7 @@ Start by opening any subchapter or chart.</string>
                     <connections>
                         <outlet property="search" destination="nyJ-fO-t7R" id="qip-Fc-c08"/>
                         <outlet property="searchReturns" destination="kc6-cH-4BJ" id="V0a-tC-ZS0"/>
+                        <outlet property="searchSuggestionsTableView" destination="NuX-uE-T7Q" id="z1L-IC-zE2"/>
                         <outlet property="searchView" destination="5d0-oJ-zMv" id="mqA-HE-VA1"/>
                         <outlet property="tableView" destination="ezG-ZA-9lG" id="dop-7W-Nwb"/>
                         <segue destination="MDz-7h-Sal" kind="show" identifier="SegueToWebViewViewController" id="Kvm-QI-PmY"/>
@@ -615,7 +624,7 @@ Start by opening any subchapter or chart.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kZM-Mf-geb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2563.768115942029" y="77.678571428571431"/>
+            <point key="canvasLocation" x="2563.125" y="77.112676056338032"/>
         </scene>
         <!--Web View View Controller-->
         <scene sceneID="QDC-NP-wCp">
@@ -954,7 +963,7 @@ Start by opening any subchapter or chart.</string>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="sNt-ij-jaz"/>
-        <segue reference="QdM-r2-YsT"/>
+        <segue reference="Kvm-QI-PmY"/>
         <segue reference="c87-MO-uwg"/>
     </inferredMetricsTieBreakers>
     <resources>

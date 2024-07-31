@@ -19,6 +19,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     var size = CGRect.init()
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchSuggestionsTableView: UITableView!
     
 
     var tableViewCells: [Int : UITableViewCell] = [:]
@@ -40,6 +41,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     var isGradientAdded: Bool = false
     
     let tap = UITapGestureRecognizer()
+    
+    let suggestionsList: Array = ["Regimens", "Pregnancy", "Rifampin"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,11 +75,29 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 //        searchView.setGradientBackground(size: CGRect(x: searchView.bounds.origin.x, y: searchView.bounds.origin.y, width: self.navigationController?.navigationBar.bounds.width ?? searchView.bounds.width, height: searchView.bounds.height))
         // Do any additional setup after loading the view.
         
+        setupMainTableView()
+        setupSearchSuggestionTableView()
+        
+        showSearchSuggestionsTableView()
+    }
+    
+    private func setupMainTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-//        tableView.register( UITableViewCell.self, forCellReuseIdentifier: type(of: self).description())
         tableView.register(UINib(nibName: "SearchCell", bundle: nil), forCellReuseIdentifier: "searchCell")
         tableView.rowHeight = 80
+    }
+
+    private func setupSearchSuggestionTableView() {
+        searchSuggestionsTableView.delegate = self
+        searchSuggestionsTableView.dataSource = self
+        searchSuggestionsTableView.register(UINib(nibName: "SuggestionTableViewCell", bundle: nil), forCellReuseIdentifier: "suggestionCell")
+        searchSuggestionsTableView.rowHeight = 50
+    }
+    
+    func showTableView() {
+        searchSuggestionsTableView.isHidden = true
+        tableView.isHidden = false
         
         // Load the htmls on the array - needs to be on viewDidLoad otherwise it duplicates the content
         for items in chapterIndex.chapterCode.joined() {
@@ -90,6 +111,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         // Keyboard dismissal recognizer
         tap.addTarget(self, action: #selector(dismissKeyboard))
         self.view.addGestureRecognizer(tap)
+    }
+    
+    func showSearchSuggestionsTableView() {
+        tableView.isHidden = true
+        searchSuggestionsTableView.isHidden = false
+        searchReturns.text = "You may want to search for"
     }
 
 
@@ -120,69 +147,80 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 
     //--------------------------------------------------------------------------------------------------
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isFiltering {
-            return searchResults.count
+        if tableView == self.tableView {
+            if isFiltering {
+                return searchResults.count
+            } else {
+                return chapterIndex.subChapterNames.count
+            }
         } else {
-            return chapterIndex.subChapterNames.count
+            return suggestionsList.count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        var cell: UITableViewCell! = tableViewCells[indexPath.row]
-
-//        cell = UITableViewCell(frame: CGRect( x: 0, y: 0, width: tableView.frame.width, height: tableView.rowHeight ))
-        let cell = tableView.dequeueReusableCell(withIdentifier: "searchCell", for: indexPath) as! SearchCell
-        cell.backgroundColor = UIColor.backgroundColor
-        
-        cell.accessoryType = .disclosureIndicator
-        
-        if isFiltering {
-            cell.subchapterLabel.text = chapterIndex.subChapterNames[tempHTML.firstIndex(of: searchResults[indexPath.row]) ?? 0]
-            cell.chapterLabel.text = chapterIndex.chaptermapsubchapter[tempHTML.firstIndex(of: searchResults[indexPath.row]) ?? 0]
-            cell.contentLabel.isHidden = false
+        if tableView == self.tableView {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "searchCell", for: indexPath) as! SearchCell
+            cell.backgroundColor = UIColor.backgroundColor
             
-            let TSTrange = searchResults[indexPath.row].lowercased().range(of: searchTerm.lowercased())
-            let startRange = searchResults[indexPath.row].index(TSTrange?.lowerBound ?? searchResults[indexPath.row].startIndex,offsetBy: -30, limitedBy: searchResults[indexPath.row].startIndex) ?? searchResults[indexPath.row].startIndex
-            let endRange = searchResults[indexPath.row].index(TSTrange?.lowerBound ?? searchResults[indexPath.row].endIndex, offsetBy: 90, limitedBy: searchResults[indexPath.row].endIndex) ?? searchResults[indexPath.row].endIndex
-            cell.contentLabel.text = "..."+String(searchResults[indexPath.row][startRange..<endRange]) + "..."
-            let terms = searchTerm.lowercased().split(separator: " ").map({String($0) as NSString}) + [searchTerm as NSString]
-            cell.contentLabel.attributedText = addBoldText(fullString: cell.contentLabel.text! as NSString, boldPartsOfString: terms)
-        } else {
-            // to add here the history searches from the past - need Realm queries
-            cell.subchapterLabel.text = chapterIndex.subChapterNames[indexPath.row]
-            cell.chapterLabel.text = chapterIndex.chaptermapsubchapter[indexPath.row]
-            cell.contentLabel.isHidden = true
-        }
-        cell.subchapterLabel.lineBreakMode = .byTruncatingTail
-        cell.subchapterLabel.numberOfLines = 2
-        cell.chapterLabel.numberOfLines = 2
-        
-//        tableViewCells[indexPath.row] = cell
+            cell.accessoryType = .disclosureIndicator
             
+            if isFiltering {
+                let subchapterNameIndex = tempHTML.firstIndex(of: searchResults[indexPath.row]) ?? 0
+                cell.subchapterLabel.text = chapterIndex.subChapterNames[subchapterNameIndex]
+                cell.chapterLabel.text = chapterIndex.chaptermapsubchapter[subchapterNameIndex]
+                cell.contentLabel.isHidden = false
                 
-        return cell
-    }
-        
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        // Need to add logic to insert table view or html content based on what was clicked
-        // The first index is screwing me because there are multiple chapters with the same title i.e. considerations, or introduction, so it messes up the algorithm
-        if isFiltering {
-            subArrayPointer = tempHTML.firstIndex(of: searchResults[indexPath.row]) ?? 0
+                let TSTrange = searchResults[indexPath.row].lowercased().range(of: searchTerm.lowercased())
+                let startRange = searchResults[indexPath.row].index(TSTrange?.lowerBound ?? searchResults[indexPath.row].startIndex, offsetBy: -30, limitedBy: searchResults[indexPath.row].startIndex) ?? searchResults[indexPath.row].startIndex
+                let endRange = searchResults[indexPath.row].index(TSTrange?.lowerBound ?? searchResults[indexPath.row].endIndex, offsetBy: 90, limitedBy: searchResults[indexPath.row].endIndex) ?? searchResults[indexPath.row].endIndex
+                cell.contentLabel.text = "..." + String(searchResults[indexPath.row][startRange..<endRange]) + "..."
+                let terms = searchTerm.lowercased().split(separator: " ").map({ String($0) as NSString }) + [searchTerm as NSString]
+                cell.contentLabel.attributedText = addBoldText(fullString: cell.contentLabel.text! as NSString, boldPartsOfString: terms)
+            } else {
+                cell.subchapterLabel.text = chapterIndex.subChapterNames[indexPath.row]
+                cell.chapterLabel.text = chapterIndex.chaptermapsubchapter[indexPath.row]
+                cell.contentLabel.isHidden = true
+            }
+
+            
+            cell.subchapterLabel.lineBreakMode = .byTruncatingTail
+            cell.subchapterLabel.numberOfLines = 2
+            cell.chapterLabel.numberOfLines = 2
+            
+            return cell
         } else {
-            // to add here the history searches from the past
-            subArrayPointer = indexPath.row
+            let suggestionCell = tableView.dequeueReusableCell(withIdentifier: "suggestionCell", for: indexPath) as! SuggestionTableViewCell
+            suggestionCell.backgroundColor = UIColor.backgroundColor
+            suggestionCell.suggestionLabel.text = suggestionsList[indexPath.row]
+            return suggestionCell
         }
-        
-        navTitle = chapterIndex.chaptermapsubchapter[indexPath.row]
-        
-        Analytics.logEvent("search", parameters: [
-            "search": (searchTerm ) as String,
-        ])
-        
-        PendoManager.shared().track("search", properties: ["searchTerm":searchTerm, "selectedResult":chapterIndex.subChapterNames[indexPath.row]])
-        
-        performSegue( withIdentifier: "SegueToWebViewViewController", sender: nil )
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView == self.tableView {
+            if isFiltering {
+                subArrayPointer = tempHTML.firstIndex(of: searchResults[indexPath.row]) ?? 0
+            } else {
+                subArrayPointer = indexPath.row
+            }
+            
+            navTitle = chapterIndex.chaptermapsubchapter[indexPath.row]
+            
+            // Analytics and tracking code
+            Analytics.logEvent("search", parameters: [
+                "search": (searchTerm) as String,
+            ])
+            
+            PendoManager.shared().track("search", properties: ["searchTerm": searchTerm, "selectedResult": chapterIndex.subChapterNames[indexPath.row]])
+            
+            performSegue(withIdentifier: "SegueToWebViewViewController", sender: nil)
+        } else {
+            print("SEARCH SUGGESTION CLICKED: \(suggestionsList[indexPath.row])")
+            search.text = suggestionsList[indexPath.row]
+            searchTerm = suggestionsList[indexPath.row]
+            searchBar(search, textDidChange: searchTerm)
+        }
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -198,6 +236,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         // Use the filter method to iterate over all items in the data array
         // For each item, return true if the item should be included and false if the
         if searchText != ""{
+            showTableView()
             // Could be search always the strings independently or could be to first search strings together and if nothing returns then search the terms separately but giving the user the option to do that
             if searchText.components(separatedBy: " ").count > 1 {
                 let doubleString = searchText.components(separatedBy: " ")
@@ -217,9 +256,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         } else {
             isFiltering = false
             searchResults = [String]()
+            showSearchSuggestionsTableView()
         }
 //        searchReturns.isHidden = false
-        searchReturns.text = String(searchResults.count) + " results"
+        if searchResults.count == 0 {
+            searchReturns.text = "You may want to search for"
+        } else {
+            searchReturns.text = String(searchResults.count) + " results"
+        }
         
         tableView.reloadData()
     }
