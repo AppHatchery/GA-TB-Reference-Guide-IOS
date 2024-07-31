@@ -99,6 +99,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         searchSuggestionsTableView.isHidden = true
         tableView.isHidden = false
         
+        if searchTerm == "" {
+            search.becomeFirstResponder()
+        }
+        
         // Load the htmls on the array - needs to be on viewDidLoad otherwise it duplicates the content
         for items in chapterIndex.chapterCode.joined() {
             let path = Bundle.main.path(forResource: items.components(separatedBy: ".")[0], ofType: "html")!
@@ -124,8 +128,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     //--------------------------------------------------------------------------------------------------
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        
-        search.becomeFirstResponder()
         
         // Leave this for when we import from JSON and just use that order because right now it's giving me a headache
 //        let fileManager = FileManager.default
@@ -221,6 +223,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             searchTerm = suggestionsList[indexPath.row]
             searchBar(search, textDidChange: searchTerm)
         }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
