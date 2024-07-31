@@ -75,10 +75,28 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 //        searchView.setGradientBackground(size: CGRect(x: searchView.bounds.origin.x, y: searchView.bounds.origin.y, width: self.navigationController?.navigationBar.bounds.width ?? searchView.bounds.width, height: searchView.bounds.height))
         // Do any additional setup after loading the view.
         
+        loadHTML()
+        
         setupMainTableView()
         setupSearchSuggestionTableView()
         
+        // Load the Suggestions Table first before the the Main Table
         showSearchSuggestionsTableView()
+        
+        // Keyboard dismissal recognizer
+        tap.addTarget(self, action: #selector(dismissKeyboard))
+        self.view.addGestureRecognizer(tap)
+    }
+    
+    func loadHTML() {
+        // Load the htmls on the array - needs to be on viewDidLoad otherwise it duplicates the content
+        for items in chapterIndex.chapterCode.joined() {
+            let path = Bundle.main.path(forResource: items.components(separatedBy: ".")[0], ofType: "html")!
+            // This converts a multiline string into a single file, the .whitespacesandnewlines doesn't work to do that job
+            var htmlString = try! String(contentsOfFile: path).replacingOccurrences(of: "[\\s\n]+", with: " ", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
+            htmlString = htmlString.replacingOccurrences(of: "<.*?>", with: "", options: .regularExpression, range: nil)
+            tempHTML.append(htmlString)
+        }
     }
     
     private func setupMainTableView() {
@@ -102,19 +120,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         if searchTerm == "" {
             search.becomeFirstResponder()
         }
-        
-        // Load the htmls on the array - needs to be on viewDidLoad otherwise it duplicates the content
-        for items in chapterIndex.chapterCode.joined() {
-            let path = Bundle.main.path(forResource: items.components(separatedBy: ".")[0], ofType: "html")!
-            // This converts a multiline string into a single file, the .whitespacesandnewlines doesn't work to do that job
-            var htmlString = try! String(contentsOfFile: path).replacingOccurrences(of: "[\\s\n]+", with: " ", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
-            htmlString = htmlString.replacingOccurrences(of: "<.*?>", with: "", options: .regularExpression, range: nil)
-            tempHTML.append(htmlString)
-        }
-        
-        // Keyboard dismissal recognizer
-        tap.addTarget(self, action: #selector(dismissKeyboard))
-        self.view.addGestureRecognizer(tap)
     }
     
     func showSearchSuggestionsTableView() {
@@ -218,7 +223,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             
             performSegue(withIdentifier: "SegueToWebViewViewController", sender: nil)
         } else {
-            print("SEARCH SUGGESTION CLICKED: \(suggestionsList[indexPath.row])")
             search.text = suggestionsList[indexPath.row]
             searchTerm = suggestionsList[indexPath.row]
             searchBar(search, textDidChange: searchTerm)
