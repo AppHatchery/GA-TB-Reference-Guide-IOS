@@ -546,14 +546,19 @@ Start by opening any subchapter or chart.</string>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5d0-oJ-zMv">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="58"/>
                                         <subviews>
-                                            <searchBar contentMode="scaleToFill" fixedFrame="YES" searchBarStyle="minimal" text="" placeholder="Search Guide" translatesAutoresizingMaskIntoConstraints="NO" id="nyJ-fO-t7R">
-                                                <rect key="frame" x="14" y="-8" width="292" height="74"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <searchBar contentMode="scaleToFill" searchBarStyle="minimal" text="" placeholder="Search Guide" translatesAutoresizingMaskIntoConstraints="NO" id="nyJ-fO-t7R">
+                                                <rect key="frame" x="10" y="8" width="300" height="42"/>
                                                 <color key="tintColor" name="customDarkGray"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </searchBar>
                                         </subviews>
                                         <color key="backgroundColor" name="dialogColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="nyJ-fO-t7R" secondAttribute="bottom" constant="8" id="1R0-yj-PgV"/>
+                                            <constraint firstItem="nyJ-fO-t7R" firstAttribute="top" secondItem="5d0-oJ-zMv" secondAttribute="top" constant="8" id="OCC-J2-eXo"/>
+                                            <constraint firstItem="nyJ-fO-t7R" firstAttribute="leading" secondItem="5d0-oJ-zMv" secondAttribute="leading" constant="10" id="jLA-KJ-sZL"/>
+                                            <constraint firstAttribute="trailing" secondItem="nyJ-fO-t7R" secondAttribute="trailing" constant="10" id="joN-an-IrG"/>
+                                        </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fhm-9y-n6Y">
                                         <rect key="frame" x="10" y="68" width="300" height="0.5"/>
@@ -582,8 +587,8 @@ Start by opening any subchapter or chart.</string>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="aJt-hq-Swd">
                                                 <rect key="frame" x="0.0" y="0.0" width="300" height="387"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ivO-ud-SFc" userLabel="Recent Searches Stack View">
-                                                        <rect key="frame" x="0.0" y="0.0" width="300" height="219"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="ivO-ud-SFc" userLabel="Recent Searches Stack View">
+                                                        <rect key="frame" x="0.0" y="0.0" width="300" height="109.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recent" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="taI-Xk-9i9">
                                                                 <rect key="frame" x="0.0" y="0.0" width="300" height="21.5"/>
@@ -592,13 +597,16 @@ Start by opening any subchapter or chart.</string>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ljZ-HX-HJp" userLabel="Recent Searches Table View">
-                                                                <rect key="frame" x="0.0" y="21.5" width="300" height="197.5"/>
+                                                                <rect key="frame" x="0.0" y="22.5" width="300" height="87"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="10" id="ju9-eM-zSE"/>
+                                                                </constraints>
                                                             </tableView>
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ugU-XU-WKS" userLabel="Search Suggestion Stack View">
-                                                        <rect key="frame" x="0.0" y="239" width="300" height="148"/>
+                                                        <rect key="frame" x="0.0" y="129.5" width="300" height="257.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You may want to search for" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kc6-cH-4BJ">
                                                                 <rect key="frame" x="0.0" y="0.0" width="300" height="21.5"/>
@@ -607,14 +615,18 @@ Start by opening any subchapter or chart.</string>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="NuX-uE-T7Q" userLabel="Search Suggestions Table View">
-                                                                <rect key="frame" x="0.0" y="21.5" width="300" height="126.5"/>
+                                                                <rect key="frame" x="0.0" y="21.5" width="300" height="236"/>
                                                                 <color key="backgroundColor" name="backgroundColor"/>
                                                             </tableView>
                                                         </subviews>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" relation="lessThanOrEqual" priority="998" constant="257.5" id="kgw-F3-VTS"/>
+                                                        </constraints>
                                                     </stackView>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="ugU-XU-WKS" firstAttribute="top" secondItem="aJt-hq-Swd" secondAttribute="top" constant="239" id="Fd1-14-mfE"/>
+                                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ivO-ud-SFc" secondAttribute="bottom" constant="277.5" id="XYe-64-22S"/>
+                                                    <constraint firstItem="ugU-XU-WKS" firstAttribute="top" relation="lessThanOrEqual" secondItem="aJt-hq-Swd" secondAttribute="top" priority="999" constant="129.5" id="l5b-oH-VnZ"/>
                                                 </constraints>
                                             </stackView>
                                         </subviews>

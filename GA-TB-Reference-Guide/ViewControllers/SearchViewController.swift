@@ -307,7 +307,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                     
                     print("THIS IS THE RECENT SEARCH::::::: \(recentSearch) with it's SEARCH TERM +++++++++++++ \(searchTerm)")
                     
-                    if recentSearchObjects.count >= 4 {
+                    if recentSearchObjects.count >= 2 {
                         if let firstRecentSearch = recentSearchObjects.first {
                             realm?.delete(firstRecentSearch)
                             recentSearchesList.removeLast()
