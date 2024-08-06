@@ -19,11 +19,11 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="clock" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ZkK-Gt-zgN">
-                        <rect key="frame" x="10.000000000000002" y="12.666666666666666" width="19.666666666666671" height="19.666666666666679"/>
+                        <rect key="frame" x="2" y="12.666666666666666" width="19.666666666666668" height="19.666666666666679"/>
                         <color key="tintColor" systemColor="labelColor"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recent" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vLh-rO-JgA">
-                        <rect key="frame" x="39.666666666666657" y="13.666666666666664" width="56" height="17"/>
+                        <rect key="frame" x="31.666666666666671" y="13.666666666666664" width="64" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -34,7 +34,7 @@
                     <constraint firstAttribute="bottom" secondItem="vLh-rO-JgA" secondAttribute="bottom" constant="13.5" id="DcQ-nD-O76"/>
                     <constraint firstAttribute="bottom" secondItem="ZkK-Gt-zgN" secondAttribute="bottom" constant="11.5" id="ExQ-Xc-tdw"/>
                     <constraint firstItem="ZkK-Gt-zgN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11.5" id="G4L-dX-VSk"/>
-                    <constraint firstItem="ZkK-Gt-zgN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="KNf-Wk-CdM"/>
+                    <constraint firstItem="ZkK-Gt-zgN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="2" id="KNf-Wk-CdM"/>
                     <constraint firstItem="vLh-rO-JgA" firstAttribute="leading" secondItem="ZkK-Gt-zgN" secondAttribute="trailing" constant="10" id="L1o-xw-3RG"/>
                     <constraint firstItem="vLh-rO-JgA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="13.5" id="dKQ-lg-JZn"/>
                     <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="vLh-rO-JgA" secondAttribute="trailing" constant="224.33000000000001" id="fwW-Ho-UmF"/>

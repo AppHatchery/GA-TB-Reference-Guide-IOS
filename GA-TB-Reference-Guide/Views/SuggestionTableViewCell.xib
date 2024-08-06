@@ -19,20 +19,20 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Regimens" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VSv-0U-rPi">
-                        <rect key="frame" x="40.333333333333336" y="13.666666666666664" width="83.666666666666657" height="17"/>
+                        <rect key="frame" x="32.333333333333336" y="13.666666666666664" width="91.666666666666657" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="magnifyingglass" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="RHh-w8-toH">
-                        <rect key="frame" x="9.9999999999999982" y="12.666666666666664" width="20.333333333333329" height="19.333333333333336"/>
+                        <rect key="frame" x="2" y="12.666666666666664" width="20.333333333333332" height="19.333333333333336"/>
                         <color key="tintColor" systemColor="labelColor"/>
                     </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="VSv-0U-rPi" firstAttribute="leading" secondItem="RHh-w8-toH" secondAttribute="trailing" constant="10" id="GV4-rV-E93"/>
                     <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="VSv-0U-rPi" secondAttribute="trailing" constant="196" id="Ka8-6P-xwf"/>
-                    <constraint firstItem="RHh-w8-toH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="OMQ-AZ-wST"/>
+                    <constraint firstItem="RHh-w8-toH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="2" id="OMQ-AZ-wST"/>
                     <constraint firstItem="RHh-w8-toH" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11.5" id="VBL-hj-YlS"/>
                     <constraint firstItem="RHh-w8-toH" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Z49-f9-XEW"/>
                     <constraint firstAttribute="bottom" secondItem="RHh-w8-toH" secondAttribute="bottom" constant="11.5" id="aCM-Yj-tDH"/>
