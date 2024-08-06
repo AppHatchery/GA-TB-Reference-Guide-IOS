@@ -20,8 +20,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchSuggestionsTableView: UITableView!
+    @IBOutlet weak var recentSearchesTableView: UITableView!
+    @IBOutlet weak var suggestionsStack: UIStackView!
+    @IBOutlet weak var recentSearchesStackView: UIStackView!
+    @IBOutlet weak var searchSuggestionsStackView: UIStackView!
     
-
+    // Initialize Realm
+    let realm = RealmHelper.sharedInstance.mainRealm()
+    
     var tableViewCells: [Int : UITableViewCell] = [:]
     var subArrayPointer = 0
     var navTitle = "Placeholder SubChapter"
@@ -43,6 +49,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     let tap = UITapGestureRecognizer()
     
     let suggestionsList: Array = ["Regimens", "Pregnancy", "Rifampin"]
+    var recentSearchesList: Array = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,9 +86,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         
         setupMainTableView()
         setupSearchSuggestionTableView()
+        setupRecentSearchesTableView()
         
         // Load the Suggestions Table first before the the Main Table
-        showSearchSuggestionsTableView()
+        showSuggestions()
         
         // Keyboard dismissal recognizer
         tap.addTarget(self, action: #selector(dismissKeyboard))
@@ -113,22 +121,54 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         searchSuggestionsTableView.rowHeight = 50
     }
     
+    private func setupRecentSearchesTableView() {
+        recentSearchesTableView.delegate = self
+        recentSearchesTableView.dataSource = self
+        recentSearchesTableView.register(UINib(nibName: "RecentSearchTableViewCell", bundle: nil), forCellReuseIdentifier: "recentSearchCell")
+        recentSearchesTableView.rowHeight = 50
+    }
+    
     func showTableView() {
-        searchSuggestionsTableView.isHidden = true
+        suggestionsStack.isHidden = true
         tableView.isHidden = false
+        searchReturns.isHidden = false
         
         if searchTerm == "" {
             search.becomeFirstResponder()
         }
     }
     
-    func showSearchSuggestionsTableView() {
+    func showSuggestions() {
+        recentSearchesList = getRecentSearches()
+        
         tableView.isHidden = true
-        searchSuggestionsTableView.isHidden = false
+        suggestionsStack.isHidden = false
+        searchReturns.isHidden = true
+        
         searchReturns.text = "You may want to search for"
+        
+        if recentSearchesList.count == 0 {
+            recentSearchesStackView.isHidden = true
+        } else {
+            recentSearchesStackView.isHidden = false
+        }
     }
-
-
+    
+    func getRecentSearchesObjects() -> [Search] {
+        // Fetch all recent searches from Realm
+        let recentSearches = realm!.objects(Search.self)
+        
+        // Convert to an array of Search objects
+        return Array(recentSearches)
+    }
+    
+    func getRecentSearches() -> [String] {
+        // Fetch all recent searches from Realm
+        let recentSearches = realm!.objects(Search.self)
+        
+        // Convert to an array of strings and reverse
+        return Array(recentSearches.map { $0.recentSearch }).reversed()
+    }
     
     //--------------------------------------------------------------------------------------------------
     override func viewDidAppear(_ animated: Bool) {
@@ -154,18 +194,24 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 
     //--------------------------------------------------------------------------------------------------
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        recentSearchesList = getRecentSearches()
+        
         if tableView == self.tableView {
             if isFiltering {
                 return searchResults.count
             } else {
                 return chapterIndex.subChapterNames.count
             }
-        } else {
+        } else if tableView == self.searchSuggestionsTableView {
             return suggestionsList.count
+        } else {
+            return recentSearchesList.count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        recentSearchesList = getRecentSearches()
+        
         if tableView == self.tableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "searchCell", for: indexPath) as! SearchCell
             cell.backgroundColor = UIColor.backgroundColor
@@ -196,11 +242,19 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             cell.chapterLabel.numberOfLines = 2
             
             return cell
-        } else {
+        } else if tableView == self.searchSuggestionsTableView {
             let suggestionCell = tableView.dequeueReusableCell(withIdentifier: "suggestionCell", for: indexPath) as! SuggestionTableViewCell
             suggestionCell.backgroundColor = UIColor.backgroundColor
             suggestionCell.suggestionLabel.text = suggestionsList[indexPath.row]
+            
             return suggestionCell
+        } else {
+            let recentSearchCell = tableView.dequeueReusableCell(withIdentifier: "recentSearchCell", for: indexPath) as! RecentSearchTableViewCell
+            recentSearchCell.backgroundColor = UIColor.backgroundColor
+            recentSearchCell.recentSearchLabel.text = recentSearchesList[indexPath.row]
+            print(recentSearchesList)
+            
+            return recentSearchCell
         }
     }
     
@@ -213,7 +267,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             }
             
             navTitle = chapterIndex.chaptermapsubchapter[indexPath.row]
-            
+            addRecentSearch(searchTerm: searchTerm)
+
             // Analytics and tracking code
             Analytics.logEvent("search", parameters: [
                 "search": (searchTerm) as String,
@@ -222,12 +277,51 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             PendoManager.shared().track("search", properties: ["searchTerm": searchTerm, "selectedResult": chapterIndex.subChapterNames[indexPath.row]])
             
             performSegue(withIdentifier: "SegueToWebViewViewController", sender: nil)
-        } else {
+        } else if tableView == self.searchSuggestionsTableView {
             search.text = suggestionsList[indexPath.row]
             searchTerm = suggestionsList[indexPath.row]
             searchBar(search, textDidChange: searchTerm)
+            
+            addRecentSearch(searchTerm: searchTerm)
+        } else {
+            search.text = recentSearchesList[indexPath.row]
+            searchTerm = recentSearchesList[indexPath.row]
+            
+            searchBar(search, textDidChange: searchTerm)
         }
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    // Function to add a recent search term
+    func addRecentSearch(searchTerm: String) {
+        if searchTerm.count >= 2 {
+            if realm?.object(ofType: Search.self, forPrimaryKey: searchTerm) == nil {
+                let recentSearch = Search()
+                let recentSearchObjects = getRecentSearchesObjects()
+                var recentSearchesList = getRecentSearches()
+                
+                recentSearch.recentSearch = searchTerm
+                
+                try! realm!.write {
+                    // If there are more than 4 recent searches, remove the oldest one
+                    
+                    print("THIS IS THE RECENT SEARCH::::::: \(recentSearch) with it's SEARCH TERM +++++++++++++ \(searchTerm)")
+                    
+                    if recentSearchObjects.count >= 4 {
+                        if let firstRecentSearch = recentSearchObjects.first {
+                            realm?.delete(firstRecentSearch)
+                            recentSearchesList.removeLast()
+                            
+                            realm?.add(recentSearch)
+                        }
+                    } else {
+                        realm?.add(recentSearch)
+                    }
+                }
+            } else {
+                print("Search term already exists: \(searchTerm)")
+            }
+        }
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -263,15 +357,16 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         } else {
             isFiltering = false
             searchResults = [String]()
-            showSearchSuggestionsTableView()
+            showSuggestions()
         }
 //        searchReturns.isHidden = false
-        if searchResults.count == 0 {
-            searchReturns.text = "You may want to search for"
+        if searchResults.count == 0 || suggestionsStack.isHidden == false {
+            searchReturns.isHidden = true
         } else {
             searchReturns.text = String(searchResults.count) + " results"
         }
         
+        recentSearchesTableView.reloadData()
         tableView.reloadData()
     }
 

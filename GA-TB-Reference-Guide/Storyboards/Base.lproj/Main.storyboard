@@ -544,80 +544,128 @@ Start by opening any subchapter or chart.</string>
                                 <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5d0-oJ-zMv">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="61"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="58"/>
                                         <subviews>
-                                            <searchBar contentMode="scaleToFill" searchBarStyle="minimal" text="" placeholder="Search Guide" translatesAutoresizingMaskIntoConstraints="NO" id="nyJ-fO-t7R">
-                                                <rect key="frame" x="12" y="5" width="296" height="56"/>
+                                            <searchBar contentMode="scaleToFill" fixedFrame="YES" searchBarStyle="minimal" text="" placeholder="Search Guide" translatesAutoresizingMaskIntoConstraints="NO" id="nyJ-fO-t7R">
+                                                <rect key="frame" x="14" y="-8" width="292" height="74"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="tintColor" name="customDarkGray"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </searchBar>
                                         </subviews>
                                         <color key="backgroundColor" name="dialogColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="nyJ-fO-t7R" secondAttribute="bottom" id="7ua-ZX-ajV"/>
-                                            <constraint firstItem="nyJ-fO-t7R" firstAttribute="leading" secondItem="5d0-oJ-zMv" secondAttribute="leading" constant="12" id="Ri2-bK-TgO"/>
-                                            <constraint firstItem="nyJ-fO-t7R" firstAttribute="top" secondItem="5d0-oJ-zMv" secondAttribute="top" constant="5" id="YZJ-OS-4W5"/>
-                                            <constraint firstAttribute="trailing" secondItem="nyJ-fO-t7R" secondAttribute="trailing" constant="12" id="aCB-bN-xMG"/>
-                                        </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="66 Results " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kc6-cH-4BJ">
-                                        <rect key="frame" x="20" y="71" width="280" height="21.5"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fhm-9y-n6Y">
-                                        <rect key="frame" x="0.0" y="97.5" width="320" height="0.5"/>
+                                        <rect key="frame" x="10" y="68" width="300" height="0.5"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="sJf-tR-swQ"/>
                                         </constraints>
                                     </view>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ezG-ZA-9lG">
-                                        <rect key="frame" x="0.0" y="98" width="320" height="357"/>
-                                        <color key="backgroundColor" name="backgroundColor"/>
-                                    </tableView>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="NuX-uE-T7Q" userLabel="Search Suggestions Table View">
-                                        <rect key="frame" x="0.0" y="97.5" width="320" height="357.5"/>
-                                        <color key="backgroundColor" name="backgroundColor"/>
-                                    </tableView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6UX-BR-9Qy">
+                                        <rect key="frame" x="10" y="68" width="300" height="387"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="jhJ-eA-col">
+                                                <rect key="frame" x="0.0" y="0.0" width="300" height="387"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="66 Results " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="866-cY-vUi">
+                                                        <rect key="frame" x="0.0" y="0.0" width="300" height="21.5"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ezG-ZA-9lG">
+                                                        <rect key="frame" x="0.0" y="23.5" width="300" height="363.5"/>
+                                                        <color key="backgroundColor" name="backgroundColor"/>
+                                                    </tableView>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="aJt-hq-Swd">
+                                                <rect key="frame" x="0.0" y="0.0" width="300" height="387"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ivO-ud-SFc" userLabel="Recent Searches Stack View">
+                                                        <rect key="frame" x="0.0" y="0.0" width="300" height="219"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recent" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="taI-Xk-9i9">
+                                                                <rect key="frame" x="0.0" y="0.0" width="300" height="21.5"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ljZ-HX-HJp" userLabel="Recent Searches Table View">
+                                                                <rect key="frame" x="0.0" y="21.5" width="300" height="197.5"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                            </tableView>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ugU-XU-WKS" userLabel="Search Suggestion Stack View">
+                                                        <rect key="frame" x="0.0" y="239" width="300" height="148"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You may want to search for" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kc6-cH-4BJ">
+                                                                <rect key="frame" x="0.0" y="0.0" width="300" height="21.5"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="NuX-uE-T7Q" userLabel="Search Suggestions Table View">
+                                                                <rect key="frame" x="0.0" y="21.5" width="300" height="126.5"/>
+                                                                <color key="backgroundColor" name="backgroundColor"/>
+                                                            </tableView>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="ugU-XU-WKS" firstAttribute="top" secondItem="aJt-hq-Swd" secondAttribute="top" constant="239" id="Fd1-14-mfE"/>
+                                                </constraints>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="aJt-hq-Swd" firstAttribute="top" secondItem="6UX-BR-9Qy" secondAttribute="top" id="Icf-QW-QMp"/>
+                                            <constraint firstAttribute="bottom" secondItem="aJt-hq-Swd" secondAttribute="bottom" id="TuE-ri-fJw"/>
+                                            <constraint firstAttribute="trailing" secondItem="aJt-hq-Swd" secondAttribute="trailing" id="VYV-gY-grK"/>
+                                            <constraint firstItem="jhJ-eA-col" firstAttribute="leading" secondItem="6UX-BR-9Qy" secondAttribute="leading" id="XsS-3e-WJa"/>
+                                            <constraint firstAttribute="trailing" secondItem="jhJ-eA-col" secondAttribute="trailing" id="moL-LF-Urf"/>
+                                            <constraint firstItem="aJt-hq-Swd" firstAttribute="leading" secondItem="6UX-BR-9Qy" secondAttribute="leading" id="vOR-tA-Yhc"/>
+                                            <constraint firstItem="jhJ-eA-col" firstAttribute="top" secondItem="6UX-BR-9Qy" secondAttribute="top" id="yYM-bI-Eoa"/>
+                                            <constraint firstAttribute="bottom" secondItem="jhJ-eA-col" secondAttribute="bottom" id="zHC-w0-SKs"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" name="backgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="fhm-9y-n6Y" secondAttribute="trailing" id="21n-uI-P0q"/>
-                                    <constraint firstItem="fhm-9y-n6Y" firstAttribute="leading" secondItem="JQa-5h-3aq" secondAttribute="leading" id="3xZ-q7-r8t"/>
-                                    <constraint firstItem="5d0-oJ-zMv" firstAttribute="leading" secondItem="JQa-5h-3aq" secondAttribute="leading" id="4o5-03-5Hl"/>
-                                    <constraint firstAttribute="trailing" secondItem="5d0-oJ-zMv" secondAttribute="trailing" id="6Dw-p1-bhj"/>
-                                    <constraint firstItem="kc6-cH-4BJ" firstAttribute="leading" secondItem="JQa-5h-3aq" secondAttribute="leading" constant="20" id="Bwi-8T-eW6"/>
-                                    <constraint firstAttribute="trailing" secondItem="NuX-uE-T7Q" secondAttribute="trailing" id="Cwh-sz-9ih"/>
-                                    <constraint firstAttribute="trailing" secondItem="kc6-cH-4BJ" secondAttribute="trailing" constant="20" id="Ji1-KG-VB1"/>
-                                    <constraint firstItem="NuX-uE-T7Q" firstAttribute="leading" secondItem="JQa-5h-3aq" secondAttribute="leading" id="LN8-Le-ZJE"/>
-                                    <constraint firstItem="fhm-9y-n6Y" firstAttribute="top" secondItem="kc6-cH-4BJ" secondAttribute="bottom" constant="5" id="Qvf-XY-4Io"/>
-                                    <constraint firstItem="NuX-uE-T7Q" firstAttribute="top" secondItem="fhm-9y-n6Y" secondAttribute="bottom" constant="-0.5" id="Yiu-sn-grP"/>
-                                    <constraint firstItem="5d0-oJ-zMv" firstAttribute="top" secondItem="JQa-5h-3aq" secondAttribute="top" id="hQQ-Z8-EcJ"/>
-                                    <constraint firstItem="kc6-cH-4BJ" firstAttribute="top" secondItem="5d0-oJ-zMv" secondAttribute="bottom" constant="10" id="lYw-e3-syt"/>
-                                    <constraint firstAttribute="trailing" secondItem="ezG-ZA-9lG" secondAttribute="trailing" id="mQ7-nG-lTA"/>
-                                    <constraint firstAttribute="bottom" secondItem="ezG-ZA-9lG" secondAttribute="bottom" id="neH-ZT-z0s"/>
-                                    <constraint firstItem="ezG-ZA-9lG" firstAttribute="top" secondItem="fhm-9y-n6Y" secondAttribute="bottom" id="pcW-WS-sB4"/>
-                                    <constraint firstAttribute="bottom" secondItem="NuX-uE-T7Q" secondAttribute="bottom" id="vDQ-nx-jfQ"/>
-                                    <constraint firstItem="ezG-ZA-9lG" firstAttribute="leading" secondItem="JQa-5h-3aq" secondAttribute="leading" id="xlT-WY-D6X"/>
+                                    <constraint firstItem="5d0-oJ-zMv" firstAttribute="top" secondItem="JQa-5h-3aq" secondAttribute="top" id="7IW-54-DEf"/>
+                                    <constraint firstAttribute="bottom" secondItem="6UX-BR-9Qy" secondAttribute="bottom" id="8SF-DO-VnW"/>
+                                    <constraint firstItem="5d0-oJ-zMv" firstAttribute="leading" secondItem="JQa-5h-3aq" secondAttribute="leading" id="Ejn-H9-etA"/>
+                                    <constraint firstAttribute="trailing" secondItem="5d0-oJ-zMv" secondAttribute="trailing" id="FkB-qV-VWx"/>
+                                    <constraint firstItem="fhm-9y-n6Y" firstAttribute="leading" secondItem="JQa-5h-3aq" secondAttribute="leading" constant="10" id="G8g-X0-8gy"/>
+                                    <constraint firstItem="6UX-BR-9Qy" firstAttribute="leading" secondItem="JQa-5h-3aq" secondAttribute="leading" constant="10" id="Ghn-06-heP"/>
+                                    <constraint firstAttribute="trailing" secondItem="fhm-9y-n6Y" secondAttribute="trailing" constant="10" id="JdU-TO-eeD"/>
+                                    <constraint firstItem="fhm-9y-n6Y" firstAttribute="top" secondItem="JQa-5h-3aq" secondAttribute="top" constant="68" id="Mip-r1-Q9f"/>
+                                    <constraint firstItem="fhm-9y-n6Y" firstAttribute="top" secondItem="5d0-oJ-zMv" secondAttribute="bottom" constant="10" id="Oce-U6-edw"/>
+                                    <constraint firstAttribute="trailing" secondItem="6UX-BR-9Qy" secondAttribute="trailing" constant="10" id="uTh-le-oWx"/>
+                                    <constraint firstItem="6UX-BR-9Qy" firstAttribute="top" secondItem="5d0-oJ-zMv" secondAttribute="bottom" constant="10" id="v3r-QW-Lbo"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="MeW-UR-xgf"/>
                         <color key="backgroundColor" name="backgroundColor"/>
                         <constraints>
-                            <constraint firstItem="JQa-5h-3aq" firstAttribute="leading" secondItem="MeW-UR-xgf" secondAttribute="leading" id="3DX-ve-Up8"/>
-                            <constraint firstItem="JQa-5h-3aq" firstAttribute="top" secondItem="MeW-UR-xgf" secondAttribute="top" id="P52-S8-2yU"/>
-                            <constraint firstItem="MeW-UR-xgf" firstAttribute="bottom" secondItem="JQa-5h-3aq" secondAttribute="bottom" id="f8g-P3-0gR"/>
-                            <constraint firstItem="MeW-UR-xgf" firstAttribute="trailing" secondItem="JQa-5h-3aq" secondAttribute="trailing" id="mtp-xB-Y2p"/>
+                            <constraint firstItem="JQa-5h-3aq" firstAttribute="bottom" secondItem="MeW-UR-xgf" secondAttribute="bottom" id="4AW-Rz-Qba"/>
+                            <constraint firstItem="JQa-5h-3aq" firstAttribute="top" secondItem="MeW-UR-xgf" secondAttribute="top" id="KVn-j2-JZz"/>
+                            <constraint firstItem="JQa-5h-3aq" firstAttribute="leading" secondItem="MeW-UR-xgf" secondAttribute="leading" id="Zn2-ab-6OW"/>
+                            <constraint firstItem="JQa-5h-3aq" firstAttribute="trailing" secondItem="MeW-UR-xgf" secondAttribute="trailing" id="xI3-vU-Man"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Search" id="81N-pr-XKS"/>
                     <connections>
+                        <outlet property="recentSearchesStackView" destination="ivO-ud-SFc" id="EBE-B3-Qnv"/>
+                        <outlet property="recentSearchesTableView" destination="ljZ-HX-HJp" id="Tf6-zu-Rre"/>
                         <outlet property="search" destination="nyJ-fO-t7R" id="qip-Fc-c08"/>
-                        <outlet property="searchReturns" destination="kc6-cH-4BJ" id="V0a-tC-ZS0"/>
+                        <outlet property="searchReturns" destination="866-cY-vUi" id="2sF-pL-LYe"/>
+                        <outlet property="searchSuggestionsStackView" destination="ugU-XU-WKS" id="fd4-mf-zaF"/>
                         <outlet property="searchSuggestionsTableView" destination="NuX-uE-T7Q" id="z1L-IC-zE2"/>
                         <outlet property="searchView" destination="5d0-oJ-zMv" id="mqA-HE-VA1"/>
+                        <outlet property="suggestionsStack" destination="aJt-hq-Swd" id="BYm-mG-2eX"/>
                         <outlet property="tableView" destination="ezG-ZA-9lG" id="dop-7W-Nwb"/>
                         <segue destination="MDz-7h-Sal" kind="show" identifier="SegueToWebViewViewController" id="Kvm-QI-PmY"/>
                     </connections>
@@ -999,6 +1047,9 @@ Start by opening any subchapter or chart.</string>
         </systemColor>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray5Color">
             <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
