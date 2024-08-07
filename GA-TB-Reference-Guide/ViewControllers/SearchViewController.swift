@@ -118,14 +118,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         searchSuggestionsTableView.delegate = self
         searchSuggestionsTableView.dataSource = self
         searchSuggestionsTableView.register(UINib(nibName: "SuggestionTableViewCell", bundle: nil), forCellReuseIdentifier: "suggestionCell")
-        searchSuggestionsTableView.rowHeight = 50
+        searchSuggestionsTableView.rowHeight = 42
     }
     
     private func setupRecentSearchesTableView() {
         recentSearchesTableView.delegate = self
         recentSearchesTableView.dataSource = self
         recentSearchesTableView.register(UINib(nibName: "RecentSearchTableViewCell", bundle: nil), forCellReuseIdentifier: "recentSearchCell")
-        recentSearchesTableView.rowHeight = 50
+        recentSearchesTableView.rowHeight = 42
     }
     
     func showTableView() {
