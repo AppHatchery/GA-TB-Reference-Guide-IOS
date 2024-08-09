@@ -26,6 +26,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     @IBOutlet weak var recentSearchesView: UIView!
     @IBOutlet weak var searchSuggestionsView: UIView!
     
+    
     // Initialize Realm
     let realm = RealmHelper.sharedInstance.mainRealm()
     
@@ -372,8 +373,22 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         recentSearchesTableView.reloadData()
         tableView.reloadData()
     }
-
     
+    //--------------------------------------------------------------------------------------------------
+    // To adjust the recentSearchesTableView based on the content since auto resizing is not working as intended
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if recentSearchesList.count == 1 {
+            recentSearchesTableView.frame.size.height = 46
+        } else if recentSearchesList.count == 2 {
+            recentSearchesTableView.frame.size.height = 92
+        } else if recentSearchesList.count == 3 {
+            recentSearchesTableView.frame.size.height = 138
+        } else {
+            recentSearchesTableView.frame.size.height = 0
+        }
+    }
 
     //--------------------------------------------------------------------------------------------------
     // To hide the keyboard when the user clicks search
