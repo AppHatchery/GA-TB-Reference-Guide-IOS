@@ -114,21 +114,21 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         tableView.dataSource = self
         tableView.register(UINib(nibName: "SearchCell", bundle: nil), forCellReuseIdentifier: "searchCell")
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 44
+        tableView.estimatedRowHeight = 45
     }
 
     private func setupSearchSuggestionTableView() {
         searchSuggestionsTableView.delegate = self
         searchSuggestionsTableView.dataSource = self
         searchSuggestionsTableView.register(UINib(nibName: "SuggestionTableViewCell", bundle: nil), forCellReuseIdentifier: "suggestionCell")
-        searchSuggestionsTableView.rowHeight = 42
+//        searchSuggestionsTableView.rowHeight = 24
     }
     
     private func setupRecentSearchesTableView() {
         recentSearchesTableView.delegate = self
         recentSearchesTableView.dataSource = self
         recentSearchesTableView.register(UINib(nibName: "RecentSearchTableViewCell", bundle: nil), forCellReuseIdentifier: "recentSearchCell")
-        recentSearchesTableView.rowHeight = 42
+//        recentSearchesTableView.rowHeight = 24
         recentSearchesTableView.translatesAutoresizingMaskIntoConstraints = true
     }
     
@@ -197,6 +197,15 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     }
 
     //--------------------------------------------------------------------------------------------------
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if tableView != self.tableView {
+            let rowHeight: CGFloat = 24
+            let gapHeight: CGFloat = 12
+            return rowHeight + gapHeight
+        }
+        return 80
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         recentSearchesList = getRecentSearches()
         
@@ -380,11 +389,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         super.viewDidLayoutSubviews()
         
         if recentSearchesList.count == 1 {
-            recentSearchesTableView.frame.size.height = 46
+            recentSearchesTableView.frame.size.height = 36
         } else if recentSearchesList.count == 2 {
-            recentSearchesTableView.frame.size.height = 92
+            recentSearchesTableView.frame.size.height = 72
         } else if recentSearchesList.count == 3 {
-            recentSearchesTableView.frame.size.height = 138
+            recentSearchesTableView.frame.size.height = 108
         } else {
             recentSearchesTableView.frame.size.height = 0
         }
