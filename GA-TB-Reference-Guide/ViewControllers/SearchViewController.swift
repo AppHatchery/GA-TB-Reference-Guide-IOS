@@ -21,9 +21,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchSuggestionsTableView: UITableView!
     @IBOutlet weak var recentSearchesTableView: UITableView!
-    @IBOutlet weak var suggestionsStack: UIStackView!
-    @IBOutlet weak var recentSearchesStackView: UIStackView!
-    @IBOutlet weak var searchSuggestionsStackView: UIStackView!
+    @IBOutlet weak var mainTableView: UIView!
+    @IBOutlet weak var suggestionsView: UIView!
+    @IBOutlet weak var recentSearchesView: UIView!
+    @IBOutlet weak var searchSuggestionsView: UIView!
     
     // Initialize Realm
     let realm = RealmHelper.sharedInstance.mainRealm()
@@ -111,7 +112,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "SearchCell", bundle: nil), forCellReuseIdentifier: "searchCell")
-        tableView.rowHeight = 80
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 44
     }
 
     private func setupSearchSuggestionTableView() {
@@ -126,11 +128,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         recentSearchesTableView.dataSource = self
         recentSearchesTableView.register(UINib(nibName: "RecentSearchTableViewCell", bundle: nil), forCellReuseIdentifier: "recentSearchCell")
         recentSearchesTableView.rowHeight = 42
+        recentSearchesTableView.translatesAutoresizingMaskIntoConstraints = true
     }
     
     func showTableView() {
-        suggestionsStack.isHidden = true
-        tableView.isHidden = false
+        suggestionsView.isHidden = true
+        mainTableView.isHidden = false
         searchReturns.isHidden = false
         
         if searchTerm == "" {
@@ -141,16 +144,16 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     func showSuggestions() {
         recentSearchesList = getRecentSearches()
         
-        tableView.isHidden = true
-        suggestionsStack.isHidden = false
+        mainTableView.isHidden = true
+        suggestionsView.isHidden = false
         searchReturns.isHidden = true
         
         searchReturns.text = "You may want to search for"
         
         if recentSearchesList.count == 0 {
-            recentSearchesStackView.isHidden = true
+            recentSearchesView.isHidden = true
         } else {
-            recentSearchesStackView.isHidden = false
+            recentSearchesView.isHidden = false
         }
     }
     
@@ -307,7 +310,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                     
                     print("THIS IS THE RECENT SEARCH::::::: \(recentSearch) with it's SEARCH TERM +++++++++++++ \(searchTerm)")
                     
-                    if recentSearchObjects.count >= 2 {
+                    if recentSearchObjects.count >= 3 {
                         if let firstRecentSearch = recentSearchObjects.first {
                             realm?.delete(firstRecentSearch)
                             recentSearchesList.removeLast()
@@ -360,7 +363,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             showSuggestions()
         }
 //        searchReturns.isHidden = false
-        if searchResults.count == 0 || suggestionsStack.isHidden == false {
+        if searchResults.count == 0 || suggestionsView.isHidden == false {
             searchReturns.isHidden = true
         } else {
             searchReturns.text = String(searchResults.count) + " results"
