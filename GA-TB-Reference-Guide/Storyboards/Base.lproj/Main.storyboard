@@ -569,6 +569,7 @@ Start by opening any subchapter or chart.</string>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="66 Results " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="866-cY-vUi">
                                                         <rect key="frame" x="20" y="0.0" width="335" height="21.5"/>
+                                                        <color key="backgroundColor" name="backgroundColor"/>
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -576,9 +577,10 @@ Start by opening any subchapter or chart.</string>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ezG-ZA-9lG">
                                                         <rect key="frame" x="0.0" y="41.5" width="375" height="418.5"/>
                                                         <color key="backgroundColor" name="backgroundColor"/>
+                                                        <color key="sectionIndexBackgroundColor" name="backgroundColor"/>
                                                     </tableView>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="backgroundColor" name="backgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="866-cY-vUi" secondAttribute="trailing" constant="20" id="1go-pA-bXF"/>
                                                     <constraint firstItem="866-cY-vUi" firstAttribute="leading" secondItem="Wca-LO-pnd" secondAttribute="leading" constant="20" id="Avw-e9-fdl"/>
@@ -599,20 +601,23 @@ Start by opening any subchapter or chart.</string>
                                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="180"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recent" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="taI-Xk-9i9">
-                                                                        <rect key="frame" x="20" y="0.0" width="335" height="21.5"/>
+                                                                        <rect key="frame" x="20" y="0.0" width="335" height="22"/>
+                                                                        <color key="backgroundColor" name="backgroundColor"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ljZ-HX-HJp" userLabel="Recent Searches Table View">
-                                                                        <rect key="frame" x="0.0" y="41.5" width="375" height="138.5"/>
+                                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="ljZ-HX-HJp" userLabel="Recent Searches Table View">
+                                                                        <rect key="frame" x="0.0" y="42" width="375" height="138"/>
+                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" id="SoI-sN-JSt"/>
                                                                         </constraints>
+                                                                        <color key="sectionIndexBackgroundColor" name="backgroundColor"/>
                                                                     </tableView>
                                                                 </subviews>
-                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <color key="backgroundColor" name="backgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstItem="taI-Xk-9i9" firstAttribute="leading" secondItem="yWq-tM-Ijb" secondAttribute="leading" constant="20" id="GeK-fK-e6i"/>
                                                                     <constraint firstAttribute="trailing" secondItem="taI-Xk-9i9" secondAttribute="trailing" constant="20" id="Gy3-4h-zy2"/>
@@ -629,6 +634,7 @@ Start by opening any subchapter or chart.</string>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You may want to search for" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kc6-cH-4BJ">
                                                                         <rect key="frame" x="20" y="0.0" width="335" height="21.5"/>
+                                                                        <color key="backgroundColor" name="backgroundColor"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -636,9 +642,10 @@ Start by opening any subchapter or chart.</string>
                                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="NuX-uE-T7Q" userLabel="Search Suggestions Table View">
                                                                         <rect key="frame" x="0.0" y="41.5" width="375" height="118.5"/>
                                                                         <color key="backgroundColor" name="backgroundColor"/>
+                                                                        <color key="sectionIndexBackgroundColor" name="backgroundColor"/>
                                                                     </tableView>
                                                                 </subviews>
-                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <color key="backgroundColor" name="backgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="trailing" secondItem="NuX-uE-T7Q" secondAttribute="trailing" id="1nG-W4-7re"/>
                                                                     <constraint firstAttribute="bottom" secondItem="NuX-uE-T7Q" secondAttribute="bottom" id="3s4-U0-L5x"/>
@@ -650,6 +657,7 @@ Start by opening any subchapter or chart.</string>
                                                                 </constraints>
                                                             </view>
                                                         </subviews>
+                                                        <color key="backgroundColor" name="backgroundColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="trailing" secondItem="yWq-tM-Ijb" secondAttribute="trailing" id="VTr-NK-sOi"/>
                                                             <constraint firstItem="ibA-1N-v94" firstAttribute="top" relation="lessThanOrEqual" secondItem="b4P-hq-EDo" secondAttribute="top" priority="999" constant="230" id="oyk-xs-kgb"/>
@@ -657,7 +665,7 @@ Start by opening any subchapter or chart.</string>
                                                         </constraints>
                                                     </stackView>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="backgroundColor" name="backgroundColor"/>
                                                 <constraints>
                                                     <constraint firstItem="b4P-hq-EDo" firstAttribute="leading" secondItem="MgI-bg-uE3" secondAttribute="leading" id="0xc-ni-mEi"/>
                                                     <constraint firstAttribute="bottom" secondItem="b4P-hq-EDo" secondAttribute="bottom" constant="-5" id="RtT-Zr-A97"/>
@@ -666,7 +674,7 @@ Start by opening any subchapter or chart.</string>
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" name="backgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="MgI-bg-uE3" secondAttribute="bottom" constant="105" id="9Nj-aq-l7h"/>
                                             <constraint firstItem="MgI-bg-uE3" firstAttribute="leading" secondItem="6UX-BR-9Qy" secondAttribute="leading" id="JpW-B9-fvz"/>
