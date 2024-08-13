@@ -564,33 +564,6 @@ Start by opening any subchapter or chart.</string>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6UX-BR-9Qy">
                                         <rect key="frame" x="0.0" y="94" width="375" height="460"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wca-LO-pnd" userLabel="Main Table View">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="460"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="66 Results " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="866-cY-vUi">
-                                                        <rect key="frame" x="20" y="0.0" width="335" height="21.5"/>
-                                                        <color key="backgroundColor" name="backgroundColor"/>
-                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ezG-ZA-9lG">
-                                                        <rect key="frame" x="0.0" y="41.5" width="375" height="418.5"/>
-                                                        <color key="backgroundColor" name="backgroundColor"/>
-                                                        <color key="sectionIndexBackgroundColor" name="backgroundColor"/>
-                                                    </tableView>
-                                                </subviews>
-                                                <color key="backgroundColor" name="backgroundColor"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="866-cY-vUi" secondAttribute="trailing" constant="20" id="1go-pA-bXF"/>
-                                                    <constraint firstItem="866-cY-vUi" firstAttribute="leading" secondItem="Wca-LO-pnd" secondAttribute="leading" constant="20" id="Avw-e9-fdl"/>
-                                                    <constraint firstAttribute="trailing" secondItem="ezG-ZA-9lG" secondAttribute="trailing" id="KmW-Tt-0aF"/>
-                                                    <constraint firstItem="866-cY-vUi" firstAttribute="top" secondItem="Wca-LO-pnd" secondAttribute="top" id="KnH-XO-HEZ"/>
-                                                    <constraint firstItem="ezG-ZA-9lG" firstAttribute="top" secondItem="866-cY-vUi" secondAttribute="bottom" constant="20" id="dRy-vx-ihq"/>
-                                                    <constraint firstAttribute="bottom" secondItem="ezG-ZA-9lG" secondAttribute="bottom" id="qpg-eb-OWG"/>
-                                                    <constraint firstItem="ezG-ZA-9lG" firstAttribute="leading" secondItem="Wca-LO-pnd" secondAttribute="leading" id="w7H-ad-vug"/>
-                                                </constraints>
-                                            </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MgI-bg-uE3" userLabel="Suggestions View">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="355"/>
                                                 <subviews>
@@ -673,6 +646,85 @@ Start by opening any subchapter or chart.</string>
                                                     <constraint firstAttribute="trailing" secondItem="b4P-hq-EDo" secondAttribute="trailing" id="o5f-Da-X9g"/>
                                                 </constraints>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wca-LO-pnd" userLabel="Main Table View">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="460"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Crt-b8-bIC">
+                                                        <rect key="frame" x="20" y="0.0" width="335" height="28"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="66 Results in" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="866-cY-vUi">
+                                                                <rect key="frame" x="0.0" y="0.0" width="107" height="28"/>
+                                                                <color key="backgroundColor" name="backgroundColor"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="749" distribution="fillProportionally" spacing="13" id="rC7-Zv-wyP">
+                                                                <rect key="frame" x="115" y="0.0" width="212" height="28"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Vu4-oh-XWW">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="37" height="28"/>
+                                                                        <color key="backgroundColor" name="dialogColor"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="28" id="jOt-AY-Jbi"/>
+                                                                        </constraints>
+                                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <state key="normal" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" title="All" buttonSize="small"/>
+                                                                    </button>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="8q4-cM-U1r">
+                                                                        <rect key="frame" x="50" y="0.0" width="83" height="28"/>
+                                                                        <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="28" id="8c7-hU-UBs"/>
+                                                                        </constraints>
+                                                                        <color key="tintColor" systemColor="labelColor"/>
+                                                                        <inset key="contentEdgeInsets" minX="100" minY="0.0" maxX="100" maxY="0.0"/>
+                                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                        <state key="normal" title="Chapters"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" title="Chapters" buttonSize="small"/>
+                                                                    </button>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="zED-Vd-w4r">
+                                                                        <rect key="frame" x="146" y="0.0" width="66" height="28"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="28" id="TOI-cY-xcz"/>
+                                                                        </constraints>
+                                                                        <color key="tintColor" systemColor="labelColor"/>
+                                                                        <state key="normal" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" title="Charts" buttonSize="small"/>
+                                                                    </button>
+                                                                </subviews>
+                                                                <color key="backgroundColor" name="backgroundColor"/>
+                                                            </stackView>
+                                                        </subviews>
+                                                        <color key="backgroundColor" name="backgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstItem="866-cY-vUi" firstAttribute="top" secondItem="Crt-b8-bIC" secondAttribute="top" id="3Gi-6Q-9Ft"/>
+                                                            <constraint firstItem="866-cY-vUi" firstAttribute="leading" secondItem="Crt-b8-bIC" secondAttribute="leading" id="7Jn-lW-6N8"/>
+                                                            <constraint firstItem="rC7-Zv-wyP" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="866-cY-vUi" secondAttribute="trailing" constant="8" symbolic="YES" id="JFr-8q-OHx"/>
+                                                            <constraint firstAttribute="bottom" secondItem="866-cY-vUi" secondAttribute="bottom" id="tLB-l2-IkP"/>
+                                                            <constraint firstItem="rC7-Zv-wyP" firstAttribute="top" secondItem="Crt-b8-bIC" secondAttribute="top" id="vzc-JS-tuF"/>
+                                                            <constraint firstAttribute="bottom" secondItem="rC7-Zv-wyP" secondAttribute="bottom" id="xVN-Nr-cB0"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ezG-ZA-9lG">
+                                                        <rect key="frame" x="0.0" y="48" width="375" height="412"/>
+                                                        <color key="backgroundColor" name="backgroundColor"/>
+                                                        <color key="sectionIndexBackgroundColor" name="backgroundColor"/>
+                                                    </tableView>
+                                                </subviews>
+                                                <color key="backgroundColor" name="backgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="ezG-ZA-9lG" firstAttribute="top" secondItem="Crt-b8-bIC" secondAttribute="bottom" constant="20" id="4kl-4t-Ji8"/>
+                                                    <constraint firstItem="Crt-b8-bIC" firstAttribute="top" secondItem="Wca-LO-pnd" secondAttribute="top" id="8p4-Tx-EG9"/>
+                                                    <constraint firstAttribute="trailing" secondItem="ezG-ZA-9lG" secondAttribute="trailing" id="KmW-Tt-0aF"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Crt-b8-bIC" secondAttribute="trailing" constant="20" id="WXS-6H-QED"/>
+                                                    <constraint firstItem="Crt-b8-bIC" firstAttribute="leading" secondItem="Wca-LO-pnd" secondAttribute="leading" constant="20" id="h5f-t4-lOV"/>
+                                                    <constraint firstAttribute="bottom" secondItem="ezG-ZA-9lG" secondAttribute="bottom" id="qpg-eb-OWG"/>
+                                                    <constraint firstItem="ezG-ZA-9lG" firstAttribute="leading" secondItem="Wca-LO-pnd" secondAttribute="leading" id="w7H-ad-vug"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" name="backgroundColor"/>
                                         <constraints>
@@ -710,6 +762,9 @@ Start by opening any subchapter or chart.</string>
                     </view>
                     <navigationItem key="navigationItem" title="Search" id="81N-pr-XKS"/>
                     <connections>
+                        <outlet property="allChaptersChartsButton" destination="Vu4-oh-XWW" id="KLe-nv-4QP"/>
+                        <outlet property="chaptersButton" destination="8q4-cM-U1r" id="sih-hN-uy6"/>
+                        <outlet property="chartsButton" destination="zED-Vd-w4r" id="rov-XC-iUg"/>
                         <outlet property="mainTableView" destination="Wca-LO-pnd" id="ZBX-6O-Gbg"/>
                         <outlet property="recentSearchesTableView" destination="ljZ-HX-HJp" id="Tf6-zu-Rre"/>
                         <outlet property="recentSearchesView" destination="yWq-tM-Ijb" id="llG-O1-tew"/>
@@ -720,12 +775,15 @@ Start by opening any subchapter or chart.</string>
                         <outlet property="searchView" destination="5d0-oJ-zMv" id="mqA-HE-VA1"/>
                         <outlet property="suggestionsView" destination="MgI-bg-uE3" id="MWB-oB-PVU"/>
                         <outlet property="tableView" destination="ezG-ZA-9lG" id="dop-7W-Nwb"/>
+                        <outletCollection property="searchTabs" destination="Vu4-oh-XWW" collectionClass="NSMutableArray" id="Kx2-bi-4wG"/>
+                        <outletCollection property="searchTabs" destination="8q4-cM-U1r" collectionClass="NSMutableArray" id="LY5-uY-5ZZ"/>
+                        <outletCollection property="searchTabs" destination="zED-Vd-w4r" collectionClass="NSMutableArray" id="RFs-Ja-EaW"/>
                         <segue destination="MDz-7h-Sal" kind="show" identifier="SegueToWebViewViewController" id="Kvm-QI-PmY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kZM-Mf-geb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2562.4000000000001" y="76.911544227886068"/>
+            <point key="canvasLocation" x="2560.8000000000002" y="76.011994002998506"/>
         </scene>
         <!--Web View View Controller-->
         <scene sceneID="QDC-NP-wCp">

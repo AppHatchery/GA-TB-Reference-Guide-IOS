@@ -25,6 +25,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     @IBOutlet weak var suggestionsView: UIView!
     @IBOutlet weak var recentSearchesView: UIView!
     @IBOutlet weak var searchSuggestionsView: UIView!
+    @IBOutlet weak var allChaptersChartsButton: UIButton!
+    @IBOutlet weak var chaptersButton: UIButton!
+    @IBOutlet weak var chartsButton: UIButton!
+    
+    @IBOutlet var searchTabs: [UIButton]!
     
     
     // Initialize Realm
@@ -84,6 +89,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 //        searchView.setGradientBackground(size: CGRect(x: searchView.bounds.origin.x, y: searchView.bounds.origin.y, width: self.navigationController?.navigationBar.bounds.width ?? searchView.bounds.width, height: searchView.bounds.height))
         // Do any additional setup after loading the view.
         
+        for searchTab in searchTabs {
+            searchTab.layer.cornerRadius = 5
+        }
+        
         loadHTML()
         
         setupMainTableView()
@@ -140,6 +149,52 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         if searchTerm == "" {
             search.becomeFirstResponder()
         }
+        
+        self.allChaptersChartsButton.addTarget(self, action: #selector(showAllChapters), for: .touchUpInside)
+        self.chaptersButton.addTarget(self, action: #selector(showChaptersOnly), for: .touchUpInside)
+        self.chartsButton.addTarget(self, action: #selector(showChartsOnly), for: .touchUpInside)
+    }
+    
+    @objc private func showAllChapters() {
+        allChaptersChartsButton.backgroundColor = .dialogColor
+        allChaptersChartsButton.tintColor = .white
+        allChaptersChartsButton.isEnabled = true
+        
+        chaptersButton.backgroundColor = .backgroundColor
+        chaptersButton.tintColor = .label
+        chaptersButton.isEnabled = true
+        
+        chartsButton.setTitleColor(.label, for: .highlighted)
+        chartsButton.tintColor = .label
+        chartsButton.backgroundColor = .backgroundColor
+    }
+
+    @objc private func showChaptersOnly() {
+        chaptersButton.backgroundColor = .dialogColor
+        chaptersButton.tintColor = .white
+        chaptersButton.isEnabled = true
+        
+        allChaptersChartsButton.backgroundColor = .backgroundColor
+        allChaptersChartsButton.tintColor = .label
+        allChaptersChartsButton.isEnabled = true
+        
+        chartsButton.backgroundColor = .backgroundColor
+        chartsButton.tintColor = .label
+        chartsButton.isEnabled = true
+    }
+
+    @objc private func showChartsOnly() {
+        chartsButton.backgroundColor = .dialogColor
+        chartsButton.tintColor = .white
+        chartsButton.isEnabled = true
+        
+        allChaptersChartsButton.backgroundColor = .backgroundColor
+        allChaptersChartsButton.tintColor = .label
+        allChaptersChartsButton.isEnabled = true
+        
+        chaptersButton.backgroundColor = .backgroundColor
+        chaptersButton.tintColor = .label
+        chaptersButton.isEnabled = true
     }
     
     func showSuggestions() {
@@ -376,7 +431,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         if searchResults.count == 0 || suggestionsView.isHidden == false {
             searchReturns.isHidden = true
         } else {
-            searchReturns.text = String(searchResults.count) + " results"
+            searchReturns.text = String(searchResults.count) + " results in"
         }
         
         recentSearchesTableView.reloadData()
