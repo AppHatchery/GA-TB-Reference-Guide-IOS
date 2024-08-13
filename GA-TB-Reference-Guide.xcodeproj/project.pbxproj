@@ -8,10 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		8E0132EA2A68FFB0001533AB /* WebView.js in Resources */ = {isa = PBXBuildFile; fileRef = 8E0132E82A68DCAB001533AB /* WebView.js */; };
+		B401CE5E2C58D96D00149414 /* SuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B401CE5C2C58D96D00149414 /* SuggestionTableViewCell.swift */; };
+		B401CE5F2C58D96D00149414 /* SuggestionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B401CE5D2C58D96D00149414 /* SuggestionTableViewCell.xib */; };
+		B401CE622C5BD8C300149414 /* RecentSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B401CE602C5BD8C300149414 /* RecentSearchTableViewCell.swift */; };
+		B401CE632C5BD8C300149414 /* RecentSearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B401CE612C5BD8C300149414 /* RecentSearchTableViewCell.xib */; };
 		B40EA6F42C46B90400C03A12 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B40EA6F32C46B90400C03A12 /* UserNotifications.framework */; };
 		B474B07E2C2DA54B0092F4F6 /* FontSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B474B07C2C2DA54B0092F4F6 /* FontSettingsView.swift */; };
 		B474B07F2C2DA54B0092F4F6 /* FontSettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B474B07D2C2DA54B0092F4F6 /* FontSettingsView.xib */; };
 		B474B0832C2DFE230092F4F6 /* Pods_GA_TB_Reference_Guide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF23FEBF71C372B82094033D /* Pods_GA_TB_Reference_Guide.framework */; };
+		B4DC30712C5BF2E90019CCA1 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC30702C5BF2E90019CCA1 /* Search.swift */; };
 		D42F25E826EEFA8F009DC942 /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42F25E626EEFA8F009DC942 /* NoteTableViewCell.swift */; };
 		D42F25E926EEFA8F009DC942 /* NoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D42F25E726EEFA8F009DC942 /* NoteTableViewCell.xib */; };
 		D42F263C26EF821B009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi).html in Resources */ = {isa = PBXBuildFile; fileRef = D42F25EE26EF81F8009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi).html */; };
@@ -178,9 +183,14 @@
 /* Begin PBXFileReference section */
 		8E0132E82A68DCAB001533AB /* WebView.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = WebView.js; sourceTree = "<group>"; };
 		A4E783F70550BAD2B6B83131 /* Pods-GA-TB-Reference-Guide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GA-TB-Reference-Guide.debug.xcconfig"; path = "Target Support Files/Pods-GA-TB-Reference-Guide/Pods-GA-TB-Reference-Guide.debug.xcconfig"; sourceTree = "<group>"; };
+		B401CE5C2C58D96D00149414 /* SuggestionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionTableViewCell.swift; sourceTree = "<group>"; };
+		B401CE5D2C58D96D00149414 /* SuggestionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SuggestionTableViewCell.xib; sourceTree = "<group>"; };
+		B401CE602C5BD8C300149414 /* RecentSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchTableViewCell.swift; sourceTree = "<group>"; };
+		B401CE612C5BD8C300149414 /* RecentSearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecentSearchTableViewCell.xib; sourceTree = "<group>"; };
 		B40EA6F32C46B90400C03A12 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		B474B07C2C2DA54B0092F4F6 /* FontSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsView.swift; sourceTree = "<group>"; };
 		B474B07D2C2DA54B0092F4F6 /* FontSettingsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FontSettingsView.xib; sourceTree = "<group>"; };
+		B4DC30702C5BF2E90019CCA1 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		BF23FEBF71C372B82094033D /* Pods_GA_TB_Reference_Guide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GA_TB_Reference_Guide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D42F25E626EEFA8F009DC942 /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
 		D42F25E726EEFA8F009DC942 /* NoteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteTableViewCell.xib; sourceTree = "<group>"; };
@@ -592,6 +602,7 @@
 				D48BD796277E4F5200D8A25D /* UserSettings.swift */,
 				D4C0C0DC27FCE3B900346F96 /* RealmHelpter.swift */,
 				D4C0C0DE2800D64600346F96 /* OldRealmFile.swift */,
+				B4DC30702C5BF2E90019CCA1 /* Search.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -622,6 +633,10 @@
 				D4710CEB274ABA5700F6EBFF /* FeedbackForm.xib */,
 				B474B07C2C2DA54B0092F4F6 /* FontSettingsView.swift */,
 				B474B07D2C2DA54B0092F4F6 /* FontSettingsView.xib */,
+				B401CE5C2C58D96D00149414 /* SuggestionTableViewCell.swift */,
+				B401CE5D2C58D96D00149414 /* SuggestionTableViewCell.xib */,
+				B401CE602C5BD8C300149414 /* RecentSearchTableViewCell.swift */,
+				B401CE612C5BD8C300149414 /* RecentSearchTableViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -770,6 +785,7 @@
 				D4515E7226DAE60600EE6592 /* uikit-icons.js in Resources */,
 				D42F264726EF821B009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis.html in Resources */,
 				D4CCBF5727C032B400E42BC9 /* subchapter.json in Resources */,
+				B401CE632C5BD8C300149414 /* RecentSearchTableViewCell.xib in Resources */,
 				D42F264E26EF821B009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi)__c__contacts_of_mdr_tb_cases.html in Resources */,
 				D42F265126EF821B009DC942 /* 6_pregnancy_and_tb__a__treatment_for_ltbi_and_risk_factors.html in Resources */,
 				D42F266226EF821B009DC942 /* 16_for_more_information.html in Resources */,
@@ -795,6 +811,7 @@
 				D42F267C26EF821B009DC942 /* 11_community_tuberculosis_control__b__tb_case_definitions_for_public_health_surveillance.html in Resources */,
 				D42F263F26EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__a__considerations.html in Resources */,
 				D4A5D2A02B2C9BA500812C53 /* 16_for_more_information_image_1.gif in Resources */,
+				B401CE5F2C58D96D00149414 /* SuggestionTableViewCell.xib in Resources */,
 				D42F26B326F94FC5009DC942 /* uikit-copy.js in Resources */,
 				D4CCBF5A27C032B400E42BC9 /* chart.json in Resources */,
 				D4597EA82A7022E300EF8906 /* table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html in Resources */,
@@ -955,6 +972,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4DC30712C5BF2E90019CCA1 /* Search.swift in Sources */,
 				D4515DEB26DACD8200EE6592 /* SearchViewController.swift in Sources */,
 				D45BD0BB26E3936A0037E2A8 /* SearchCell.swift in Sources */,
 				D4C0C0DD27FCE3B900346F96 /* RealmHelpter.swift in Sources */,
@@ -979,8 +997,10 @@
 				D4B0B0CC26D0239C003BD1EA /* UIColor+Extensions.swift in Sources */,
 				D4B0B0EB26D0648A003BD1EA /* SubChapterViewController.swift in Sources */,
 				D4B0B13326D174F9003BD1EA /* chapterIndex.swift in Sources */,
+				B401CE622C5BD8C300149414 /* RecentSearchTableViewCell.swift in Sources */,
 				D4B0B0EE26D0693F003BD1EA /* SubChapterContentView.swift in Sources */,
 				D4710CB1274418EC00F6EBFF /* SettingsViewController.swift in Sources */,
+				B401CE5E2C58D96D00149414 /* SuggestionTableViewCell.swift in Sources */,
 				D4B0B0D726D02A02003BD1EA /* ContentListViewController.swift in Sources */,
 				D4710CB427441AD400F6EBFF /* SettingsViewsViewController.swift in Sources */,
 				B474B07E2C2DA54B0092F4F6 /* FontSettingsView.swift in Sources */,

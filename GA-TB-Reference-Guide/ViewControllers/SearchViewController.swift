@@ -19,8 +19,17 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     var size = CGRect.init()
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchSuggestionsTableView: UITableView!
+    @IBOutlet weak var recentSearchesTableView: UITableView!
+    @IBOutlet weak var mainTableView: UIView!
+    @IBOutlet weak var suggestionsView: UIView!
+    @IBOutlet weak var recentSearchesView: UIView!
+    @IBOutlet weak var searchSuggestionsView: UIView!
     
-
+    
+    // Initialize Realm
+    let realm = RealmHelper.sharedInstance.mainRealm()
+    
     var tableViewCells: [Int : UITableViewCell] = [:]
     var subArrayPointer = 0
     var navTitle = "Placeholder SubChapter"
@@ -40,6 +49,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     var isGradientAdded: Bool = false
     
     let tap = UITapGestureRecognizer()
+    
+    let suggestionsList: Array = ["Regimens", "Pregnancy", "Rifampin"]
+    var recentSearchesList: Array = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,12 +84,21 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 //        searchView.setGradientBackground(size: CGRect(x: searchView.bounds.origin.x, y: searchView.bounds.origin.y, width: self.navigationController?.navigationBar.bounds.width ?? searchView.bounds.width, height: searchView.bounds.height))
         // Do any additional setup after loading the view.
         
-        tableView.delegate = self
-        tableView.dataSource = self
-//        tableView.register( UITableViewCell.self, forCellReuseIdentifier: type(of: self).description())
-        tableView.register(UINib(nibName: "SearchCell", bundle: nil), forCellReuseIdentifier: "searchCell")
-        tableView.rowHeight = 80
+        loadHTML()
         
+        setupMainTableView()
+        setupSearchSuggestionTableView()
+        setupRecentSearchesTableView()
+        
+        // Load the Suggestions Table first before the the Main Table
+        showSuggestions()
+        
+        // Keyboard dismissal recognizer
+        tap.addTarget(self, action: #selector(dismissKeyboard))
+        self.view.addGestureRecognizer(tap)
+    }
+    
+    func loadHTML() {
         // Load the htmls on the array - needs to be on viewDidLoad otherwise it duplicates the content
         for items in chapterIndex.chapterCode.joined() {
             let path = Bundle.main.path(forResource: items.components(separatedBy: ".")[0], ofType: "html")!
@@ -86,19 +107,76 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             htmlString = htmlString.replacingOccurrences(of: "<.*?>", with: "", options: .regularExpression, range: nil)
             tempHTML.append(htmlString)
         }
-        
-        // Keyboard dismissal recognizer
-        tap.addTarget(self, action: #selector(dismissKeyboard))
-        self.view.addGestureRecognizer(tap)
+    }
+    
+    private func setupMainTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(UINib(nibName: "SearchCell", bundle: nil), forCellReuseIdentifier: "searchCell")
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 45
     }
 
-
+    private func setupSearchSuggestionTableView() {
+        searchSuggestionsTableView.delegate = self
+        searchSuggestionsTableView.dataSource = self
+        searchSuggestionsTableView.register(UINib(nibName: "SuggestionTableViewCell", bundle: nil), forCellReuseIdentifier: "suggestionCell")
+//        searchSuggestionsTableView.rowHeight = 24
+    }
+    
+    private func setupRecentSearchesTableView() {
+        recentSearchesTableView.delegate = self
+        recentSearchesTableView.dataSource = self
+        recentSearchesTableView.register(UINib(nibName: "RecentSearchTableViewCell", bundle: nil), forCellReuseIdentifier: "recentSearchCell")
+//        recentSearchesTableView.rowHeight = 24
+        recentSearchesTableView.translatesAutoresizingMaskIntoConstraints = true
+    }
+    
+    func showTableView() {
+        suggestionsView.isHidden = true
+        mainTableView.isHidden = false
+        searchReturns.isHidden = false
+        
+        if searchTerm == "" {
+            search.becomeFirstResponder()
+        }
+    }
+    
+    func showSuggestions() {
+        recentSearchesList = getRecentSearches()
+        
+        mainTableView.isHidden = true
+        suggestionsView.isHidden = false
+        searchReturns.isHidden = true
+        
+        searchReturns.text = "You may want to search for"
+        
+        if recentSearchesList.count == 0 {
+            recentSearchesView.isHidden = true
+        } else {
+            recentSearchesView.isHidden = false
+        }
+    }
+    
+    func getRecentSearchesObjects() -> [Search] {
+        // Fetch all recent searches from Realm
+        let recentSearches = realm!.objects(Search.self)
+        
+        // Convert to an array of Search objects
+        return Array(recentSearches)
+    }
+    
+    func getRecentSearches() -> [String] {
+        // Fetch all recent searches from Realm
+        let recentSearches = realm!.objects(Search.self)
+        
+        // Convert to an array of strings and reverse
+        return Array(recentSearches.map { $0.recentSearch }).reversed()
+    }
     
     //--------------------------------------------------------------------------------------------------
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        
-        search.becomeFirstResponder()
         
         // Leave this for when we import from JSON and just use that order because right now it's giving me a headache
 //        let fileManager = FileManager.default
@@ -119,70 +197,144 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     }
 
     //--------------------------------------------------------------------------------------------------
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if tableView != self.tableView {
+            let rowHeight: CGFloat = 24
+            let gapHeight: CGFloat = 12
+            return rowHeight + gapHeight
+        }
+        return 80
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isFiltering {
-            return searchResults.count
+        recentSearchesList = getRecentSearches()
+        
+        if tableView == self.tableView {
+            if isFiltering {
+                return searchResults.count
+            } else {
+                return chapterIndex.subChapterNames.count
+            }
+        } else if tableView == self.searchSuggestionsTableView {
+            return suggestionsList.count
         } else {
-            return chapterIndex.subChapterNames.count
+            return recentSearchesList.count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        var cell: UITableViewCell! = tableViewCells[indexPath.row]
-
-//        cell = UITableViewCell(frame: CGRect( x: 0, y: 0, width: tableView.frame.width, height: tableView.rowHeight ))
-        let cell = tableView.dequeueReusableCell(withIdentifier: "searchCell", for: indexPath) as! SearchCell
-        cell.backgroundColor = UIColor.backgroundColor
+        recentSearchesList = getRecentSearches()
         
-        cell.accessoryType = .disclosureIndicator
-        
-        if isFiltering {
-            cell.subchapterLabel.text = chapterIndex.subChapterNames[tempHTML.firstIndex(of: searchResults[indexPath.row]) ?? 0]
-            cell.chapterLabel.text = chapterIndex.chaptermapsubchapter[tempHTML.firstIndex(of: searchResults[indexPath.row]) ?? 0]
-            cell.contentLabel.isHidden = false
+        if tableView == self.tableView {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "searchCell", for: indexPath) as! SearchCell
+            cell.backgroundColor = UIColor.backgroundColor
             
-            let TSTrange = searchResults[indexPath.row].lowercased().range(of: searchTerm.lowercased())
-            let startRange = searchResults[indexPath.row].index(TSTrange?.lowerBound ?? searchResults[indexPath.row].startIndex,offsetBy: -30, limitedBy: searchResults[indexPath.row].startIndex) ?? searchResults[indexPath.row].startIndex
-            let endRange = searchResults[indexPath.row].index(TSTrange?.lowerBound ?? searchResults[indexPath.row].endIndex, offsetBy: 90, limitedBy: searchResults[indexPath.row].endIndex) ?? searchResults[indexPath.row].endIndex
-            cell.contentLabel.text = "..."+String(searchResults[indexPath.row][startRange..<endRange]) + "..."
-            let terms = searchTerm.lowercased().split(separator: " ").map({String($0) as NSString}) + [searchTerm as NSString]
-            cell.contentLabel.attributedText = addBoldText(fullString: cell.contentLabel.text! as NSString, boldPartsOfString: terms)
-        } else {
-            // to add here the history searches from the past - need Realm queries
-            cell.subchapterLabel.text = chapterIndex.subChapterNames[indexPath.row]
-            cell.chapterLabel.text = chapterIndex.chaptermapsubchapter[indexPath.row]
-            cell.contentLabel.isHidden = true
-        }
-        cell.subchapterLabel.lineBreakMode = .byTruncatingTail
-        cell.subchapterLabel.numberOfLines = 2
-        cell.chapterLabel.numberOfLines = 2
-        
-//        tableViewCells[indexPath.row] = cell
+            cell.accessoryType = .disclosureIndicator
             
+            if isFiltering {
+                let subchapterNameIndex = tempHTML.firstIndex(of: searchResults[indexPath.row]) ?? 0
+                cell.subchapterLabel.text = chapterIndex.subChapterNames[subchapterNameIndex]
+                cell.chapterLabel.text = chapterIndex.chaptermapsubchapter[subchapterNameIndex]
+                cell.contentLabel.isHidden = false
                 
-        return cell
-    }
-        
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        // Need to add logic to insert table view or html content based on what was clicked
-        // The first index is screwing me because there are multiple chapters with the same title i.e. considerations, or introduction, so it messes up the algorithm
-        if isFiltering {
-            subArrayPointer = tempHTML.firstIndex(of: searchResults[indexPath.row]) ?? 0
+                let TSTrange = searchResults[indexPath.row].lowercased().range(of: searchTerm.lowercased())
+                let startRange = searchResults[indexPath.row].index(TSTrange?.lowerBound ?? searchResults[indexPath.row].startIndex, offsetBy: -30, limitedBy: searchResults[indexPath.row].startIndex) ?? searchResults[indexPath.row].startIndex
+                let endRange = searchResults[indexPath.row].index(TSTrange?.lowerBound ?? searchResults[indexPath.row].endIndex, offsetBy: 90, limitedBy: searchResults[indexPath.row].endIndex) ?? searchResults[indexPath.row].endIndex
+                cell.contentLabel.text = "..." + String(searchResults[indexPath.row][startRange..<endRange]) + "..."
+                let terms = searchTerm.lowercased().split(separator: " ").map({ String($0) as NSString }) + [searchTerm as NSString]
+                cell.contentLabel.attributedText = addBoldText(fullString: cell.contentLabel.text! as NSString, boldPartsOfString: terms)
+            } else {
+                cell.subchapterLabel.text = chapterIndex.subChapterNames[indexPath.row]
+                cell.chapterLabel.text = chapterIndex.chaptermapsubchapter[indexPath.row]
+                cell.contentLabel.isHidden = true
+            }
+
+            
+            cell.subchapterLabel.lineBreakMode = .byTruncatingTail
+            cell.subchapterLabel.numberOfLines = 2
+            cell.chapterLabel.numberOfLines = 2
+            
+            return cell
+        } else if tableView == self.searchSuggestionsTableView {
+            let suggestionCell = tableView.dequeueReusableCell(withIdentifier: "suggestionCell", for: indexPath) as! SuggestionTableViewCell
+            suggestionCell.backgroundColor = UIColor.backgroundColor
+            suggestionCell.suggestionLabel.text = suggestionsList[indexPath.row]
+            
+            return suggestionCell
         } else {
-            // to add here the history searches from the past
-            subArrayPointer = indexPath.row
+            let recentSearchCell = tableView.dequeueReusableCell(withIdentifier: "recentSearchCell", for: indexPath) as! RecentSearchTableViewCell
+            recentSearchCell.backgroundColor = UIColor.backgroundColor
+            recentSearchCell.recentSearchLabel.text = recentSearchesList[indexPath.row]
+            print(recentSearchesList)
+            
+            return recentSearchCell
         }
-        
-        navTitle = chapterIndex.chaptermapsubchapter[indexPath.row]
-        
-        Analytics.logEvent("search", parameters: [
-            "search": (searchTerm ) as String,
-        ])
-        
-        PendoManager.shared().track("search", properties: ["searchTerm":searchTerm, "selectedResult":chapterIndex.subChapterNames[indexPath.row]])
-        
-        performSegue( withIdentifier: "SegueToWebViewViewController", sender: nil )
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView == self.tableView {
+            if isFiltering {
+                subArrayPointer = tempHTML.firstIndex(of: searchResults[indexPath.row]) ?? 0
+            } else {
+                subArrayPointer = indexPath.row
+            }
+            
+            navTitle = chapterIndex.chaptermapsubchapter[indexPath.row]
+            addRecentSearch(searchTerm: searchTerm)
+
+            // Analytics and tracking code
+            Analytics.logEvent("search", parameters: [
+                "search": (searchTerm) as String,
+            ])
+            
+            PendoManager.shared().track("search", properties: ["searchTerm": searchTerm, "selectedResult": chapterIndex.subChapterNames[indexPath.row]])
+            
+            performSegue(withIdentifier: "SegueToWebViewViewController", sender: nil)
+        } else if tableView == self.searchSuggestionsTableView {
+            search.text = suggestionsList[indexPath.row]
+            searchTerm = suggestionsList[indexPath.row]
+            searchBar(search, textDidChange: searchTerm)
+            
+            addRecentSearch(searchTerm: searchTerm)
+        } else {
+            search.text = recentSearchesList[indexPath.row]
+            searchTerm = recentSearchesList[indexPath.row]
+            
+            searchBar(search, textDidChange: searchTerm)
+        }
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    // Function to add a recent search term
+    func addRecentSearch(searchTerm: String) {
+        if searchTerm.count >= 2 {
+            if realm?.object(ofType: Search.self, forPrimaryKey: searchTerm) == nil {
+                let recentSearch = Search()
+                let recentSearchObjects = getRecentSearchesObjects()
+                var recentSearchesList = getRecentSearches()
+                
+                recentSearch.recentSearch = searchTerm
+                
+                try! realm!.write {
+                    // If there are more than 4 recent searches, remove the oldest one
+                    
+                    print("THIS IS THE RECENT SEARCH::::::: \(recentSearch) with it's SEARCH TERM +++++++++++++ \(searchTerm)")
+                    
+                    if recentSearchObjects.count >= 3 {
+                        if let firstRecentSearch = recentSearchObjects.first {
+                            realm?.delete(firstRecentSearch)
+                            recentSearchesList.removeLast()
+                            
+                            realm?.add(recentSearch)
+                        }
+                    } else {
+                        realm?.add(recentSearch)
+                    }
+                }
+            } else {
+                print("Search term already exists: \(searchTerm)")
+            }
+        }
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -198,6 +350,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         // Use the filter method to iterate over all items in the data array
         // For each item, return true if the item should be included and false if the
         if searchText != ""{
+            showTableView()
             // Could be search always the strings independently or could be to first search strings together and if nothing returns then search the terms separately but giving the user the option to do that
             if searchText.components(separatedBy: " ").count > 1 {
                 let doubleString = searchText.components(separatedBy: " ")
@@ -217,14 +370,34 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         } else {
             isFiltering = false
             searchResults = [String]()
+            showSuggestions()
         }
 //        searchReturns.isHidden = false
-        searchReturns.text = String(searchResults.count) + " results"
+        if searchResults.count == 0 || suggestionsView.isHidden == false {
+            searchReturns.isHidden = true
+        } else {
+            searchReturns.text = String(searchResults.count) + " results"
+        }
         
+        recentSearchesTableView.reloadData()
         tableView.reloadData()
     }
-
     
+    //--------------------------------------------------------------------------------------------------
+    // To adjust the recentSearchesTableView based on the content since auto resizing is not working as intended
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if recentSearchesList.count == 1 {
+            recentSearchesTableView.frame.size.height = 36
+        } else if recentSearchesList.count == 2 {
+            recentSearchesTableView.frame.size.height = 72
+        } else if recentSearchesList.count == 3 {
+            recentSearchesTableView.frame.size.height = 108
+        } else {
+            recentSearchesTableView.frame.size.height = 0
+        }
+    }
 
     //--------------------------------------------------------------------------------------------------
     // To hide the keyboard when the user clicks search
