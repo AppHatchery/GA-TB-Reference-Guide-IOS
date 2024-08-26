@@ -39,9 +39,13 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     var subArrayPointer = 0
     var navTitle = "Placeholder SubChapter"
     var tempHTML = [String]()
+	var tempChartHTML = [String]()
     let chapterIndex = ChapterIndex()
 
     var searchResults = [String]()
+	var chapterResults = [String]()
+	var chartResults = [String]()
+	var searchResultCache = [String]()
     
     var isFiltering = false
     var searchTerm = ""
@@ -57,6 +61,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     
     let suggestionsList: Array = ["Regimens", "Pregnancy", "Rifampin"]
     var recentSearchesList: Array = [String]()
+	
+	var showAll: Bool = true
+	var showChapters: Bool = false
+	var showCharts: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,7 +81,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         navigationItem.titleView = navbarTitle
         
         search.delegate = self
-//        searchReturns.isHidden = true
 
         let textFieldInsideSearchBar = search.value(forKey: "searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = UIColor.searchBarText
@@ -81,7 +88,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         textFieldInsideSearchBar?.layer.cornerRadius = 60
         textFieldInsideSearchBar?.backgroundColor = UIColor.searchBar
         searchView.frame = CGRect(x: searchView.frame.origin.x, y: searchView.frame.origin.x, width: searchView.frame.width, height: search.frame.height+10)
-                
+		
         navigationController?.navigationBar.setGradientBackground(to: self.navigationController!)
         navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -116,6 +123,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             htmlString = htmlString.replacingOccurrences(of: "<.*?>", with: "", options: .regularExpression, range: nil)
             tempHTML.append(htmlString)
         }
+		
+		for items in chapterIndex.chartCode.joined() {
+			let path = Bundle.main.path(forResource: items.components(separatedBy: ".")[0], ofType: "html")!
+				// This converts a multiline string into a single file, the .whitespacesandnewlines doesn't work to do that job
+			var htmlString = try! String(contentsOfFile: path).replacingOccurrences(of: "[\\s\n]+", with: " ", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
+			htmlString = htmlString.replacingOccurrences(of: "<.*?>", with: "", options: .regularExpression, range: nil)
+			tempChartHTML.append(htmlString)
+		}
     }
     
     private func setupMainTableView() {
@@ -130,14 +145,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         searchSuggestionsTableView.delegate = self
         searchSuggestionsTableView.dataSource = self
         searchSuggestionsTableView.register(UINib(nibName: "SuggestionTableViewCell", bundle: nil), forCellReuseIdentifier: "suggestionCell")
-//        searchSuggestionsTableView.rowHeight = 24
     }
     
     private func setupRecentSearchesTableView() {
         recentSearchesTableView.delegate = self
         recentSearchesTableView.dataSource = self
         recentSearchesTableView.register(UINib(nibName: "RecentSearchTableViewCell", bundle: nil), forCellReuseIdentifier: "recentSearchCell")
-//        recentSearchesTableView.rowHeight = 24
         recentSearchesTableView.translatesAutoresizingMaskIntoConstraints = true
     }
     
@@ -155,47 +168,67 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         self.chartsButton.addTarget(self, action: #selector(showChartsOnly), for: .touchUpInside)
     }
     
-    @objc private func showAllChapters() {
-        allChaptersChartsButton.backgroundColor = .dialogColor
-        allChaptersChartsButton.tintColor = .white
-        allChaptersChartsButton.isEnabled = true
-        
-        chaptersButton.backgroundColor = .backgroundColor
-        chaptersButton.tintColor = .label
-        chaptersButton.isEnabled = true
-        
-        chartsButton.setTitleColor(.label, for: .highlighted)
-        chartsButton.tintColor = .label
-        chartsButton.backgroundColor = .backgroundColor
-    }
-
-    @objc private func showChaptersOnly() {
-        chaptersButton.backgroundColor = .dialogColor
-        chaptersButton.tintColor = .white
-        chaptersButton.isEnabled = true
-        
-        allChaptersChartsButton.backgroundColor = .backgroundColor
-        allChaptersChartsButton.tintColor = .label
-        allChaptersChartsButton.isEnabled = true
-        
-        chartsButton.backgroundColor = .backgroundColor
-        chartsButton.tintColor = .label
-        chartsButton.isEnabled = true
-    }
-
-    @objc private func showChartsOnly() {
-        chartsButton.backgroundColor = .dialogColor
-        chartsButton.tintColor = .white
-        chartsButton.isEnabled = true
-        
-        allChaptersChartsButton.backgroundColor = .backgroundColor
-        allChaptersChartsButton.tintColor = .label
-        allChaptersChartsButton.isEnabled = true
-        
-        chaptersButton.backgroundColor = .backgroundColor
-        chaptersButton.tintColor = .label
-        chaptersButton.isEnabled = true
-    }
+	
+	//----------------------------------------------------------------------------------------------
+	// Search Tabs Implementation
+	
+	private func activeTabConfig(
+		_ button: UIButton, backgroundColor: UIColor, tintColor: UIColor, isEnabled: Bool = true
+	) {
+		button.backgroundColor = backgroundColor
+		button.tintColor = tintColor
+		button.isEnabled = isEnabled
+	}
+	
+	@objc private func showAllChapters() {
+		activeTabConfig(allChaptersChartsButton, backgroundColor: .dialogColor, tintColor: .white)
+		activeTabConfig(chaptersButton, backgroundColor: .backgroundColor, tintColor: .label)
+		activeTabConfig(chartsButton, backgroundColor: .backgroundColor, tintColor: .label)
+		
+		showAll = true
+		showChapters = false
+		showCharts = false
+		
+		searchResults = searchResultCache
+		tableView.reloadData()
+		
+		if showAll {
+			searchReturns.text = String(searchResults.count) + " results in"
+		}
+	}
+	
+	@objc private func showChaptersOnly() {
+		activeTabConfig(chaptersButton, backgroundColor: .dialogColor, tintColor: .white)
+		activeTabConfig(allChaptersChartsButton, backgroundColor: .backgroundColor, tintColor: .label)
+		activeTabConfig(chartsButton, backgroundColor: .backgroundColor, tintColor: .label)
+		showAll = false
+		showChapters = true
+		showCharts = false
+		
+		searchResults = chapterResults
+		tableView.reloadData()
+		
+		if showChapters {
+			searchReturns.text = String(chapterResults.count) + " results in"
+		}
+	}
+	
+	@objc private func showChartsOnly() {
+		activeTabConfig(chartsButton, backgroundColor: .dialogColor, tintColor: .white)
+		activeTabConfig(allChaptersChartsButton, backgroundColor: .backgroundColor, tintColor: .label)
+		activeTabConfig(chaptersButton, backgroundColor: .backgroundColor, tintColor: .label)
+		
+		showAll = false
+		showChapters = false
+		showCharts = true
+		
+		searchResults = chartResults
+		tableView.reloadData()
+		
+		if showCharts {
+			searchReturns.text = String(chartResults.count) + " results in"
+		}
+	}
     
     func showSuggestions() {
         recentSearchesList = getRecentSearches()
@@ -228,6 +261,16 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         // Convert to an array of strings and reverse
         return Array(recentSearches.map { $0.recentSearch }).reversed()
     }
+	
+	func filterResults() -> [String] {
+		let filteredSubChapterNames = chapterIndex.subChapterNames.filter { subChapter in
+			let regex = try! NSRegularExpression(pattern: "^Table \\d+:\\s*", options: [])
+			let range = NSRange(location: 0, length: subChapter.utf16.count)
+			return regex.firstMatch(in: subChapter, options: [], range: range) != nil
+		}
+		
+		return filteredSubChapterNames
+	}
     
     //--------------------------------------------------------------------------------------------------
     override func viewDidAppear(_ animated: Bool) {
@@ -263,10 +306,18 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         recentSearchesList = getRecentSearches()
+//		chartResults = filterResults()
         
         if tableView == self.tableView {
             if isFiltering {
-                return searchResults.count
+				if showCharts {
+					let commonValues = chartResults.filter { searchResults.contains($0) }
+					
+					print("CHART COUNT::::::::::::::: \(chartResults.count)")
+					return chartResults.count
+				} else {
+					return searchResults.count
+				}
             } else {
                 return chapterIndex.subChapterNames.count
             }
@@ -279,6 +330,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         recentSearchesList = getRecentSearches()
+//		chartResults = filterResults()
         
         if tableView == self.tableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "searchCell", for: indexPath) as! SearchCell
@@ -287,17 +339,35 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             cell.accessoryType = .disclosureIndicator
             
             if isFiltering {
-                let subchapterNameIndex = tempHTML.firstIndex(of: searchResults[indexPath.row]) ?? 0
-                cell.subchapterLabel.text = chapterIndex.subChapterNames[subchapterNameIndex]
-                cell.chapterLabel.text = chapterIndex.chaptermapsubchapter[subchapterNameIndex]
-                cell.contentLabel.isHidden = false
-                
-                let TSTrange = searchResults[indexPath.row].lowercased().range(of: searchTerm.lowercased())
-                let startRange = searchResults[indexPath.row].index(TSTrange?.lowerBound ?? searchResults[indexPath.row].startIndex, offsetBy: -30, limitedBy: searchResults[indexPath.row].startIndex) ?? searchResults[indexPath.row].startIndex
-                let endRange = searchResults[indexPath.row].index(TSTrange?.lowerBound ?? searchResults[indexPath.row].endIndex, offsetBy: 90, limitedBy: searchResults[indexPath.row].endIndex) ?? searchResults[indexPath.row].endIndex
-                cell.contentLabel.text = "..." + String(searchResults[indexPath.row][startRange..<endRange]) + "..."
-                let terms = searchTerm.lowercased().split(separator: " ").map({ String($0) as NSString }) + [searchTerm as NSString]
-                cell.contentLabel.attributedText = addBoldText(fullString: cell.contentLabel.text! as NSString, boldPartsOfString: terms)
+				if showCharts {
+					
+					let subchapterNameIndex = tempChartHTML.firstIndex(of: chartResults[indexPath.row]) ?? 0
+//					print(chartResults[subchapterNameIndex])
+				
+					cell.subchapterLabel.text = chapterIndex.subChapterNames[subchapterNameIndex]
+					cell.chapterLabel.text = chapterIndex.chartmapsubchapter[subchapterNameIndex]
+					cell.contentLabel.isHidden = false
+					
+					let TSTrange = chartResults[indexPath.row].lowercased().range(of: searchTerm.lowercased())
+					let startRange = chartResults[indexPath.row].index(TSTrange?.lowerBound ?? chartResults[indexPath.row].startIndex, offsetBy: -30, limitedBy: chartResults[indexPath.row].startIndex) ?? chartResults[indexPath.row].startIndex
+					let endRange = chartResults[indexPath.row].index(TSTrange?.lowerBound ?? chartResults[indexPath.row].endIndex, offsetBy: 90, limitedBy: chartResults[indexPath.row].endIndex) ?? chartResults[indexPath.row].endIndex
+					cell.contentLabel.text = "..." + String(chartResults[indexPath.row][startRange..<endRange]) + "..."
+					let terms = searchTerm.lowercased().split(separator: " ").map({ String($0) as NSString }) + [searchTerm as NSString]
+					cell.contentLabel.attributedText = addBoldText(fullString: cell.contentLabel.text! as NSString, boldPartsOfString: terms)
+				} else {
+					let subchapterNameIndex = tempHTML.firstIndex(of: searchResults[indexPath.row]) ?? 0
+
+					cell.subchapterLabel.text = chapterIndex.subChapterNames[subchapterNameIndex]
+					cell.chapterLabel.text = chapterIndex.chaptermapsubchapter[subchapterNameIndex]
+					cell.contentLabel.isHidden = false
+					
+					let TSTrange = searchResults[indexPath.row].lowercased().range(of: searchTerm.lowercased())
+					let startRange = searchResults[indexPath.row].index(TSTrange?.lowerBound ?? searchResults[indexPath.row].startIndex, offsetBy: -30, limitedBy: searchResults[indexPath.row].startIndex) ?? searchResults[indexPath.row].startIndex
+					let endRange = searchResults[indexPath.row].index(TSTrange?.lowerBound ?? searchResults[indexPath.row].endIndex, offsetBy: 90, limitedBy: searchResults[indexPath.row].endIndex) ?? searchResults[indexPath.row].endIndex
+					cell.contentLabel.text = "..." + String(searchResults[indexPath.row][startRange..<endRange]) + "..."
+					let terms = searchTerm.lowercased().split(separator: " ").map({ String($0) as NSString }) + [searchTerm as NSString]
+					cell.contentLabel.attributedText = addBoldText(fullString: cell.contentLabel.text! as NSString, boldPartsOfString: terms)
+				}
             } else {
                 cell.subchapterLabel.text = chapterIndex.subChapterNames[indexPath.row]
                 cell.chapterLabel.text = chapterIndex.chaptermapsubchapter[indexPath.row]
@@ -320,7 +390,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             let recentSearchCell = tableView.dequeueReusableCell(withIdentifier: "recentSearchCell", for: indexPath) as! RecentSearchTableViewCell
             recentSearchCell.backgroundColor = UIColor.backgroundColor
             recentSearchCell.recentSearchLabel.text = recentSearchesList[indexPath.row]
-            print(recentSearchesList)
             
             return recentSearchCell
         }
@@ -329,7 +398,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == self.tableView {
             if isFiltering {
-                subArrayPointer = tempHTML.firstIndex(of: searchResults[indexPath.row]) ?? 0
+				showCharts ? (subArrayPointer = tempChartHTML.firstIndex(of: chartResults[indexPath.row]) ?? 0) : (subArrayPointer = tempHTML.firstIndex(of: searchResults[indexPath.row]) ?? 0)
             } else {
                 subArrayPointer = indexPath.row
             }
@@ -372,9 +441,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                 
                 try! realm!.write {
                     // If there are more than 4 recent searches, remove the oldest one
-                    
-                    print("THIS IS THE RECENT SEARCH::::::: \(recentSearch) with it's SEARCH TERM +++++++++++++ \(searchTerm)")
-                    
                     if recentSearchObjects.count >= 3 {
                         if let firstRecentSearch = recentSearchObjects.first {
                             realm?.delete(firstRecentSearch)
@@ -407,20 +473,48 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         if searchText != ""{
             showTableView()
             // Could be search always the strings independently or could be to first search strings together and if nothing returns then search the terms separately but giving the user the option to do that
+
             if searchText.components(separatedBy: " ").count > 1 {
                 let doubleString = searchText.components(separatedBy: " ")
-                searchResults = tempHTML
+				chartResults = tempChartHTML
+				searchResults = tempHTML
+				
                 for i in 0...doubleString.count-1 {
                     // This statement is to prevent a 0 return from the "" generated when a space is introduced
                     if doubleString[i] != ""{
-                        searchResults = searchResults.filter { $0.lowercased().contains(doubleString[i].lowercased())}
+						chartResults = chartResults.filter { $0.lowercased().contains(doubleString[i].lowercased())}
+						searchResults = searchResults.filter { $0.lowercased().contains(doubleString[i].lowercased())}
                     }
                 }
                 searchTerm = searchText
             } else {
-                searchResults = tempHTML.filter { $0.lowercased().contains(searchText.lowercased())}
+				chartResults = tempChartHTML.filter { $0.lowercased().contains(searchText.lowercased())}
+				searchResults = tempHTML.filter { $0.lowercased().contains(searchText.lowercased())}
                 searchTerm = searchText
             }
+			
+			// To store the previous searchResults for when showAll results is active
+			searchResultCache = searchResults
+	// REMEMBER THIS
+			let regexPattern = "Table \\w+ .+" // Best option at the moment
+			let regex = try! NSRegularExpression(pattern: regexPattern)
+//			
+//			chartResults = searchResults.filter { result in
+//				let range = NSRange(location: 0, length: result.utf16.count)
+//				let matches = regex.firstMatch(in: result, options: [], range: range)
+//				return matches != nil
+//			}
+			
+//			 print(chartResults)
+//			 print("####################################")
+//			 print(searchResults)
+			
+			chapterResults = searchResults.filter { result in
+				let range = NSRange(location: 0, length: result.utf16.count)
+				let matches = regex.firstMatch(in: result, options: [], range: range)
+				return matches == nil
+			}
+			
             isFiltering = true
         } else {
             isFiltering = false
