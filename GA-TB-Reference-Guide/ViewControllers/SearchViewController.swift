@@ -334,8 +334,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             let cell = tableView.dequeueReusableCell(withIdentifier: "searchCell", for: indexPath) as! SearchCell
             cell.backgroundColor = UIColor.backgroundColor
             
-            cell.accessoryType = .disclosureIndicator
-            
             if isFiltering {
 				if showCharts {
 					
