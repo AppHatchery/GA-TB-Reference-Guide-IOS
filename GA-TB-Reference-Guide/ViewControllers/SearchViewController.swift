@@ -301,7 +301,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             let gapHeight: CGFloat = 12
             return rowHeight + gapHeight
         }
-        return 80
+        return 120
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -311,8 +311,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         if tableView == self.tableView {
             if isFiltering {
 				if showCharts {
-					let commonValues = chartResults.filter { searchResults.contains($0) }
-					
 					print("CHART COUNT::::::::::::::: \(chartResults.count)")
 					return chartResults.count
 				} else {
