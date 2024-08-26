@@ -330,7 +330,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         recentSearchesList = getRecentSearches()
-//		chartResults = filterResults()
+		let subChartNames = filterResults()
         
         if tableView == self.tableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "searchCell", for: indexPath) as! SearchCell
@@ -344,7 +344,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 					let subchapterNameIndex = tempChartHTML.firstIndex(of: chartResults[indexPath.row]) ?? 0
 //					print(chartResults[subchapterNameIndex])
 				
-					cell.subchapterLabel.text = chapterIndex.subChapterNames[subchapterNameIndex]
+					cell.subchapterLabel.text = subChartNames[subchapterNameIndex]
 					cell.chapterLabel.text = chapterIndex.chartmapsubchapter[subchapterNameIndex]
 					cell.contentLabel.isHidden = false
 					
@@ -403,7 +403,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                 subArrayPointer = indexPath.row
             }
             
-            navTitle = chapterIndex.chaptermapsubchapter[indexPath.row]
+			navTitle = showCharts ? chapterIndex.chaptermapsubchapter[indexPath.row] : chapterIndex.chaptermapsubchapter[indexPath.row]
+		
             addRecentSearch(searchTerm: searchTerm)
 
             // Analytics and tracking code
@@ -504,8 +505,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 //				let matches = regex.firstMatch(in: result, options: [], range: range)
 //				return matches != nil
 //			}
-			
-//			 print(chartResults)
+			 print("####################################")
+			 print(chartResults)
 //			 print("####################################")
 //			 print(searchResults)
 			
@@ -569,13 +570,20 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     {
         if let webViewViewController = segue.destination as? WebViewViewController
         {
-            webViewViewController.url = Bundle.main.url(forResource: Array(chapterIndex.chapterCode.joined())[subArrayPointer], withExtension: "html")!
-            webViewViewController.titlelabel = Array(chapterIndex.chapterNested.joined())[subArrayPointer]
-            webViewViewController.navTitle = navTitle
-            webViewViewController.comingFromSearch = true
-            webViewViewController.searchTerm = search.text != "" ? search.text : nil
-            webViewViewController.uniqueAddress = Array(chapterIndex.chapterCode.joined())[subArrayPointer]
-            webViewViewController.hidesBottomBarWhenPushed = true
+			if showCharts {
+				webViewViewController.url = Bundle.main.url(forResource: Array(chapterIndex.chartCode.joined())[subArrayPointer], withExtension: "html")!
+				webViewViewController.titlelabel = Array(chapterIndex.chartNested.joined())[subArrayPointer]
+				webViewViewController.uniqueAddress = Array(chapterIndex.chartCode.joined())[subArrayPointer]
+			} else {
+				webViewViewController.url = Bundle.main.url(forResource: Array(chapterIndex.chapterCode.joined())[subArrayPointer], withExtension: "html")!
+				webViewViewController.titlelabel = Array(chapterIndex.chapterNested.joined())[subArrayPointer]
+				webViewViewController.uniqueAddress = Array(chapterIndex.chapterCode.joined())[subArrayPointer]
+			}
+			
+			webViewViewController.navTitle = navTitle
+			webViewViewController.comingFromSearch = true
+			webViewViewController.searchTerm = search.text != "" ? search.text : nil
+			webViewViewController.hidesBottomBarWhenPushed = true
         }
     }
     
