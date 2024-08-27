@@ -138,7 +138,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         tableView.dataSource = self
         tableView.register(UINib(nibName: "SearchCell", bundle: nil), forCellReuseIdentifier: "searchCell")
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 45
+        tableView.estimatedRowHeight = 120
     }
 
     private func setupSearchSuggestionTableView() {
@@ -301,7 +301,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             let gapHeight: CGFloat = 12
             return rowHeight + gapHeight
         }
-        return 120
+        return 145
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
