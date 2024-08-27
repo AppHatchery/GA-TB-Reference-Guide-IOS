@@ -39,13 +39,15 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     var subArrayPointer = 0
     var navTitle = "Placeholder SubChapter"
     var tempHTML = [String]()
-	var tempChartHTML = [String]()
+	var tempChaptersHTML = [String]()
+	var tempChartsHTML = [String]()
     let chapterIndex = ChapterIndex()
 
-    var searchResults = [String]()
+    var allSearchResults = [String]()
 	var chapterResults = [String]()
 	var chartResults = [String]()
-	var searchResultCache = [String]()
+	var allSearchResultsCache = [String]()
+	var chaptersOnly = [[String]]()
     
     var isFiltering = false
     var searchTerm = ""
@@ -129,7 +131,27 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 				// This converts a multiline string into a single file, the .whitespacesandnewlines doesn't work to do that job
 			var htmlString = try! String(contentsOfFile: path).replacingOccurrences(of: "[\\s\n]+", with: " ", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
 			htmlString = htmlString.replacingOccurrences(of: "<.*?>", with: "", options: .regularExpression, range: nil)
-			tempChartHTML.append(htmlString)
+			tempChartsHTML.append(htmlString)
+		}
+		
+		// To remove the tables from the chapterIndex.chapterCode array
+		// Regex has been used to avoid creating another chapterOnly array inside the chapterIndex class
+		let regexPattern = "^table_\\d+_.*"
+		let figurePattern = "^fig1_factors_to_be_considered$"
+		
+		chaptersOnly = chapterIndex.chapterCode.filter { subarray in
+			!subarray.contains { element in
+				element.range(of: regexPattern, options: .regularExpression, range: nil, locale: nil) != nil ||
+				element.range(of: figurePattern, options: .regularExpression, range: nil, locale: nil) != nil
+			}
+		}
+		
+		for items in chaptersOnly.joined() {
+			let path = Bundle.main.path(forResource: items.components(separatedBy: ".")[0], ofType: "html")!
+			// This converts a multiline string into a single file, the .whitespacesandnewlines doesn't work to do that job
+			var htmlString = try! String(contentsOfFile: path).replacingOccurrences(of: "[\\s\n]+", with: " ", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
+			htmlString = htmlString.replacingOccurrences(of: "<.*?>", with: "", options: .regularExpression, range: nil)
+			tempChaptersHTML.append(htmlString)
 		}
     }
     
@@ -189,11 +211,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 		showChapters = false
 		showCharts = false
 		
-		searchResults = searchResultCache
+		allSearchResults = allSearchResultsCache
 		tableView.reloadData()
 		
 		if showAll {
-			searchReturns.text = String(searchResults.count) + " results in"
+			searchReturns.text = String(allSearchResults.count) + " results in"
 		}
 	}
 	
@@ -205,7 +227,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 		showChapters = true
 		showCharts = false
 		
-		searchResults = chapterResults
+		allSearchResults = chapterResults
 		tableView.reloadData()
 		
 		if showChapters {
@@ -222,7 +244,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 		showChapters = false
 		showCharts = true
 		
-		searchResults = chartResults
+		allSearchResults = chartResults
 		tableView.reloadData()
 		
 		if showCharts {
@@ -247,29 +269,23 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     }
     
     func getRecentSearchesObjects() -> [Search] {
-        // Fetch all recent searches from Realm
         let recentSearches = realm!.objects(Search.self)
-        
-        // Convert to an array of Search objects
-        return Array(recentSearches)
+		return Array(recentSearches)
     }
     
     func getRecentSearches() -> [String] {
-        // Fetch all recent searches from Realm
         let recentSearches = realm!.objects(Search.self)
-        
-        // Convert to an array of strings and reverse
-        return Array(recentSearches.map { $0.recentSearch }).reversed()
+		return Array(recentSearches.map { $0.recentSearch }).reversed()
     }
 	
-	func filterResults() -> [String] {
-		let filteredSubChapterNames = chapterIndex.subChapterNames.filter { subChapter in
+	func getFilteredSubChapterTableNames() -> [String] {
+		let filteredSubChapterTableNames = chapterIndex.subChapterNames.filter { subChapter in
 			let regex = try! NSRegularExpression(pattern: "^Table \\d+:\\s*", options: [])
 			let range = NSRange(location: 0, length: subChapter.utf16.count)
 			return regex.firstMatch(in: subChapter, options: [], range: range) != nil
 		}
 		
-		return filteredSubChapterNames
+		return filteredSubChapterTableNames
 	}
     
     //--------------------------------------------------------------------------------------------------
@@ -306,7 +322,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         recentSearchesList = getRecentSearches()
-//		chartResults = filterResults()
+		//		chartResults = getFilteredSubChapterTableNames()
         
         if tableView == self.tableView {
             if isFiltering {
@@ -314,7 +330,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 					print("CHART COUNT::::::::::::::: \(chartResults.count)")
 					return chartResults.count
 				} else {
-					return searchResults.count
+					return allSearchResults.count
 				}
             } else {
                 return chapterIndex.subChapterNames.count
@@ -328,18 +344,16 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         recentSearchesList = getRecentSearches()
-		let subChartNames = filterResults()
+		let subChartNames = getFilteredSubChapterTableNames()
         
         if tableView == self.tableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "searchCell", for: indexPath) as! SearchCell
             cell.backgroundColor = UIColor.backgroundColor
             
-            if isFiltering {
+			if isFiltering {
 				if showCharts {
+					let subchapterNameIndex = tempChartsHTML.firstIndex(of: chartResults[indexPath.row]) ?? 0
 					
-					let subchapterNameIndex = tempChartHTML.firstIndex(of: chartResults[indexPath.row]) ?? 0
-//					print(chartResults[subchapterNameIndex])
-				
 					cell.subchapterLabel.text = subChartNames[subchapterNameIndex]
 					cell.chapterLabel.text = chapterIndex.chartmapsubchapter[subchapterNameIndex]
 					cell.contentLabel.isHidden = false
@@ -350,17 +364,30 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 					cell.contentLabel.text = "..." + String(chartResults[indexPath.row][startRange..<endRange]) + "..."
 					let terms = searchTerm.lowercased().split(separator: " ").map({ String($0) as NSString }) + [searchTerm as NSString]
 					cell.contentLabel.attributedText = addBoldText(fullString: cell.contentLabel.text! as NSString, boldPartsOfString: terms)
+				} else if showChapters {
+					let subchapterNameIndex = tempChaptersHTML.firstIndex(of: chapterResults[indexPath.row]) ?? 0
+					
+					cell.subchapterLabel.text = chapterIndex.subChapterNames[subchapterNameIndex]
+					cell.chapterLabel.text = chapterIndex.chaptermapsubchapter[subchapterNameIndex]
+					cell.contentLabel.isHidden = false
+					
+					let TSTrange = chapterResults[indexPath.row].lowercased().range(of: searchTerm.lowercased())
+					let startRange = chapterResults[indexPath.row].index(TSTrange?.lowerBound ?? chapterResults[indexPath.row].startIndex, offsetBy: -30, limitedBy: chapterResults[indexPath.row].startIndex) ?? chapterResults[indexPath.row].startIndex
+					let endRange = chapterResults[indexPath.row].index(TSTrange?.lowerBound ?? chapterResults[indexPath.row].endIndex, offsetBy: 90, limitedBy: chapterResults[indexPath.row].endIndex) ?? chapterResults[indexPath.row].endIndex
+					cell.contentLabel.text = "..." + String(chapterResults[indexPath.row][startRange..<endRange]) + "..."
+					let terms = searchTerm.lowercased().split(separator: " ").map({ String($0) as NSString }) + [searchTerm as NSString]
+					cell.contentLabel.attributedText = addBoldText(fullString: cell.contentLabel.text! as NSString, boldPartsOfString: terms)
 				} else {
-					let subchapterNameIndex = tempHTML.firstIndex(of: searchResults[indexPath.row]) ?? 0
+					let subchapterNameIndex = tempHTML.firstIndex(of: allSearchResults[indexPath.row]) ?? 0
 
 					cell.subchapterLabel.text = chapterIndex.subChapterNames[subchapterNameIndex]
 					cell.chapterLabel.text = chapterIndex.chaptermapsubchapter[subchapterNameIndex]
 					cell.contentLabel.isHidden = false
 					
-					let TSTrange = searchResults[indexPath.row].lowercased().range(of: searchTerm.lowercased())
-					let startRange = searchResults[indexPath.row].index(TSTrange?.lowerBound ?? searchResults[indexPath.row].startIndex, offsetBy: -30, limitedBy: searchResults[indexPath.row].startIndex) ?? searchResults[indexPath.row].startIndex
-					let endRange = searchResults[indexPath.row].index(TSTrange?.lowerBound ?? searchResults[indexPath.row].endIndex, offsetBy: 90, limitedBy: searchResults[indexPath.row].endIndex) ?? searchResults[indexPath.row].endIndex
-					cell.contentLabel.text = "..." + String(searchResults[indexPath.row][startRange..<endRange]) + "..."
+					let TSTrange = allSearchResults[indexPath.row].lowercased().range(of: searchTerm.lowercased())
+					let startRange = allSearchResults[indexPath.row].index(TSTrange?.lowerBound ?? allSearchResults[indexPath.row].startIndex, offsetBy: -30, limitedBy: allSearchResults[indexPath.row].startIndex) ?? allSearchResults[indexPath.row].startIndex
+					let endRange = allSearchResults[indexPath.row].index(TSTrange?.lowerBound ?? allSearchResults[indexPath.row].endIndex, offsetBy: 90, limitedBy: allSearchResults[indexPath.row].endIndex) ?? allSearchResults[indexPath.row].endIndex
+					cell.contentLabel.text = "..." + String(allSearchResults[indexPath.row][startRange..<endRange]) + "..."
 					let terms = searchTerm.lowercased().split(separator: " ").map({ String($0) as NSString }) + [searchTerm as NSString]
 					cell.contentLabel.attributedText = addBoldText(fullString: cell.contentLabel.text! as NSString, boldPartsOfString: terms)
 				}
@@ -394,12 +421,20 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == self.tableView {
             if isFiltering {
-				showCharts ? (subArrayPointer = tempChartHTML.firstIndex(of: chartResults[indexPath.row]) ?? 0) : (subArrayPointer = tempHTML.firstIndex(of: searchResults[indexPath.row]) ?? 0)
+				switch true {
+				case showCharts:
+					subArrayPointer = tempChartsHTML.firstIndex(of: chartResults[indexPath.row]) ?? 0
+				case showChapters:
+					subArrayPointer = tempChaptersHTML.firstIndex(of: chapterResults[indexPath.row]) ?? 0
+				default:
+					subArrayPointer = tempHTML.firstIndex(of: allSearchResults[indexPath.row]) ?? 0
+				}
+				
             } else {
                 subArrayPointer = indexPath.row
             }
             
-			navTitle = showCharts ? chapterIndex.chaptermapsubchapter[indexPath.row] : chapterIndex.chaptermapsubchapter[indexPath.row]
+			navTitle = chapterIndex.chaptermapsubchapter[indexPath.row]
 		
             addRecentSearch(searchTerm: searchTerm)
 
@@ -473,56 +508,46 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 
             if searchText.components(separatedBy: " ").count > 1 {
                 let doubleString = searchText.components(separatedBy: " ")
-				chartResults = tempChartHTML
-				searchResults = tempHTML
+				
+				allSearchResults = tempHTML
+				chapterResults = tempChaptersHTML
+				chartResults = tempChartsHTML
 				
                 for i in 0...doubleString.count-1 {
                     // This statement is to prevent a 0 return from the "" generated when a space is introduced
                     if doubleString[i] != ""{
+						allSearchResults = allSearchResults.filter { $0.lowercased().contains(doubleString[i].lowercased())}
+						chapterResults = chapterResults.filter { $0.lowercased().contains(doubleString[i].lowercased())}
 						chartResults = chartResults.filter { $0.lowercased().contains(doubleString[i].lowercased())}
-						searchResults = searchResults.filter { $0.lowercased().contains(doubleString[i].lowercased())}
                     }
                 }
                 searchTerm = searchText
             } else {
-				chartResults = tempChartHTML.filter { $0.lowercased().contains(searchText.lowercased())}
-				searchResults = tempHTML.filter { $0.lowercased().contains(searchText.lowercased())}
+				allSearchResults = tempHTML.filter { $0.lowercased().contains(searchText.lowercased())}
+				chapterResults = tempChaptersHTML.filter { $0.lowercased().contains(searchText.lowercased())}
+				chartResults = tempChartsHTML.filter { $0.lowercased().contains(searchText.lowercased())}
                 searchTerm = searchText
             }
 			
-			// To store the previous searchResults for when showAll results is active
-			searchResultCache = searchResults
-	// REMEMBER THIS
-			let regexPattern = "Table \\w+ .+" // Best option at the moment
-			let regex = try! NSRegularExpression(pattern: regexPattern)
-//			
-//			chartResults = searchResults.filter { result in
-//				let range = NSRange(location: 0, length: result.utf16.count)
-//				let matches = regex.firstMatch(in: result, options: [], range: range)
-//				return matches != nil
-//			}
-			 print("####################################")
-			 print(chartResults)
-//			 print("####################################")
-//			 print(searchResults)
-			
-			chapterResults = searchResults.filter { result in
-				let range = NSRange(location: 0, length: result.utf16.count)
-				let matches = regex.firstMatch(in: result, options: [], range: range)
-				return matches == nil
-			}
-			
+			// To store the previous allSearchResults for when showAll results is active
+			allSearchResultsCache = allSearchResults
             isFiltering = true
         } else {
             isFiltering = false
-            searchResults = [String]()
+            allSearchResults = [String]()
             showSuggestions()
         }
-//        searchReturns.isHidden = false
-        if searchResults.count == 0 || suggestionsView.isHidden == false {
+		
+        if allSearchResults.count == 0 || suggestionsView.isHidden == false {
             searchReturns.isHidden = true
-        } else {
-            searchReturns.text = String(searchResults.count) + " results in"
+		} else {
+			if showCharts {
+				searchReturns.text = String(chartResults.count) + " results in"
+			} else if showChapters {
+				searchReturns.text = String(chapterResults.count) + " results in"
+			} else {
+				searchReturns.text = String(allSearchResults.count) + " results in"
+			}
         }
         
         recentSearchesTableView.reloadData()
@@ -570,6 +595,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 				webViewViewController.url = Bundle.main.url(forResource: Array(chapterIndex.chartCode.joined())[subArrayPointer], withExtension: "html")!
 				webViewViewController.titlelabel = Array(chapterIndex.chartNested.joined())[subArrayPointer]
 				webViewViewController.uniqueAddress = Array(chapterIndex.chartCode.joined())[subArrayPointer]
+			} else if showChapters {
+				webViewViewController.url = Bundle.main.url(forResource: Array(chaptersOnly.joined())[subArrayPointer], withExtension: "html")!
+				webViewViewController.titlelabel = Array(chapterIndex.chapterNested.joined())[subArrayPointer]
+				webViewViewController.uniqueAddress = Array(chaptersOnly.joined())[subArrayPointer]
 			} else {
 				webViewViewController.url = Bundle.main.url(forResource: Array(chapterIndex.chapterCode.joined())[subArrayPointer], withExtension: "html")!
 				webViewViewController.titlelabel = Array(chapterIndex.chapterNested.joined())[subArrayPointer]
