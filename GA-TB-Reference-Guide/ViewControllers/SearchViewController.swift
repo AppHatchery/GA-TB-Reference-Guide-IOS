@@ -545,6 +545,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     // To hide the keyboard when the user clicks search
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         dismissKeyboard()
+		addRecentSearch(searchTerm: searchTerm)
     }
     
     //--------------------------------------------------------------------------------------------------
