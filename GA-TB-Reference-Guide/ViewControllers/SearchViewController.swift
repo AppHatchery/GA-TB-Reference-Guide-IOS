@@ -261,7 +261,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 	
 	func getFilteredSubChapterTableNames() -> [String] {
 		let filteredSubChapterTableNames = chapterIndex.subChapterNames.filter { subChapter in
-			let regex = try! NSRegularExpression(pattern: "^Table \\d+:\\s*", options: [])
+			let regex = try! NSRegularExpression(pattern: "^Table \\d+: \\s*|^Figure \\d+. \\s*", options: [])
 			let range = NSRange(location: 0, length: subChapter.utf16.count)
 			return regex.firstMatch(in: subChapter, options: [], range: range) != nil
 		}
@@ -567,11 +567,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 			
 			switch (showCharts, showChapters) {
 				case (true, _):
-					let chapterCodes = Array(chapterIndex.chartCode.joined())
-					let chapterNested = Array(chapterIndex.chartNested.joined())
-					url = Bundle.main.url(forResource: chapterCodes[subArrayPointer], withExtension: "html")!
-					titleLabel = chapterNested[subArrayPointer]
-					uniqueAddress = chapterCodes[subArrayPointer]
+					let chartCodes = Array(chapterIndex.chartCode.joined())
+					let chartNested = Array(chapterIndex.chartNested.joined())
+					url = Bundle.main.url(forResource: chartCodes[subArrayPointer], withExtension: "html")!
+					titleLabel = chartNested[subArrayPointer]
+					uniqueAddress = chartCodes[subArrayPointer]
 					
 				case (_, true):
 					let chapterCodes = Array(chaptersOnly.joined())
