@@ -159,7 +159,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "SearchCell", bundle: nil), forCellReuseIdentifier: "searchCell")
-        tableView.rowHeight = UITableView.automaticDimension
+		tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 120
     }
 
@@ -298,7 +298,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             let gapHeight: CGFloat = 12
             return rowHeight + gapHeight
         }
-        return 145
+        return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
