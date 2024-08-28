@@ -333,8 +333,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 				if showCharts {
 					let subchapterNameIndex = tempChartsHTML.firstIndex(of: chartResults[indexPath.row]) ?? 0
 					
-					cell.subchapterLabel.text = subChartNames[subchapterNameIndex]
-					cell.chapterLabel.text = chapterIndex.chartmapsubchapter[subchapterNameIndex]
+					cell.chapterLabel.text = subChartNames[subchapterNameIndex]
+					cell.subchapterLabel.text = chapterIndex.chartmapsubchapter[subchapterNameIndex]
 					
 					let TSTrange = chartResults[indexPath.row].lowercased().range(of: searchTerm.lowercased())
 					let startRange = chartResults[indexPath.row].index(TSTrange?.lowerBound ?? chartResults[indexPath.row].startIndex, offsetBy: -30, limitedBy: chartResults[indexPath.row].startIndex) ?? chartResults[indexPath.row].startIndex
