@@ -323,7 +323,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         recentSearchesList = getRecentSearches()
-		let subChartNames = getFilteredSubChapterTableNames()
+		let chartNames = getFilteredSubChapterTableNames()
         
         if tableView == self.tableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "searchCell", for: indexPath) as! SearchCell
@@ -333,8 +333,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 				if showCharts {
 					let subchapterNameIndex = tempChartsHTML.firstIndex(of: chartResults[indexPath.row]) ?? 0
 					
-					cell.chapterLabel.text = subChartNames[subchapterNameIndex]
-					cell.subchapterLabel.text = chapterIndex.chartmapsubchapter[subchapterNameIndex]
+					// For Charts, Table Names should appear first
+					cell.subchapterLabel.text = chartNames[subchapterNameIndex]
+					cell.chapterLabel.text = chapterIndex.chartmapsubchapter[subchapterNameIndex]
 					
 					let TSTrange = chartResults[indexPath.row].lowercased().range(of: searchTerm.lowercased())
 					let startRange = chartResults[indexPath.row].index(TSTrange?.lowerBound ?? chartResults[indexPath.row].startIndex, offsetBy: -30, limitedBy: chartResults[indexPath.row].startIndex) ?? chartResults[indexPath.row].startIndex
