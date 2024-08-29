@@ -306,11 +306,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 		
         if tableView == self.tableView {
             if isFiltering {
-				if showCharts {
-					return chartResults.count
-				} else {
-					return allSearchResults.count
-				}
+				return showCharts ? chartResults.count : allSearchResults.count
             } else {
                 return chapterIndex.subChapterNames.count
             }
@@ -409,7 +405,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                 subArrayPointer = indexPath.row
             }
             
-			navTitle = chapterIndex.chaptermapsubchapter[indexPath.row]
+			navTitle = showCharts ? chapterIndex.chartmapsubchapter[indexPath.row] : chapterIndex.chaptermapsubchapter[indexPath.row]
 		
             addRecentSearch(searchTerm: searchTerm)
 
