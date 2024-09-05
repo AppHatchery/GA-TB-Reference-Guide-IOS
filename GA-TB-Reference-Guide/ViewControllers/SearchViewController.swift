@@ -31,7 +31,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     
     @IBOutlet var searchTabs: [UIButton]!
     
-    
+	@IBOutlet weak var loader: UIActivityIndicatorView!
+	@IBOutlet weak var loaderView: UIView!
+	
     // Initialize Realm
     let realm = RealmHelper.sharedInstance.mainRealm()
     
@@ -110,6 +112,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         
         // Load the Suggestions Table first before the the Main Table
         showSuggestions()
+		loaderView.isHidden = true
         
         // Keyboard dismissal recognizer
         tap.addTarget(self, action: #selector(dismissKeyboard))
@@ -212,6 +215,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 		showAll = true
 		showChapters = false
 		showCharts = false
+		loaderConfig()
 		tableView.reloadData()
 	}
 	
@@ -221,6 +225,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 		showAll = false
 		showChapters = true
 		showCharts = false
+		loaderConfig()
 		tableView.reloadData()
 	}
 	
@@ -230,6 +235,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 		showAll = false
 		showChapters = false
 		showCharts = true
+		loaderConfig()
 		tableView.reloadData()
 	}
 	
@@ -267,6 +273,25 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 		}
 		
 		return filteredSubChapterTableNames
+	}
+	
+	func loaderConfig() {
+		setTimeout(delay: 0){
+			self.loaderView.isHidden = false
+			self.loader.startAnimating()
+		}
+		
+		setTimeout(delay: 0.4) {
+			self.loader.stopAnimating()
+			self.mainTableView.isHidden = false
+			self.loaderView.isHidden = true
+		}
+	}
+	
+	func setTimeout(delay: Double, closure: @escaping () -> Void) {
+		DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+			closure()
+		}
 	}
     
     //--------------------------------------------------------------------------------------------------
@@ -420,13 +445,15 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         } else if tableView == self.searchSuggestionsTableView {
             search.text = suggestionsList[indexPath.row]
             searchTerm = suggestionsList[indexPath.row]
-            searchBar(search, textDidChange: searchTerm)
-            
+			
+			loaderConfig()
             addRecentSearch(searchTerm: searchTerm)
+			searchBar(search, textDidChange: searchTerm)
         } else {
             search.text = recentSearchesList[indexPath.row]
             searchTerm = recentSearchesList[indexPath.row]
-            
+			
+            loaderConfig()
             searchBar(search, textDidChange: searchTerm)
         }
         tableView.deselectRow(at: indexPath, animated: true)

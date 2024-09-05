@@ -725,13 +725,31 @@ Start by opening any subchapter or chart.</string>
                                                     <constraint firstItem="ezG-ZA-9lG" firstAttribute="leading" secondItem="Wca-LO-pnd" secondAttribute="leading" id="w7H-ad-vug"/>
                                                 </constraints>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="as6-9A-oex" userLabel="Loader View">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="460"/>
+                                                <subviews>
+                                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="rJe-Df-0s5">
+                                                        <rect key="frame" x="177.5" y="220" width="20" height="20"/>
+                                                        <color key="backgroundColor" name="backgroundColor"/>
+                                                    </activityIndicatorView>
+                                                </subviews>
+                                                <color key="backgroundColor" name="backgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="rJe-Df-0s5" firstAttribute="centerY" secondItem="as6-9A-oex" secondAttribute="centerY" id="b85-UM-nqN"/>
+                                                    <constraint firstItem="rJe-Df-0s5" firstAttribute="centerX" secondItem="as6-9A-oex" secondAttribute="centerX" id="xf5-DU-0cg"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" name="backgroundColor"/>
                                         <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="as6-9A-oex" secondAttribute="trailing" id="7c7-hu-ZVd"/>
                                             <constraint firstAttribute="bottom" secondItem="MgI-bg-uE3" secondAttribute="bottom" constant="105" id="9Nj-aq-l7h"/>
+                                            <constraint firstAttribute="bottom" secondItem="as6-9A-oex" secondAttribute="bottom" id="Eeg-Ln-8g6"/>
                                             <constraint firstItem="MgI-bg-uE3" firstAttribute="leading" secondItem="6UX-BR-9Qy" secondAttribute="leading" id="JpW-B9-fvz"/>
                                             <constraint firstItem="Wca-LO-pnd" firstAttribute="top" secondItem="6UX-BR-9Qy" secondAttribute="top" id="MmS-tP-ZYR"/>
+                                            <constraint firstItem="as6-9A-oex" firstAttribute="top" secondItem="6UX-BR-9Qy" secondAttribute="top" id="RgE-gg-85c"/>
                                             <constraint firstItem="Wca-LO-pnd" firstAttribute="leading" secondItem="6UX-BR-9Qy" secondAttribute="leading" id="ZBG-Q4-KyC"/>
+                                            <constraint firstItem="as6-9A-oex" firstAttribute="leading" secondItem="6UX-BR-9Qy" secondAttribute="leading" id="aQy-pZ-jb6"/>
                                             <constraint firstItem="MgI-bg-uE3" firstAttribute="top" secondItem="6UX-BR-9Qy" secondAttribute="top" id="bnY-sS-rWy"/>
                                             <constraint firstAttribute="trailing" secondItem="MgI-bg-uE3" secondAttribute="trailing" id="cOl-0S-fsY"/>
                                             <constraint firstAttribute="bottom" secondItem="Wca-LO-pnd" secondAttribute="bottom" id="d2s-tC-HbF"/>
@@ -762,6 +780,8 @@ Start by opening any subchapter or chart.</string>
                     </view>
                     <navigationItem key="navigationItem" title="Search" id="81N-pr-XKS"/>
                     <connections>
+                        <outlet property="Loader" destination="rJe-Df-0s5" id="V93-BE-aGN"/>
+                        <outlet property="LoaderView" destination="as6-9A-oex" id="wqD-5e-YIu"/>
                         <outlet property="allChaptersChartsButton" destination="Vu4-oh-XWW" id="KLe-nv-4QP"/>
                         <outlet property="chaptersButton" destination="8q4-cM-U1r" id="sih-hN-uy6"/>
                         <outlet property="chartsButton" destination="zED-Vd-w4r" id="rov-XC-iUg"/>
@@ -1157,19 +1177,19 @@ Start by opening any subchapter or chart.</string>
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray5Color">
-            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray6Color">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemMintColor">
-            <color red="0.0" green="0.7803921568627451" blue="0.74509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.78039215689999997" blue="0.74509803919999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
