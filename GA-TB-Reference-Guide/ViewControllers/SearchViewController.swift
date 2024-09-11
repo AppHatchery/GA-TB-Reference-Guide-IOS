@@ -96,7 +96,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         navigationController?.navigationBar.setGradientBackground(to: self.navigationController!)
         navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.shadowImage = UIImage()
-        // Set Gradient to the width of the navigationBar
+        // Set Gradient to the width of the navigationBarda
 		// searchView.setGradientBackground(size: CGRect(x: searchView.bounds.origin.x, y: searchView.bounds.origin.y, width: self.navigationController?.navigationBar.bounds.width ?? searchView.bounds.width, height: searchView.bounds.height))
         // Do any additional setup after loading the view.
         
