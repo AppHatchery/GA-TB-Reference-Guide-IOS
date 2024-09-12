@@ -201,11 +201,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 	//----------------------------------------------------------------------------------------------
 	// Search Tabs Implementation
 	
-	private func activeTabConfig(_ button: UIButton, isActive: Bool) {
-		button.backgroundColor = isActive ? .dialogColor : .backgroundColor
-		button.tintColor = isActive ? .white : .label
-		button.isEnabled = true
-	}
+    private func activeTabConfig(_ button: UIButton, isActive: Bool) {
+        UIView.performWithoutAnimation {
+            button.backgroundColor = isActive ? .dialogColor : .backgroundColor
+            button.tintColor = isActive ? .white : .label
+            button.isEnabled = true
+            button.setNeedsDisplay()
+        }
+    }
 	
 	private func updateSearchResults(_ results: [String], description: String) {
 		allSearchResults = results
@@ -214,35 +217,32 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 	}
 	
 	@objc private func showAllChapters() {
-		configureTabs(activeButton: allChaptersChartsButton, inactiveButtons: [chaptersButton, chartsButton])
-		updateSearchResults(allSearchResultsCache, description: "all chapters")
 		showAll = true
 		showChapters = false
 		showCharts = false
-		loaderConfig {
-			self.tableView.reloadData()
+        loaderConfig {
+            self.updateSearchResults(self.allSearchResultsCache, description: "all chapters")
+            self.configureTabs(activeButton: self.allChaptersChartsButton, inactiveButtons: [self.chaptersButton, self.chartsButton])
 		}
 	}
 	
 	@objc private func showChaptersOnly() {
-		configureTabs(activeButton: chaptersButton, inactiveButtons: [allChaptersChartsButton, chartsButton])
-		updateSearchResults(chapterResults, description: "chapters")
 		showAll = false
 		showChapters = true
 		showCharts = false
 		loaderConfig {
-			self.tableView.reloadData()
+            self.updateSearchResults(self.chapterResults, description: "chapters")
+            self.configureTabs(activeButton: self.chaptersButton, inactiveButtons: [self.allChaptersChartsButton, self.chartsButton])
 		}
 	}
 	
 	@objc private func showChartsOnly() {
-		configureTabs(activeButton: chartsButton, inactiveButtons: [allChaptersChartsButton, chaptersButton])
-		updateSearchResults(chartResults, description: "charts")
 		showAll = false
 		showChapters = false
 		showCharts = true
 		loaderConfig {
-			self.tableView.reloadData()
+            self.updateSearchResults(self.chartResults, description: "charts")
+            self.configureTabs(activeButton: self.chartsButton, inactiveButtons: [self.allChaptersChartsButton, self.chaptersButton])
 		}
 	}
 	
