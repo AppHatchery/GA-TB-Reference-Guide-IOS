@@ -99,24 +99,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         // Set Gradient to the width of the navigationBarda
 		// searchView.setGradientBackground(size: CGRect(x: searchView.bounds.origin.x, y: searchView.bounds.origin.y, width: self.navigationController?.navigationBar.bounds.width ?? searchView.bounds.width, height: searchView.bounds.height))
         // Do any additional setup after loading the view.
-        
+
 		for searchTab in searchTabs {
 			searchTab.layer.cornerRadius = 5
-			
-			// The font and scaleFactor constants are not being applied and will need to be looked at properly in future updates
-			//	searchTab.titleLabel?.font = UIFont.systemFont(ofSize: 1)
-			searchTab.titleLabel?.adjustsFontForContentSizeCategory = false
-			searchTab.titleLabel?.adjustsFontSizeToFitWidth = true
-			searchTab.titleLabel?.minimumScaleFactor = 1.0
-			
-			searchTab.titleLabel?.adjustsFontForContentSizeCategory = false
-			searchTab.titleLabel?.adjustsFontSizeToFitWidth = true
-			searchTab.titleLabel?.minimumScaleFactor = 1.0
-			
-			searchTab.translatesAutoresizingMaskIntoConstraints = false
-			
-			searchTab.layer.masksToBounds = true
-			searchTab.isEnabled = true
 		}
         
         loadHTML()
