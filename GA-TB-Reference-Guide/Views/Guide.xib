@@ -172,132 +172,118 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="wP5-Kf-NE5">
                                             <rect key="frame" x="0.0" y="38" width="335" height="408"/>
                                             <subviews>
-                                                <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="NXJ-G6-pKw">
+                                                <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="NXJ-G6-pKw">
                                                     <rect key="frame" x="0.0" y="0.0" width="335" height="48"/>
+                                                    <color key="backgroundColor" name="dialogColor"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="48" id="I0I-fp-kT0"/>
+                                                        <constraint firstAttribute="height" constant="48" id="I0I-fp-kT0"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <state key="normal" title="All Charts &gt;" backgroundImage="bottomCard">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="12" maxY="0.0"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" title="All Charts &gt;">
                                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <state key="highlighted" backgroundImage="bottomCardPressed"/>
-                                                    <buttonConfiguration key="configuration" style="plain" title="All Charts &gt;">
-                                                        <backgroundConfiguration key="background" cornerRadius="10" image="bottomCard" imageContentMode="redraw"/>
-                                                        <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
-                                                        <color key="baseForegroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </buttonConfiguration>
                                                 </button>
-                                                <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="dqr-Px-3li">
+                                                <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="dqr-Px-3li">
                                                     <rect key="frame" x="0.0" y="60" width="335" height="48"/>
+                                                    <color key="backgroundColor" name="dialogColor"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="48" id="mVe-bO-EIq"/>
+                                                        <constraint firstAttribute="height" priority="999" constant="48" id="mVe-bO-EIq"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <state key="normal" title="First line TB drugs for adults" backgroundImage="bottomCard">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="12" maxY="0.0"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" title="First Line TB Drugs for Adults">
                                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <state key="highlighted" backgroundImage="bottomCardPressed"/>
-                                                    <buttonConfiguration key="configuration" style="plain" title="First Line TB Drugs for Adults">
-                                                        <backgroundConfiguration key="background" cornerRadius="10" image="bottomCard" imageContentMode="redraw"/>
-                                                        <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
-                                                        <color key="baseForegroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </buttonConfiguration>
                                                     <connections>
                                                         <action selector="tapBottomButton:" destination="-2" eventType="touchUpInside" id="1tu-QI-hFU"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" tag="14" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="iOX-uC-bGp">
+                                                <button opaque="NO" tag="14" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="iOX-uC-bGp">
                                                     <rect key="frame" x="0.0" y="120" width="335" height="48"/>
+                                                    <color key="backgroundColor" name="dialogColor"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="48" id="dUL-Cu-p75"/>
+                                                        <constraint firstAttribute="height" priority="999" constant="48" id="dUL-Cu-p75"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <state key="normal" title="IV Therapy Drugs" backgroundImage="bottomCard">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="12" maxY="0.0"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" title="IV Therapy Drugs">
                                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <state key="highlighted" backgroundImage="bottomCardPressed"/>
-                                                    <buttonConfiguration key="configuration" style="plain" title="IV Therapy Drugs">
-                                                        <backgroundConfiguration key="background" cornerRadius="10" image="bottomCard" imageContentMode="redraw"/>
-                                                        <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
-                                                        <color key="baseForegroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </buttonConfiguration>
                                                     <connections>
                                                         <action selector="tapBottomButton:" destination="-2" eventType="touchUpInside" id="X7Y-xK-Y8z"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" tag="15" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Igd-XX-ZEe">
+                                                <button opaque="NO" tag="15" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Igd-XX-ZEe">
                                                     <rect key="frame" x="0.0" y="180" width="335" height="48"/>
+                                                    <color key="backgroundColor" name="dialogColor"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="48" id="Asi-d1-tge"/>
+                                                        <constraint firstAttribute="height" priority="999" constant="48" id="Asi-d1-tge"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <state key="normal" title="Alternative regimens" backgroundImage="bottomCard">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="12" maxY="0.0"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" title="Alternative Regimens">
                                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <state key="highlighted" backgroundImage="bottomCardPressed"/>
-                                                    <buttonConfiguration key="configuration" style="plain" title="Alternative Regimens">
-                                                        <backgroundConfiguration key="background" cornerRadius="10" image="bottomCard" imageContentMode="redraw"/>
-                                                        <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
-                                                        <color key="baseForegroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </buttonConfiguration>
                                                     <connections>
                                                         <action selector="tapBottomButton:" destination="-2" eventType="touchUpInside" id="Ymg-9U-jww"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="XsG-R7-hzl">
+                                                <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="XsG-R7-hzl">
                                                     <rect key="frame" x="0.0" y="240" width="335" height="48"/>
+                                                    <color key="backgroundColor" name="dialogColor"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="48" id="WjS-lK-gX0"/>
+                                                        <constraint firstAttribute="height" priority="999" constant="48" id="WjS-lK-gX0"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <state key="normal" title="Dosages for LTBI regimens" backgroundImage="bottomCard">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="12" maxY="0.0"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" title="Dosages for LTBI regimens">
                                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <state key="highlighted" backgroundImage="bottomCardPressed"/>
-                                                    <buttonConfiguration key="configuration" style="plain" title="Dosages for LTBI regimens">
-                                                        <backgroundConfiguration key="background" cornerRadius="10" image="bottomCard" imageContentMode="redraw"/>
-                                                        <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
-                                                        <color key="baseForegroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </buttonConfiguration>
                                                     <connections>
                                                         <action selector="tapBottomButton:" destination="-2" eventType="touchUpInside" id="9Uv-y4-nQp"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="wKn-5L-Uaw">
+                                                <button opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="wKn-5L-Uaw">
                                                     <rect key="frame" x="0.0" y="300" width="335" height="48"/>
+                                                    <color key="backgroundColor" name="dialogColor"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="48" id="aIT-IG-f81"/>
+                                                        <constraint firstAttribute="height" priority="999" constant="48" id="aIT-IG-f81"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <state key="normal" title="TB drugs in Special Situations" backgroundImage="bottomCard">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="12" maxY="0.0"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" title="TB Drugs in Special Situations">
                                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <state key="highlighted" backgroundImage="bottomCardPressed"/>
-                                                    <buttonConfiguration key="configuration" style="plain" title="TB Drugs in Special Situations">
-                                                        <backgroundConfiguration key="background" cornerRadius="10" image="bottomCard" imageContentMode="redraw"/>
-                                                        <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
-                                                        <color key="baseForegroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </buttonConfiguration>
                                                     <connections>
                                                         <action selector="tapBottomButton:" destination="-2" eventType="touchUpInside" id="JCR-Ks-Dey"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" tag="19" contentMode="scaleToFill" verticalHuggingPriority="240" verticalCompressionResistancePriority="754" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Azu-U9-710">
+                                                <button opaque="NO" tag="19" contentMode="scaleToFill" verticalHuggingPriority="240" verticalCompressionResistancePriority="754" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Azu-U9-710">
                                                     <rect key="frame" x="0.0" y="360" width="335" height="48"/>
+                                                    <color key="backgroundColor" name="dialogColor"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="48" id="sXk-9w-BeC"/>
+                                                        <constraint firstAttribute="height" priority="999" constant="48" id="sXk-9w-BeC"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <state key="normal" title="Treatment of extrapulmonary TB" backgroundImage="bottomCard">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="12" maxY="0.0"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" title="Treatment of Extrapulmonary TB">
                                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <state key="highlighted" backgroundImage="bottomCardPressed"/>
-                                                    <buttonConfiguration key="configuration" style="plain" title="Treatment of Extrapulmonary TB">
-                                                        <backgroundConfiguration key="background" cornerRadius="10" image="bottomCard" imageContentMode="redraw"/>
-                                                        <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
-                                                        <color key="baseForegroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </buttonConfiguration>
                                                     <connections>
                                                         <action selector="tapBottomButton:" destination="-2" eventType="touchUpInside" id="CXP-Zg-MqP"/>
                                                     </connections>
@@ -333,12 +319,14 @@
         </view>
     </objects>
     <resources>
-        <image name="bottomCard" width="105" height="56"/>
         <image name="bottomCardPressed" width="160" height="77"/>
         <image name="topCard" width="162" height="77"/>
         <image name="topCardPressed" width="162" height="77"/>
         <namedColor name="backgroundColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="dialogColor">
+            <color red="0.78799998760223389" green="0.51800000667572021" blue="0.3880000114440918" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

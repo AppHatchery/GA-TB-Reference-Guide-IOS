@@ -67,9 +67,9 @@ class Guide: UIView {
         }
         
         for button in bottomQuickLinks {
-            button.layer.cornerRadius = 0
+            button.layer.cornerRadius = 5
             button.titleLabel?.textAlignment = NSTextAlignment.center
-            button.dropShadow()
+			button.layer.shadowOpacity = 0
             if UIDevice.current.userInterfaceIdiom == .pad {
                 button.titleLabel?.font = button.titleLabel?.font.withSize(20)
             }

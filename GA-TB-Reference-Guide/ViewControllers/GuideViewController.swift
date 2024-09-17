@@ -13,7 +13,7 @@ class GuideViewController: UIViewController, UISearchBarDelegate {
 
     @IBOutlet var topQuickLinks: [UIButton]!
     @IBOutlet var bottomQuickLinks: [UIButton]!
-    
+	
 //    @IBOutlet weak var searchView: UIView!
 //    @IBOutlet weak var search: UISearchBar!
     @IBOutlet weak var contentView: UIView!
