@@ -96,13 +96,13 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         navigationController?.navigationBar.setGradientBackground(to: self.navigationController!)
         navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.shadowImage = UIImage()
-        // Set Gradient to the width of the navigationBar
-//        searchView.setGradientBackground(size: CGRect(x: searchView.bounds.origin.x, y: searchView.bounds.origin.y, width: self.navigationController?.navigationBar.bounds.width ?? searchView.bounds.width, height: searchView.bounds.height))
+        // Set Gradient to the width of the navigationBarda
+		// searchView.setGradientBackground(size: CGRect(x: searchView.bounds.origin.x, y: searchView.bounds.origin.y, width: self.navigationController?.navigationBar.bounds.width ?? searchView.bounds.width, height: searchView.bounds.height))
         // Do any additional setup after loading the view.
-        
-        for searchTab in searchTabs {
-            searchTab.layer.cornerRadius = 5
-        }
+
+		for searchTab in searchTabs {
+			searchTab.layer.cornerRadius = 5
+		}
         
         loadHTML()
         
@@ -121,6 +121,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     
     func loadHTML() {
         // Load the htmls on the array - needs to be on viewDidLoad otherwise it duplicates the content
+		
+			// For Both Chapters and Charts Together
         for items in chapterIndex.chapterCode.joined() {
             let path = Bundle.main.path(forResource: items.components(separatedBy: ".")[0], ofType: "html")!
             // This converts a multiline string into a single file, the .whitespacesandnewlines doesn't work to do that job
@@ -129,6 +131,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             tempHTML.append(htmlString)
         }
 		
+		// For Charts
 		for items in chapterIndex.chartCode.joined() {
 			let path = Bundle.main.path(forResource: items.components(separatedBy: ".")[0], ofType: "html")!
 				// This converts a multiline string into a single file, the .whitespacesandnewlines doesn't work to do that job
@@ -137,6 +140,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 			tempChartsHTML.append(htmlString)
 		}
 		
+		// For Chapters Only
 		// To remove the tables from the chapterIndex.chapterCode array
 		// Regex has been used to avoid creating another chapterOnly array inside the chapterIndex class
 		let regexPattern = "^table_\\d+_.*"
@@ -197,46 +201,49 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 	//----------------------------------------------------------------------------------------------
 	// Search Tabs Implementation
 	
-	private func activeTabConfig(_ button: UIButton, isActive: Bool) {
-		button.backgroundColor = isActive ? .dialogColor : .backgroundColor
-		button.tintColor = isActive ? .white : .label
-		button.isEnabled = true
-	}
+    private func activeTabConfig(_ button: UIButton, isActive: Bool) {
+        UIView.performWithoutAnimation {
+            button.backgroundColor = isActive ? .dialogColor : .backgroundColor
+            button.tintColor = isActive ? .white : .label
+            button.isEnabled = true
+            button.setNeedsDisplay()
+        }
+    }
 	
 	private func updateSearchResults(_ results: [String], description: String) {
 		allSearchResults = results
 		tableView.reloadData()
-		searchReturns.text = "\(results.count) results in"
+		searchReturns.text = results.count == 1 ?  "\(results.count) result in" :  "\(results.count) results in"
 	}
 	
 	@objc private func showAllChapters() {
-		configureTabs(activeButton: allChaptersChartsButton, inactiveButtons: [chaptersButton, chartsButton])
-		updateSearchResults(allSearchResultsCache, description: "all chapters")
 		showAll = true
 		showChapters = false
 		showCharts = false
-		loaderConfig()
-		tableView.reloadData()
+        loaderConfig {
+            self.updateSearchResults(self.allSearchResultsCache, description: "all chapters")
+            self.configureTabs(activeButton: self.allChaptersChartsButton, inactiveButtons: [self.chaptersButton, self.chartsButton])
+		}
 	}
 	
 	@objc private func showChaptersOnly() {
-		configureTabs(activeButton: chaptersButton, inactiveButtons: [allChaptersChartsButton, chartsButton])
-		updateSearchResults(chapterResults, description: "chapters")
 		showAll = false
 		showChapters = true
 		showCharts = false
-		loaderConfig()
-		tableView.reloadData()
+		loaderConfig {
+            self.updateSearchResults(self.chapterResults, description: "chapters")
+            self.configureTabs(activeButton: self.chaptersButton, inactiveButtons: [self.allChaptersChartsButton, self.chartsButton])
+		}
 	}
 	
 	@objc private func showChartsOnly() {
-		configureTabs(activeButton: chartsButton, inactiveButtons: [allChaptersChartsButton, chaptersButton])
-		updateSearchResults(chartResults, description: "charts")
 		showAll = false
 		showChapters = false
 		showCharts = true
-		loaderConfig()
-		tableView.reloadData()
+		loaderConfig {
+            self.updateSearchResults(self.chartResults, description: "charts")
+            self.configureTabs(activeButton: self.chartsButton, inactiveButtons: [self.allChaptersChartsButton, self.chaptersButton])
+		}
 	}
 	
 	private func configureTabs(activeButton: UIButton, inactiveButtons: [UIButton]) {
@@ -275,7 +282,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 		return filteredSubChapterTableNames
 	}
 	
-	func loaderConfig() {
+	
+	// Loader Configurations
+	func loaderConfig(completion: @escaping () -> Void) {
 		setTimeout(delay: 0){
 			self.loaderView.isHidden = false
 			self.loader.startAnimating()
@@ -285,6 +294,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 			self.loader.stopAnimating()
 			self.mainTableView.isHidden = false
 			self.loaderView.isHidden = true
+			completion()
 		}
 	}
 	
@@ -446,15 +456,17 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             search.text = suggestionsList[indexPath.row]
             searchTerm = suggestionsList[indexPath.row]
 			
-			loaderConfig()
-            addRecentSearch(searchTerm: searchTerm)
-			searchBar(search, textDidChange: searchTerm)
+			loaderConfig {
+				self.addRecentSearch(searchTerm: self.searchTerm)
+				self.searchBar(self.search, textDidChange: self.searchTerm)
+			}
         } else {
             search.text = recentSearchesList[indexPath.row]
             searchTerm = recentSearchesList[indexPath.row]
 			
-            loaderConfig()
-            searchBar(search, textDidChange: searchTerm)
+			loaderConfig {
+				self.searchBar(self.search, textDidChange: self.searchTerm)
+			}
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -519,6 +531,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 						chartResults = chartResults.filter { $0.lowercased().contains(doubleString[i].lowercased())}
                     }
                 }
+				
                 searchTerm = searchText
             } else {
 				allSearchResults = tempHTML.filter { $0.lowercased().contains(searchText.lowercased())}
@@ -537,15 +550,20 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         }
 		
         if allSearchResults.count == 0 || suggestionsView.isHidden == false {
-			searchReturns.text = String(0) + " results in"
+			searchReturns.text = "0 results in"
 		} else {
-			if showCharts {
-				searchReturns.text = String(chartResults.count) + " results in"
-			} else if showChapters {
-				searchReturns.text = String(chapterResults.count) + " results in"
-			} else {
-				searchReturns.text = String(allSearchResults.count) + " results in"
+			func resultText(for count: Int) -> String {
+				return count == 1 ? "\(count) result in" : "\(count) results in"
 			}
+			
+			if showCharts {
+				searchReturns.text = resultText(for: chartResults.count)
+			} else if showChapters {
+				searchReturns.text = resultText(for: chapterResults.count)
+			} else {
+				searchReturns.text = resultText(for: allSearchResults.count)
+			}
+
         }
         
         recentSearchesTableView.reloadData()
