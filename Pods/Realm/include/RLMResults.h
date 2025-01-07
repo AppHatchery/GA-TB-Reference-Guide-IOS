@@ -20,6 +20,9 @@
 
 RLM_HEADER_AUDIT_BEGIN(nullability, sendability)
 
+/// A block type used for APIs which asynchronously return a `Results`.
+typedef void(^RLMResultsCompletionBlock)(RLMResults * _Nullable, NSError * _Nullable);
+
 @class RLMObject;
 
 /**
@@ -408,6 +411,7 @@ __attribute__((warn_unused_result));
                                                          NSError *_Nullable error))block
                                       keyPaths:(nullable NSArray<NSString *> *)keyPaths
 __attribute__((warn_unused_result));
+
 #pragma mark - Aggregating Property Values
 
 /**
@@ -559,7 +563,7 @@ __attribute__((warn_unused_result));
  parent object.
 
  For more information, please see the "Inverse Relationships" section in the
- [documentation](https://www.mongodb.com/docs/realm/sdk/swift/fundamentals/relationships/#relationships).
+ [documentation](https://www.mongodb.com/docs/atlas/device-sdks/sdk/swift/model-data/relationships/).
  */
 @interface RLMLinkingObjects<RLMObjectType: RLMObject *> : RLMResults
 @end

@@ -38,10 +38,7 @@
 #import <realm/object-store/object_schema.hpp>
 #import <realm/object-store/shared_realm.hpp>
 
-using namespace realm;
-
 const NSUInteger RLMDescriptionMaxDepth = 5;
-
 
 static bool isManagedAccessorClass(Class cls) {
     const char *className = class_getName(cls);
@@ -425,7 +422,7 @@ id RLMCreateManagedAccessor(Class cls, RLMClassInfo *info) {
 #pragma mark - Thread Confined Protocol Conformance
 
 - (realm::ThreadSafeReference)makeThreadSafeReference {
-    return Object(_realm->_realm, *_info->objectSchema, _row);
+    return realm::Object(_realm->_realm, *_info->objectSchema, _row);
 }
 
 - (id)objectiveCMetadata {
@@ -435,7 +432,7 @@ id RLMCreateManagedAccessor(Class cls, RLMClassInfo *info) {
 + (instancetype)objectWithThreadSafeReference:(realm::ThreadSafeReference)reference
                                      metadata:(__unused id)metadata
                                         realm:(RLMRealm *)realm {
-    Object object = reference.resolve<Object>(realm->_realm);
+    auto object = reference.resolve<realm::Object>(realm->_realm);
     if (!object.is_valid()) {
         return nil;
     }
@@ -720,14 +717,15 @@ RLM_DIRECT_MEMBERS
     }
 
     NSError *error;
-    _realm = [RLMRealm realmWithConfiguration:config queue:queue error:&error];
-    if (!_realm) {
+    auto realm = [RLMRealm realmWithConfiguration:config queue:queue error:&error];
+    _realm = realm;
+    if (!realm) {
         block(nil, nil, nil, nil, error);
         return;
     }
-    RLMObjectBase *obj = [_realm resolveThreadSafeReference:tsr];
+    RLMObjectBase *obj = [realm resolveThreadSafeReference:tsr];
 
-    _object = realm::Object(_realm->_realm, *obj->_info->objectSchema, obj->_row);
+    _object = realm::Object(realm->_realm, *obj->_info->objectSchema, obj->_row);
     _token = _object.add_notification_callback(ObjectChangeCallbackWrapper{block, obj},
                                                obj->_info->keyPathArrayFromStringArray(keyPaths));
 }
@@ -755,8 +753,13 @@ RLM_DIRECT_MEMBERS
             completion();
         }
     };
-    _token = _object.add_notification_callback(ObjectChangeCallbackWrapper{block, obj, completion},
-                                               obj->_info->keyPathArrayFromStringArray(keyPaths));
+    try {
+        _token = _object.add_notification_callback(ObjectChangeCallbackWrapper{block, obj, completion},
+                                                   obj->_info->keyPathArrayFromStringArray(keyPaths));
+    }
+    catch (const realm::Exception& e) {
+        @throw RLMException(e);
+    }
 }
 
 - (void)registrationComplete:(void (^)())completion {
@@ -788,7 +791,7 @@ RLMNotificationToken *RLMObjectBaseAddNotificationBlock(RLMObjectBase *obj,
     RLMThreadSafeReference *tsr = [RLMThreadSafeReference referenceWithThreadConfined:(id)obj];
     auto token = [[RLMObjectNotificationToken alloc] init];
     token->_realm = obj->_realm;
-    RLMRealmConfiguration *config = obj->_realm.configuration;
+    RLMRealmConfiguration *config = obj->_realm.configurationSharingSchema;
     dispatch_async(queue, ^{
         @autoreleasepool {
             [token addNotificationBlock:block threadSafeReference:tsr config:config keyPaths:keyPaths queue:queue];

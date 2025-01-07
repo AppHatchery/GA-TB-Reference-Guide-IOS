@@ -161,7 +161,7 @@ struct InvalidArgument : LogicError {
 struct InvalidColumnKey : InvalidArgument {
     template <class T>
     InvalidColumnKey(const T& name)
-        : InvalidArgument(ErrorCodes::InvalidProperty, util::format("Invalid property for object type %1", name))
+        : InvalidArgument(ErrorCodes::InvalidProperty, util::format("Invalid property for object type: %1", name))
     {
     }
     InvalidColumnKey()
@@ -306,6 +306,14 @@ struct MigrationFailed : LogicError {
     ~MigrationFailed() noexcept override;
 };
 
+struct SyncSchemaMigrationFailed : LogicError {
+    SyncSchemaMigrationFailed(std::string_view msg)
+        : LogicError(ErrorCodes::SyncSchemaMigrationError, msg)
+    {
+    }
+    ~SyncSchemaMigrationFailed() noexcept override;
+};
+
 struct ObjectAlreadyExists : RuntimeError {
     template <class T, class U>
     ObjectAlreadyExists(const U& object_type, T pk_val)
@@ -367,20 +375,11 @@ struct SystemError : RuntimeError {
 
     ~SystemError() noexcept override;
 
-    std::error_code get_system_error() const
-    {
-        return to_status().get_std_error_code();
-    }
-
-    const std::error_category& get_category() const
-    {
-        return get_system_error().category();
-    }
-
 private:
     static Status make_status(std::error_code err, std::string_view msg, bool msg_is_prefix)
     {
-        return Status(err, msg_is_prefix ? util::format("%1: %2 (%3)", msg, err.message(), err.value()) : msg);
+        return Status(ErrorCodes::SystemError,
+                      msg_is_prefix ? util::format("%1: %2 (%3)", msg, err.message(), err.value()) : msg);
     }
 };
 
@@ -415,6 +414,20 @@ struct InvalidQueryArgError : InvalidArgument {
 };
 
 } // namespace query_parser
+
+namespace sync {
+
+// Exception thrown when the request/websocket URL is malformed
+class BadServerUrl : public Exception {
+public:
+    BadServerUrl(std::string_view url)
+        : Exception(ErrorCodes::BadServerUrl, util::format("Unable to parse server URL '%1'", url))
+    {
+    }
+};
+
+} // namespace sync
+
 } // namespace realm
 
 #endif // REALM_EXCEPTIONS_HPP

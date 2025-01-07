@@ -1,34 +1,16 @@
 #!/usr/bin/env ruby
 
-require 'fileutils'
 require 'pathname'
-require 'tmpdir'
-
 require 'octokit'
+require 'fileutils'
 
 BUILD_SH = Pathname(__FILE__).+('../../build.sh').expand_path
-VERSION = `sh '#{BUILD_SH}' get-version`.strip
-RELEASE = "v#{VERSION}"
-
-BUILD = BUILD_SH.parent + 'build'
-OBJC_ZIP = BUILD + "realm-objc-#{VERSION}.zip"
-SWIFT_ZIP = BUILD + "realm-swift-#{VERSION}.zip"
-CARTHAGE_ZIP = BUILD + 'Carthage.framework.zip'
-CARTHAGE_XCFRAMEWORK_ZIP = BUILD + 'Carthage.xcframework.zip'
 
 REPOSITORY = 'realm/realm-swift'
 
-puts 'Creating Carthage XCFramework package'
-FileUtils.rm_f CARTHAGE_XCFRAMEWORK_ZIP
-CARTHAGE_XCODE_VERSION = BUILD_SH.parent.+('Jenkinsfile.releasability').read()[/carthageXcodeVersion = '([0-9.]+)'/, 1]
-
-Dir.mktmpdir do |tmp|
-  Dir.chdir(tmp) do
-    system('unzip', SWIFT_ZIP.to_path, "realm-swift-#{VERSION}/#{CARTHAGE_XCODE_VERSION}/*.xcframework/*", :out=>"/dev/null") || exit(1)
-    Dir.chdir("realm-swift-#{VERSION}/#{CARTHAGE_XCODE_VERSION}") do
-      system('zip', '--symlinks', '-r', CARTHAGE_XCFRAMEWORK_ZIP.to_path, 'Realm.xcframework', 'RealmSwift.xcframework', :out=>"/dev/null") || exit(1)
-    end
-  end
+def sh(*args)
+  puts "executing: #{args.join(' ')}" if false
+  system(*args, false ? {} : {:out => '/dev/null'}) || exit(1)
 end
 
 def release_notes(version)
@@ -46,18 +28,61 @@ def release_notes(version)
   relevant.join.strip
 end
 
-RELEASE_NOTES = release_notes(VERSION)
+def create_release(version)
+  access_token = ENV['GITHUB_ACCESS_TOKEN']
+  raise 'GITHUB_ACCESS_TOKEN must be set to create GitHub releases' unless access_token
 
-github = Octokit::Client.new
-github.access_token = ENV['GITHUB_ACCESS_TOKEN']
+  release_notes = release_notes(version)
+  github = Octokit::Client.new
+  github.access_token = ENV['GITHUB_ACCESS_TOKEN']
 
-puts 'Creating GitHub release'
-prerelease = (VERSION =~ /alpha|beta|rc/) ? true : false
-response = github.create_release(REPOSITORY, RELEASE, name: RELEASE, body: RELEASE_NOTES, prerelease: prerelease)
-release_url = response[:url]
+  puts 'Creating GitHub release'
+  prerelease = (version =~ /alpha|beta|rc|preview/) ? true : false
+  release = "v#{version}"
+  response = github.create_release(REPOSITORY, release, name: release, body: release_notes, prerelease: prerelease)
+  release_url = response[:url]
 
-uploads = [OBJC_ZIP, SWIFT_ZIP, CARTHAGE_ZIP, CARTHAGE_XCFRAMEWORK_ZIP]
-uploads.each do |upload|
-  puts "Uploading #{upload.basename} to GitHub"
-  github.upload_asset(release_url, upload.to_path, content_type: 'application/zip')
+  Dir.glob 'release-package/*.zip' do |upload|
+    puts "Uploading #{upload} to GitHub"
+    github.upload_asset(release_url, upload, content_type: 'application/zip')
+  end
+end
+
+def package_release_notes(version)
+  release_notes = release_notes(version)
+  FileUtils.mkdir_p("ExtractedChangelog")
+  out_file = File.new("ExtractedChangelog/CHANGELOG.md", "w")
+  out_file.puts(release_notes)
+end
+
+def download_artifacts(key, sha)
+  access_token = ENV['GITHUB_ACCESS_TOKEN']
+  raise 'GITHUB_ACCESS_TOKEN must be set to create GitHub releases' unless access_token
+
+  github = Octokit::Client.new
+  github.auto_paginate = true
+  github.access_token = ENV['GITHUB_ACCESS_TOKEN']
+
+  response = github.repository_artifacts(REPOSITORY)
+  sha_artifacts = response[:artifacts].filter { |artifact| artifact[:workflow_run][:head_sha] == sha && artifact[:name] == key }
+  sha_artifacts.each { |artifact|
+    download_url = github.artifact_download_url(REPOSITORY, artifact[:id])
+    download(artifact[:name], download_url)
+  }
+end
+
+def download(name, url)
+  sh 'curl', '--output', "#{name}.zip", "#{url}"
+end
+
+if ARGV[0] == 'create-release'
+  version = ARGV[1]
+  create_release(version)
+elsif ARGV[0] == 'package-release-notes'
+  version = ARGV[1]
+  package_release_notes(version)
+elsif ARGV[0] == 'download-artifacts'
+  key = ARGV[1]
+  sha = ARGV[2]
+  download_artifacts(key, sha)
 end

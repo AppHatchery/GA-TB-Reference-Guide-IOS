@@ -17,7 +17,7 @@
 ////////////////////////////////////////////////////////////////////////////
 
 import Foundation
-import Realm
+import Realm.Private
 
 // MARK: MinMaxType
 
@@ -146,7 +146,6 @@ extension Projection: KeypathSortable {}
     public func makeIterator() -> RLMIterator<Element> {
         return RLMIterator(collection: collection)
     }
-
 }
 
 extension Results: Encodable where Element: Encodable {}

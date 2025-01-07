@@ -161,6 +161,15 @@ public:
     {
         return IntegerColumnIterator(this, size());
     }
+
+    void dump_values(std::ostream& o, int level) const
+    {
+        std::string indent(level * 2, ' ');
+
+        for_all([&o, indent](auto i) {
+            o << indent << int(i) << std::endl;
+        });
+    }
 };
 
 inline int64_t IntegerColumnIterator::operator->() const
@@ -183,6 +192,6 @@ inline std::ostream& operator<<(std::ostream& out, const IntegerColumnIterator& 
     out << "IntegerColumnIterator at index: " << it.get_position();
     return out;
 }
-}
+} // namespace realm
 
 #endif /* REALM_COLUMN_INTEGER_HPP */

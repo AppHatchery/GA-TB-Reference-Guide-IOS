@@ -18,6 +18,8 @@
 
 #import <Realm/RLMResults.h>
 
+#import "RLMRealm_Private.h"
+
 @class RLMObjectSchema;
 
 RLM_HEADER_AUDIT_BEGIN(nullability)
@@ -27,7 +29,6 @@ RLM_HEADER_AUDIT_BEGIN(nullability)
 
 + (instancetype)emptyDetachedResults;
 - (RLMResults *)snapshot;
-
 @end
 
 RLM_HEADER_AUDIT_END(nullability)

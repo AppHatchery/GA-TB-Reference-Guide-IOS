@@ -28,6 +28,7 @@
 #import "RLMProperty_Private.h"
 #import "RLMQueryUtil.hpp"
 #import "RLMRealmConfiguration_Private.hpp"
+#import "RLMScheduler.h"
 #import "RLMSchema_Private.h"
 #import "RLMSectionedResults_Private.hpp"
 #import "RLMThreadSafeReference_Private.hpp"
@@ -51,6 +52,11 @@ using namespace realm;
 #pragma clang diagnostic pop
 
 @interface RLMResults () <RLMThreadConfined_Private>
+@end
+
+// private properties
+@interface RLMResults ()
+@property (nonatomic, nullable) RLMObjectId *associatedSubscriptionId;
 @end
 
 //

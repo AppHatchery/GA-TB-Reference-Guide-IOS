@@ -68,13 +68,11 @@ public:
         return m_root->nb_columns();
     }
 
-    static size_t size_from_ref(ref_type, Allocator& alloc);
-
     void destroy()
     {
         m_root->destroy_deep();
     }
-    void nullify_links(ObjKey, CascadeState&);
+    void nullify_incoming_links(ObjKey, CascadeState&);
     bool is_empty() const noexcept
     {
         return size() == 0;
@@ -85,11 +83,11 @@ public:
     }
     MemRef ensure_writeable(ObjKey k)
     {
-        return m_root->ensure_writeable(k);
+        return m_root->ensure_writeable(ClusterNode::RowKey(k));
     }
     void update_ref_in_parent(ObjKey k, ref_type ref)
     {
-        m_root->update_ref_in_parent(k, ref);
+        m_root->update_ref_in_parent(ClusterNode::RowKey(k), ref);
     }
     Array& get_fields_accessor(Array& fallback, MemRef mem) const
     {
