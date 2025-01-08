@@ -33,6 +33,20 @@ class GuideViewController: UIViewController, URLSessionDownloadDelegate {
 
 	var isGradientAdded = false
 
+	let downloadManager = BatchDownloadManager()
+
+	func startBatchDownload() {
+		// TODO: Refactor this so that the filename is automatically generated based on the URL's file
+
+		let filesToDownload = [
+			(url: "https://tbguide.framer.website/tb-coordinator", filename: "tb-coordinator.html"),
+			(url: "https://tbguide.framer.website/charts", filename: "charts.html"),
+			(url: "https://tbguide.framer.website/chapter-with-app-bar", filename: "chapter_with_app_bar.html"),
+		]
+
+		downloadManager.startBatchDownload(files: filesToDownload)
+	}
+
 	//    var search = UISearchController(searchResultsController: nil) // Declare the searchController
 
 	override func viewDidLoad() {
@@ -208,7 +222,7 @@ class GuideViewController: UIViewController, URLSessionDownloadDelegate {
 			return
 		}
 
-		startDownload()
+		startBatchDownload()
 	}
 
 	private func startDownload() {
@@ -216,9 +230,6 @@ class GuideViewController: UIViewController, URLSessionDownloadDelegate {
 			showAlert(message: "Invalid URL")
 			return
 		}
-
-		// Access button directly through the outlet
-		// DownloadFilesButton.isEnabled = false
 
 		var request = URLRequest(url: url)
 		request.timeoutInterval = 30
@@ -253,7 +264,7 @@ class GuideViewController: UIViewController, URLSessionDownloadDelegate {
 			return
 		}
 
-		let destinationURL = documentsPath.appendingPathComponent("tb_coordinator.pdf")
+		let destinationURL = documentsPath.appendingPathComponent("tb_coordinator.html")
 
 		do {
 			if FileManager.default.fileExists(atPath: destinationURL.path) {
@@ -330,5 +341,15 @@ class GuideViewController: UIViewController, URLSessionDownloadDelegate {
 			webViewViewController.uniqueAddress = bible.chartURLs[quickPointer]
 			webViewViewController.hidesBottomBarWhenPushed = true
 		}
+
+		if let HTMLFilesViewController = segue.destination as? HTMLFilesViewController {
+			HTMLFilesViewController.hidesBottomBarWhenPushed = true
+		}
+
+//		if let downloadedFileWebViewViewController = segue.destination as? DownloadedFileWebViewController {
+//			downloadedFileWebViewViewController.downloadedFile = "https://tbguide.framer.website/charts"
+//			downloadedFileWebViewViewController.navTitle = "Charts"
+//			downloadedFileWebViewViewController.hidesBottomBarWhenPushed = true
+//		}
 	}
 }
