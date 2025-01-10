@@ -75,10 +75,10 @@ class HTMLFilesViewController: UIViewController, UITableViewDelegate, UITableVie
 		navigationController?.pushViewController(webViewController, animated: true)
 	}
 
-//	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//		if let webViewViewController = segue.destination as? WebViewViewController {
-//			webViewViewController.navTitle = "HTML PAGE"
-//			webViewViewController.hidesBottomBarWhenPushed = true
-//		}
-//	}
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if let webViewViewController = segue.destination as? WebViewViewController {
+			webViewViewController.navTitle = "HTML PAGE"
+			webViewViewController.hidesBottomBarWhenPushed = false
+		}
+	}
 }

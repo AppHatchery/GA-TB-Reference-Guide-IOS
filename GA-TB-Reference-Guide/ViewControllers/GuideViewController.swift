@@ -39,9 +39,7 @@ class GuideViewController: UIViewController, URLSessionDownloadDelegate {
 		// TODO: Refactor this so that the filename is automatically generated based on the URL's file
 
 		let filesToDownload = [
-			(url: "https://tbguide.framer.website/tb-coordinator", filename: "tb-coordinator.html"),
-			(url: "https://tbguide.framer.website/charts", filename: "charts.html"),
-			(url: "https://tbguide.framer.website/chapter-with-app-bar", filename: "chapter_with_app_bar.html"),
+			(url: "https://tbguide.framer.website/tb-coordinator", filename: "15_appendix_district_tb_coordinators_(by_district).html"),
 		]
 
 		downloadManager.startBatchDownload(files: filesToDownload)
