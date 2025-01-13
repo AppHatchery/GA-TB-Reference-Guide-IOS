@@ -38,7 +38,7 @@ class GuideViewController: UIViewController, URLSessionDownloadDelegate {
 		// TODO: Refactor this so that the filename is automatically generated based on the URL's file
 
 		let filesToDownload = [
-			(url: "https://tbguide.framer.website/tb-coordinator", filename: "15_appendix_district_tb_coordinators_(by_district).html"),
+			(url: "https://apphatchery.github.io/GA-TB-Reference-Guide-Web/pages/15_appendix_district_tb_coordinators_(by_district).html", filename: "15_appendix_district_tb_coordinators_(by_district).html"),
 		]
 
 		downloadManager.startBatchDownload(files: filesToDownload)
@@ -88,7 +88,7 @@ class GuideViewController: UIViewController, URLSessionDownloadDelegate {
 			object: nil)
 
 		startBatchDownload()
-		copyBundleFilesToDocuments()
+//		copyBundleFilesToDocuments()
 
 		navigationController?.hidesBottomBarWhenPushed = false
 		hidesBottomBarWhenPushed = false
