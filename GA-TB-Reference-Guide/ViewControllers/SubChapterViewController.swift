@@ -90,9 +90,6 @@ class SubChapterViewController: UIViewController, UITableViewDelegate, UITableVi
 			let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
 			let filePath = documentsPath.appendingPathComponent("\(filename)")
 
-			print("NAMES OF THINGSSSSSSSSSSSS:", chapterIndex
-				.chapterCode[arrayPointer][subArrayPointer])
-
 			if FileManager.default
 				.fileExists(atPath: filePath.path) && chapterIndex
 				.chapterCode[arrayPointer][subArrayPointer] == "15_appendix_district_tb_coordinators_(by_district)"
