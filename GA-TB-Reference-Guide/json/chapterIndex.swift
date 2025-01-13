@@ -168,7 +168,7 @@ public class ChapterIndex {
     "XI. Community Tuberculosis Control",
     "XII. Alternative Housing Program for Homeless TB Patients in Georgia",
     "XIII. Georgia Department of Public Health (DPH) Community Guidelines for Respiratory Isolation of Patients with Active TB in the Community",
-    "XIV. References","XV. Appendix: District TB Coordinators (by District)","XVI. Abbreviations","XVII. Acknowledgements","XVIII. Hello and Welcome Clinical Statement","XIX. For more information",
+    "XIV. References",	"XV. Appendix: District TB Coordinators (by District)","XVI. Abbreviations","XVII. Acknowledgements","XVIII. Hello and Welcome Clinical Statement","XIX. For more information",
     "II. Diagnostic Tests for Latent TB Infection (LTBI)",
     "II. Diagnostic Tests for Latent TB Infection (LTBI)",
     "II. Diagnostic Tests for Latent TB Infection (LTBI)",
