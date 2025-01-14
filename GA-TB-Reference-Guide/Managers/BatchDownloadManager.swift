@@ -22,7 +22,6 @@ class BatchDownloadManager: NSObject, URLSessionDownloadDelegate {
 	func startBatchDownload(files: [(url: String, filename: String)]) {
 		// Reset counter
 		completedDownloads = 0
-//		downloads.clear() // Clear previous downloads
 
 		// Convert string URLs to URL objects and start downloads
 		for file in files {

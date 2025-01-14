@@ -44,33 +44,6 @@ class GuideViewController: UIViewController, URLSessionDownloadDelegate {
 		downloadManager.startBatchDownload(files: filesToDownload)
 	}
 
-	func copyBundleFilesToDocuments() {
-		guard let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
-			return
-		}
-
-		// Get URL to the bundle folder containing HTML files
-		guard let bundleFolderPath = Bundle.main.path(forResource: "YourFolderName", ofType: nil) else {
-			return
-		}
-
-		do {
-			let files = try FileManager.default.contentsOfDirectory(atPath: bundleFolderPath)
-			for file in files where file.hasSuffix(".html") {
-				let bundleFile = (bundleFolderPath as NSString).appendingPathComponent(file)
-				let documentsFile = documentsPath.appendingPathComponent(file)
-
-				// Copy if doesn't exist
-				if !FileManager.default.fileExists(atPath: documentsFile.path) {
-					try FileManager.default.copyItem(atPath: bundleFile, toPath: documentsFile.path)
-				}
-				print("COPYING \(file)")
-			}
-		} catch {
-			print("Error copying files: \(error)")
-		}
-	}
-
 	//    var search = UISearchController(searchResultsController: nil) // Declare the searchController
 
 	@objc func downloadsCompleted() {
@@ -88,7 +61,6 @@ class GuideViewController: UIViewController, URLSessionDownloadDelegate {
 			object: nil)
 
 		startBatchDownload()
-//		copyBundleFilesToDocuments()
 
 		navigationController?.hidesBottomBarWhenPushed = false
 		hidesBottomBarWhenPushed = false
@@ -222,8 +194,6 @@ class GuideViewController: UIViewController, URLSessionDownloadDelegate {
 		}
 
 		let configuration = URLSessionConfiguration.default
-		//		configuration.timeoutIntervalForRequest = 30
-		//		configuration.timeoutIntervalForResource = 300
 		configuration.waitsForConnectivity = true
 		configuration.allowsCellularAccess = true
 
