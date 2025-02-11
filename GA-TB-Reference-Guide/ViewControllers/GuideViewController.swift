@@ -38,7 +38,8 @@ class GuideViewController: UIViewController, URLSessionDownloadDelegate {
 		// Handle completion, perhaps reload your UI
 		print("All files have been downloaded and replaced")
 
-		showAlert(message: "Files updated successfully")
+		// showAlert(message: "Files updated successfully")
+		showAlert(message: "Fresh updates are ready for you to continue enjoying the app.")
 	}
 
 	override func viewDidLoad() {
@@ -185,25 +186,8 @@ class GuideViewController: UIViewController, URLSessionDownloadDelegate {
 		}
 	}
 
-	private func startDownload() {
-		guard let url = URL(string: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf") else {
-			showAlert(message: "Invalid URL")
-			return
-		}
-
-		var request = URLRequest(url: url)
-		request.timeoutInterval = 30
-		request.cachePolicy = .reloadIgnoringLocalCacheData
-
-		let sessionConfig = URLSessionConfiguration.default
-		let session = URLSession(configuration: sessionConfig, delegate: self, delegateQueue: nil)
-
-		let downloadTask = session.downloadTask(with: url)
-		downloadTask.resume()
-	}
-
 	private func showAlert(message: String) {
-		let alert = UIAlertController(title: "Download", message: message, preferredStyle: .alert)
+		let alert = UIAlertController(title: "New Content Available", message: message, preferredStyle: .alert)
 		alert.addAction(UIAlertAction(title: "OK", style: .default))
 		present(alert, animated: true)
 	}
