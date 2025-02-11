@@ -95,8 +95,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 		navigationController?.navigationBar.setGradientBackground(to: navigationController!)
 		navigationController?.navigationBar.tintColor = UIColor.white
 		navigationController?.navigationBar.shadowImage = UIImage()
-		// Set Gradient to the width of the navigationBarda
-		// searchView.setGradientBackground(size: CGRect(x: searchView.bounds.origin.x, y: searchView.bounds.origin.y, width: self.navigationController?.navigationBar.bounds.width ?? searchView.bounds.width, height: searchView.bounds.height))
 		// Do any additional setup after loading the view.
 
 		for searchTab in searchTabs {
@@ -121,43 +119,92 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 	func loadHTML() {
 		// Load the htmls on the array - needs to be on viewDidLoad otherwise it duplicates the content
 
-		// For Both Chapters and Charts Together
-		for items in chapterIndex.chapterCode.joined() {
-			let path = Bundle.main.path(forResource: items.components(separatedBy: ".")[0], ofType: "html")!
-			// This converts a multiline string into a single file, the .whitespacesandnewlines doesn't work to do that job
-			var htmlString = try! String(contentsOfFile: path).replacingOccurrences(of: "[\\s\n]+", with: " ", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
-			htmlString = htmlString.replacingOccurrences(of: "<.*?>", with: "", options: .regularExpression, range: nil)
-			tempHTML.append(htmlString)
-		}
+		let filename = "15_appendix_district_tb_coordinators_(by_district).html"
+		let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+		let downloadedTbCoordinatorPath = documentsPath.appendingPathComponent(filename)
 
-		// For Charts
-		for items in chapterIndex.chartCode.joined() {
-			let path = Bundle.main.path(forResource: items.components(separatedBy: ".")[0], ofType: "html")!
-			// This converts a multiline string into a single file, the .whitespacesandnewlines doesn't work to do that job
-			var htmlString = try! String(contentsOfFile: path).replacingOccurrences(of: "[\\s\n]+", with: " ", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
-			htmlString = htmlString.replacingOccurrences(of: "<.*?>", with: "", options: .regularExpression, range: nil)
-			tempChartsHTML.append(htmlString)
-		}
+		do {
+			var downloadedTbCoordinatorContent = try String(contentsOf: downloadedTbCoordinatorPath, encoding: .utf8)
 
-		// For Chapters Only
-		// To remove the tables from the chapterIndex.chapterCode array
-		// Regex has been used to avoid creating another chapterOnly array inside the chapterIndex class
-		let regexPattern = "^table_\\d+_.*"
-		let figurePattern = "^fig1_factors_to_be_considered$"
+			downloadedTbCoordinatorContent = downloadedTbCoordinatorContent.replacingOccurrences(
+				of: "[\\s\n]+",
+				with: " ",
+				options: .regularExpression
+			).trimmingCharacters(in: .whitespacesAndNewlines)
 
-		chaptersOnly = chapterIndex.chapterCode.filter { subarray in
-			!subarray.contains { element in
-				element.range(of: regexPattern, options: .regularExpression, range: nil, locale: nil) != nil ||
-					element.range(of: figurePattern, options: .regularExpression, range: nil, locale: nil) != nil
+			downloadedTbCoordinatorContent = downloadedTbCoordinatorContent.replacingOccurrences(
+				of: "<.*?>",
+				with: "",
+				options: .regularExpression,
+				range: nil
+			)
+
+			print("DOWNLOAD FILE STRINGS: \(downloadedTbCoordinatorContent)")
+
+				// For Both Chapters and Charts Together
+			for items in chapterIndex.chapterCode.joined() {
+				let resourceName = items.components(separatedBy: ".")[0]
+
+				// When the filename is  "15_appendix_district_tb_coordinators_(by_district)" add the download TB Coordinators content to be indexed
+				// TODO: Needs thorough testing to properly check that all files text is being indexed
+				if resourceName == "15_appendix_district_tb_coordinators_(by_district)" {
+					tempHTML.append(downloadedTbCoordinatorContent)
+					continue
+				}
+
+				let path = Bundle.main.path(forResource: items.components(separatedBy: ".")[0], ofType: "html")!
+
+				// This converts a multiline string into a single file, the .whitespacesandnewlines doesn't work to do that job
+				var htmlString = try! String(contentsOfFile: path).replacingOccurrences(of: "[\\s\n]+", with: " ", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
+
+				htmlString = htmlString.replacingOccurrences(of: "<.*?>", with: "", options: .regularExpression, range: nil)
+
+				tempHTML.append(htmlString)
 			}
-		}
 
-		for items in chaptersOnly.joined() {
-			let path = Bundle.main.path(forResource: items.components(separatedBy: ".")[0], ofType: "html")!
-			// This converts a multiline string into a single file, the .whitespacesandnewlines doesn't work to do that job
-			var htmlString = try! String(contentsOfFile: path).replacingOccurrences(of: "[\\s\n]+", with: " ", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
-			htmlString = htmlString.replacingOccurrences(of: "<.*?>", with: "", options: .regularExpression, range: nil)
-			tempChaptersHTML.append(htmlString)
+				// For Charts
+			for items in chapterIndex.chartCode.joined() {
+				let path = Bundle.main.path(forResource: items.components(separatedBy: ".")[0], ofType: "html")!
+					// This converts a multiline string into a single file, the .whitespacesandnewlines doesn't work to do that job
+				var htmlString = try! String(contentsOfFile: path).replacingOccurrences(of: "[\\s\n]+", with: " ", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
+				htmlString = htmlString.replacingOccurrences(of: "<.*?>", with: "", options: .regularExpression, range: nil)
+				tempChartsHTML.append(htmlString)
+			}
+
+			// For Chapters Only
+			// To remove the tables from the chapterIndex.chapterCode array
+			// Regex has been used to avoid creating another chapterOnly array inside the chapterIndex class
+			let regexPattern = "^table_\\d+_.*"
+			let figurePattern = "^fig1_factors_to_be_considered$"
+
+			chaptersOnly = chapterIndex.chapterCode.filter { subarray in
+				!subarray.contains { element in
+					element.range(of: regexPattern, options: .regularExpression, range: nil, locale: nil) != nil ||
+					element.range(of: figurePattern, options: .regularExpression, range: nil, locale: nil) != nil
+				}
+			}
+
+			for items in chaptersOnly.joined() {
+				let resourceName = items.components(separatedBy: ".")[0]
+
+				// When the filename is  "15_appendix_district_tb_coordinators_(by_district)" add the download TB Coordinators content to be indexed
+				// TODO: Needs thorough testing to properly check that all files text is being indexed
+				if resourceName == "15_appendix_district_tb_coordinators_(by_district)" {
+					tempChaptersHTML.append(downloadedTbCoordinatorContent)
+					continue
+				}
+
+				let path = Bundle.main.path(forResource: items.components(separatedBy: ".")[0], ofType: "html")!
+				
+				var htmlString = try! String(contentsOfFile: path).replacingOccurrences(of: "[\\s\n]+", with: " ", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
+				htmlString = htmlString.replacingOccurrences(of: "<.*?>", with: "", options: .regularExpression, range: nil)
+
+				htmlString = htmlString.replacingOccurrences(of: "15_appendix_district_tb_coordinators_(by_district)", with: downloadedTbCoordinatorContent)
+
+				tempChaptersHTML.append(htmlString)
+			}
+		} catch {
+			print("Error reading file: \(error.localizedDescription)")
 		}
 	}
 

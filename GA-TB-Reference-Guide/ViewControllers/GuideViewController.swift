@@ -44,13 +44,13 @@ class GuideViewController: UIViewController, URLSessionDownloadDelegate {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+		remoteConfig.configureRemoteConfig()
+
 		NotificationCenter.default.addObserver(
 			self,
 			selector: #selector(downloadsCompleted),
 			name: Notification.Name("BatchDownloadCompleted"),
 			object: nil)
-
-		remoteConfig.configureRemoteConfig()
 
 		navigationController?.hidesBottomBarWhenPushed = false
 		hidesBottomBarWhenPushed = false
