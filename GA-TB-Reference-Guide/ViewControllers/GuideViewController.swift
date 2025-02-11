@@ -32,23 +32,13 @@ class GuideViewController: UIViewController, URLSessionDownloadDelegate {
 
 	var isGradientAdded = false
 
-	let downloadManager = BatchDownloadManager()
-
-	func startBatchDownload() {
-		// TODO: Refactor this so that the filename is automatically generated based on the URL's file
-
-		let filesToDownload = [
-			(url: "https://apphatchery.github.io/GA-TB-Reference-Guide-Web/pages/15_appendix_district_tb_coordinators_(by_district).html", filename: "15_appendix_district_tb_coordinators_(by_district).html"),
-		]
-
-		downloadManager.startBatchDownload(files: filesToDownload)
-	}
-
-	//    var search = UISearchController(searchResultsController: nil) // Declare the searchController
+	let remoteConfig = RemoteConfigHelper()
 
 	@objc func downloadsCompleted() {
 		// Handle completion, perhaps reload your UI
 		print("All files have been downloaded and replaced")
+
+		showAlert(message: "Files updated successfully")
 	}
 
 	override func viewDidLoad() {
@@ -60,7 +50,7 @@ class GuideViewController: UIViewController, URLSessionDownloadDelegate {
 			name: Notification.Name("BatchDownloadCompleted"),
 			object: nil)
 
-		startBatchDownload()
+		remoteConfig.configureRemoteConfig()
 
 		navigationController?.hidesBottomBarWhenPushed = false
 		hidesBottomBarWhenPushed = false
@@ -75,43 +65,7 @@ class GuideViewController: UIViewController, URLSessionDownloadDelegate {
 		navbarTitle.minimumScaleFactor = 0.5
 		navbarTitle.adjustsFontSizeToFitWidth = true
 		navigationItem.titleView = navbarTitle
-
-		//        navigationController?.navigationItem.searchController = search
-
-		//        let tapSearchGesture = UITapGestureRecognizer(target: self, action: #selector(tapSearch(_:)))
-		//        let tapSearchGesture2 = UITapGestureRecognizer(target: self, action: #selector(tapSearch(_:)))
-
-		//        search.delegate = self
-		//        search.searchTextField.addGestureRecognizer(tapSearchGesture)
-		//        search.addGestureRecognizer(tapSearchGesture2)
-
-		//        let textFieldInsideSearchBar = search.value(forKey: "searchField") as? UITextField
-		//        textFieldInsideSearchBar?.textColor = UIColor.searchBarText
-		//        textFieldInsideSearchBar?.layer.cornerRadius = 60
-		//        textFieldInsideSearchBar?.backgroundColor = UIColor.searchBar
-		//        textFieldInsideSearchBar?.attributedPlaceholder = NSAttributedString(string: "Search Guide",attributes: [NSAttributedString.Key.foregroundColor: UIColor.searchBarText])
-		//        searchView.frame = CGRect(x: searchView.frame.origin.x, y: searchView.frame.origin.x, width: searchView.frame.width, height: search.frame.height+10)
-		//
-		//        navigationController?.navigationBar.setGradientBackground(to: self.navigationController!)
-		//        self.navigationController?.navigationBar.shadowImage = UIImage()
-
-		//        searchView.setGradientBackground()
-		// Register for `UIContentSizeCategory.didChangeNotification`
-		//        NotificationCenter.default.addObserver(self, selector: #selector(preferredContentSizeChanged(_:)), name: UIContentSizeCategory.didChangeNotification, object: nil)
-
-		// Do any additional setup after loading the view.
 	}
-
-	// Code below is to shift the size of the view's gradient layer if the user changes Dynamic Font Size while the app is open
-	//    @objc func preferredContentSizeChanged(_ notification: Notification) {
-	//        print(search.frame)
-	//        // Need to remove the gradient somehow and put a new gradient
-	//        let newFrame = CGRect(x: searchView.frame.origin.x, y: searchView.frame.origin.x, width: searchView.frame.width, height: search.frame.height+10)
-	//        searchView.removeGradientBackground()
-	//        searchView.frame = newFrame
-	//        searchView.setGradientBackground(size: newFrame)
-	//            /* perform other operations if necessary */
-	//        }
 
 	// --------------------------------------------------------------------------------------------------
 	@objc func dismissKeyboard() {
