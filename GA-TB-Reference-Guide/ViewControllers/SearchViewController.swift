@@ -119,18 +119,46 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         self.view.addGestureRecognizer(tap)
     }
     
-    func loadHTML() {
-        // Load the htmls on the array - needs to be on viewDidLoad otherwise it duplicates the content
-		
+	func loadHTML() {
+			// Load the htmls on the array - needs to be on viewDidLoad otherwise it duplicates the content
+		let filename = "15_appendix_district_tb_coordinators_(by_district).html"
+		let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+		let downloadedTbCoordinatorPath = documentsPath.appendingPathComponent(filename)
+
+		var downloadedTbCoordinatorContent = try! String(contentsOf: downloadedTbCoordinatorPath, encoding: .utf8)
+
+		downloadedTbCoordinatorContent = downloadedTbCoordinatorContent.replacingOccurrences(
+			of: "[\\s\n]+",
+			with: " ",
+			options: .regularExpression
+		).trimmingCharacters(in: .whitespacesAndNewlines)
+
+		downloadedTbCoordinatorContent = downloadedTbCoordinatorContent.replacingOccurrences(
+			of: "<.*?>",
+			with: "",
+			options: .regularExpression,
+			range: nil
+		)
+
 			// For Both Chapters and Charts Together
-        for items in chapterIndex.chapterCode.joined() {
-            let path = Bundle.main.path(forResource: items.components(separatedBy: ".")[0], ofType: "html")!
-            // This converts a multiline string into a single file, the .whitespacesandnewlines doesn't work to do that job
-            var htmlString = try! String(contentsOfFile: path).replacingOccurrences(of: "[\\s\n]+", with: " ", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
-            htmlString = htmlString.replacingOccurrences(of: "<.*?>", with: "", options: .regularExpression, range: nil)
-            tempHTML.append(htmlString)
-        }
-		
+		for items in chapterIndex.chapterCode.joined() {
+			let resourceName = items.components(separatedBy: ".")[0]
+
+				// When the filename is  "15_appendix_district_tb_coordinators_(by_district)" add the download TB Coordinators content to be indexed
+				// TODO: Needs thorough testing to properly check that all files text is being indexed
+			if resourceName == "15_appendix_district_tb_coordinators_(by_district)" {
+				tempHTML.append(downloadedTbCoordinatorContent)
+				continue
+			}
+
+			let path = Bundle.main.path(forResource: items.components(separatedBy: ".")[0], ofType: "html")!
+
+				// This converts a multiline string into a single file, the .whitespacesandnewlines doesn't work to do that job
+			var htmlString = try! String(contentsOfFile: path).replacingOccurrences(of: "[\\s\n]+", with: " ", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
+			htmlString = htmlString.replacingOccurrences(of: "<.*?>", with: "", options: .regularExpression, range: nil)
+			tempHTML.append(htmlString)
+		}
+
 		// For Charts
 		for items in chapterIndex.chartCode.joined() {
 			let path = Bundle.main.path(forResource: items.components(separatedBy: ".")[0], ofType: "html")!
@@ -154,6 +182,15 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 		}
 		
 		for items in chaptersOnly.joined() {
+			let resourceName = items.components(separatedBy: ".")[0]
+
+				// When the filename is  "15_appendix_district_tb_coordinators_(by_district)" add the download TB Coordinators content to be indexed
+				// TODO: Needs thorough testing to properly check that all files text is being indexed
+			if resourceName == "15_appendix_district_tb_coordinators_(by_district)" {
+				tempChaptersHTML.append(downloadedTbCoordinatorContent)
+				continue
+			}
+
 			let path = Bundle.main.path(forResource: items.components(separatedBy: ".")[0], ofType: "html")!
 			// This converts a multiline string into a single file, the .whitespacesandnewlines doesn't work to do that job
 			var htmlString = try! String(contentsOfFile: path).replacingOccurrences(of: "[\\s\n]+", with: " ", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
