@@ -15,6 +15,9 @@
 		B40EA6F42C46B90400C03A12 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B40EA6F32C46B90400C03A12 /* UserNotifications.framework */; };
 		B473888A2D5C7D5300A4C168 /* BatchDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47388892D5C7D4400A4C168 /* BatchDownloadManager.swift */; };
 		B473888C2D5C82CE00A4C168 /* FileToOpenCheckers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B473888B2D5C82AB00A4C168 /* FileToOpenCheckers.swift */; };
+		B473888E2D5C991900A4C168 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = B473888D2D5C991900A4C168 /* FirebaseRemoteConfig */; };
+		B47388902D5C991900A4C168 /* FirebaseRemoteConfigSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = B473888F2D5C991900A4C168 /* FirebaseRemoteConfigSwift-Beta */; };
+		B47388932D5C997B00A4C168 /* RemoteConfigHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47388922D5C997B00A4C168 /* RemoteConfigHelper.swift */; };
 		B474B07E2C2DA54B0092F4F6 /* FontSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B474B07C2C2DA54B0092F4F6 /* FontSettingsView.swift */; };
 		B474B07F2C2DA54B0092F4F6 /* FontSettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B474B07D2C2DA54B0092F4F6 /* FontSettingsView.xib */; };
 		B474B0832C2DFE230092F4F6 /* Pods_GA_TB_Reference_Guide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF23FEBF71C372B82094033D /* Pods_GA_TB_Reference_Guide.framework */; };
@@ -192,6 +195,7 @@
 		B40EA6F32C46B90400C03A12 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		B47388892D5C7D4400A4C168 /* BatchDownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchDownloadManager.swift; sourceTree = "<group>"; };
 		B473888B2D5C82AB00A4C168 /* FileToOpenCheckers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileToOpenCheckers.swift; sourceTree = "<group>"; };
+		B47388922D5C997B00A4C168 /* RemoteConfigHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigHelper.swift; sourceTree = "<group>"; };
 		B474B07C2C2DA54B0092F4F6 /* FontSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsView.swift; sourceTree = "<group>"; };
 		B474B07D2C2DA54B0092F4F6 /* FontSettingsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FontSettingsView.xib; sourceTree = "<group>"; };
 		B4DC30702C5BF2E90019CCA1 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
@@ -364,6 +368,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B473888E2D5C991900A4C168 /* FirebaseRemoteConfig in Frameworks */,
+				B47388902D5C991900A4C168 /* FirebaseRemoteConfigSwift-Beta in Frameworks */,
 				B40EA6F42C46B90400C03A12 /* UserNotifications.framework in Frameworks */,
 				D46BECDF2756E5BB000D8553 /* FirebaseDatabase in Frameworks */,
 				B474B0832C2DFE230092F4F6 /* Pods_GA_TB_Reference_Guide.framework in Frameworks */,
@@ -600,6 +606,7 @@
 		D4B0B0C426D01DB3003BD1EA /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				B47388922D5C997B00A4C168 /* RemoteConfigHelper.swift */,
 				B473888B2D5C82AB00A4C168 /* FileToOpenCheckers.swift */,
 				B47388892D5C7D4400A4C168 /* BatchDownloadManager.swift */,
 				D4A06A5426E6D2330093D144 /* ContentPage.swift */,
@@ -736,6 +743,8 @@
 				D46BECDC2756E5BB000D8553 /* FirebaseDynamicLinks */,
 				D46BECDE2756E5BB000D8553 /* FirebaseDatabase */,
 				D4597EA52A701B4E00EF8906 /* Pendo */,
+				B473888D2D5C991900A4C168 /* FirebaseRemoteConfig */,
+				B473888F2D5C991900A4C168 /* FirebaseRemoteConfigSwift-Beta */,
 			);
 			productName = "GA-TB-Reference-Guide";
 			productReference = D4B0B0A926D01CA6003BD1EA /* GA-TB-Reference-Guide.app */;
@@ -999,6 +1008,7 @@
 				D4C0C0DF2800D64600346F96 /* OldRealmFile.swift in Sources */,
 				D4B0B0E126D05002003BD1EA /* UINavigationBar+Extensions.swift in Sources */,
 				D463130B271CD38300C7D9EC /* Guide.swift in Sources */,
+				B47388932D5C997B00A4C168 /* RemoteConfigHelper.swift in Sources */,
 				D42F25E826EEFA8F009DC942 /* NoteTableViewCell.swift in Sources */,
 				D449FCBB26EC6604008C3ACB /* SaveNote.swift in Sources */,
 				D4B0B0CC26D0239C003BD1EA /* UIColor+Extensions.swift in Sources */,
@@ -1256,6 +1266,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B473888D2D5C991900A4C168 /* FirebaseRemoteConfig */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D46BECD52756E5BB000D8553 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseRemoteConfig;
+		};
+		B473888F2D5C991900A4C168 /* FirebaseRemoteConfigSwift-Beta */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D46BECD52756E5BB000D8553 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseRemoteConfigSwift-Beta";
+		};
 		D4597EA52A701B4E00EF8906 /* Pendo */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D4597EA42A701B4E00EF8906 /* XCRemoteSwiftPackageReference "pendo-mobile-ios" */;

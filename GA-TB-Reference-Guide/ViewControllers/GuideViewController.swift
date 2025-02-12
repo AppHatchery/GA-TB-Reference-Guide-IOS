@@ -35,11 +35,7 @@ class GuideViewController: UIViewController, URLSessionDelegate {
     
     var isGradientAdded: Bool = false
 
-	let downloadManager = BatchDownloadManager()
-
-	let filesToDownload = [
-		(url: "https://apphatchery.github.io/GA-TB-Reference-Guide-Web/pages/15_appendix_district_tb_coordinators_(by_district).html", filename: "15_appendix_district_tb_coordinators_(by_district).html"),
-	]
+	let remoteConfig = RemoteConfigHelper()
 
 //	downloadManager.
 
@@ -72,12 +68,18 @@ class GuideViewController: UIViewController, URLSessionDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(false)
+		super.viewDidAppear(true)
 
 		setupDownloadSession()
 		setupNetworkMonitoring()
 
-		downloadManager.startBatchDownload(files: filesToDownload)
+		remoteConfig.configureRemoteConfig()
+
+		NotificationCenter.default.addObserver(
+			self,
+			selector: #selector(downloadsCompleted),
+			name: Notification.Name("BatchDownloadCompleted"),
+			object: nil)
 
         navigationController?.hidesBottomBarWhenPushed = false
         self.hidesBottomBarWhenPushed = false
@@ -143,6 +145,30 @@ class GuideViewController: UIViewController, URLSessionDelegate {
 		configuration.allowsCellularAccess = true
 
 		downloadSession = URLSession(configuration: configuration, delegate: self, delegateQueue: .main)
+	}
+
+	@objc func downloadsCompleted(_ notification: Notification) {
+		let alertTitle: String = "New Content Available"
+		let alertMessage: String = "Fresh updates are ready for you to continue enjoying the app."
+
+		if let userInfo = notification.userInfo as? [String: Any],
+		   let updatedFiles = userInfo["updatedFiles"] as? [String] {
+
+			DispatchQueue.main.async {
+				self.showAlert(title: alertTitle, message: alertTitle)
+			}
+		} else {
+			DispatchQueue.main.async {
+				self.showAlert(title: alertTitle, message: alertTitle)
+			}
+		}
+	}
+
+
+	private func showAlert(title: String, message: String) {
+		let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+		alert.addAction(UIAlertAction(title: "OK", style: .default))
+		present(alert, animated: true)
 	}
 
     
