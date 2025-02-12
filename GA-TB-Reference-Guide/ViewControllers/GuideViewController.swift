@@ -8,8 +8,9 @@
 import UIKit
 import RealmSwift
 import FirebaseDynamicLinks
+import Network
 
-class GuideViewController: UIViewController, UISearchBarDelegate {
+class GuideViewController: UIViewController, URLSessionDelegate {
 
     @IBOutlet var topQuickLinks: [UIButton]!
     @IBOutlet var bottomQuickLinks: [UIButton]!
@@ -21,14 +22,27 @@ class GuideViewController: UIViewController, UISearchBarDelegate {
     var guideView: Guide!
     var url: URL!
     var header: String!
-    
+
+	private var downloadTask: URLSessionDownloadTask!
+	private var downloadSession: URLSession!
+	private var networkMonitor: NWPathMonitor?
+	private var isConnected = true
+
     var quickTitle = ""
     var quickPointer = 0
     
     let bible = ChapterIndex()
     
     var isGradientAdded: Bool = false
-    
+
+	let downloadManager = BatchDownloadManager()
+
+	let filesToDownload = [
+		(url: "https://apphatchery.github.io/GA-TB-Reference-Guide-Web/pages/15_appendix_district_tb_coordinators_(by_district).html", filename: "15_appendix_district_tb_coordinators_(by_district).html"),
+	]
+
+//	downloadManager.
+
 //    var search = UISearchController(searchResultsController: nil) // Declare the searchController
         
     override func viewDidLoad() {
@@ -47,44 +61,9 @@ class GuideViewController: UIViewController, UISearchBarDelegate {
         navbarTitle.minimumScaleFactor = 0.5
         navbarTitle.adjustsFontSizeToFitWidth = true
         navigationItem.titleView = navbarTitle
-//        navigationController?.navigationItem.searchController = search
         
-//        let tapSearchGesture = UITapGestureRecognizer(target: self, action: #selector(tapSearch(_:)))
-//        let tapSearchGesture2 = UITapGestureRecognizer(target: self, action: #selector(tapSearch(_:)))
-        
-//        search.delegate = self
-//        search.searchTextField.addGestureRecognizer(tapSearchGesture)
-//        search.addGestureRecognizer(tapSearchGesture2)
-
-//        let textFieldInsideSearchBar = search.value(forKey: "searchField") as? UITextField
-//        textFieldInsideSearchBar?.textColor = UIColor.searchBarText
-//        textFieldInsideSearchBar?.layer.cornerRadius = 60
-//        textFieldInsideSearchBar?.backgroundColor = UIColor.searchBar
-//        textFieldInsideSearchBar?.attributedPlaceholder = NSAttributedString(string: "Search Guide",attributes: [NSAttributedString.Key.foregroundColor: UIColor.searchBarText])
-//        searchView.frame = CGRect(x: searchView.frame.origin.x, y: searchView.frame.origin.x, width: searchView.frame.width, height: search.frame.height+10)
-//                
-//        navigationController?.navigationBar.setGradientBackground(to: self.navigationController!)
-//        self.navigationController?.navigationBar.shadowImage = UIImage()
-        
-//        searchView.setGradientBackground()
-        // Register for `UIContentSizeCategory.didChangeNotification`
-//        NotificationCenter.default.addObserver(self, selector: #selector(preferredContentSizeChanged(_:)), name: UIContentSizeCategory.didChangeNotification, object: nil)
-
-        
-        // Do any additional setup after loading the view.
+        // Do any additional setup after loading the view
     }
-    
-    // Code below is to shift the size of the view's gradient layer if the user changes Dynamic Font Size while the app is open
-//    @objc func preferredContentSizeChanged(_ notification: Notification) {
-//        print(search.frame)
-//        // Need to remove the gradient somehow and put a new gradient
-//        let newFrame = CGRect(x: searchView.frame.origin.x, y: searchView.frame.origin.x, width: searchView.frame.width, height: search.frame.height+10)
-//        searchView.removeGradientBackground()
-//        searchView.frame = newFrame
-//        searchView.setGradientBackground(size: newFrame)
-//            /* perform other operations if necessary */
-//        }
-
     
     //--------------------------------------------------------------------------------------------------
     @objc func dismissKeyboard() {
@@ -94,10 +73,12 @@ class GuideViewController: UIViewController, UISearchBarDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
-//        if !isGradientAdded {
-//            searchView.setGradientBackground(size: searchView.layer.bounds)
-//            isGradientAdded = true
-//        }
+
+		setupDownloadSession()
+		setupNetworkMonitoring()
+
+		downloadManager.startBatchDownload(files: filesToDownload)
+
         navigationController?.hidesBottomBarWhenPushed = false
         self.hidesBottomBarWhenPushed = false
         
@@ -137,11 +118,33 @@ class GuideViewController: UIViewController, UISearchBarDelegate {
             guideView.allCharts.addTarget( self, action: #selector( self.tapAllCharts( _:)), for: .touchUpInside)
         }
     }
-    
-//    @objc func tapSearch(_ sender: UITapGestureRecognizer){
-//        print("tapped search")
-//        performSegue(withIdentifier: "SegueToSearchViewController", sender: nil)
-//    }
+
+	private func setupNetworkMonitoring() {
+		networkMonitor = NWPathMonitor()
+		networkMonitor?.pathUpdateHandler = { [unowned self] path in
+			self.isConnected = path.status == .satisfied
+			DispatchQueue.main.async {
+				// Access button directly through the outlet
+				self.isConnected = path.status == .satisfied
+			}
+		}
+		networkMonitor?.start(queue: DispatchQueue.global())
+	}
+
+	private func setupDownloadSession() {
+		// Check if downloadSession is already initialized
+		if downloadSession != nil {
+			print("Download session already initialized: \(String(describing: downloadSession))")
+			return
+		}
+
+		let configuration = URLSessionConfiguration.default
+		configuration.waitsForConnectivity = true
+		configuration.allowsCellularAccess = true
+
+		downloadSession = URLSession(configuration: configuration, delegate: self, delegateQueue: .main)
+	}
+
     
     @IBAction func tapTopButton(_ sender: UIButton){
         quickTitle = bible.chapters[sender.tag-1]
