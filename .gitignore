@@ -6,3 +6,6 @@ GA-TB-Reference-Guide/.DS_Store
 .DS_Store
 /Pods
 /Pods
+Pods/
+Pods/*
+GA-TB-Reference-Guide/
