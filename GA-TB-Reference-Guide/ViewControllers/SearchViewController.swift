@@ -618,14 +618,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 				case (_, true):
 					let chapterCodes = Array(chaptersOnly.joined())
 					let chapterNested = Array(chapterIndex.chapterNested.joined())
-					url = Bundle.main.url(forResource: chapterCodes[subArrayPointer], withExtension: "html")!
+					url = getFileURL(for: chapterCodes[subArrayPointer])
 					titleLabel = chapterNested[subArrayPointer]
 					uniqueAddress = chapterCodes[subArrayPointer]
 					
 				default:
 					let chapterCodes = Array(chapterIndex.chapterCode.joined())
 					let chapterNested = Array(chapterIndex.chapterNested.joined())
-					url = Bundle.main.url(forResource: chapterCodes[subArrayPointer], withExtension: "html")!
+					url = getFileURL(for: chapterCodes[subArrayPointer])
 					titleLabel = chapterNested[subArrayPointer]
 					uniqueAddress = chapterCodes[subArrayPointer]
 			}
