@@ -22,7 +22,9 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     
     @IBOutlet weak var searchTermView: UILabel!
     @IBOutlet weak var searchView: UIView!
-    var identifier = ""
+	@IBOutlet var metadataView: UIView!
+
+	var identifier = ""
     var header = "Placeholder Content"
     var url: URL!
     var uniqueAddress: String!
@@ -91,7 +93,13 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         } else {
             searchView.isHidden = true
         }
-   
+
+		if url.lastPathComponent == "15_appendix_district_tb_coordinators_(by_district).html" {
+			metadataView.isHidden = true
+			metadataView.heightAnchor.constraint(equalToConstant: 0).isActive = true
+			separator.isHidden = true
+		}
+
         let navbarTitle = UILabel()
         navbarTitle.text = navTitle
         navbarTitle.textColor = UIColor.white
