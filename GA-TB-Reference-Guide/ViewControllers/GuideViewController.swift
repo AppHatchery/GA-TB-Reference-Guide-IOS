@@ -66,12 +66,9 @@ class GuideViewController: UIViewController, URLSessionDelegate {
         // To hide the keyboard when the user clicks search
         self.view.endEditing(true)
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(true)
 
-		setupDownloadSession()
-		setupNetworkMonitoring()
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(true)
 
 		remoteConfig.configureRemoteConfig()
 
@@ -80,6 +77,15 @@ class GuideViewController: UIViewController, URLSessionDelegate {
 			selector: #selector(downloadsCompleted),
 			name: Notification.Name("BatchDownloadCompleted"),
 			object: nil)
+	}
+
+    override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(true)
+
+		setupDownloadSession()
+		setupNetworkMonitoring()
+
+		remoteConfig.configureRemoteConfig()
 
         navigationController?.hidesBottomBarWhenPushed = false
         self.hidesBottomBarWhenPushed = false
@@ -155,11 +161,11 @@ class GuideViewController: UIViewController, URLSessionDelegate {
 		   let updatedFiles = userInfo["updatedFiles"] as? [String] {
 
 			DispatchQueue.main.async {
-				self.showAlert(title: alertTitle, message: alertTitle)
+				self.showAlert(title: alertTitle, message: alertMessage)
 			}
 		} else {
 			DispatchQueue.main.async {
-				self.showAlert(title: alertTitle, message: alertTitle)
+				self.showAlert(title: alertTitle, message: alertMessage)
 			}
 		}
 	}
