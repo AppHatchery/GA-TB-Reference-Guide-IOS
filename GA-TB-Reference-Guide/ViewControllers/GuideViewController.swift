@@ -14,10 +14,8 @@ class GuideViewController: UIViewController, URLSessionDelegate {
 
     @IBOutlet var topQuickLinks: [UIButton]!
     @IBOutlet var bottomQuickLinks: [UIButton]!
-	
-//    @IBOutlet weak var searchView: UIView!
-//    @IBOutlet weak var search: UISearchBar!
     @IBOutlet weak var contentView: UIView!
+
     var scrollView: UIScrollView!
     var guideView: Guide!
     var url: URL!
@@ -36,10 +34,6 @@ class GuideViewController: UIViewController, URLSessionDelegate {
     var isGradientAdded: Bool = false
 
 	let remoteConfig = RemoteConfigHelper()
-
-//	downloadManager.
-
-//    var search = UISearchController(searchResultsController: nil) // Declare the searchController
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,11 +56,6 @@ class GuideViewController: UIViewController, URLSessionDelegate {
     }
     
     //--------------------------------------------------------------------------------------------------
-    @objc func dismissKeyboard() {
-        // To hide the keyboard when the user clicks search
-        self.view.endEditing(true)
-    }
-
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(true)
 
@@ -243,11 +232,5 @@ class GuideViewController: UIViewController, URLSessionDelegate {
             webViewViewController.uniqueAddress = bible.chartURLs[quickPointer]
             webViewViewController.hidesBottomBarWhenPushed = true
         }
-        
-
-//        if let searchViewController = segue.destination as? SearchViewController
-//        {
-//            searchViewController.size = searchView.bounds
-//        }
     }
 }

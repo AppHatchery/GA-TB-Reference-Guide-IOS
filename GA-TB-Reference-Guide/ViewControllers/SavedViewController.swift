@@ -374,18 +374,31 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         if let webViewViewController = segue.destination as? WebViewViewController
         {
             if isFavorite {
-                webViewViewController.url = Bundle.main.url(forResource: favoriteURLs[arrayPointer], withExtension: "html")!
+				if isFileDownloaded(for: favoriteURLs[arrayPointer]) {
+					webViewViewController.url = getFileURL(for: favoriteURLs[arrayPointer])
+				} else {
+					webViewViewController.url = Bundle.main.url(forResource: favoriteURLs[arrayPointer], withExtension: "html")!
+				}
                 webViewViewController.titlelabel = favoriteSubChapters[arrayPointer]
                 webViewViewController.navTitle = favoriteChapters[arrayPointer]
                 webViewViewController.uniqueAddress = favoriteURLs[arrayPointer]
             } else if isLastOpened {
-                webViewViewController.url = Bundle.main.url(forResource: historyURLs[arrayPointer], withExtension: "html")!
+				if isFileDownloaded(for: historyURLs[arrayPointer]) {
+					webViewViewController.url = getFileURL(for: historyURLs[arrayPointer])
+				} else {
+					webViewViewController.url = Bundle.main
+						.url(forResource: historyURLs[arrayPointer], withExtension: "html")!
+				}
                 webViewViewController.titlelabel = historyNames[arrayPointer]
                 webViewViewController.navTitle = historyChapters[arrayPointer]
                 webViewViewController.uniqueAddress = historyURLs[arrayPointer]
             } else if isNotes {
                 // Add the transition to the correct viewontroller
-                webViewViewController.url = Bundle.main.url(forResource: notesURLs[arrayPointer], withExtension: "html")!
+				if isFileDownloaded(for: notesURLs[arrayPointer]) {
+					webViewViewController.url = getFileURL(for: notesURLs[arrayPointer])
+				} else {
+					webViewViewController.url = Bundle.main.url(forResource: notesURLs[arrayPointer], withExtension: "html")!
+				}
                 webViewViewController.titlelabel = notesTitles[arrayPointer]
 //                webViewViewController.navTitle = historyChapters[arrayPointer]
                 webViewViewController.uniqueAddress = notesURLs[arrayPointer]
