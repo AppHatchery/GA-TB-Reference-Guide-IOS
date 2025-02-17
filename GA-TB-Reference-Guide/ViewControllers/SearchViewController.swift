@@ -33,7 +33,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     
 	@IBOutlet weak var loader: UIActivityIndicatorView!
 	@IBOutlet weak var loaderView: UIView!
-	
+	@IBOutlet weak var mainLoaderView: UIView!
+	@IBOutlet var mainLoader: UIActivityIndicatorView!
+
     // Initialize Realm
     let realm = RealmHelper.sharedInstance.mainRealm()
     
@@ -113,7 +115,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         // Load the Suggestions Table first before the the Main Table
         showSuggestions()
 		loaderView.isHidden = true
-        
+		mainLoaderView.isHidden = true
+
         // Keyboard dismissal recognizer
         tap.addTarget(self, action: #selector(dismissKeyboard))
         self.view.addGestureRecognizer(tap)
@@ -391,7 +394,21 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 			completion()
 		}
 	}
-	
+
+	func mainLoaderConfig(completion: @escaping () -> Void) {
+		setTimeout(delay: 0){
+			self.mainLoaderView.isHidden = false
+			self.mainLoader.startAnimating()
+		}
+
+		setTimeout(delay: 0.4) {
+			self.mainLoader.stopAnimating()
+			self.mainTableView.isHidden = false
+			self.mainLoaderView.isHidden = true
+			completion()
+		}
+	}
+
 	func setTimeout(delay: Double, closure: @escaping () -> Void) {
 		DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
 			closure()
@@ -550,7 +567,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             search.text = suggestionsList[indexPath.row]
             searchTerm = suggestionsList[indexPath.row]
 			
-			loaderConfig {
+			mainLoaderConfig {
 				self.addRecentSearch(searchTerm: self.searchTerm)
 				self.searchBar(self.search, textDidChange: self.searchTerm)
 			}
@@ -558,7 +575,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             search.text = recentSearchesList[indexPath.row]
             searchTerm = recentSearchesList[indexPath.row]
 			
-			loaderConfig {
+			mainLoaderConfig {
 				self.searchBar(self.search, textDidChange: self.searchTerm)
 			}
         }
@@ -606,7 +623,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         // When user has entered text into the search box
         // Use the filter method to iterate over all items in the data array
         // For each item, return true if the item should be included and false if the
-        if searchText != ""{
+		if !searchText.isEmpty {
             showTableView()
             // Could be search always the strings independently or could be to first search strings together and if nothing returns then search the terms separately but giving the user the option to do that
 

@@ -56,8 +56,11 @@ class GuideViewController: UIViewController, URLSessionDelegate {
     }
     
     //--------------------------------------------------------------------------------------------------
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(true)
+    override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(true)
+
+		setupDownloadSession()
+		setupNetworkMonitoring()
 
 		remoteConfig.configureRemoteConfig()
 
@@ -66,15 +69,6 @@ class GuideViewController: UIViewController, URLSessionDelegate {
 			selector: #selector(downloadsCompleted),
 			name: Notification.Name("BatchDownloadCompleted"),
 			object: nil)
-	}
-
-    override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(true)
-
-		setupDownloadSession()
-		setupNetworkMonitoring()
-
-		remoteConfig.configureRemoteConfig()
 
         navigationController?.hidesBottomBarWhenPushed = false
         self.hidesBottomBarWhenPushed = false
@@ -116,6 +110,12 @@ class GuideViewController: UIViewController, URLSessionDelegate {
         }
     }
 
+	override func viewDidDisappear(_ animated: Bool) {
+		super.viewDidDisappear(true)
+		print("NOTIFICATIONCENTER DISAPPEARED")
+		NotificationCenter.default.removeObserver(self, name: Notification.Name("BatchDownloadCompleted"), object: nil)
+	}
+
 	private func setupNetworkMonitoring() {
 		networkMonitor = NWPathMonitor()
 		networkMonitor?.pathUpdateHandler = { [unowned self] path in
@@ -146,13 +146,13 @@ class GuideViewController: UIViewController, URLSessionDelegate {
 		let alertTitle: String = "New Content Available"
 		let alertMessage: String = "Fresh updates are ready for you to continue enjoying the app."
 
-		if let userInfo = notification.userInfo as? [String: Any],
-		   let updatedFiles = userInfo["updatedFiles"] as? [String] {
-
+		if let updatedFiles = notification.userInfo?["updatedFiles"] as? [String] {
+			print("Updated files: \(updatedFiles)")
 			DispatchQueue.main.async {
 				self.showAlert(title: alertTitle, message: alertMessage)
 			}
 		} else {
+			print("No updated files info.")
 			DispatchQueue.main.async {
 				self.showAlert(title: alertTitle, message: alertMessage)
 			}

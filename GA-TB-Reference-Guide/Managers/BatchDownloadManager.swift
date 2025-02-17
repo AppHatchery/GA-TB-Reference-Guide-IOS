@@ -53,8 +53,12 @@ class BatchDownloadManager: NSObject, URLSessionDownloadDelegate {
 			completedDownloads += 1
 
 				// Post notification with the filename that was updated
+			print("COMPLETED DOWNLOADS: \(completedDownloads)/\(downloads.count)")
 			if completedDownloads == downloads.count {
+				print("Posting BatchDownloadCompleted notification...")
+				
 				DispatchQueue.main.async {
+					print("⚡ Posting BatchDownloadCompleted notification AGAIN!")
 					NotificationCenter.default.post(
 						name: Notification.Name("BatchDownloadCompleted"),
 						object: nil,
