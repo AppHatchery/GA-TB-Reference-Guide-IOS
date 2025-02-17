@@ -690,7 +690,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             // the frame trully is not the entire contentsize because you need to scroll down for the table to register the entire size of the content
             tableFrame = tableView.frame
             
-            separatorHeightConstraint.isActive = false
+//            separatorHeightConstraint.isActive = false
 //            separator.removeConstraint(separatorHeightConstraint)
 
             view.addSubview(tableView)
@@ -1018,8 +1018,8 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     {
         UIView.animate(withDuration: 0.3, delay: 0.01, options: .curveLinear, animations: {
             self.tableView.frame.size.height = 0
-            self.separatorHeightConstraint = self.pseudoseparator.heightAnchor.constraint(equalToConstant: 0.5)
-            self.separatorHeightConstraint.isActive = true
+//            self.separatorHeightConstraint = self.pseudoseparator.heightAnchor.constraint(equalToConstant: 0.5)
+//            self.separatorHeightConstraint.isActive = true
             self.view.layoutIfNeeded()
         }, completion: { finished in
             self.tableView.removeFromSuperview()
