@@ -95,7 +95,9 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             searchView.isHidden = true
         }
 
-		if url.lastPathComponent == "15_appendix_district_tb_coordinators_(by_district).html" {
+		let filename = "15_appendix_district_tb_coordinators_(by_district).html"
+
+		if url.lastPathComponent == filename {
 			metadataView.isHidden = true
 			metadataView.heightAnchor.constraint(equalToConstant: 0).isActive = true
 			separator.isHidden = true

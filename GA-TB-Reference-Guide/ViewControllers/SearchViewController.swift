@@ -132,22 +132,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 			var downloadedTbCoordinatorContent = try String(contentsOf: downloadedTbCoordinatorPath, encoding: .utf8)
 
 //			print(downloadedTbCoordinatorContent)
-//
-//			let iconPath = try Bundle.main.path(forResource: "ic_title_icon", ofType: "svg")
-//
-//			if let iconURL = Bundle.main.url(forResource: "ic_title_icon", withExtension: "svg") {
-//				print("Icon path: \(iconURL.absoluteString)")
-//			} else {
-//				print("File not found in bundle!")
-//			}
-//
-//
-//			let fileURL = try URL(fileURLWithPath: iconPath).absoluteString
-//			print("ICON PATHHHHHHH")
-//			print(fileURL)
-
-//			downloadedTbCoordinatorContent = downloadedTbCoordinatorContent.replacingOccurrences(of: "../assets/ic_title_icon.svg", with: fileURL)
-
+			
 			// Replace occurrences of the old path with the new file URL
 			downloadedTbCoordinatorContent = downloadedTbCoordinatorContent.replacingOccurrences(
 				of: "[\\s\n]+",

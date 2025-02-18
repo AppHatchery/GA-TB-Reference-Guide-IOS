@@ -21,10 +21,13 @@ class BatchDownloadManager: NSObject, URLSessionDownloadDelegate {
 
 	func startBatchDownload(files: [(url: String, filename: String)]) {
 		completedDownloads = 0
-
-		// Convert string URLs to URL objects and start downloads
+		downloads.removeAll()
+		
 		for file in files {
-			guard let url = URL(string: file.url) else { continue }
+			guard let url = URL(string: file.url) else {
+				print("❌ Invalid URL: \(file.url)")
+				continue
+			}
 			downloads.append((url, file.filename))
 			let downloadTask = urlSession.downloadTask(with: url)
 			downloadTask.resume()
@@ -37,6 +40,7 @@ class BatchDownloadManager: NSObject, URLSessionDownloadDelegate {
 			  let index = downloads.firstIndex(where: { $0.url == url }),
 			  let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
 		else {
+			print("❌ Failed to retrieve original URL or documents path.")
 			return
 		}
 
@@ -48,17 +52,16 @@ class BatchDownloadManager: NSObject, URLSessionDownloadDelegate {
 				try FileManager.default.removeItem(at: destinationURL)
 			}
 
-			try FileManager.default.copyItem(at: location, to: destinationURL)
+				// Move the downloaded file
+			try FileManager.default.moveItem(at: location, to: destinationURL)
 
 			completedDownloads += 1
+			print("✅ Download completed: \(filename) (\(completedDownloads)/\(downloads.count))")
 
-				// Post notification with the filename that was updated
-			print("COMPLETED DOWNLOADS: \(completedDownloads)/\(downloads.count)")
+				// Post notification when all downloads complete
 			if completedDownloads == downloads.count {
-				print("Posting BatchDownloadCompleted notification...")
-				
 				DispatchQueue.main.async {
-					print("⚡ Posting BatchDownloadCompleted notification AGAIN!")
+					print("📢 Posting BatchDownloadCompleted notification...")
 					NotificationCenter.default.post(
 						name: Notification.Name("BatchDownloadCompleted"),
 						object: nil,
@@ -67,7 +70,7 @@ class BatchDownloadManager: NSObject, URLSessionDownloadDelegate {
 				}
 			}
 		} catch {
-			print("Error replacing file \(filename): \(error.localizedDescription)")
+			print("❌ Error handling file \(filename): \(error.localizedDescription)")
 		}
 	}
 
@@ -78,6 +81,6 @@ class BatchDownloadManager: NSObject, URLSessionDownloadDelegate {
 	{
 		guard let url = downloadTask.originalRequest?.url else { return }
 		let progress = Float(totalBytesWritten) / Float(totalBytesExpectedToWrite) * 100
-		print("Download progress for \(url): \(progress)%")
+		print("📥 Download progress for \(url.lastPathComponent): \(String(format: "%.2f", progress))%")
 	}
 }
