@@ -23,6 +23,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     @IBOutlet weak var searchTermView: UILabel!
     @IBOutlet weak var searchView: UIView!
 	@IBOutlet var metadataView: UIView!
+	@IBOutlet var metadataViewHeightConstraint: NSLayoutConstraint!
 
 	var identifier = ""
     var header = "Placeholder Content"
@@ -98,6 +99,8 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
 			metadataView.isHidden = true
 			metadataView.heightAnchor.constraint(equalToConstant: 0).isActive = true
 			separator.isHidden = true
+			metadataViewHeightConstraint.isActive = false
+			metadataViewHeightConstraint.constant = 0
 		}
 
         let navbarTitle = UILabel()

@@ -843,20 +843,6 @@ Start by opening any subchapter or chart.</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jSc-wm-b9l">
                                 <rect key="frame" x="20" y="151.5" width="335" height="444.5"/>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uyt-6T-1jJ">
-                                <rect key="frame" x="20" y="142" width="335" height="1"/>
-                                <color key="backgroundColor" systemColor="systemMintColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="wxV-RY-Fs9"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cOo-xK-9O0">
-                                <rect key="frame" x="20" y="140" width="335" height="1"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="DAy-Ph-QV9"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TL0-rX-dOD" userLabel="Metadata View">
                                 <rect key="frame" x="20" y="80" width="335" height="45"/>
                                 <subviews>
@@ -869,8 +855,11 @@ Start by opening any subchapter or chart.</string>
                                         <color key="textColor" name="customDarkGray"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Placeholder Title" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="375" translatesAutoresizingMaskIntoConstraints="NO" id="wxl-6c-aLt">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Placeholder Title" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="375" translatesAutoresizingMaskIntoConstraints="NO" id="wxl-6c-aLt">
                                         <rect key="frame" x="0.0" y="0.0" width="335" height="20.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20.5" id="yGD-7e-xD2"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -879,14 +868,28 @@ Start by opening any subchapter or chart.</string>
                                 </subviews>
                                 <color key="backgroundColor" name="backgroundColor"/>
                                 <constraints>
+                                    <constraint firstItem="2T8-CA-J1j" firstAttribute="top" secondItem="wxl-6c-aLt" secondAttribute="bottom" priority="999" constant="8.5" id="7ie-yh-6Wh"/>
                                     <constraint firstItem="wxl-6c-aLt" firstAttribute="top" secondItem="TL0-rX-dOD" secondAttribute="top" id="80t-OB-mKw"/>
                                     <constraint firstAttribute="bottom" secondItem="2T8-CA-J1j" secondAttribute="bottom" id="D6q-3X-LKV"/>
-                                    <constraint firstItem="2T8-CA-J1j" firstAttribute="top" secondItem="wxl-6c-aLt" secondAttribute="bottom" constant="8.5" id="ENY-do-4vP"/>
-                                    <constraint firstItem="2T8-CA-J1j" firstAttribute="top" secondItem="wxl-6c-aLt" secondAttribute="bottom" constant="8.5" id="H4P-R6-Ipj"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="45" id="PJW-8L-1p2"/>
                                     <constraint firstItem="2T8-CA-J1j" firstAttribute="leading" secondItem="TL0-rX-dOD" secondAttribute="leading" id="ViX-oW-0B2"/>
                                     <constraint firstItem="wxl-6c-aLt" firstAttribute="leading" secondItem="TL0-rX-dOD" secondAttribute="leading" id="jUK-QC-CbX"/>
                                     <constraint firstAttribute="trailing" secondItem="2T8-CA-J1j" secondAttribute="trailing" id="p3I-UG-LGW"/>
                                     <constraint firstAttribute="trailing" secondItem="wxl-6c-aLt" secondAttribute="trailing" id="uGm-Ax-jTA"/>
+                                </constraints>
+                            </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uyt-6T-1jJ">
+                                <rect key="frame" x="20" y="142" width="335" height="1"/>
+                                <color key="backgroundColor" systemColor="systemMintColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="wxV-RY-Fs9"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cOo-xK-9O0">
+                                <rect key="frame" x="20" y="140" width="335" height="1"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="DAy-Ph-QV9"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="doE-r2-vu4">
@@ -906,7 +909,7 @@ Start by opening any subchapter or chart.</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="close" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pta-Ef-nPC">
-                                        <rect key="frame" x="265.5" y="6" width="40.5" height="32"/>
+                                        <rect key="frame" x="265.5" y="6" width="61.5" height="32"/>
                                         <buttonConfiguration key="configuration" style="filled">
                                             <backgroundConfiguration key="background" cornerRadius="23">
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -919,7 +922,7 @@ Start by opening any subchapter or chart.</string>
                                 </subviews>
                                 <color key="backgroundColor" name="dialogColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="Pta-Ef-nPC" secondAttribute="trailing" constant="21" id="404-Kg-hy8"/>
+                                    <constraint firstAttribute="trailing" secondItem="Pta-Ef-nPC" secondAttribute="trailing" id="404-Kg-hy8"/>
                                     <constraint firstAttribute="bottom" secondItem="Pta-Ef-nPC" secondAttribute="bottom" constant="8" id="7XL-JN-KAT"/>
                                     <constraint firstAttribute="bottom" secondItem="2pP-Bw-BQS" secondAttribute="bottom" constant="10" id="7md-qc-OIP"/>
                                     <constraint firstItem="2pP-Bw-BQS" firstAttribute="leading" secondItem="doE-r2-vu4" secondAttribute="leading" constant="20" id="8j1-yI-aN1"/>
@@ -1082,7 +1085,7 @@ Start by opening any subchapter or chart.</string>
                         <viewLayoutGuide key="safeArea" id="iku-5P-OPX"/>
                         <color key="backgroundColor" name="backgroundColor"/>
                         <constraints>
-                            <constraint firstItem="cOo-xK-9O0" firstAttribute="top" secondItem="iku-5P-OPX" secondAttribute="top" priority="999" constant="76" id="2si-2e-ax0"/>
+                            <constraint firstItem="cOo-xK-9O0" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iku-5P-OPX" secondAttribute="top" priority="999" constant="76" id="2si-2e-ax0"/>
                             <constraint firstItem="Uyt-6T-1jJ" firstAttribute="trailing" secondItem="jSc-wm-b9l" secondAttribute="trailing" id="3Ea-xZ-Q78"/>
                             <constraint firstItem="1Sk-qE-mCt" firstAttribute="top" secondItem="jSc-wm-b9l" secondAttribute="bottom" constant="1" id="49f-6J-vn7"/>
                             <constraint firstItem="Uyt-6T-1jJ" firstAttribute="leading" secondItem="jSc-wm-b9l" secondAttribute="leading" id="4cg-Hj-f0s"/>
@@ -1102,7 +1105,7 @@ Start by opening any subchapter or chart.</string>
                             <constraint firstItem="1Sk-qE-mCt" firstAttribute="leading" secondItem="iku-5P-OPX" secondAttribute="leading" id="dSk-XI-qak"/>
                             <constraint firstItem="Uyt-6T-1jJ" firstAttribute="leading" secondItem="Z8y-iW-y0h" secondAttribute="leadingMargin" constant="4" id="dUj-O3-CVa"/>
                             <constraint firstItem="Uyt-6T-1jJ" firstAttribute="top" secondItem="cOo-xK-9O0" secondAttribute="bottom" constant="1" id="gSz-1Q-ZJs"/>
-                            <constraint firstItem="cOo-xK-9O0" firstAttribute="top" secondItem="TL0-rX-dOD" secondAttribute="bottom" constant="15" id="mNo-Ge-mUY"/>
+                            <constraint firstItem="cOo-xK-9O0" firstAttribute="top" relation="lessThanOrEqual" secondItem="TL0-rX-dOD" secondAttribute="bottom" constant="15" id="mNo-Ge-mUY"/>
                             <constraint firstItem="iku-5P-OPX" firstAttribute="trailing" secondItem="doE-r2-vu4" secondAttribute="trailing" constant="24" id="nV4-WP-osW"/>
                             <constraint firstAttribute="trailingMargin" secondItem="cOo-xK-9O0" secondAttribute="trailing" constant="4" id="rYr-t2-HGF"/>
                             <constraint firstItem="1Sk-qE-mCt" firstAttribute="bottom" secondItem="iku-5P-OPX" secondAttribute="bottom" id="ra5-Dn-me4"/>
@@ -1115,6 +1118,8 @@ Start by opening any subchapter or chart.</string>
                         <outlet property="contentView" destination="jSc-wm-b9l" id="jss-B6-64n"/>
                         <outlet property="dateLabel" destination="2T8-CA-J1j" id="8wg-F0-bh8"/>
                         <outlet property="favoriteIcon" destination="1uh-gr-z8Z" id="0Ik-KA-h4M"/>
+                        <outlet property="metadataView" destination="TL0-rX-dOD" id="pTH-1x-TvN"/>
+                        <outlet property="metadataViewHeightConstraint" destination="PJW-8L-1p2" id="sYm-Iz-uUa"/>
                         <outlet property="pseudoseparator" destination="Uyt-6T-1jJ" id="Qt4-hU-NDN"/>
                         <outlet property="searchTermView" destination="kdy-S2-KzM" id="Tn2-tn-dIX"/>
                         <outlet property="searchView" destination="doE-r2-vu4" id="WaS-11-H4l"/>
