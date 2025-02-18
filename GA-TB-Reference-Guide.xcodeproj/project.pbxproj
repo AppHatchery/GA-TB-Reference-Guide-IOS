@@ -22,7 +22,7 @@
 		B474B07F2C2DA54B0092F4F6 /* FontSettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B474B07D2C2DA54B0092F4F6 /* FontSettingsView.xib */; };
 		B474B0832C2DFE230092F4F6 /* Pods_GA_TB_Reference_Guide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF23FEBF71C372B82094033D /* Pods_GA_TB_Reference_Guide.framework */; };
 		B4DC30712C5BF2E90019CCA1 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC30702C5BF2E90019CCA1 /* Search.swift */; };
-		B4DF2DCA2D64C5EA0027BC48 /* ic_title_icon.svg in Resources */ = {isa = PBXBuildFile; fileRef = B4DF2DC92D64C5EA0027BC48 /* ic_title_icon.svg */; };
+		B4DF2DCD2D64C7B60027BC48 /* ic_title_icon.svg in Resources */ = {isa = PBXBuildFile; fileRef = B4DF2DCC2D64C7B60027BC48 /* ic_title_icon.svg */; };
 		D42F25E826EEFA8F009DC942 /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42F25E626EEFA8F009DC942 /* NoteTableViewCell.swift */; };
 		D42F25E926EEFA8F009DC942 /* NoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D42F25E726EEFA8F009DC942 /* NoteTableViewCell.xib */; };
 		D42F263C26EF821B009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi).html in Resources */ = {isa = PBXBuildFile; fileRef = D42F25EE26EF81F8009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi).html */; };
@@ -200,8 +200,7 @@
 		B474B07C2C2DA54B0092F4F6 /* FontSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsView.swift; sourceTree = "<group>"; };
 		B474B07D2C2DA54B0092F4F6 /* FontSettingsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FontSettingsView.xib; sourceTree = "<group>"; };
 		B4DC30702C5BF2E90019CCA1 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
-		B4DF2DC92D64C5EA0027BC48 /* ic_title_icon.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = ic_title_icon.svg; sourceTree = "<group>"; };
-		B4DF2DCB2D64C69B0027BC48 /* ic_title_icon.svg */ = {isa = PBXFileReference; lastKnownFileType = text; name = ic_title_icon.svg; path = "GA-TB-Reference-Guide/html-content/assets/ic_title_icon.svg"; sourceTree = "<group>"; };
+		B4DF2DCC2D64C7B60027BC48 /* ic_title_icon.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = ic_title_icon.svg; sourceTree = "<group>"; };
 		BF23FEBF71C372B82094033D /* Pods_GA_TB_Reference_Guide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GA_TB_Reference_Guide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D42F25E626EEFA8F009DC942 /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
 		D42F25E726EEFA8F009DC942 /* NoteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteTableViewCell.xib; sourceTree = "<group>"; };
@@ -518,7 +517,7 @@
 		D4515E6A26DAE5D200EE6592 /* assets */ = {
 			isa = PBXGroup;
 			children = (
-				B4DF2DC92D64C5EA0027BC48 /* ic_title_icon.svg */,
+				B4DF2DCC2D64C7B60027BC48 /* ic_title_icon.svg */,
 				D42F26B226F94FC5009DC942 /* uikit-copy.js */,
 				D4515E6D26DAE60600EE6592 /* style.css */,
 				D4515E6E26DAE60600EE6592 /* uikit-icons.js */,
@@ -550,7 +549,6 @@
 		D4B0B0A026D01CA6003BD1EA = {
 			isa = PBXGroup;
 			children = (
-				B4DF2DCB2D64C69B0027BC48 /* ic_title_icon.svg */,
 				D4B0B0AB26D01CA6003BD1EA /* GA-TB-Reference-Guide */,
 				D4B0B0AA26D01CA6003BD1EA /* Products */,
 				EFD2E7F22E60B00C266FFB90 /* Pods */,
@@ -797,7 +795,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B4DF2DCA2D64C5EA0027BC48 /* ic_title_icon.svg in Resources */,
 				D42F268726EF821B009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__a__tuberculin_skin_test.html in Resources */,
 				D42F265426EF821B009DC942 /* table_10_pediatric_dosages_rifampin_in_children_(birth_to_15_years).html in Resources */,
 				D4515E7026DAE60600EE6592 /* uikit.js in Resources */,
@@ -856,6 +853,7 @@
 				D42F266826EF821B009DC942 /* 7_childhood_tuberculosis__a__management_considerations.html in Resources */,
 				D4A5D2A72B2C9BA500812C53 /* EU_noShield_hz_280.png in Resources */,
 				D42F264C26EF821B009DC942 /* 10_tb_infection_control_hospital_isolation_procedures.html in Resources */,
+				B4DF2DCD2D64C7B60027BC48 /* ic_title_icon.svg in Resources */,
 				D42F265826EF821B009DC942 /* 11_community_tuberculosis_control__c__role_of_the_health_department.html in Resources */,
 				D4CCBF5927C032B400E42BC9 /* chapter.json in Resources */,
 				D4A5D2AA2B2C9BA500812C53 /* table18.png in Resources */,
