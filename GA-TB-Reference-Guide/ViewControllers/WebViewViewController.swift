@@ -24,6 +24,9 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     @IBOutlet weak var searchView: UIView!
 	@IBOutlet var metadataView: UIView!
 	@IBOutlet var metadataViewHeightConstraint: NSLayoutConstraint!
+	@IBOutlet var separatorHeightConstraintToViewTop: NSLayoutConstraint!
+	@IBOutlet var metadataViewTopConstraint: NSLayoutConstraint!
+	@IBOutlet var metadataViewBottomConstraint: NSLayoutConstraint!
 
 	var identifier = ""
     var header = "Placeholder Content"
@@ -100,9 +103,10 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
 		if url.lastPathComponent == filename {
 			metadataView.isHidden = true
 			metadataView.heightAnchor.constraint(equalToConstant: 0).isActive = true
+			metadataView.frame.size.height = 0
 			separator.isHidden = true
-			metadataViewHeightConstraint.isActive = false
-			metadataViewHeightConstraint.constant = 0
+			metadataViewTopConstraint.constant = 0
+			metadataViewBottomConstraint.constant = 0
 		}
 
         let navbarTitle = UILabel()

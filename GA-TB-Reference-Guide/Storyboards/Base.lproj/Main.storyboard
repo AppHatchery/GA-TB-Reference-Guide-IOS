@@ -572,7 +572,7 @@ Start by opening any subchapter or chart.</string>
                                                             <view contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="yWq-tM-Ijb" userLabel="Recent Searches View">
                                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="180"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recent" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="taI-Xk-9i9">
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recent" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="taI-Xk-9i9">
                                                                         <rect key="frame" x="20" y="0.0" width="335" height="22"/>
                                                                         <color key="backgroundColor" name="backgroundColor"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
@@ -604,7 +604,7 @@ Start by opening any subchapter or chart.</string>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ibA-1N-v94" userLabel="Search Suggestions View">
                                                                 <rect key="frame" x="0.0" y="200" width="375" height="160"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You may want to search for" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kc6-cH-4BJ">
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You may want to search for" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kc6-cH-4BJ">
                                                                         <rect key="frame" x="20" y="0.0" width="335" height="21.5"/>
                                                                         <color key="backgroundColor" name="backgroundColor"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
@@ -694,7 +694,7 @@ Start by opening any subchapter or chart.</string>
                                                                     <constraint firstAttribute="bottom" secondItem="zED-Vd-w4r" secondAttribute="bottom" id="n1r-Oa-RSo"/>
                                                                 </constraints>
                                                             </view>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="66 Results in" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="866-cY-vUi">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="66 Results in" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="866-cY-vUi">
                                                                 <rect key="frame" x="0.0" y="0.0" width="115" height="29"/>
                                                                 <color key="backgroundColor" name="backgroundColor"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
@@ -857,9 +857,6 @@ Start by opening any subchapter or chart.</string>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Placeholder Title" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="375" translatesAutoresizingMaskIntoConstraints="NO" id="wxl-6c-aLt">
                                         <rect key="frame" x="0.0" y="0.0" width="335" height="20.5"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20.5" id="yGD-7e-xD2"/>
-                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -871,7 +868,6 @@ Start by opening any subchapter or chart.</string>
                                     <constraint firstItem="2T8-CA-J1j" firstAttribute="top" secondItem="wxl-6c-aLt" secondAttribute="bottom" priority="999" constant="8.5" id="7ie-yh-6Wh"/>
                                     <constraint firstItem="wxl-6c-aLt" firstAttribute="top" secondItem="TL0-rX-dOD" secondAttribute="top" id="80t-OB-mKw"/>
                                     <constraint firstAttribute="bottom" secondItem="2T8-CA-J1j" secondAttribute="bottom" id="D6q-3X-LKV"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="45" id="PJW-8L-1p2"/>
                                     <constraint firstItem="2T8-CA-J1j" firstAttribute="leading" secondItem="TL0-rX-dOD" secondAttribute="leading" id="ViX-oW-0B2"/>
                                     <constraint firstItem="wxl-6c-aLt" firstAttribute="leading" secondItem="TL0-rX-dOD" secondAttribute="leading" id="jUK-QC-CbX"/>
                                     <constraint firstAttribute="trailing" secondItem="2T8-CA-J1j" secondAttribute="trailing" id="p3I-UG-LGW"/>
@@ -1119,12 +1115,14 @@ Start by opening any subchapter or chart.</string>
                         <outlet property="dateLabel" destination="2T8-CA-J1j" id="8wg-F0-bh8"/>
                         <outlet property="favoriteIcon" destination="1uh-gr-z8Z" id="0Ik-KA-h4M"/>
                         <outlet property="metadataView" destination="TL0-rX-dOD" id="pTH-1x-TvN"/>
-                        <outlet property="metadataViewHeightConstraint" destination="PJW-8L-1p2" id="sYm-Iz-uUa"/>
+                        <outlet property="metadataViewBottomConstraint" destination="mNo-Ge-mUY" id="b8h-o1-rfZ"/>
+                        <outlet property="metadataViewTopConstraint" destination="OT5-AL-WRU" id="veb-Se-Mhj"/>
                         <outlet property="pseudoseparator" destination="Uyt-6T-1jJ" id="Qt4-hU-NDN"/>
                         <outlet property="searchTermView" destination="kdy-S2-KzM" id="Tn2-tn-dIX"/>
                         <outlet property="searchView" destination="doE-r2-vu4" id="WaS-11-H4l"/>
                         <outlet property="separator" destination="cOo-xK-9O0" id="Grg-GZ-fF5"/>
                         <outlet property="separatorHeightConstraint" destination="DAy-Ph-QV9" id="KEd-e9-Z0x"/>
+                        <outlet property="separatorHeightConstraintToViewTop" destination="2si-2e-ax0" id="vVT-zA-CSo"/>
                         <outlet property="titleLabel" destination="wxl-6c-aLt" id="jd6-ec-PS8"/>
                     </connections>
                 </viewController>
@@ -1225,19 +1223,19 @@ Start by opening any subchapter or chart.</string>
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray5Color">
-            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray6Color">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemMintColor">
-            <color red="0.0" green="0.7803921568627451" blue="0.74509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.78039215689999997" blue="0.74509803919999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

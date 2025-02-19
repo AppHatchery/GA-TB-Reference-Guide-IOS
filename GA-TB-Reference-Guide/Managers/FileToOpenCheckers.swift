@@ -27,7 +27,7 @@ func isFileDownloaded(for filename: String, withExtension fileExtension: String 
 	if filename == "15_appendix_district_tb_coordinators_(by_district)" {
 		updateFileIfDownloaded(filename: filename)
 	}
-	 
+
 	return FileManager.default.fileExists(atPath: filePath.path)
 }
 
