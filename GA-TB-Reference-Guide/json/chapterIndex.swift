@@ -192,7 +192,7 @@ public class ChapterIndex {
 	"X. TB Infection Control: Hospital Isolation Procedures",
 	"V. Treatment of Current (Active) Disease Therapy"]
     
-let updateDate = "July 2024"
+let updateDate = "June 2024"
     
 let JSON = """
     [
