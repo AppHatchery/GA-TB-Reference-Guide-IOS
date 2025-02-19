@@ -13,6 +13,7 @@
 		B401CE622C5BD8C300149414 /* RecentSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B401CE602C5BD8C300149414 /* RecentSearchTableViewCell.swift */; };
 		B401CE632C5BD8C300149414 /* RecentSearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B401CE612C5BD8C300149414 /* RecentSearchTableViewCell.xib */; };
 		B40EA6F42C46B90400C03A12 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B40EA6F32C46B90400C03A12 /* UserNotifications.framework */; };
+		B45C1EF32D65BD3300AF239F /* ic_title_icon.svg in Resources */ = {isa = PBXBuildFile; fileRef = B45C1EF22D65BD3300AF239F /* ic_title_icon.svg */; };
 		B473888A2D5C7D5300A4C168 /* BatchDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47388892D5C7D4400A4C168 /* BatchDownloadManager.swift */; };
 		B473888C2D5C82CE00A4C168 /* FileToOpenCheckers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B473888B2D5C82AB00A4C168 /* FileToOpenCheckers.swift */; };
 		B473888E2D5C991900A4C168 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = B473888D2D5C991900A4C168 /* FirebaseRemoteConfig */; };
@@ -22,7 +23,6 @@
 		B474B07F2C2DA54B0092F4F6 /* FontSettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B474B07D2C2DA54B0092F4F6 /* FontSettingsView.xib */; };
 		B474B0832C2DFE230092F4F6 /* Pods_GA_TB_Reference_Guide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF23FEBF71C372B82094033D /* Pods_GA_TB_Reference_Guide.framework */; };
 		B4DC30712C5BF2E90019CCA1 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC30702C5BF2E90019CCA1 /* Search.swift */; };
-		B4DF2DCD2D64C7B60027BC48 /* ic_title_icon.svg in Resources */ = {isa = PBXBuildFile; fileRef = B4DF2DCC2D64C7B60027BC48 /* ic_title_icon.svg */; };
 		D42F25E826EEFA8F009DC942 /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42F25E626EEFA8F009DC942 /* NoteTableViewCell.swift */; };
 		D42F25E926EEFA8F009DC942 /* NoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D42F25E726EEFA8F009DC942 /* NoteTableViewCell.xib */; };
 		D42F263C26EF821B009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi).html in Resources */ = {isa = PBXBuildFile; fileRef = D42F25EE26EF81F8009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi).html */; };
@@ -194,13 +194,13 @@
 		B401CE602C5BD8C300149414 /* RecentSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchTableViewCell.swift; sourceTree = "<group>"; };
 		B401CE612C5BD8C300149414 /* RecentSearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecentSearchTableViewCell.xib; sourceTree = "<group>"; };
 		B40EA6F32C46B90400C03A12 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		B45C1EF22D65BD3300AF239F /* ic_title_icon.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = ic_title_icon.svg; sourceTree = "<group>"; };
 		B47388892D5C7D4400A4C168 /* BatchDownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchDownloadManager.swift; sourceTree = "<group>"; };
 		B473888B2D5C82AB00A4C168 /* FileToOpenCheckers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileToOpenCheckers.swift; sourceTree = "<group>"; };
 		B47388922D5C997B00A4C168 /* RemoteConfigHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigHelper.swift; sourceTree = "<group>"; };
 		B474B07C2C2DA54B0092F4F6 /* FontSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsView.swift; sourceTree = "<group>"; };
 		B474B07D2C2DA54B0092F4F6 /* FontSettingsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FontSettingsView.xib; sourceTree = "<group>"; };
 		B4DC30702C5BF2E90019CCA1 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
-		B4DF2DCC2D64C7B60027BC48 /* ic_title_icon.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = ic_title_icon.svg; sourceTree = "<group>"; };
 		BF23FEBF71C372B82094033D /* Pods_GA_TB_Reference_Guide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GA_TB_Reference_Guide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D42F25E626EEFA8F009DC942 /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
 		D42F25E726EEFA8F009DC942 /* NoteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteTableViewCell.xib; sourceTree = "<group>"; };
@@ -517,7 +517,7 @@
 		D4515E6A26DAE5D200EE6592 /* assets */ = {
 			isa = PBXGroup;
 			children = (
-				B4DF2DCC2D64C7B60027BC48 /* ic_title_icon.svg */,
+				B45C1EF22D65BD3300AF239F /* ic_title_icon.svg */,
 				D42F26B226F94FC5009DC942 /* uikit-copy.js */,
 				D4515E6D26DAE60600EE6592 /* style.css */,
 				D4515E6E26DAE60600EE6592 /* uikit-icons.js */,
@@ -853,7 +853,7 @@
 				D42F266826EF821B009DC942 /* 7_childhood_tuberculosis__a__management_considerations.html in Resources */,
 				D4A5D2A72B2C9BA500812C53 /* EU_noShield_hz_280.png in Resources */,
 				D42F264C26EF821B009DC942 /* 10_tb_infection_control_hospital_isolation_procedures.html in Resources */,
-				B4DF2DCD2D64C7B60027BC48 /* ic_title_icon.svg in Resources */,
+				B45C1EF32D65BD3300AF239F /* ic_title_icon.svg in Resources */,
 				D42F265826EF821B009DC942 /* 11_community_tuberculosis_control__c__role_of_the_health_department.html in Resources */,
 				D4CCBF5927C032B400E42BC9 /* chapter.json in Resources */,
 				D4A5D2AA2B2C9BA500812C53 /* table18.png in Resources */,

@@ -7,7 +7,6 @@
 
 import Foundation
 
-let filename: String = "15_appendix_district_tb_coordinators_(by_district)"
 // Helper function to check if a file was downloaded or not, if it exists, route to points to downloaded file
 func getFileURL(for filename: String, withExtension fileExtension: String = "html") -> URL {
 	let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
@@ -15,7 +14,6 @@ func getFileURL(for filename: String, withExtension fileExtension: String = "htm
 
 	if FileManager.default.fileExists(atPath: filePath.path) {
 		print("Loading from Documents: \(filePath)")
-		updateFileIfDownloaded(filename: filename)
 		return filePath
 	} else {
 		return Bundle.main.url(forResource: filename, withExtension: fileExtension)!
@@ -26,6 +24,10 @@ func isFileDownloaded(for filename: String, withExtension fileExtension: String 
 	let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
 	let filePath = documentsPath.appendingPathComponent("\(filename).\(fileExtension)")
 
+	if filename == "15_appendix_district_tb_coordinators_(by_district)" {
+		updateFileIfDownloaded(filename: filename)
+	}
+	 
 	return FileManager.default.fileExists(atPath: filePath.path)
 }
 
@@ -39,13 +41,17 @@ func updateFileIfDownloaded(filename: String, withExtension fileExtension: Strin
 
 			if let iconURL = Bundle.main.url(forResource: "ic_title_icon", withExtension: "svg") {
 				let iconPath = iconURL.relativePath
-				print("Icon path: \(iconPath)")
 
-					// Replace relative path with the absolute path
-				fileContent = fileContent
-					.replacingOccurrences(of: "../assets/ic_title_icon.svg", with: iconPath)
+				// Replace replace the existing <img />  tag with new <img /> with relative path
+				// It is this way because the image src will not always be "../assets/ic_title_icon.svg" after the first update/download
+
+				let updatedImgTag = #"<img alt="aut" src="\#(iconPath)" width="50" height="50"/>"#
+				fileContent = fileContent.replacingOccurrences(of: #"<img alt="aut" src=".*?"/>"#, with: updatedImgTag, options: .regularExpression)
+
+				print(fileContent)
 
 					// Optionally, write the updated content back to the file
+					// Failure to update the existing fileContent will not update what the user sees
 				try fileContent.write(to: filePath, atomically: true, encoding: .utf8)
 			} else {
 				print("Icon file not found in the bundle!")
