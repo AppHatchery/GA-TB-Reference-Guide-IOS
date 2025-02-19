@@ -95,7 +95,17 @@ class SubChapterViewController: UIViewController, UITableViewDelegate, UITableVi
     {
         if let webViewViewController = segue.destination as? WebViewViewController
         {
-            webViewViewController.url = Bundle.main.url(forResource: chapterIndex.chapterCode[arrayPointer][subArrayPointer], withExtension: "html")!
+				// The second condition in the if statement: chapterIndex.chapterCode[arrayPointer][subArrayPointer] ==  "15_appendix_district_tb_coordinators_(by_district)"
+				// is to ensure that the chapterIndex matches the file name that needs rerouting,
+				// if not included, every file url routes to TB Coordinators table
+			if isFileDownloaded(for: chapterIndex
+				.chapterCode[arrayPointer][subArrayPointer]) && chapterIndex
+				.chapterCode[arrayPointer][subArrayPointer] ==  "15_appendix_district_tb_coordinators_(by_district)" {
+				webViewViewController.url = getFileURL(for: chapterIndex.chapterCode[arrayPointer][subArrayPointer])
+			} else {
+				webViewViewController.url = Bundle.main.url(forResource: chapterIndex.chapterCode[arrayPointer][subArrayPointer], withExtension: "html")!
+			}
+			
             webViewViewController.titlelabel = chapterIndex.chapterNested[arrayPointer][subArrayPointer]
             webViewViewController.navTitle = navTitle
             webViewViewController.uniqueAddress = chapterIndex.chapterCode[arrayPointer][subArrayPointer]

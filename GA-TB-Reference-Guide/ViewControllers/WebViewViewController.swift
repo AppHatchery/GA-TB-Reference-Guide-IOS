@@ -22,7 +22,13 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     
     @IBOutlet weak var searchTermView: UILabel!
     @IBOutlet weak var searchView: UIView!
-    var identifier = ""
+	@IBOutlet var metadataView: UIView!
+	@IBOutlet var metadataViewHeightConstraint: NSLayoutConstraint!
+	@IBOutlet var separatorHeightConstraintToViewTop: NSLayoutConstraint!
+	@IBOutlet var metadataViewTopConstraint: NSLayoutConstraint!
+	@IBOutlet var metadataViewBottomConstraint: NSLayoutConstraint!
+
+	var identifier = ""
     var header = "Placeholder Content"
     var url: URL!
     var uniqueAddress: String!
@@ -91,7 +97,18 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         } else {
             searchView.isHidden = true
         }
-   
+
+		let filename = "15_appendix_district_tb_coordinators_(by_district).html"
+
+		if url.lastPathComponent == filename {
+			metadataView.isHidden = true
+			metadataView.heightAnchor.constraint(equalToConstant: 0).isActive = true
+			metadataView.frame.size.height = 0
+			separator.isHidden = true
+			metadataViewTopConstraint.constant = 0
+			metadataViewBottomConstraint.constant = 0
+		}
+
         let navbarTitle = UILabel()
         navbarTitle.text = navTitle
         navbarTitle.textColor = UIColor.white
@@ -690,7 +707,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             // the frame trully is not the entire contentsize because you need to scroll down for the table to register the entire size of the content
             tableFrame = tableView.frame
             
-            separatorHeightConstraint.isActive = false
+//            separatorHeightConstraint.isActive = false
 //            separator.removeConstraint(separatorHeightConstraint)
 
             view.addSubview(tableView)
@@ -1018,8 +1035,8 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     {
         UIView.animate(withDuration: 0.3, delay: 0.01, options: .curveLinear, animations: {
             self.tableView.frame.size.height = 0
-            self.separatorHeightConstraint = self.pseudoseparator.heightAnchor.constraint(equalToConstant: 0.5)
-            self.separatorHeightConstraint.isActive = true
+//            self.separatorHeightConstraint = self.pseudoseparator.heightAnchor.constraint(equalToConstant: 0.5)
+//            self.separatorHeightConstraint.isActive = true
             self.view.layoutIfNeeded()
         }, completion: { finished in
             self.tableView.removeFromSuperview()

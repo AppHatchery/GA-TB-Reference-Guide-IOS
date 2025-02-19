@@ -33,7 +33,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     
 	@IBOutlet weak var loader: UIActivityIndicatorView!
 	@IBOutlet weak var loaderView: UIView!
-	
+	@IBOutlet weak var mainLoaderView: UIView!
+	@IBOutlet var mainLoader: UIActivityIndicatorView!
+
     // Initialize Realm
     let realm = RealmHelper.sharedInstance.mainRealm()
     
@@ -113,52 +115,132 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         // Load the Suggestions Table first before the the Main Table
         showSuggestions()
 		loaderView.isHidden = true
-        
+		mainLoaderView.isHidden = true
+
         // Keyboard dismissal recognizer
         tap.addTarget(self, action: #selector(dismissKeyboard))
         self.view.addGestureRecognizer(tap)
     }
     
-    func loadHTML() {
-        // Load the htmls on the array - needs to be on viewDidLoad otherwise it duplicates the content
-		
-			// For Both Chapters and Charts Together
-        for items in chapterIndex.chapterCode.joined() {
-            let path = Bundle.main.path(forResource: items.components(separatedBy: ".")[0], ofType: "html")!
-            // This converts a multiline string into a single file, the .whitespacesandnewlines doesn't work to do that job
-            var htmlString = try! String(contentsOfFile: path).replacingOccurrences(of: "[\\s\n]+", with: " ", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
-            htmlString = htmlString.replacingOccurrences(of: "<.*?>", with: "", options: .regularExpression, range: nil)
-            tempHTML.append(htmlString)
-        }
-		
-		// For Charts
-		for items in chapterIndex.chartCode.joined() {
-			let path = Bundle.main.path(forResource: items.components(separatedBy: ".")[0], ofType: "html")!
-				// This converts a multiline string into a single file, the .whitespacesandnewlines doesn't work to do that job
-			var htmlString = try! String(contentsOfFile: path).replacingOccurrences(of: "[\\s\n]+", with: " ", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
-			htmlString = htmlString.replacingOccurrences(of: "<.*?>", with: "", options: .regularExpression, range: nil)
-			tempChartsHTML.append(htmlString)
-		}
-		
-		// For Chapters Only
-		// To remove the tables from the chapterIndex.chapterCode array
-		// Regex has been used to avoid creating another chapterOnly array inside the chapterIndex class
-		let regexPattern = "^table_\\d+_.*"
-		let figurePattern = "^fig1_factors_to_be_considered$"
-		
-		chaptersOnly = chapterIndex.chapterCode.filter { subarray in
-			!subarray.contains { element in
-				element.range(of: regexPattern, options: .regularExpression, range: nil, locale: nil) != nil ||
-				element.range(of: figurePattern, options: .regularExpression, range: nil, locale: nil) != nil
+	func loadHTML() {
+			// Load the htmls on the array - needs to be on viewDidLoad otherwise it duplicates the content
+		let filename = "15_appendix_district_tb_coordinators_(by_district).html"
+		let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+		let downloadedTbCoordinatorPath = documentsPath.appendingPathComponent(filename)
+
+		do {
+			var downloadedTbCoordinatorContent = try String(contentsOf: downloadedTbCoordinatorPath, encoding: .utf8)
+
+//			print(downloadedTbCoordinatorContent)
+			
+			// Replace occurrences of the old path with the new file URL
+			downloadedTbCoordinatorContent = downloadedTbCoordinatorContent.replacingOccurrences(
+				of: "[\\s\n]+",
+				with: " ",
+				options: .regularExpression
+			).trimmingCharacters(in: .whitespacesAndNewlines)
+
+			downloadedTbCoordinatorContent = downloadedTbCoordinatorContent.replacingOccurrences(
+				of: "<.*?>",
+				with: "",
+				options: .regularExpression,
+				range: nil
+			)
+
+				// For Both Chapters and Charts Together
+			for items in chapterIndex.chapterCode.joined() {
+				let resourceName = items.components(separatedBy: ".")[0]
+
+					// When the filename is  "15_appendix_district_tb_coordinators_(by_district)" add the download TB Coordinators content to be indexed
+					// TODO: Needs thorough testing to properly check that all files text is being indexed
+				if resourceName == "15_appendix_district_tb_coordinators_(by_district)" {
+					tempHTML.append(downloadedTbCoordinatorContent)
+					print(downloadedTbCoordinatorContent)
+					continue
+				}
+
+				let path = Bundle.main.path(forResource: items.components(separatedBy: ".")[0], ofType: "html")!
+
+					// This converts a multiline string into a single file, the .whitespacesandnewlines doesn't work to do that job
+				var htmlString = try! String(contentsOfFile: path).replacingOccurrences(of: "[\\s\n]+", with: " ", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
+				htmlString = htmlString.replacingOccurrences(of: "<.*?>", with: "", options: .regularExpression, range: nil)
+				tempHTML.append(htmlString)
 			}
-		}
-		
-		for items in chaptersOnly.joined() {
-			let path = Bundle.main.path(forResource: items.components(separatedBy: ".")[0], ofType: "html")!
-			// This converts a multiline string into a single file, the .whitespacesandnewlines doesn't work to do that job
-			var htmlString = try! String(contentsOfFile: path).replacingOccurrences(of: "[\\s\n]+", with: " ", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
-			htmlString = htmlString.replacingOccurrences(of: "<.*?>", with: "", options: .regularExpression, range: nil)
-			tempChaptersHTML.append(htmlString)
+
+				// For Charts
+			for items in chapterIndex.chartCode.joined() {
+				let path = Bundle.main.path(forResource: items.components(separatedBy: ".")[0], ofType: "html")!
+					// This converts a multiline string into a single file, the .whitespacesandnewlines doesn't work to do that job
+				var htmlString = try! String(contentsOfFile: path).replacingOccurrences(of: "[\\s\n]+", with: " ", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
+				htmlString = htmlString.replacingOccurrences(of: "<.*?>", with: "", options: .regularExpression, range: nil)
+				tempChartsHTML.append(htmlString)
+			}
+
+				// For Chapters Only
+				// To remove the tables from the chapterIndex.chapterCode array
+				// Regex has been used to avoid creating another chapterOnly array inside the chapterIndex class
+			let regexPattern = "^table_\\d+_.*"
+			let figurePattern = "^fig1_factors_to_be_considered$"
+
+			chaptersOnly = chapterIndex.chapterCode.filter { subarray in
+				!subarray.contains { element in
+					element.range(of: regexPattern, options: .regularExpression, range: nil, locale: nil) != nil ||
+					element.range(of: figurePattern, options: .regularExpression, range: nil, locale: nil) != nil
+				}
+			}
+
+			for items in chaptersOnly.joined() {
+				let resourceName = items.components(separatedBy: ".")[0]
+
+					// When the filename is  "15_appendix_district_tb_coordinators_(by_district)" add the download TB Coordinators content to be indexed
+					// TODO: Needs thorough testing to properly check that all files text is being indexed
+				if resourceName == "15_appendix_district_tb_coordinators_(by_district)" {
+					tempChaptersHTML.append(downloadedTbCoordinatorContent)
+					continue
+				}
+
+				let path = Bundle.main.path(forResource: items.components(separatedBy: ".")[0], ofType: "html")!
+					// This converts a multiline string into a single file, the .whitespacesandnewlines doesn't work to do that job
+				var htmlString = try! String(contentsOfFile: path).replacingOccurrences(of: "[\\s\n]+", with: " ", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
+				htmlString = htmlString.replacingOccurrences(of: "<.*?>", with: "", options: .regularExpression, range: nil)
+				tempChaptersHTML.append(htmlString)
+			}
+		} catch {
+			for items in chapterIndex.chapterCode.joined() {
+				let resourceName = items.components(separatedBy: ".")[0]
+				let path = Bundle.main.path(forResource: items.components(separatedBy: ".")[0], ofType: "html")!
+				var htmlString = try! String(contentsOfFile: path).replacingOccurrences(of: "[\\s\n]+", with: " ", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
+				htmlString = htmlString.replacingOccurrences(of: "<.*?>", with: "", options: .regularExpression, range: nil)
+				tempHTML.append(htmlString)
+			}
+
+			// For Charts
+			for items in chapterIndex.chartCode.joined() {
+				let path = Bundle.main.path(forResource: items.components(separatedBy: ".")[0], ofType: "html")!
+				var htmlString = try! String(contentsOfFile: path).replacingOccurrences(of: "[\\s\n]+", with: " ", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
+				htmlString = htmlString.replacingOccurrences(of: "<.*?>", with: "", options: .regularExpression, range: nil)
+				tempChartsHTML.append(htmlString)
+			}
+
+			// For Chapters Only
+			// To remove the tables from the chapterIndex.chapterCode array
+			// Regex has been used to avoid creating another chapterOnly array inside the chapterIndex class
+			let regexPattern = "^table_\\d+_.*"
+			let figurePattern = "^fig1_factors_to_be_considered$"
+
+			chaptersOnly = chapterIndex.chapterCode.filter { subarray in
+				!subarray.contains { element in
+					element.range(of: regexPattern, options: .regularExpression, range: nil, locale: nil) != nil ||
+					element.range(of: figurePattern, options: .regularExpression, range: nil, locale: nil) != nil
+				}
+			}
+			for items in chaptersOnly.joined() {
+				let resourceName = items.components(separatedBy: ".")[0]
+				let path = Bundle.main.path(forResource: items.components(separatedBy: ".")[0], ofType: "html")!
+				var htmlString = try! String(contentsOfFile: path).replacingOccurrences(of: "[\\s\n]+", with: " ", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
+				htmlString = htmlString.replacingOccurrences(of: "<.*?>", with: "", options: .regularExpression, range: nil)
+				tempChaptersHTML.append(htmlString)
+			}
 		}
     }
     
@@ -297,7 +379,21 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 			completion()
 		}
 	}
-	
+
+	func mainLoaderConfig(completion: @escaping () -> Void) {
+		setTimeout(delay: 0){
+			self.mainLoaderView.isHidden = false
+			self.mainLoader.startAnimating()
+		}
+
+		setTimeout(delay: 0.4) {
+			self.mainLoader.stopAnimating()
+			self.mainTableView.isHidden = false
+			self.mainLoaderView.isHidden = true
+			completion()
+		}
+	}
+
 	func setTimeout(delay: Double, closure: @escaping () -> Void) {
 		DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
 			closure()
@@ -456,7 +552,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             search.text = suggestionsList[indexPath.row]
             searchTerm = suggestionsList[indexPath.row]
 			
-			loaderConfig {
+			mainLoaderConfig {
 				self.addRecentSearch(searchTerm: self.searchTerm)
 				self.searchBar(self.search, textDidChange: self.searchTerm)
 			}
@@ -464,7 +560,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             search.text = recentSearchesList[indexPath.row]
             searchTerm = recentSearchesList[indexPath.row]
 			
-			loaderConfig {
+			mainLoaderConfig {
 				self.searchBar(self.search, textDidChange: self.searchTerm)
 			}
         }
@@ -512,7 +608,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         // When user has entered text into the search box
         // Use the filter method to iterate over all items in the data array
         // For each item, return true if the item should be included and false if the
-        if searchText != ""{
+		if !searchText.isEmpty {
             showTableView()
             // Could be search always the strings independently or could be to first search strings together and if nothing returns then search the terms separately but giving the user the option to do that
 
@@ -618,14 +714,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 				case (_, true):
 					let chapterCodes = Array(chaptersOnly.joined())
 					let chapterNested = Array(chapterIndex.chapterNested.joined())
-					url = Bundle.main.url(forResource: chapterCodes[subArrayPointer], withExtension: "html")!
+					url = getFileURL(for: chapterCodes[subArrayPointer])
 					titleLabel = chapterNested[subArrayPointer]
 					uniqueAddress = chapterCodes[subArrayPointer]
 					
 				default:
 					let chapterCodes = Array(chapterIndex.chapterCode.joined())
 					let chapterNested = Array(chapterIndex.chapterNested.joined())
-					url = Bundle.main.url(forResource: chapterCodes[subArrayPointer], withExtension: "html")!
+					url = getFileURL(for: chapterCodes[subArrayPointer])
 					titleLabel = chapterNested[subArrayPointer]
 					uniqueAddress = chapterCodes[subArrayPointer]
 			}
