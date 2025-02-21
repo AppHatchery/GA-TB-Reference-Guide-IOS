@@ -19,14 +19,14 @@ class RemoteConfigHelper {
 
 		// Set default values
 		let defaults: [String: NSObject] = [
-			"update_value_test": 0 as NSObject
+			"update_value": 0 as NSObject
 		]
 		remoteConfig.setDefaults(defaults)
 
 		// Fetch and activate the Remote Config values
 		remoteConfig.fetchAndActivate { status, error in
 			if status == .successFetchedFromRemote || status == .successUsingPreFetchedData {
-				let updateValue = remoteConfig.configValue(forKey: "update_value_test").numberValue as? Int ?? 0
+				let updateValue = remoteConfig.configValue(forKey: "update_value").numberValue as? Int ?? 0
 				self.handleUpdateValueChange(updateValue)
 			} else {
 				print("Error fetching Remote Config: \(String(describing: error))")
@@ -35,8 +35,8 @@ class RemoteConfigHelper {
 	}
 
 	func handleUpdateValueChange(_ newValue: Int) {
-		if newValue != UserDefaults.standard.integer(forKey: "last_update_value_test") {
-			UserDefaults.standard.set(newValue, forKey: "last_update_value_test")
+		if newValue != UserDefaults.standard.integer(forKey: "last_update_value") {
+			UserDefaults.standard.set(newValue, forKey: "last_update_value")
 
 			downloadUpdatedFiles()
 		}
@@ -44,7 +44,7 @@ class RemoteConfigHelper {
 
 	func downloadUpdatedFiles() {
 		let remoteConfig = RemoteConfig.remoteConfig()
-		let updateValue = remoteConfig.configValue(forKey: "update_value_test").numberValue as? Int ?? 0
+		let updateValue = remoteConfig.configValue(forKey: "update_value").numberValue as? Int ?? 0
 
 		print("Current update value: \(updateValue)")
 
