@@ -90,11 +90,16 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 
         let textFieldInsideSearchBar = search.value(forKey: "searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = UIColor.searchBarText
-        textFieldInsideSearchBar?.attributedPlaceholder = NSAttributedString(string: "Search Guide",attributes: [NSAttributedString.Key.foregroundColor: UIColor.searchBarText])
+        textFieldInsideSearchBar?.attributedPlaceholder = NSAttributedString(string: "Enter Keywords to Search",attributes: [NSAttributedString.Key.foregroundColor: UIColor.searchBarText])
         textFieldInsideSearchBar?.layer.cornerRadius = 60
         textFieldInsideSearchBar?.backgroundColor = UIColor.searchBar
         searchView.frame = CGRect(x: searchView.frame.origin.x, y: searchView.frame.origin.x, width: searchView.frame.width, height: search.frame.height+10)
-		
+
+		if let textField = search.value(forKey: "searchField") as? UITextField {
+			let glassIconView = textField.leftView as? UIImageView
+			glassIconView?.tintColor = .searchBarText
+		}
+
         navigationController?.navigationBar.setGradientBackground(to: self.navigationController!)
         navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -279,19 +284,20 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         self.chartsButton.addTarget(self, action: #selector(showChartsOnly), for: .touchUpInside)
     }
     
-	
+
 	//----------------------------------------------------------------------------------------------
 	// Search Tabs Implementation
 	
-    private func activeTabConfig(_ button: UIButton, isActive: Bool) {
-        UIView.performWithoutAnimation {
-			button.backgroundColor = isActive ? .colorPrimary : .backgroundColor
-            button.tintColor = isActive ? .white : .label
-            button.isEnabled = true
-            button.setNeedsDisplay()
-        }
-    }
-	
+	private func activeTabConfig(_ button: UIButton, isActive: Bool) {
+		UIView.performWithoutAnimation {
+			button.backgroundColor = isActive ? .colorPrimary : .colorBackgroundSecondary
+			button.tintColor = isActive ? .colorWhite : .colorText
+			button.setTitleColor(isActive ? .colorWhite : .colorText, for: .normal)
+			button.isEnabled = true
+			button.layoutIfNeeded()
+		}
+	}
+
 	private func updateSearchResults(_ results: [String], description: String) {
 		allSearchResults = results
 		tableView.reloadData()

@@ -58,7 +58,12 @@ extension UIColor
     {
         return UIColor(named: "backgroundColor")!
     }
-    
+
+	class var colorBackgroundSecondary: UIColor
+	{
+		return UIColor(named: "colorBackgroundSecondary")!
+	}
+
     class var groupBackgroundColor: UIColor
     {
         return UIColor(named: "groupBackgroundColor")!
@@ -72,5 +77,15 @@ extension UIColor
 	class var colorPrimary: UIColor
 	{
 		return UIColor(named: "colorPrimary")!
+	}
+
+	class var colorWhite: UIColor
+	{
+		return UIColor(named: "colorWhite")!
+	}
+
+	class var colorText: UIColor
+	{
+		return UIColor(named: "colorText")!
 	}
 }
