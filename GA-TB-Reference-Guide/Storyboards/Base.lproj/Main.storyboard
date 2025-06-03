@@ -17,7 +17,7 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="3IR-61-gKe">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" name="backgroundColor"/>
+                        <color key="backgroundColor" name="colorBackgroundSecondary"/>
                         <color key="selectedImageTintColor" name="colorPrimary"/>
                     </tabBar>
                     <connections>
@@ -34,7 +34,7 @@
         <scene sceneID="oLv-Xz-Ktt">
             <objects>
                 <navigationController id="E3Y-H7-aY9" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Settings" image="gear" catalog="system" id="v70-fC-ZmF"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="icSettings" selectedImage="icSettingsSelected" id="v70-fC-ZmF"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4y2-7Y-aE3">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -367,16 +367,16 @@ Start by opening any subchapter or chart.</string>
         <scene sceneID="5EE-qa-sT3">
             <objects>
                 <navigationController storyboardIdentifier="Guide" id="wC5-QA-rI3" userLabel="Guide Navigation Controller" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Guide" image="house.fill" catalog="system" id="4th-bs-XoX"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="QiT-A0-Uf0">
+                    <tabBarItem key="tabBarItem" title="Guide" image="icHome" selectedImage="icHomeSelected" id="4th-bs-XoX"/>
+                    <navigationBar key="navigationBar" contentMode="center" id="QiT-A0-Uf0">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <navigationBarAppearance key="standardAppearance">
+                        <navigationBarAppearance key="standardAppearance" backgroundImage="icLungRight" backgroundImageContentMode="right">
                             <color key="backgroundColor" name="colorPrimary"/>
                             <color key="shadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </navigationBarAppearance>
-                        <navigationBarAppearance key="scrollEdgeAppearance">
+                        <navigationBarAppearance key="scrollEdgeAppearance" backgroundImage="icLungRight" backgroundImageContentMode="right">
                             <color key="backgroundColor" name="colorPrimary"/>
                             <color key="shadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </navigationBarAppearance>
@@ -404,14 +404,15 @@ Start by opening any subchapter or chart.</string>
                                         <rect key="frame" x="20" y="17" width="136" height="36"/>
                                         <color key="backgroundColor" name="backgroundColor"/>
                                         <constraints>
+                                            <constraint firstAttribute="width" constant="136" id="Jm2-6U-t4O"/>
                                             <constraint firstAttribute="height" constant="36" id="vwO-Uw-uVP"/>
                                         </constraints>
                                         <directionalEdgeInsets key="directionalLayoutMargins" top="0.0" leading="10" bottom="8" trailing="10"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="tintColor" systemColor="labelColor"/>
+                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="4" maxY="0.0"/>
                                         <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="My Bookmarks" image="icBookmarksFolder">
+                                        <state key="normal" title="My Bookmarks" image="icBookmarksFolderColored">
                                             <color key="titleColor" systemColor="labelColor"/>
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default" weight="regular"/>
                                         </state>
@@ -430,7 +431,6 @@ Start by opening any subchapter or chart.</string>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="2JD-cZ-zIu"/>
                                     <constraint firstItem="aWb-0r-oxZ" firstAttribute="leading" secondItem="eM7-co-utl" secondAttribute="leading" constant="20" id="F28-s5-YwN"/>
-                                    <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="aWb-0r-oxZ" secondAttribute="trailing" priority="999" constant="219" id="Gc4-Kd-7rW"/>
                                     <constraint firstAttribute="bottom" secondItem="aWb-0r-oxZ" secondAttribute="bottom" constant="17" id="Tmw-Tu-xCa"/>
                                     <constraint firstItem="aWb-0r-oxZ" firstAttribute="centerY" secondItem="eM7-co-utl" secondAttribute="centerY" id="bpv-Pi-Rlk"/>
                                     <constraint firstItem="aWb-0r-oxZ" firstAttribute="top" secondItem="eM7-co-utl" secondAttribute="top" constant="17" id="oa0-Na-Xjb"/>
@@ -1169,7 +1169,7 @@ Start by opening any subchapter or chart.</string>
         <scene sceneID="6kb-82-iB3">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0ku-pm-AlN" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Search" image="magnifyingglass" catalog="system" id="evD-Al-UhG"/>
+                    <tabBarItem key="tabBarItem" title="Search" image="icMagnifyingGlass" selectedImage="icMagnifyingGlassSelected" id="evD-Al-UhG"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="g9u-oh-i3j">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -1195,23 +1195,31 @@ Start by opening any subchapter or chart.</string>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="sNt-ij-jaz"/>
-        <segue reference="Kvm-QI-PmY"/>
+        <segue reference="QdM-r2-YsT"/>
         <segue reference="c87-MO-uwg"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="gear" catalog="system" width="128" height="122"/>
-        <image name="house.fill" catalog="system" width="128" height="104"/>
         <image name="icBookmarksFolder" width="24" height="24"/>
+        <image name="icBookmarksFolderColored" width="24" height="24"/>
         <image name="icEditNote" width="24" height="24"/>
         <image name="icFontSizeSettings" width="24" height="24"/>
+        <image name="icHome" width="28" height="28"/>
         <image name="icHomeOutline" width="24" height="24"/>
+        <image name="icHomeSelected" width="28" height="28"/>
+        <image name="icLungRight" width="62" height="116"/>
+        <image name="icMagnifyingGlass" width="28" height="28"/>
+        <image name="icMagnifyingGlassSelected" width="28" height="28"/>
+        <image name="icSettings" width="28" height="28"/>
+        <image name="icSettingsSelected" width="28" height="28"/>
         <image name="icShare" width="24" height="24"/>
-        <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <namedColor name="backgroundColor">
             <color red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="colorBackground">
             <color red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="colorBackgroundSecondary">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="colorPrimary">
             <color red="0.31764705882352939" green="0.50980392156862742" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
