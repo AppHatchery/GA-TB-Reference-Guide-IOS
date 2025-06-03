@@ -68,4 +68,9 @@ extension UIColor
     {
         return UIColor(named: "groupColor")!
     }
+
+	class var colorPrimary: UIColor
+	{
+		return UIColor(named: "colorPrimary")!
+	}
 }

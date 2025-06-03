@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -60,7 +61,7 @@
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="khf-oj-P2d"/>
                             </constraints>
-                            <color key="tintColor" name="dialogIcons"/>
+                            <color key="tintColor" name="colorPrimary"/>
                             <state key="normal" title="Save" image="checkmark" catalog="system">
                                 <color key="titleColor" systemColor="labelColor"/>
                             </state>
@@ -74,7 +75,7 @@
                                 <constraint firstAttribute="width" constant="25" id="VZg-F7-UQn"/>
                                 <constraint firstAttribute="height" constant="25" id="yEt-ax-PKP"/>
                             </constraints>
-                            <color key="tintColor" name="custom333"/>
+                            <color key="tintColor" name="colorBackground"/>
                             <state key="normal" backgroundImage="xmark" catalog="system"/>
                         </button>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="Hvg-ww-zZ7">
@@ -84,7 +85,7 @@
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         </textField>
                     </subviews>
-                    <color key="backgroundColor" name="dialogColor"/>
+                    <color key="backgroundColor" name="colorPrimary"/>
                     <constraints>
                         <constraint firstItem="dJo-Uu-q1T" firstAttribute="leading" secondItem="SFX-bn-Y9J" secondAttribute="trailing" constant="20" id="1yx-nS-Xq5"/>
                         <constraint firstItem="SFX-bn-Y9J" firstAttribute="leading" secondItem="JK4-hO-ZtF" secondAttribute="leading" constant="20" id="229-4s-4a6"/>
@@ -127,13 +128,13 @@
         <image name="checkmark" catalog="system" width="128" height="114"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <namedColor name="backgroundColor">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="custom333">
-            <color red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="colorBackground">
+            <color red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="dialogColor">
-            <color red="0.78799998760223389" green="0.51800000667572021" blue="0.3880000114440918" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="colorPrimary">
+            <color red="0.31764705882352939" green="0.50980392156862742" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="dialogIcons">
             <color red="0.61176470588235299" green="0.20000000000000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

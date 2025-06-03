@@ -285,7 +285,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 	
     private func activeTabConfig(_ button: UIButton, isActive: Bool) {
         UIView.performWithoutAnimation {
-            button.backgroundColor = isActive ? .dialogColor : .backgroundColor
+			button.backgroundColor = isActive ? .colorPrimary : .backgroundColor
             button.tintColor = isActive ? .white : .label
             button.isEnabled = true
             button.setNeedsDisplay()
