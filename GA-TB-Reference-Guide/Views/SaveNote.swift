@@ -88,15 +88,13 @@ class SaveNote: UIView {
         noteField.layer.cornerRadius = 4
         noteField.layer.masksToBounds = true
                 
-        cancelButton.layer.borderWidth = 0.5
-        cancelButton.layer.cornerRadius = 4
+        cancelButton.layer.borderWidth = 0
+        cancelButton.layer.cornerRadius = 0
         cancelButton.layer.masksToBounds = true
-        cancelButton.layer.borderColor = UIColor.label.cgColor
 
-        saveButton.layer.borderWidth = 0.5
-        saveButton.layer.cornerRadius = 4
+        saveButton.layer.borderWidth = 0
+        saveButton.layer.cornerRadius = 0
         saveButton.layer.masksToBounds = true
-        saveButton.layer.borderColor = UIColor.label.cgColor
         
         closeButton.addTarget(self, action: #selector(self.cancelButtonPressed), for: .touchUpInside)
         
