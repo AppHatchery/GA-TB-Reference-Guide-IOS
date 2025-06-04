@@ -13,6 +13,22 @@
 		B401CE622C5BD8C300149414 /* RecentSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B401CE602C5BD8C300149414 /* RecentSearchTableViewCell.swift */; };
 		B401CE632C5BD8C300149414 /* RecentSearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B401CE612C5BD8C300149414 /* RecentSearchTableViewCell.xib */; };
 		B40EA6F42C46B90400C03A12 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B40EA6F32C46B90400C03A12 /* UserNotifications.framework */; };
+		B40FEDE92DF085A600FBEBB7 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = B40FEDE82DF085A600FBEBB7 /* main.js */; };
+		B40FEE032DF0898700FBEBB7 /* considerations_image_1.png in Resources */ = {isa = PBXBuildFile; fileRef = B40FEDF12DF0898700FBEBB7 /* considerations_image_1.png */; };
+		B40FEE042DF0898700FBEBB7 /* chapter_1_image_3.png in Resources */ = {isa = PBXBuildFile; fileRef = B40FEDEE2DF0898700FBEBB7 /* chapter_1_image_3.png */; };
+		B40FEE052DF0898700FBEBB7 /* image_3.png in Resources */ = {isa = PBXBuildFile; fileRef = B40FEDFB2DF0898700FBEBB7 /* image_3.png */; };
+		B40FEE092DF0898700FBEBB7 /* ic_title_icon.SVG in Resources */ = {isa = PBXBuildFile; fileRef = B40FEDF82DF0898700FBEBB7 /* ic_title_icon.SVG */; };
+		B40FEE0A2DF0898700FBEBB7 /* selected_diagnosis_image_1.png in Resources */ = {isa = PBXBuildFile; fileRef = B40FEDFE2DF0898700FBEBB7 /* selected_diagnosis_image_1.png */; };
+		B40FEE0C2DF0898700FBEBB7 /* image_2.png in Resources */ = {isa = PBXBuildFile; fileRef = B40FEDFA2DF0898700FBEBB7 /* image_2.png */; };
+		B40FEE0D2DF0898700FBEBB7 /* face.svg in Resources */ = {isa = PBXBuildFile; fileRef = B40FEDF72DF0898700FBEBB7 /* face.svg */; };
+		B40FEE0F2DF0898700FBEBB7 /* chapter_1_image_1.png in Resources */ = {isa = PBXBuildFile; fileRef = B40FEDEC2DF0898700FBEBB7 /* chapter_1_image_1.png */; };
+		B40FEE102DF0898700FBEBB7 /* acknowledge.svg in Resources */ = {isa = PBXBuildFile; fileRef = B40FEDEA2DF0898700FBEBB7 /* acknowledge.svg */; };
+		B40FEE132DF0898700FBEBB7 /* logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B40FEDFC2DF0898700FBEBB7 /* logo.jpg */; };
+		B40FEE152DF0898700FBEBB7 /* image_1.png in Resources */ = {isa = PBXBuildFile; fileRef = B40FEDF92DF0898700FBEBB7 /* image_1.png */; };
+		B40FEE162DF0898700FBEBB7 /* c_lab_diagnosis_image_1.png in Resources */ = {isa = PBXBuildFile; fileRef = B40FEDEB2DF0898700FBEBB7 /* c_lab_diagnosis_image_1.png */; };
+		B40FEE172DF0898700FBEBB7 /* chapter_1_image_4.png in Resources */ = {isa = PBXBuildFile; fileRef = B40FEDEF2DF0898700FBEBB7 /* chapter_1_image_4.png */; };
+		B40FEE182DF0898700FBEBB7 /* Chevron.png in Resources */ = {isa = PBXBuildFile; fileRef = B40FEDF02DF0898700FBEBB7 /* Chevron.png */; };
+		B40FEE1B2DF0898700FBEBB7 /* chapter_1_image_2.png in Resources */ = {isa = PBXBuildFile; fileRef = B40FEDED2DF0898700FBEBB7 /* chapter_1_image_2.png */; };
 		B45C1EF32D65BD3300AF239F /* ic_title_icon.svg in Resources */ = {isa = PBXBuildFile; fileRef = B45C1EF22D65BD3300AF239F /* ic_title_icon.svg */; };
 		B473888A2D5C7D5300A4C168 /* BatchDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47388892D5C7D4400A4C168 /* BatchDownloadManager.swift */; };
 		B473888C2D5C82CE00A4C168 /* FileToOpenCheckers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B473888B2D5C82AB00A4C168 /* FileToOpenCheckers.swift */; };
@@ -194,6 +210,22 @@
 		B401CE602C5BD8C300149414 /* RecentSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchTableViewCell.swift; sourceTree = "<group>"; };
 		B401CE612C5BD8C300149414 /* RecentSearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecentSearchTableViewCell.xib; sourceTree = "<group>"; };
 		B40EA6F32C46B90400C03A12 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		B40FEDE82DF085A600FBEBB7 /* main.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
+		B40FEDEA2DF0898700FBEBB7 /* acknowledge.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = acknowledge.svg; sourceTree = "<group>"; };
+		B40FEDEB2DF0898700FBEBB7 /* c_lab_diagnosis_image_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_lab_diagnosis_image_1.png; sourceTree = "<group>"; };
+		B40FEDEC2DF0898700FBEBB7 /* chapter_1_image_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chapter_1_image_1.png; sourceTree = "<group>"; };
+		B40FEDED2DF0898700FBEBB7 /* chapter_1_image_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chapter_1_image_2.png; sourceTree = "<group>"; };
+		B40FEDEE2DF0898700FBEBB7 /* chapter_1_image_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chapter_1_image_3.png; sourceTree = "<group>"; };
+		B40FEDEF2DF0898700FBEBB7 /* chapter_1_image_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chapter_1_image_4.png; sourceTree = "<group>"; };
+		B40FEDF02DF0898700FBEBB7 /* Chevron.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Chevron.png; sourceTree = "<group>"; };
+		B40FEDF12DF0898700FBEBB7 /* considerations_image_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = considerations_image_1.png; sourceTree = "<group>"; };
+		B40FEDF72DF0898700FBEBB7 /* face.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = face.svg; sourceTree = "<group>"; };
+		B40FEDF82DF0898700FBEBB7 /* ic_title_icon.SVG */ = {isa = PBXFileReference; lastKnownFileType = text; path = ic_title_icon.SVG; sourceTree = "<group>"; };
+		B40FEDF92DF0898700FBEBB7 /* image_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_1.png; sourceTree = "<group>"; };
+		B40FEDFA2DF0898700FBEBB7 /* image_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_2.png; sourceTree = "<group>"; };
+		B40FEDFB2DF0898700FBEBB7 /* image_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_3.png; sourceTree = "<group>"; };
+		B40FEDFC2DF0898700FBEBB7 /* logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = logo.jpg; sourceTree = "<group>"; };
+		B40FEDFE2DF0898700FBEBB7 /* selected_diagnosis_image_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selected_diagnosis_image_1.png; sourceTree = "<group>"; };
 		B45C1EF22D65BD3300AF239F /* ic_title_icon.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = ic_title_icon.svg; sourceTree = "<group>"; };
 		B47388892D5C7D4400A4C168 /* BatchDownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchDownloadManager.swift; sourceTree = "<group>"; };
 		B473888B2D5C82AB00A4C168 /* FileToOpenCheckers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileToOpenCheckers.swift; sourceTree = "<group>"; };
@@ -401,6 +433,7 @@
 				D4A5D28F2B2C9BA400812C53 /* 1_epidemiology_image_1_number_of_tb_cases_city_of_atlanta_metro_atlanta_georgia_2000_2020.png */,
 				D4A5D2952B2C9BA500812C53 /* 1_epidemiology_image_2_us_born_and_foreign_born_tb_cases_georgia_2000_2020.png */,
 				D4A5D2922B2C9BA400812C53 /* 16_for_more_information_image_1.gif */,
+				B40FEDE82DF085A600FBEBB7 /* main.js */,
 				D4A5D2982B2C9BA500812C53 /* 16_for_more_information_image_2.jpg */,
 				D4A5D2912B2C9BA400812C53 /* DPH.png */,
 				D4A5D2932B2C9BA400812C53 /* Emory_healthcare.png */,
@@ -409,6 +442,21 @@
 				D4A5D2992B2C9BA500812C53 /* EU_noShield_hz_280.png */,
 				D4A5D2902B2C9BA400812C53 /* figure1.png */,
 				D4A5D2942B2C9BA400812C53 /* signature_henry_m_blumberg_m_d.jpg */,
+				B40FEDEA2DF0898700FBEBB7 /* acknowledge.svg */,
+				B40FEDEB2DF0898700FBEBB7 /* c_lab_diagnosis_image_1.png */,
+				B40FEDEC2DF0898700FBEBB7 /* chapter_1_image_1.png */,
+				B40FEDED2DF0898700FBEBB7 /* chapter_1_image_2.png */,
+				B40FEDEE2DF0898700FBEBB7 /* chapter_1_image_3.png */,
+				B40FEDEF2DF0898700FBEBB7 /* chapter_1_image_4.png */,
+				B40FEDF02DF0898700FBEBB7 /* Chevron.png */,
+				B40FEDF12DF0898700FBEBB7 /* considerations_image_1.png */,
+				B40FEDF72DF0898700FBEBB7 /* face.svg */,
+				B40FEDF82DF0898700FBEBB7 /* ic_title_icon.SVG */,
+				B40FEDF92DF0898700FBEBB7 /* image_1.png */,
+				B40FEDFA2DF0898700FBEBB7 /* image_2.png */,
+				B40FEDFB2DF0898700FBEBB7 /* image_3.png */,
+				B40FEDFC2DF0898700FBEBB7 /* logo.jpg */,
+				B40FEDFE2DF0898700FBEBB7 /* selected_diagnosis_image_1.png */,
 				D4A5D2972B2C9BA500812C53 /* signature_marcos_schechter_m_d.jpg */,
 				D4A5D29B2B2C9BA500812C53 /* signature_susan_m_ray_m_d.jpg */,
 				D4A5D29C2B2C9BA500812C53 /* table18.png */,
@@ -803,6 +851,7 @@
 				D4515E7226DAE60600EE6592 /* uikit-icons.js in Resources */,
 				D42F264726EF821B009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis.html in Resources */,
 				D4CCBF5727C032B400E42BC9 /* subchapter.json in Resources */,
+				B40FEDE92DF085A600FBEBB7 /* main.js in Resources */,
 				B401CE632C5BD8C300149414 /* RecentSearchTableViewCell.xib in Resources */,
 				D42F264E26EF821B009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi)__c__contacts_of_mdr_tb_cases.html in Resources */,
 				D42F265126EF821B009DC942 /* 6_pregnancy_and_tb__a__treatment_for_ltbi_and_risk_factors.html in Resources */,
@@ -911,6 +960,21 @@
 				D42F266426EF821B009DC942 /* 16_abbreviations.html in Resources */,
 				D42F268526EF821B009DC942 /* table_20_use_of_anti-tb_medications_in_special_situations_pregnancy_tuberculosis_meningitis_and_renal_failure.html in Resources */,
 				D42F264826EF821B009DC942 /* 10_tb_infection_control_hospital_isolation_procedures__b__surveillance_for_health_care_workers.html in Resources */,
+				B40FEE032DF0898700FBEBB7 /* considerations_image_1.png in Resources */,
+				B40FEE042DF0898700FBEBB7 /* chapter_1_image_3.png in Resources */,
+				B40FEE052DF0898700FBEBB7 /* image_3.png in Resources */,
+				B40FEE092DF0898700FBEBB7 /* ic_title_icon.SVG in Resources */,
+				B40FEE0A2DF0898700FBEBB7 /* selected_diagnosis_image_1.png in Resources */,
+				B40FEE0C2DF0898700FBEBB7 /* image_2.png in Resources */,
+				B40FEE0D2DF0898700FBEBB7 /* face.svg in Resources */,
+				B40FEE0F2DF0898700FBEBB7 /* chapter_1_image_1.png in Resources */,
+				B40FEE102DF0898700FBEBB7 /* acknowledge.svg in Resources */,
+				B40FEE132DF0898700FBEBB7 /* logo.jpg in Resources */,
+				B40FEE152DF0898700FBEBB7 /* image_1.png in Resources */,
+				B40FEE162DF0898700FBEBB7 /* c_lab_diagnosis_image_1.png in Resources */,
+				B40FEE172DF0898700FBEBB7 /* chapter_1_image_4.png in Resources */,
+				B40FEE182DF0898700FBEBB7 /* Chevron.png in Resources */,
+				B40FEE1B2DF0898700FBEBB7 /* chapter_1_image_2.png in Resources */,
 				D42F267226EF821B009DC942 /* table_15_clinical_situations_for_which_standard_therapy_cannot_be_given_or_is_not_well_tolerated.html in Resources */,
 				D46313B02721A27F00C7D9EC /* 11_community_tuberculosis_control.html in Resources */,
 				D42F263C26EF821B009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi).html in Resources */,
