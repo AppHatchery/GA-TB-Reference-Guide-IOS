@@ -39,6 +39,8 @@ class ChartListViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView.register( UITableViewCell.self, forCellReuseIdentifier: type(of: self).description())
         tableView.estimatedRowHeight = 80
         tableView.estimatedRowHeight = UITableView.automaticDimension
+		tableView.separatorStyle = .none
+		tableView.backgroundColor = .backgroundColor
         // Do any additional setup after loading the view.
     }
     
@@ -62,8 +64,9 @@ class ChartListViewController: UIViewController, UITableViewDelegate, UITableVie
         else
         {
             cell = UITableViewCell(frame: CGRect( x: 0, y: 0, width: tableView.frame.width, height: tableView.rowHeight ))
-            cell.backgroundColor = UIColor.backgroundColor
-            
+			cell.backgroundColor = .colorBackgroundSecondary
+			cell.textLabel?.textColor = .colorTextDarker
+
             cell.accessoryType = .disclosureIndicator
             
             cell.textLabel?.text = chapterIndex.charts[indexPath.row]

@@ -14,11 +14,14 @@
         <scene sceneID="ppA-1s-0Qd">
             <objects>
                 <tabBarController id="Grh-5x-sMf" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="3IR-61-gKe">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="3IR-61-gKe">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" name="colorBackgroundSecondary"/>
-                        <color key="selectedImageTintColor" name="colorPrimary"/>
+                        <color key="selectedImageTintColor" name="colorTextDarker"/>
+                        <tabBarAppearance key="standardAppearance">
+                            <color key="backgroundColor" name="colorBackgroundSecondary"/>
+                        </tabBarAppearance>
                     </tabBar>
                     <connections>
                         <segue destination="wC5-QA-rI3" kind="relationship" relationship="viewControllers" id="XjX-LB-oiF"/>
@@ -58,7 +61,7 @@
             <objects>
                 <viewController id="Dot-Zi-baJ" customClass="SavedViewController" customModule="GA_TB_Reference_Guide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XGj-SE-xGe">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JeE-wx-uaD">
@@ -205,7 +208,7 @@ Start by opening any subchapter or chart.</string>
             <objects>
                 <viewController id="nKP-sb-qKu" customClass="SettingsViewController" customModule="GA_TB_Reference_Guide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Jdd-bm-5bY">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MG9-YC-DjR">
@@ -237,7 +240,7 @@ Start by opening any subchapter or chart.</string>
             <objects>
                 <viewController id="mfJ-WS-8gE" customClass="SettingsViewsViewController" customModule="GA_TB_Reference_Guide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NR9-zQ-wVN">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YPN-gG-ViF">
@@ -394,7 +397,7 @@ Start by opening any subchapter or chart.</string>
             <objects>
                 <viewController id="kQo-wD-5dU" customClass="GuideViewController" customModule="GA_TB_Reference_Guide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="L8j-yu-NeN">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eM7-co-utl">
@@ -472,7 +475,7 @@ Start by opening any subchapter or chart.</string>
             <objects>
                 <viewController id="NPi-6z-31j" customClass="ContentListViewController" customModule="GA_TB_Reference_Guide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="l3M-BP-rkc">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lHU-EX-bZh">
@@ -504,7 +507,7 @@ Start by opening any subchapter or chart.</string>
             <objects>
                 <viewController id="WOg-ZV-N7e" customClass="ChartListViewController" customModule="GA_TB_Reference_Guide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pX6-h0-IhC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nHo-rU-aEe">
@@ -536,7 +539,7 @@ Start by opening any subchapter or chart.</string>
             <objects>
                 <viewController id="lY8-De-BGr" customClass="SearchViewController" customModule="GA_TB_Reference_Guide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BTy-HM-5iY">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JQa-5h-3aq">
@@ -945,7 +948,7 @@ Start by opening any subchapter or chart.</string>
                                 <subviews>
                                     <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="UEn-Wx-H5A">
                                         <rect key="frame" x="0.0" y="0.0" width="75" height="70"/>
-                                        <color key="backgroundColor" name="backgroundColor"/>
+                                        <color key="backgroundColor" name="colorBackgroundSecondary"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                         <color key="tintColor" name="custom333"/>
                                         <state key="normal" title="Home" image="icHomeOutline">
@@ -954,8 +957,8 @@ Start by opening any subchapter or chart.</string>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             </preferredSymbolConfiguration>
                                         </state>
-                                        <buttonConfiguration key="configuration" style="plain" image="icHomeOutline" imagePlacement="top" imagePadding="1" buttonSize="small" titleAlignment="center">
-                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="small" weight="light"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="icHomeOutline" imagePlacement="top" imagePadding="0.0" buttonSize="small" titleAlignment="center">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="large" weight="light"/>
                                             <attributedString key="attributedTitle">
                                                 <fragment content="Home">
                                                     <attributes>
@@ -973,14 +976,14 @@ Start by opening any subchapter or chart.</string>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="7m9-0t-Q9K">
                                         <rect key="frame" x="75" y="0.0" width="75" height="70"/>
-                                        <color key="backgroundColor" name="backgroundColor"/>
+                                        <color key="backgroundColor" name="colorBackgroundSecondary"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                         <color key="tintColor" name="custom333"/>
                                         <state key="normal" title="Share" image="icShare">
                                             <color key="titleColor" systemColor="labelColor"/>
                                         </state>
-                                        <buttonConfiguration key="configuration" style="plain" image="icShare" imagePlacement="top" imagePadding="1" buttonSize="small" titleAlignment="center">
-                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="small" weight="light"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="icShare" imagePlacement="top" imagePadding="0.0" buttonSize="small" titleAlignment="center">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="large" weight="light"/>
                                             <attributedString key="attributedTitle">
                                                 <fragment content="Share">
                                                     <attributes>
@@ -998,14 +1001,14 @@ Start by opening any subchapter or chart.</string>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="1uh-gr-z8Z">
                                         <rect key="frame" x="150" y="0.0" width="75" height="70"/>
-                                        <color key="backgroundColor" name="backgroundColor"/>
+                                        <color key="backgroundColor" name="colorBackgroundSecondary"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                         <color key="tintColor" name="custom333"/>
                                         <state key="normal" title="Bookmark" image="icBookmarksFolder">
                                             <color key="titleColor" systemColor="labelColor"/>
                                         </state>
-                                        <buttonConfiguration key="configuration" style="plain" image="icBookmarksFolder" imagePlacement="top" imagePadding="1" buttonSize="small" titleAlignment="center">
-                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="small" weight="light"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="icBookmarksFolder" imagePlacement="top" imagePadding="0.0" buttonSize="small" titleAlignment="center">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="large" weight="light"/>
                                             <attributedString key="attributedTitle">
                                                 <fragment content="Bookmark">
                                                     <attributes>
@@ -1023,7 +1026,7 @@ Start by opening any subchapter or chart.</string>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="OlF-iW-Oph">
                                         <rect key="frame" x="225" y="0.0" width="75" height="70"/>
-                                        <color key="backgroundColor" name="backgroundColor"/>
+                                        <color key="backgroundColor" name="colorBackgroundSecondary"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                         <color key="tintColor" name="custom333"/>
                                         <state key="normal" title="Note" image="icEditNote">
@@ -1031,8 +1034,8 @@ Start by opening any subchapter or chart.</string>
                                             <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default" weight="light"/>
                                         </state>
-                                        <buttonConfiguration key="configuration" style="plain" image="icEditNote" imagePlacement="top" imagePadding="1" buttonSize="small" titleAlignment="center">
-                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="small" weight="light"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="icEditNote" imagePlacement="top" imagePadding="0.0" buttonSize="small" titleAlignment="center">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="large" weight="light"/>
                                             <attributedString key="attributedTitle">
                                                 <fragment content="Note">
                                                     <attributes>
@@ -1050,7 +1053,7 @@ Start by opening any subchapter or chart.</string>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="3ke-OD-JU3">
                                         <rect key="frame" x="300" y="0.0" width="75" height="70"/>
-                                        <color key="backgroundColor" name="backgroundColor"/>
+                                        <color key="backgroundColor" name="colorBackgroundSecondary"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                         <color key="tintColor" name="custom333"/>
                                         <state key="normal" title="Note" image="icEditNote">
@@ -1058,8 +1061,8 @@ Start by opening any subchapter or chart.</string>
                                             <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default" weight="light"/>
                                         </state>
-                                        <buttonConfiguration key="configuration" style="plain" image="icFontSizeSettings" imagePlacement="top" imagePadding="1" buttonSize="small" titleAlignment="center">
-                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="small" weight="light"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="icFontSizeSettings" imagePlacement="top" imagePadding="0.0" buttonSize="small" titleAlignment="center">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="large" weight="light"/>
                                             <attributedString key="attributedTitle">
                                                 <fragment content="Font">
                                                     <attributes>
@@ -1076,7 +1079,7 @@ Start by opening any subchapter or chart.</string>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" name="backgroundColor"/>
+                                <color key="backgroundColor" name="colorBackgroundSecondary"/>
                                 <color key="tintColor" name="custom333"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="uDA-hx-jly"/>
@@ -1140,7 +1143,7 @@ Start by opening any subchapter or chart.</string>
             <objects>
                 <viewController id="Aas-Dn-V2j" customClass="SubChapterViewController" customModule="GA_TB_Reference_Guide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dIG-zA-IxJ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="p0Y-ny-Dpb">
@@ -1196,7 +1199,7 @@ Start by opening any subchapter or chart.</string>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="sNt-ij-jaz"/>
+        <segue reference="DAg-07-fMt"/>
         <segue reference="Kvm-QI-PmY"/>
         <segue reference="c87-MO-uwg"/>
     </inferredMetricsTieBreakers>
@@ -1230,6 +1233,9 @@ Start by opening any subchapter or chart.</string>
         </namedColor>
         <namedColor name="colorText">
             <color red="0.45490196078431372" green="0.45490196078431372" blue="0.45490196078431372" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="colorTextDarker">
+            <color red="0.32941176470588235" green="0.32941176470588235" blue="0.32941176470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="custom333">
             <color red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

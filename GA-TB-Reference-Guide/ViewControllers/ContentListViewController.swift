@@ -40,6 +40,8 @@ class ContentListViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.register( UITableViewCell.self, forCellReuseIdentifier: type(of: self).description())
         tableView.estimatedRowHeight = 80
         tableView.estimatedRowHeight = UITableView.automaticDimension
+		tableView.separatorStyle = .none
+		tableView.backgroundColor = .backgroundColor
         // Do any additional setup after loading the view.
     }
     
@@ -63,8 +65,9 @@ class ContentListViewController: UIViewController, UITableViewDelegate, UITableV
         else
         {
             cell = UITableViewCell(frame: CGRect( x: 0, y: 0, width: tableView.frame.width, height: tableView.rowHeight ))
-            cell.backgroundColor = UIColor.backgroundColor
-            
+			cell.backgroundColor = .colorBackgroundSecondary
+			cell.textLabel?.textColor = .colorTextDarker
+
             cell.accessoryType = .disclosureIndicator
             
             cell.textLabel?.text = chapters[indexPath.row]

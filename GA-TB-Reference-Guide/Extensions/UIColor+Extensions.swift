@@ -88,4 +88,9 @@ extension UIColor
 	{
 		return UIColor(named: "colorText")!
 	}
+
+	class var colorTextDarker: UIColor
+	{
+		return UIColor(named: "colorTextDarker")!
+	}
 }
