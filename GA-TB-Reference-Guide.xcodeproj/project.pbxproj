@@ -12,6 +12,7 @@
 		B401CE5F2C58D96D00149414 /* SuggestionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B401CE5D2C58D96D00149414 /* SuggestionTableViewCell.xib */; };
 		B401CE622C5BD8C300149414 /* RecentSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B401CE602C5BD8C300149414 /* RecentSearchTableViewCell.swift */; };
 		B401CE632C5BD8C300149414 /* RecentSearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B401CE612C5BD8C300149414 /* RecentSearchTableViewCell.xib */; };
+		B40EA6862DF2F13E00B72567 /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40EA6852DF2F13E00B72567 /* UITextField+Extensions.swift */; };
 		B40EA6F42C46B90400C03A12 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B40EA6F32C46B90400C03A12 /* UserNotifications.framework */; };
 		B40FEDE92DF085A600FBEBB7 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = B40FEDE82DF085A600FBEBB7 /* main.js */; };
 		B40FEE032DF0898700FBEBB7 /* considerations_image_1.png in Resources */ = {isa = PBXBuildFile; fileRef = B40FEDF12DF0898700FBEBB7 /* considerations_image_1.png */; };
@@ -209,6 +210,7 @@
 		B401CE5D2C58D96D00149414 /* SuggestionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SuggestionTableViewCell.xib; sourceTree = "<group>"; };
 		B401CE602C5BD8C300149414 /* RecentSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchTableViewCell.swift; sourceTree = "<group>"; };
 		B401CE612C5BD8C300149414 /* RecentSearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecentSearchTableViewCell.xib; sourceTree = "<group>"; };
+		B40EA6852DF2F13E00B72567 /* UITextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
 		B40EA6F32C46B90400C03A12 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		B40FEDE82DF085A600FBEBB7 /* main.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
 		B40FEDEA2DF0898700FBEBB7 /* acknowledge.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = acknowledge.svg; sourceTree = "<group>"; };
@@ -650,6 +652,7 @@
 				D4B0B0E026D05002003BD1EA /* UINavigationBar+Extensions.swift */,
 				D46861C127A86090002061E4 /* UINavigationAppearance.swift */,
 				D48BD77F2779F13800D8A25D /* UIButton+Extensions.swift */,
+				B40EA6852DF2F13E00B72567 /* UITextField+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1075,6 +1078,7 @@
 				D42F269526F05B64009DC942 /* ChapterNoteTableViewCell.swift in Sources */,
 				D4A06A5526E6D2330093D144 /* ContentPage.swift in Sources */,
 				D4B0B0AD26D01CA6003BD1EA /* AppDelegate.swift in Sources */,
+				B40EA6862DF2F13E00B72567 /* UITextField+Extensions.swift in Sources */,
 				D4B0B0AF26D01CA6003BD1EA /* SceneDelegate.swift in Sources */,
 				D4A06A5E26E6F59C0093D144 /* ContentAccess.swift in Sources */,
 				D4C0C0DF2800D64600346F96 /* OldRealmFile.swift in Sources */,
