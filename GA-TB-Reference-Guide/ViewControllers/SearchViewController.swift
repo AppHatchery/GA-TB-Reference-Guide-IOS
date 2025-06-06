@@ -88,17 +88,27 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         
         search.delegate = self
 
-        let textFieldInsideSearchBar = search.value(forKey: "searchField") as? UITextField
-        textFieldInsideSearchBar?.textColor = UIColor.searchBarText
-        textFieldInsideSearchBar?.attributedPlaceholder = NSAttributedString(string: "Enter Keywords to Search",attributes: [NSAttributedString.Key.foregroundColor: UIColor.searchBarText])
-        textFieldInsideSearchBar?.layer.cornerRadius = 60
-        textFieldInsideSearchBar?.backgroundColor = UIColor.searchBar
-        searchView.frame = CGRect(x: searchView.frame.origin.x, y: searchView.frame.origin.x, width: searchView.frame.width, height: search.frame.height+10)
+		guard let textField = search.value(forKey: "searchField") as? UITextField else { return }
 
-		if let textField = search.value(forKey: "searchField") as? UITextField {
-			let glassIconView = textField.leftView as? UIImageView
-			glassIconView?.tintColor = .searchBarText
-		}
+			// Searchbar configuration
+		textField.textColor = UIColor.searchBarText
+		textField.attributedPlaceholder = NSAttributedString(
+			string: "Enter Keywords to Search",
+			attributes: [.foregroundColor: UIColor.searchBarText]
+		)
+		textField.layer.cornerRadius = 60
+		textField.backgroundColor = UIColor.searchBar
+
+		searchView.frame = CGRect(
+			x: searchView.frame.origin.x,
+			y: searchView.frame.origin.y,
+			width: searchView.frame.width,
+			height: search.frame.height + 10
+		)
+
+		textField.setSearchIcon(UIImage(named: "magnifyingGlass"), tintColor: UIColor.searchBarText)
+		textField
+			.setClearButton(UIImage(named: "icClear"), tintColor: UIColor.colorPrimary)
 
         navigationController?.navigationBar.setGradientBackground(to: self.navigationController!)
         navigationController?.navigationBar.tintColor = UIColor.white
@@ -474,6 +484,15 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 					let startRange = chartResults[indexPath.row].index(TSTrange?.lowerBound ?? chartResults[indexPath.row].startIndex, offsetBy: -30, limitedBy: chartResults[indexPath.row].startIndex) ?? chartResults[indexPath.row].startIndex
 					let endRange = chartResults[indexPath.row].index(TSTrange?.lowerBound ?? chartResults[indexPath.row].endIndex, offsetBy: 90, limitedBy: chartResults[indexPath.row].endIndex) ?? chartResults[indexPath.row].endIndex
 					cell.contentLabel.text = "..." + String(chartResults[indexPath.row][startRange..<endRange]) + "..."
+
+					if let chartName = cell.subchapterLabel.text,
+						chartName.range(of: #"^Table \d+:"#, options: .regularExpression) != nil {
+						cell.chapterIcon.image = UIImage(named: "icChartGreen")
+						print("Valid table name format: \(chartName)")
+					} else {
+						print("Invalid table name format: \(cell.subchapterLabel.text ?? "")")
+						cell.chapterIcon.image = UIImage(named: "icChapterBlue")
+					}
 				} else if showChapters {
 					let subchapterNameIndex = tempChaptersHTML.firstIndex(of: chapterResults[indexPath.row]) ?? 0
 					
@@ -484,6 +503,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 					let startRange = chapterResults[indexPath.row].index(TSTrange?.lowerBound ?? chapterResults[indexPath.row].startIndex, offsetBy: -30, limitedBy: chapterResults[indexPath.row].startIndex) ?? chapterResults[indexPath.row].startIndex
 					let endRange = chapterResults[indexPath.row].index(TSTrange?.lowerBound ?? chapterResults[indexPath.row].endIndex, offsetBy: 90, limitedBy: chapterResults[indexPath.row].endIndex) ?? chapterResults[indexPath.row].endIndex
 					cell.contentLabel.text = "..." + String(chapterResults[indexPath.row][startRange..<endRange]) + "..."
+					cell.chapterIcon.image = UIImage(named: "icChapterBlue")
 				} else {
 					let subchapterNameIndex = tempHTML.firstIndex(of: allSearchResults[indexPath.row]) ?? 0
 
@@ -494,7 +514,19 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 					let startRange = allSearchResults[indexPath.row].index(TSTrange?.lowerBound ?? allSearchResults[indexPath.row].startIndex, offsetBy: -30, limitedBy: allSearchResults[indexPath.row].startIndex) ?? allSearchResults[indexPath.row].startIndex
 					let endRange = allSearchResults[indexPath.row].index(TSTrange?.lowerBound ?? allSearchResults[indexPath.row].endIndex, offsetBy: 90, limitedBy: allSearchResults[indexPath.row].endIndex) ?? allSearchResults[indexPath.row].endIndex
 					cell.contentLabel.text = "..." + String(allSearchResults[indexPath.row][startRange..<endRange]) + "..."
+
+						// Check if the chart name starts with "Table X:" where X is an integer
+					if let chartName = cell.subchapterLabel.text,
+						chartName.range(of: #"^Table \d+:"#, options: .regularExpression) != nil {
+						cell.chapterIcon.image = UIImage(named: "icChartGreen")
+						print("Valid table name format: \(chartName)")
+					} else {
+							// Invalid format (does not start with "Table X:")
+						cell.chapterIcon.image = UIImage(named: "icChapterBlue")
+						print("Invalid table name format: \(cell.subchapterLabel.text ?? "")")
+					}
 				}
+
 				let terms = searchTerm.lowercased().split(separator: " ").map({ String($0) as NSString }) + [searchTerm as NSString]
 				cell.contentLabel.attributedText = addBoldText(fullString: cell.contentLabel.text! as NSString, boldPartsOfString: terms)
 				cell.contentLabel.isHidden = false

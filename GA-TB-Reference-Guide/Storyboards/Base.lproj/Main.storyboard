@@ -649,52 +649,50 @@ Start by opening any subchapter or chart.</string>
                                                     <constraint firstAttribute="trailing" secondItem="b4P-hq-EDo" secondAttribute="trailing" id="o5f-Da-X9g"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N4l-wc-fVG" userLabel="Main Loader View">
-                                                <rect key="frame" x="0.0" y="-12" width="375" height="484"/>
-                                                <subviews>
-                                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="uky-fD-FZC">
-                                                        <rect key="frame" x="169" y="223.5" width="37" height="37"/>
-                                                        <color key="backgroundColor" name="backgroundColor"/>
-                                                        <color key="color" name="colorPrimary"/>
-                                                    </activityIndicatorView>
-                                                </subviews>
-                                                <color key="backgroundColor" name="backgroundColor"/>
-                                                <constraints>
-                                                    <constraint firstItem="uky-fD-FZC" firstAttribute="centerY" secondItem="N4l-wc-fVG" secondAttribute="centerY" id="14P-q3-zWJ"/>
-                                                    <constraint firstItem="uky-fD-FZC" firstAttribute="centerX" secondItem="N4l-wc-fVG" secondAttribute="centerX" id="sFU-Fm-MFM"/>
-                                                </constraints>
-                                            </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wca-LO-pnd" userLabel="Main Table View">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="460"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Crt-b8-bIC">
-                                                        <rect key="frame" x="20" y="0.0" width="355" height="30"/>
+                                                        <rect key="frame" x="20" y="0.0" width="335" height="28"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BGj-yy-CfZ" userLabel="Tabs View">
-                                                                <rect key="frame" x="70" y="0.0" width="265" height="30"/>
+                                                                <rect key="frame" x="111" y="0.0" width="224" height="28"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Vu4-oh-XWW">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="33" height="30"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="33" height="28"/>
                                                                         <color key="backgroundColor" name="colorPrimary"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="33" id="GCA-lW-Oy2"/>
+                                                                        </constraints>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <inset key="contentEdgeInsets" minX="8" minY="4" maxX="8" maxY="4"/>
                                                                         <state key="normal" title="All"/>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bIS-iu-CKs" userLabel="Chapters Button">
-                                                                        <rect key="frame" x="49" y="0.0" width="110" height="30"/>
+                                                                        <rect key="frame" x="49" y="0.0" width="95" height="28"/>
                                                                         <color key="backgroundColor" name="colorBackgroundSecondary"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="95" id="hhD-h7-SZe"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                         <color key="tintColor" name="colorText"/>
-                                                                        <inset key="contentEdgeInsets" minX="8" minY="4" maxX="8" maxY="4"/>
+                                                                        <inset key="contentEdgeInsets" minX="0.0" minY="4" maxX="0.0" maxY="4"/>
+                                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="6" maxY="0.0"/>
                                                                         <state key="normal" title="Chapters" image="icChapterMonoSmall">
                                                                             <color key="titleColor" name="colorText"/>
                                                                         </state>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="zED-Vd-w4r">
-                                                                        <rect key="frame" x="175" y="0.0" width="90" height="30"/>
+                                                                        <rect key="frame" x="160" y="0.0" width="85" height="28"/>
                                                                         <color key="backgroundColor" name="colorBackgroundSecondary"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="85" id="4sZ-1g-dqe"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                         <color key="tintColor" name="colorText"/>
-                                                                        <inset key="contentEdgeInsets" minX="8" minY="4" maxX="8" maxY="4"/>
+                                                                        <inset key="contentEdgeInsets" minX="0.0" minY="4" maxX="0.0" maxY="4"/>
+                                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="6" maxY="0.0"/>
                                                                         <state key="normal" title="Charts" image="icChartMonoSmall">
                                                                             <color key="titleColor" name="colorText"/>
                                                                         </state>
@@ -715,8 +713,11 @@ Start by opening any subchapter or chart.</string>
                                                                 </constraints>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="66 Results in" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="866-cY-vUi">
-                                                                <rect key="frame" x="0.0" y="0.0" width="70" height="30"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="111" height="28"/>
                                                                 <color key="backgroundColor" name="backgroundColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="111" id="z8F-y6-5hv"/>
+                                                                </constraints>
                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -730,19 +731,19 @@ Start by opening any subchapter or chart.</string>
                                                             <constraint firstItem="866-cY-vUi" firstAttribute="leading" secondItem="Crt-b8-bIC" secondAttribute="leading" id="DDR-6i-vNE"/>
                                                             <constraint firstItem="BGj-yy-CfZ" firstAttribute="top" secondItem="Crt-b8-bIC" secondAttribute="top" id="NJw-MG-Kw0"/>
                                                             <constraint firstAttribute="bottom" secondItem="866-cY-vUi" secondAttribute="bottom" id="UoM-uh-JW5"/>
-                                                            <constraint firstAttribute="trailing" secondItem="BGj-yy-CfZ" secondAttribute="trailing" constant="20" id="x0T-Ps-72M"/>
+                                                            <constraint firstAttribute="trailing" secondItem="BGj-yy-CfZ" secondAttribute="trailing" id="x0T-Ps-72M"/>
                                                         </constraints>
                                                     </view>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ezG-ZA-9lG">
-                                                        <rect key="frame" x="0.0" y="50" width="375" height="410"/>
+                                                        <rect key="frame" x="0.0" y="48" width="375" height="412"/>
                                                         <color key="backgroundColor" name="backgroundColor"/>
                                                         <color key="sectionIndexBackgroundColor" name="backgroundColor"/>
                                                     </tableView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="as6-9A-oex" userLabel="Loader View">
-                                                        <rect key="frame" x="0.0" y="50" width="375" height="410"/>
+                                                        <rect key="frame" x="0.0" y="48" width="375" height="412"/>
                                                         <subviews>
                                                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="rJe-Df-0s5">
-                                                                <rect key="frame" x="169" y="186.5" width="37" height="37"/>
+                                                                <rect key="frame" x="169" y="187.5" width="37" height="37"/>
                                                                 <color key="backgroundColor" name="colorBackground"/>
                                                                 <color key="tintColor" name="colorPrimary"/>
                                                                 <color key="color" name="colorPrimary"/>
@@ -761,13 +762,28 @@ Start by opening any subchapter or chart.</string>
                                                     <constraint firstItem="as6-9A-oex" firstAttribute="leading" secondItem="Wca-LO-pnd" secondAttribute="leading" id="98i-SV-xVd"/>
                                                     <constraint firstAttribute="trailing" secondItem="ezG-ZA-9lG" secondAttribute="trailing" id="KmW-Tt-0aF"/>
                                                     <constraint firstItem="as6-9A-oex" firstAttribute="top" secondItem="Crt-b8-bIC" secondAttribute="bottom" constant="20" id="UhN-Mf-eKK"/>
-                                                    <constraint firstAttribute="trailing" secondItem="Crt-b8-bIC" secondAttribute="trailing" id="WXS-6H-QED"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Crt-b8-bIC" secondAttribute="trailing" constant="20" id="WXS-6H-QED"/>
                                                     <constraint firstItem="Crt-b8-bIC" firstAttribute="leading" secondItem="Wca-LO-pnd" secondAttribute="leading" constant="20" id="h5f-t4-lOV"/>
                                                     <constraint firstAttribute="bottom" secondItem="as6-9A-oex" secondAttribute="bottom" id="kpa-f9-hau"/>
                                                     <constraint firstAttribute="bottom" secondItem="ezG-ZA-9lG" secondAttribute="bottom" id="qpg-eb-OWG"/>
                                                     <constraint firstAttribute="trailing" secondItem="as6-9A-oex" secondAttribute="trailing" id="sr1-ln-mwL"/>
                                                     <constraint firstItem="ezG-ZA-9lG" firstAttribute="leading" secondItem="Wca-LO-pnd" secondAttribute="leading" id="w7H-ad-vug"/>
                                                     <constraint firstItem="ezG-ZA-9lG" firstAttribute="top" secondItem="Crt-b8-bIC" secondAttribute="bottom" constant="20" id="zo7-20-x6F"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N4l-wc-fVG" userLabel="Main Loader View">
+                                                <rect key="frame" x="0.0" y="-12" width="375" height="484"/>
+                                                <subviews>
+                                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="uky-fD-FZC">
+                                                        <rect key="frame" x="169" y="223.5" width="37" height="37"/>
+                                                        <color key="backgroundColor" name="backgroundColor"/>
+                                                        <color key="color" name="colorPrimary"/>
+                                                    </activityIndicatorView>
+                                                </subviews>
+                                                <color key="backgroundColor" name="backgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="uky-fD-FZC" firstAttribute="centerY" secondItem="N4l-wc-fVG" secondAttribute="centerY" id="14P-q3-zWJ"/>
+                                                    <constraint firstItem="uky-fD-FZC" firstAttribute="centerX" secondItem="N4l-wc-fVG" secondAttribute="centerX" id="sFU-Fm-MFM"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -1250,19 +1266,19 @@ Start by opening any subchapter or chart.</string>
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray5Color">
-            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray6Color">
-            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemMintColor">
-            <color red="0.0" green="0.78039215689999997" blue="0.74509803919999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.7803921568627451" blue="0.74509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
