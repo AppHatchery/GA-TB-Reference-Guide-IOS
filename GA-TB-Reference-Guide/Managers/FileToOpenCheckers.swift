@@ -45,8 +45,8 @@ func updateFileIfDownloaded(filename: String, withExtension fileExtension: Strin
 				// Replace replace the existing <img />  tag with new <img /> with relative path
 				// It is this way because the image src will not always be "../assets/ic_title_icon.svg" after the first update/download
 
-				let updatedImgTag = #"<img alt="aut" src="\#(iconPath)" width="50" height="50"/>"#
-				fileContent = fileContent.replacingOccurrences(of: #"<img alt="aut" src=".*?"/>"#, with: updatedImgTag, options: .regularExpression)
+				let updatedImgTag = #"<img alt="aut" src="\#(iconPath)" width="50" height="50" class="ic_title_icon">"#
+				fileContent = fileContent.replacingOccurrences(of: #"<img alt="aut" src=".*?" width="50" height="50" class="ic_title_icon">"#, with: updatedImgTag, options: .regularExpression)
 
 				print(fileContent)
 
