@@ -8,16 +8,6 @@
       "appearances" : [
         {
           "appearance" : "luminosity",
-          "value" : "light"
-        }
-      ],
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
           "value" : "dark"
         }
       ],
@@ -32,16 +22,6 @@
       "appearances" : [
         {
           "appearance" : "luminosity",
-          "value" : "light"
-        }
-      ],
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
           "value" : "dark"
         }
       ],
@@ -49,18 +29,7 @@
       "scale" : "2x"
     },
     {
-      "filename" : "topCard.png",
-      "idiom" : "universal",
-      "scale" : "3x"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "light"
-        }
-      ],
-      "filename" : "topCard-1.png",
+      "filename" : "bgAllTopCardPressed.png",
       "idiom" : "universal",
       "scale" : "3x"
     },
@@ -71,7 +40,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "topDark.png",
+      "filename" : "bgAllTopCardDark.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

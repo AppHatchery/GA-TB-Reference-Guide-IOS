@@ -19,16 +19,6 @@ extension UIColor
         return UIColor( named: "customDarkBrown" )!
     }
     
-    class var dialogColor : UIColor
-    {
-        return UIColor(named: "dialogColor" )!
-    }
-    
-    class var dialogIcons : UIColor
-    {
-        return UIColor(named: "dialogIcons" )!
-    }
-    
     class var custom333: UIColor
     {
         return UIColor(named: "custom333")!
