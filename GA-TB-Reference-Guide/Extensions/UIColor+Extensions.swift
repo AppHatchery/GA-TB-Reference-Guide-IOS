@@ -74,6 +74,11 @@ extension UIColor
 		return UIColor(named: "colorWhite")!
 	}
 
+	class var colorYellow: UIColor
+	{
+		return UIColor(named: "colorYellow")!
+	}
+
 	class var colorText: UIColor
 	{
 		return UIColor(named: "colorText")!

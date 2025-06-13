@@ -76,13 +76,13 @@ class SaveFavorite: UIView {
         contentView.layer.cornerRadius = 4
         contentView.layer.masksToBounds = true
                 
-        cancelButton.layer.borderWidth = 0.5
-        cancelButton.layer.cornerRadius = 4
-        cancelButton.layer.masksToBounds = true
+        cancelButton.layer.borderWidth = 0
+        cancelButton.layer.cornerRadius = 0
+		cancelButton.layer.masksToBounds = true
         cancelButton.layer.borderColor = UIColor.label.cgColor
 
-        saveButton.layer.borderWidth = 0.5
-        saveButton.layer.cornerRadius = 4
+        saveButton.layer.borderWidth = 0
+        saveButton.layer.cornerRadius = 0
         saveButton.layer.masksToBounds = true
         saveButton.layer.borderColor = UIColor.label.cgColor
         
@@ -92,7 +92,6 @@ class SaveFavorite: UIView {
             cancelButton.setTitle("Remove", for: .normal)
             saveButton.setTitle("Update", for: .normal)
             cancelButton.addTarget(self, action: #selector(self.deleteButtonPressed), for: .touchUpInside)
-            cancelButton.setImage(UIImage(systemName: "trash"), for: .normal)
         } else {
             nameField.text = currentTitle
             cancelButton.addTarget(self, action: #selector(self.cancelButtonPressed), for: .touchUpInside)

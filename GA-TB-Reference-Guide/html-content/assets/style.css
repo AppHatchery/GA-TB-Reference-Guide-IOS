@@ -142,8 +142,6 @@ html {
 body {
   margin: 0;
   line-height: 1.7;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
 }
 
 a:active,
@@ -506,7 +504,7 @@ a {
     border: none;
     border-radius: var(--tab-radius);
     box-shadow: var(--tab-box-shadow);
-    max-width: 150px;
+    width: 146px;
     height: 100%;
     box-sizing: border-box;
 }

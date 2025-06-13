@@ -13,7 +13,7 @@ function WKWebView_HighlightAllOccurencesOfStringForElement(element,keyword) {
                 var text = document.createTextNode(value.substr(idx,keyword.length));
                 span.appendChild(text);
                 span.setAttribute("class","WKWebView_Highlight");
-                span.style.backgroundColor="yellow";
+                span.style.backgroundColor="#FFBE0C";
                 span.style.color="black";
                 text = document.createTextNode(value.substr(idx+keyword.length));
                 element.deleteData(idx, value.length - idx);

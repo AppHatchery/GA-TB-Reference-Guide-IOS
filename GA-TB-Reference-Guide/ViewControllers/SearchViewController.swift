@@ -781,7 +781,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         let boldString = NSMutableAttributedString(string: fullString as String, attributes:nonBoldFontAttribute)
         let lowercase = fullString.lowercased as NSString
         for i in 0 ..< boldPartsOfString.count {
-            boldString.addAttribute(.backgroundColor, value: UIColor.yellow, range: lowercase.range(of: boldPartsOfString[i] as String))
+			boldString
+				.addAttribute(
+					.backgroundColor,
+					value: UIColor.colorYellow,
+					range: lowercase.range(of: boldPartsOfString[i] as String)
+				)
             boldString.addAttribute(.foregroundColor, value: UIColor.black, range: lowercase.range(of: boldPartsOfString[i] as String))
         }
         return boldString
