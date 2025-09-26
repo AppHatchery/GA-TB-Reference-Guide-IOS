@@ -16,17 +16,19 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var separator: UIView!
-    @IBOutlet weak var pseudoseparator: UIView!
     @IBOutlet weak var favoriteIcon: UIButton!
+    
+    @IBOutlet weak var search: UISearchBar!
+    @IBOutlet weak var searchNavStackView: UIStackView!
+    
+    @IBOutlet weak var currentSearchTermIndex: UILabel!
+    @IBOutlet weak var totalSearchTermsFound: UILabel!
+    
+    
     
     @IBOutlet weak var searchTermView: UILabel!
     @IBOutlet weak var searchView: UIView!
 	@IBOutlet var metadataView: UIView!
-	@IBOutlet var metadataViewHeightConstraint: NSLayoutConstraint!
-	@IBOutlet var separatorHeightConstraintToViewTop: NSLayoutConstraint!
-	@IBOutlet var metadataViewTopConstraint: NSLayoutConstraint!
-	@IBOutlet var metadataViewBottomConstraint: NSLayoutConstraint!
 
 	var identifier = ""
     var header = "Placeholder Content"
@@ -88,15 +90,29 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         ]
     )
     
+    private var searchTimer: Timer?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if let searchTerm = searchTerm, comingFromSearch, !searchTerm.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty{
             searchView.isHidden = searchTerm.isEmpty
             searchTermView.text = searchTerm
+            
+            UIView.animate(withDuration: 1, delay: 0, options: .curveEaseInOut, animations: {
+                self.searchNavStackView.isHidden = false
+            })
+            
+            search.text = searchTerm
         } else {
             searchView.isHidden = true
+            UIView.animate(withDuration: 1, delay: 0, options: .curveEaseOut, animations: {
+                self.searchNavStackView.isHidden = true
+            })
         }
+        
+        configureSearchBar()
+        
 
 		let filename = "15_appendix_district_tb_coordinators_(by_district).html"
 
@@ -104,9 +120,6 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
 			metadataView.isHidden = true
 			metadataView.heightAnchor.constraint(equalToConstant: 0).isActive = true
 			metadataView.frame.size.height = 0
-			separator.isHidden = true
-			metadataViewTopConstraint.constant = 0
-			metadataViewBottomConstraint.constant = 0
 		}
 
         let navbarTitle = UILabel()
@@ -211,6 +224,30 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         
         NotificationCenter.default.addObserver(self, selector: #selector(fontSizeChanged(_:)), name: NSNotification.Name("FontSizeChanged"), object: nil)
         webView.load( URLRequest( url: url ))
+    }
+    
+    func configureSearchBar() {
+        guard let textField = search.value(forKey: "searchField") as? UITextField else { return }
+
+            // Searchbar configuration
+        textField.textColor = UIColor.searchBarText
+        textField.attributedPlaceholder = NSAttributedString(
+            string: "Enter Keywords to Search",
+            attributes: [.foregroundColor: UIColor.searchBarText]
+        )
+        textField.layer.cornerRadius = 60
+        textField.backgroundColor = UIColor.searchBar
+
+        searchView.frame = CGRect(
+            x: searchView.frame.origin.x,
+            y: searchView.frame.origin.y,
+            width: searchView.frame.width,
+            height: search.frame.height + 10
+        )
+
+        textField.setSearchIcon(UIImage(named: "magnifyingGlass"), tintColor: UIColor.searchBarText)
+        textField
+            .setClearButton(UIImage(named: "icClear"), tintColor: UIColor.colorPrimary)
     }
     
     @objc func fontSizeChanged(_ notification: Notification) {
@@ -497,6 +534,117 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         preferences.preferredContentMode = .mobile
         decisionHandler(.allow,preferences)
     }
+    
+    func searchAndCountWords(term: String) {
+        var terms = term.split(separator: " ").map({String($0)})
+        if !terms.contains(term) {terms.append(term)}
+        
+        if let path = Bundle.main.url(forResource: "WebView", withExtension: "js") {
+            do {
+                let data: Data = try Data(contentsOf: path)
+                let jsCode: String = String(decoding: data, as: UTF8.self)
+                
+                // Inject the search code
+                webView.evaluateJavaScript(jsCode, completionHandler: nil)
+                
+                // Count total words found across all search terms
+                var totalWordCount = 0
+                let dispatchGroup = DispatchGroup()
+                
+                for (i, t) in terms.enumerated() {
+                    dispatchGroup.enter()
+                    
+                    // Modified search string to return count
+                    let searchString = "WKWebView_HighlightAllOccurencesOfString('\(t)', \(i == 0))"
+                    
+                    // Perform search and get count
+                    webView.evaluateJavaScript(searchString) { [weak self] (result, error) in
+                        defer { dispatchGroup.leave() }
+                        
+                        if let error = error {
+                            print("Error searching for '\(t)': \(error)")
+                            return
+                        }
+                        
+                        // If your WebView.js returns the count, use it
+                        if let count = result as? Int {
+                            totalWordCount += count
+                        }
+                    }
+                }
+                
+                // When all searches are complete, print the total count
+                dispatchGroup.notify(queue: .main) {
+                    print("Total words found: \(totalWordCount)")
+                }
+                
+            } catch {
+                print("Could not load javascript: \(error)")
+            }
+        }
+    }
+    
+    func highlightSearchWithCount(term: String) {
+        var terms = term.split(separator: " ").map({String($0)})
+        if !terms.contains(term) {terms.append(term)}
+        
+        if let path = Bundle.main.url(forResource: "WebView", withExtension: "js") {
+            do {
+                let data: Data = try Data(contentsOf: path)
+                let jsCode: String = String(decoding: data, as: UTF8.self)
+                
+                // Inject the search code
+                webView.evaluateJavaScript(jsCode, completionHandler: nil)
+                
+                // First count the words using inline JavaScript
+                let countScript = """
+                function countOccurrences(searchTerms) {
+                    var totalCount = 0;
+                    var bodyText = document.body.innerText || document.body.textContent;
+                    
+                    searchTerms.forEach(function(term) {
+                        var regex = new RegExp(term, 'gi');
+                        var matches = bodyText.match(regex);
+                        if (matches) {
+                            totalCount += matches.length;
+                        }
+                    });
+                    
+                    return totalCount;
+                }
+                
+                countOccurrences(\(terms));
+                """
+                
+                webView.evaluateJavaScript(countScript) { [weak self] (result, error) in
+                    if let error = error {
+                        print("Error counting words: \(error)")
+                    } else if let count = result as? Int {
+                        print("Words found: \(count)")
+                    }
+                }
+                
+                // Then highlight them
+                for (i, t) in terms.enumerated() {
+                    let searchString = "WKWebView_HighlightAllOccurencesOfString('\(t)', \(i == 0))"
+                    webView.evaluateJavaScript(searchString, completionHandler: nil)
+                }
+                
+            } catch {
+                print("Could not load javascript: \(error)")
+            }
+        }
+    }
+    
+    
+    @IBAction func goToPreviousSearchTerm(_ sender: Any) {
+        
+    }
+    
+    @IBAction func goToNextSearchTerm(_ sender: Any) {
+        
+    }
+    
 
     //--------------------------------------------------------------------------------------------------
     @IBAction func toggleFavorite(_ sender: UIButton){
@@ -693,7 +841,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     func loadTable() {
         if tableView.superview == nil {
             print("making a new tbale")
-            tableView = ContentSizedTableView(frame: CGRect( x: 20, y: pseudoseparator.frame.origin.y+10, width: view.frame.width-38, height: 95 ))
+//            tableView = ContentSizedTableView(frame: CGRect( x: 20, y: pseudoseparator.frame.origin.y+10, width: view.frame.width-38, height: 95 ))
             tableView.delegate = self
             tableView.dataSource = self
             tableView.register(UINib(nibName: "ChapterNoteTableViewCell", bundle: nil), forCellReuseIdentifier: "chapterNote")
@@ -713,13 +861,13 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             view.addSubview(tableView)
             
             // Constraint the tableview to fit between the webview and the separators
-            tableView.topAnchor.constraint(equalTo: separator.topAnchor,constant: 0.5).isActive = true
+//            tableView.topAnchor.constraint(equalTo: separator.topAnchor,constant: 0.5).isActive = true
             
             tableViewOriginalHeight = Double(tableView.frame.height)
             
             UIView.animate(withDuration: 0.25, delay: 0.01, options: .curveLinear, animations: {
                 // Former constraint between separator and pseudoseparator creates an error in the constraint management in the console, to be refactored in future build
-                self.tableView.bottomAnchor.constraint(equalTo: self.pseudoseparator.topAnchor).isActive = true
+//                self.tableView.bottomAnchor.constraint(equalTo: self.pseudoseparator.topAnchor).isActive = true
 //                self.contentView.topAnchor.constraint(equalTo: self.tableView.bottomAnchor).isActive = true
                 self.view.layoutIfNeeded()
             }, completion: { finished in
@@ -1133,4 +1281,122 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         // To hide the keyboard when the user clicks search
         self.addNoteDialogView.endEditing(true)
     }
+}
+
+extension WebViewViewController: UISearchBarDelegate {
+//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+//        guard let searchText = searchBar.text, !searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+//            return
+//        }
+//        
+//        // Use the new method that counts and highlights
+//        highlightSearchWithCount(term: searchText)
+//        
+//        // Hide keyboard
+//        searchBar.resignFirstResponder()
+//    }
+    
+//    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+//        searchBar.text = ""
+//        searchBar.resignFirstResponder()
+//        removeHighlights()
+//    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+            // Cancel any existing timer
+            searchTimer?.invalidate()
+            
+            // Clear highlights if search text is empty
+            if searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                removeHighlights()
+                searchNavStackView.isHidden = true
+                return
+            }
+            
+            // Set up a new timer to delay the search (debounce)
+            searchTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { [weak self] _ in
+                self?.performRealTimeSearch(term: searchText)
+                self?.searchNavStackView.isHidden = false
+            }
+        }
+        
+        func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+            guard let searchText = searchBar.text, !searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+                return
+            }
+            
+            // Cancel timer and search immediately
+            searchTimer?.invalidate()
+            highlightSearchWithCount(term: searchText)
+            
+            // Hide keyboard
+            searchBar.resignFirstResponder()
+        }
+        
+        func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+            searchBar.text = ""
+            searchBar.resignFirstResponder()
+            searchTimer?.invalidate()
+            removeHighlights()
+        }
+        
+        // Method for real-time search with lighter operations
+        private func performRealTimeSearch(term: String) {
+            guard !term.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+                removeHighlights()
+                return
+            }
+            
+            var terms = term.split(separator: " ").map({String($0)})
+            if !terms.contains(term) { terms.append(term) }
+            
+            if let path = Bundle.main.url(forResource: "WebView", withExtension: "js") {
+                do {
+                    let data: Data = try Data(contentsOf: path)
+                    let jsCode: String = String(decoding: data, as: UTF8.self)
+                    
+                    // Inject the search code
+                    webView.evaluateJavaScript(jsCode, completionHandler: nil)
+                    
+                    // Count words (lighter operation for real-time)
+                    let countScript = """
+                    function countOccurrences(searchTerms) {
+                        var totalCount = 0;
+                        var bodyText = document.body.innerText || document.body.textContent;
+                        
+                        searchTerms.forEach(function(term) {
+                            var regex = new RegExp(term, 'gi');
+                            var matches = bodyText.match(regex);
+                            if (matches) {
+                                totalCount += matches.length;
+                            }
+                        });
+                        
+                        return totalCount;
+                    }
+                    
+                    countOccurrences(\(terms));
+                    """
+                    
+                    webView.evaluateJavaScript(countScript) { [weak self] (result, error) in
+                        if let error = error {
+                            print("Error counting words: \(error)")
+                        } else if let count = result as? Int {
+                            print("Real-time search - Words found: \(count)")
+                            // You could update a results label here instead of printing
+                            // self?.updateSearchResultsLabel(count: count)
+                        }
+                    }
+                    
+                    // Highlight with lighter styling for real-time (optional)
+                    for (i, t) in terms.enumerated() {
+                        let searchString = "WKWebView_HighlightAllOccurencesOfString('\(t)', \(i == 0))"
+                        webView.evaluateJavaScript(searchString, completionHandler: nil)
+                    }
+                    
+                } catch {
+                    print("Could not load javascript: \(error)")
+                }
+            }
+        }
 }
