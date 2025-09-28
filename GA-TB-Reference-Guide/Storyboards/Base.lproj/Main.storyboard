@@ -1130,6 +1130,23 @@ Start by opening any subchapter or chart.</string>
                                     <constraint firstItem="A7h-yx-Qom" firstAttribute="top" secondItem="XZg-De-pgK" secondAttribute="top" constant="8" id="zV0-iD-WM8"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jny-f0-Iwl">
+                                <rect key="frame" x="280.5" y="140" width="74.5" height="30"/>
+                                <color key="backgroundColor" name="colorYellow"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Kur-2v-ITX"/>
+                                </constraints>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="icEditNote" title="(0)" imagePadding="5">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="small"/>
+                                    <fontDescription key="titleFontDescription" type="system" pointSize="16"/>
+                                    <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="viewNotesTapped:" destination="MDz-7h-Sal" eventType="touchUpInside" id="OI3-vi-OKF"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="iku-5P-OPX"/>
                         <color key="backgroundColor" name="colorBackground"/>
@@ -1139,6 +1156,8 @@ Start by opening any subchapter or chart.</string>
                             <constraint firstItem="fa8-rg-KLK" firstAttribute="leading" secondItem="iku-5P-OPX" secondAttribute="leading" constant="20" id="4wG-Ms-ASh"/>
                             <constraint firstItem="iku-5P-OPX" firstAttribute="trailing" secondItem="1Sk-qE-mCt" secondAttribute="trailing" id="8Oa-WP-jbI"/>
                             <constraint firstItem="iku-5P-OPX" firstAttribute="trailing" secondItem="fa8-rg-KLK" secondAttribute="trailing" constant="20" id="CIe-W2-SZY"/>
+                            <constraint firstItem="jny-f0-Iwl" firstAttribute="top" secondItem="XZg-De-pgK" secondAttribute="bottom" constant="50" id="Icb-lp-Eio"/>
+                            <constraint firstItem="iku-5P-OPX" firstAttribute="trailing" secondItem="jny-f0-Iwl" secondAttribute="trailing" constant="20" id="MqN-Ek-xZN"/>
                             <constraint firstItem="XZg-De-pgK" firstAttribute="leading" secondItem="iku-5P-OPX" secondAttribute="leading" id="P2q-hO-DKU"/>
                             <constraint firstItem="XZg-De-pgK" firstAttribute="trailing" secondItem="iku-5P-OPX" secondAttribute="trailing" id="ZT3-1N-gem"/>
                             <constraint firstItem="1Sk-qE-mCt" firstAttribute="leading" secondItem="iku-5P-OPX" secondAttribute="leading" id="dSk-XI-qak"/>
@@ -1158,6 +1177,7 @@ Start by opening any subchapter or chart.</string>
                         <outlet property="searchNavStackView" destination="ue8-Rw-A0X" id="sUT-tb-tJz"/>
                         <outlet property="titleLabel" destination="wxl-6c-aLt" id="jd6-ec-PS8"/>
                         <outlet property="totalSearchTermsFound" destination="4CS-1f-dLd" id="RPq-xP-HyR"/>
+                        <outlet property="viewNotesButton" destination="jny-f0-Iwl" id="rmH-6c-4GO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="em9-c3-RPA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1267,6 +1287,9 @@ Start by opening any subchapter or chart.</string>
         </namedColor>
         <namedColor name="colorTextSecondary">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="colorYellow">
+            <color red="1" green="0.75686274509803919" blue="0.027450980392156862" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="custom333">
             <color red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

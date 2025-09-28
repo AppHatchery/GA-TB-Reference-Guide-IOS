@@ -11,7 +11,7 @@ import RealmSwift
 import FirebaseAnalytics
 import FirebaseDynamicLinks
 
-class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, SaveFavoriteDelegate, SaveNoteDelegate, UITableViewDataSource, UITableViewDelegate, WKScriptMessageHandler {
+class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, SaveFavoriteDelegate, SaveNoteDelegate, WKScriptMessageHandler, NotesBottomSheetDelegate {
 
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -26,7 +26,9 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     
 	@IBOutlet var metadataView: UIView!
 
-	var identifier = ""
+    @IBOutlet weak var viewNotesButton: UIButton!
+    
+    var identifier = ""
     var header = "Placeholder Content"
     var url: URL!
     var uniqueAddress: String!
@@ -130,6 +132,8 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
                 
         titleLabel.text = titlelabel
         dateLabel.text = "Updated \( chapterIndex.updateDate)"
+        
+        viewNotesButton.layer.cornerRadius = 16
         
 //        contentView.topAnchor.constraint(equalTo: pseudoseparator.bottomAnchor, constant: 5).isActive = true
         
@@ -381,6 +385,12 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
 //        if content.notes.count > 0 {
 //            loadTable()
 //        }
+        
+        if let notesCount = content?.notes.count {
+            viewNotesButton.setTitle("(\(notesCount))", for: .normal)
+        } else {
+            viewNotesButton.setTitle("(0)", for: .normal)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -391,16 +401,16 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             favoriteIcon.setImage(UIImage(named: "icBookmarksFolder"), for: .normal)
             favoriteIcon.setAttributedTitle(bookmarkText, for: .normal)
         }
-        // Load table if there are notes saved for this chapter
-        if content.notes.count > 0 {
-            if tableView.superview == nil {
-                loadTable()
-            } else {
-                tableView.reloadData()
-            }
-        } else {
-            removeTable()
-        }
+//        // Load table if there are notes saved for this chapter
+//        if content.notes.count > 0 {
+//            if tableView.superview == nil {
+//                loadTable()
+//            } else {
+//                tableView.reloadData()
+//            }
+//        } else {
+//            removeTable()
+//        }
         
         // Add observer to the WebView so that when the URL changes it triggers our detection function
         webView.addObserver(self, forKeyPath: "URL", options: [.new, .old], context: nil)
@@ -414,6 +424,15 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
 //            webView.scrollView.zoomScale = rw
 //
 //        }
+        
+        // This removes the favoriting if it gets deleted in the saved page
+            if content.favorite == false {
+                favoriteIcon.setImage(UIImage(named: "icBookmarksFolder"), for: .normal)
+                favoriteIcon.setAttributedTitle(bookmarkText, for: .normal)
+            }
+            
+            // Add observer to the WebView so that when the URL changes it triggers our detection function
+            webView.addObserver(self, forKeyPath: "URL", options: [.new, .old], context: nil)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -657,6 +676,33 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         }
     }
     
+    
+    @IBAction func viewNotesTapped(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            
+            // If you're using storyboard, create the identifier in storyboard and uncomment this:
+            // let notesVC = storyboard.instantiateViewController(withIdentifier: "NotesBottomSheetViewController") as! NotesBottomSheetViewController
+            
+            // If creating programmatically, use this:
+            let notesVC = NotesBottomSheetViewController()
+            
+            notesVC.content = self.content
+            notesVC.delegate = self
+            
+            // Configure the presentation style for bottom sheet
+        if #available(iOS 15.0, *) {
+            if let sheet = notesVC.sheetPresentationController {
+                sheet.detents = [.medium()]
+                sheet.prefersGrabberVisible = true
+                sheet.preferredCornerRadius = 16
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+            
+            present(notesVC, animated: true)
+    }
+    
 
     //--------------------------------------------------------------------------------------------------
     @IBAction func toggleFavorite(_ sender: UIButton){
@@ -850,173 +896,6 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     }
     
     //--------------------------------------------------------------------------------------------------
-    func loadTable() {
-        if tableView.superview == nil {
-            print("making a new tbale")
-//            tableView = ContentSizedTableView(frame: CGRect( x: 20, y: pseudoseparator.frame.origin.y+10, width: view.frame.width-38, height: 95 ))
-            tableView.delegate = self
-            tableView.dataSource = self
-            tableView.register(UINib(nibName: "ChapterNoteTableViewCell", bundle: nil), forCellReuseIdentifier: "chapterNote")
-            tableView.rowHeight = UITableView.automaticDimension
-            tableView.estimatedRowHeight = UITableView.automaticDimension
-            tableView.separatorStyle = .none
-            tableView.backgroundColor = UIColor.backgroundColor
-            tableView.contentInset = UIEdgeInsets(top: 16, left: 0, bottom: 16, right: 0)
-
-    //        tableView.isScrollEnabled = false
-            // the frame trully is not the entire contentsize because you need to scroll down for the table to register the entire size of the content
-            tableFrame = tableView.frame
-            
-//            separatorHeightConstraint.isActive = false
-//            separator.removeConstraint(separatorHeightConstraint)
-
-            view.addSubview(tableView)
-            
-            // Constraint the tableview to fit between the webview and the separators
-//            tableView.topAnchor.constraint(equalTo: separator.topAnchor,constant: 0.5).isActive = true
-            
-            tableViewOriginalHeight = Double(tableView.frame.height)
-            
-            UIView.animate(withDuration: 0.25, delay: 0.01, options: .curveLinear, animations: {
-                // Former constraint between separator and pseudoseparator creates an error in the constraint management in the console, to be refactored in future build
-//                self.tableView.bottomAnchor.constraint(equalTo: self.pseudoseparator.topAnchor).isActive = true
-//                self.contentView.topAnchor.constraint(equalTo: self.tableView.bottomAnchor).isActive = true
-                self.view.layoutIfNeeded()
-            }, completion: { finished in
-            })
-//            contentView.topAnchor.constraint(equalTo: tableView.bottomAnchor).isActive = true
-            
-            tableSeparator = UIView(frame: CGRect(x: 0, y: 10, width: view.frame.width-40, height: 0.5))
-            tableSeparator.backgroundColor = UIColor.lightGray
-            contentView.addSubview(tableSeparator)
-            
-            tableButton = UIButton(frame: CGRect(x: tableSeparator.frame.width/2 - 18, y: tableSeparator.frame.origin.y-14.25, width: 30, height: 30))
-            tableButton.layer.cornerRadius = 15
-            tableButton.setBackgroundImage(UIImage(named: "downArrow"), for: .normal)
-            tableButton.isUserInteractionEnabled = true
-            tableButton.dropShadow()
-            
-            tableButton.addTarget(self, action: #selector(expandNotes), for: .touchUpInside)
-            tableButton.isHidden = true
-            contentView.addSubview(tableButton)
-            // Update constraint of webview top to make space for the incoming button
-            webViewTopConstraint.constant = 30
-            if content.notes.count > 1 {
-                tableButton.isHidden = false
-                tableSeparator.isHidden = false
-            }
-        }
-    }
-    
-    @objc func expandNotes(_ sender: UIButton, expand: Bool){
-        // Would be nice to make it as big as the amount of rows, rather than a fixed height governed by the view
-        if sender.backgroundImage(for: .normal) == UIImage(named: "downArrow") {
-            tableFrame.size.height = tableView.contentSize.height
-            sender.setBackgroundImage(UIImage(named: "upArrow"), for: .normal)
-        } else {
-            tableFrame.size.height = 65
-            sender.setBackgroundImage(UIImage(named: "downArrow"), for: .normal)
-        }
-        // Condition for only expanding table
-        if expand == true {
-            tableFrame.size.height = tableView.contentSize.height+65
-            sender.setBackgroundImage(UIImage(named: "upArrow"), for: .normal)
-        }
-        
-        print(tableView.contentSize.height)
-        if content.notes.count > 1 {
-            tableButton.isHidden = false
-            tableSeparator.isHidden = false
-        }
-        UIView.animate(withDuration: 0.25, delay: 0.01, options: .curveLinear, animations: {
-            self.tableView.frame = self.tableFrame
-          self.view.layoutIfNeeded()
-        }, completion: { finished in
-            print("table changed height",self.tableView.frame.height)
-            print("size of contentFrame",self.tableView.contentSize)
-        })
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if ( content.notes.count > 1){
-            print("content is more than 1")
-            tableButton.isHidden = false
-            tableSeparator.isHidden = false
-        }
-        return content.notes.count
-    }
-    
-    private func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return tableView.estimatedRowHeight //UITableView.automaticDimension
-    }
-    
-    private func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return UITableView.automaticDimension
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    
-        let cell = tableView.dequeueReusableCell(withIdentifier: "chapterNote", for: indexPath) as! ChapterNoteTableViewCell
-        cell.backgroundColor = UIColor.backgroundColor
-        cell.header.text = "Note - Last Edited \(content.notes[content.notes.count-1-indexPath.row].lastEdited )"
-        cell.content.text = content.notes[content.notes.count-1-indexPath.row].content
-        cell.colorTag.backgroundColor = colorTags[content.notes[content.notes.count-1-indexPath.row].colorTag]
-        tableViewCells[content.notes.count-1-indexPath.row] = cell
-        // remove the grey background selector for cells after selected a note
-        cell.selectionStyle = .none
-                
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        print(cell.frame.size.height)
-        tableFrame.size.height += cell.frame.size.height
-//        self.tableViewHeight += cell.frame.size.height
-//        tableViewBillsHeight.constant = self.tableViewHeight
-    }
-    
-    // Missing the Edit note function which can come here
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        if let pickedNote   = realm!.object(ofType: Notes.self, forPrimaryKey: content.notes[content.notes.count-1-indexPath.row].id){
-            
-            openNoteWindow(noteChosen: pickedNote)
-        }
-    }
-    // Need to populate with content of note coming from the cell selection itself
-    // Potentially will need to attach an observer on that edit button that triggers the view as well
-    
-    private func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool
-    {
-        return true
-    }
-
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
-        if editingStyle == .delete
-         {
-            if let contentDatabase   = realm!.object(ofType: Notes.self, forPrimaryKey: content.notes[content.notes.count-1-indexPath.row].id){
-                RealmHelper.sharedInstance.delete(contentDatabase) { deleted in
-                    //
-                }
-            }
-            
-//            try! realm!.write
-//            {
-//                if let contentDatabase = realm!.object(ofType: Notes.self, forPrimaryKey: content.notes[content.notes.count-1-indexPath.row].id){
-//                    realm!.delete(contentDatabase)
-//                }
-//            }
-            
-            self.tableView.deleteRows(at: [indexPath], with: .fade)
-            expandNotes(tableButton,expand: true)
-            if content.notes.count == 0 {
-                removeTable()
-           }
-         }
-    }
-    
-    //--------------------------------------------------------------------------------------------------
     func setupUI() {
 //        self.view.backgroundColor = .white
         contentView.addSubview(webView)
@@ -1101,12 +980,9 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     }
     
     //--------------------------------------------------------------------------------------------------
-    func didSaveNote(_ note: Notes )
-    {
-        
+    func didSaveNote(_ note: Notes) {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MM-dd-YYYY"
-        // let realm = try! Realm()
+        formatter.dateFormat = "MM/dd/YYYY"
         
         if !note.savedToRealm {
             RealmHelper.sharedInstance.update(note, properties: [
@@ -1117,9 +993,11 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             ]) { updated in
                 //
                 RealmHelper.sharedInstance.appendNote(self.content, property: self.content.notes, itemToAppend: self.note) { appended in
-                        //
                     print("appended the note properly?")
                 }
+                
+                self.viewNotesButton.setTitle("(\(self.content.notes.count))", for: .normal)
+
             }
         } else {
             RealmHelper.sharedInstance.update(note, properties: [
@@ -1129,54 +1007,13 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
                 //
             }
         }
-
-//        content.notes.append(note)
-        expandNotes(self.tableButton,expand: true)
-        
-        
-//        try! realm!.write
-//        {
-//            note.lastEdited = formatter.string(from: Date())
-//            note.subChapterName = titlelabel
-//
-//            if !note.savedToRealm
-//            {
-//                note.subChapterURL = uniqueAddress
-//                note.savedToRealm = true
-//                // Add new entry to Realm
-//                realm!.add(note)
-//                // Save to the chapter
-//                content.notes.append(note)
-//                expandNotes(tableButton,expand: true)
-//            }
-//            // Add the content changes necessary to the tableview or refresh it if necessary, though I could maybe do this in another view and just throw it on top of this one, much like the protocols in HomeTown
-//
-//        }
-        if content.notes.count == 1  {
-            loadTable()
-            tableView.reloadData()
-        } else {
-            tableView.reloadData()
-        }
     }
     
     //--------------------------------------------------------------------------------------------------
-    func didDeleteNote(_ note: Notes )
-    {
-//        // let realm = try! Realm() Realm()
-        RealmHelper.sharedInstance.delete(note) { deleted in
-            //
-        }
-        
-//        try!  realm!.write
-//        {
-//            realm!.delete(note)
-//        }
-        if content.notes.count > 0 {
-            tableView.reloadData()
-            expandNotes(tableButton,expand: true)
-        } else {
-            removeTable()
+    func didDeleteNote(_ note: Notes) {
+        RealmHelper.sharedInstance.delete(note) { [weak self] deleted in
+            let count = self?.content.notes.count ?? 0
+            self?.viewNotesButton.setTitle("(\(count))", for: .normal)
         }
     }
     
@@ -1426,6 +1263,13 @@ extension WebViewViewController: UISearchBarDelegate {
             } catch {
                 print("Could not load javascript: \(error)")
             }
+        }
+    }
+    
+    func didSelectNote(_ note: Notes) {
+        // This will open the note editing window when a note is selected
+        if let selectedNote = realm!.object(ofType: Notes.self, forPrimaryKey: note.id) {
+            openNoteWindow(noteChosen: selectedNote)
         }
     }
 }

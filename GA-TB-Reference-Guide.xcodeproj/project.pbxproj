@@ -39,6 +39,7 @@
 		B474B07E2C2DA54B0092F4F6 /* FontSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B474B07C2C2DA54B0092F4F6 /* FontSettingsView.swift */; };
 		B474B07F2C2DA54B0092F4F6 /* FontSettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B474B07D2C2DA54B0092F4F6 /* FontSettingsView.xib */; };
 		B474B0832C2DFE230092F4F6 /* Pods_GA_TB_Reference_Guide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF23FEBF71C372B82094033D /* Pods_GA_TB_Reference_Guide.framework */; };
+		B4D616552E89CDA0003E4F79 /* NotesBottomSheetDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D616542E89CDA0003E4F79 /* NotesBottomSheetDelegate.swift */; };
 		B4DC30712C5BF2E90019CCA1 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC30702C5BF2E90019CCA1 /* Search.swift */; };
 		D42F25E826EEFA8F009DC942 /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42F25E626EEFA8F009DC942 /* NoteTableViewCell.swift */; };
 		D42F25E926EEFA8F009DC942 /* NoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D42F25E726EEFA8F009DC942 /* NoteTableViewCell.xib */; };
@@ -234,6 +235,7 @@
 		B47388922D5C997B00A4C168 /* RemoteConfigHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigHelper.swift; sourceTree = "<group>"; };
 		B474B07C2C2DA54B0092F4F6 /* FontSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsView.swift; sourceTree = "<group>"; };
 		B474B07D2C2DA54B0092F4F6 /* FontSettingsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FontSettingsView.xib; sourceTree = "<group>"; };
+		B4D616542E89CDA0003E4F79 /* NotesBottomSheetDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesBottomSheetDelegate.swift; sourceTree = "<group>"; };
 		B4DC30702C5BF2E90019CCA1 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		BF23FEBF71C372B82094033D /* Pods_GA_TB_Reference_Guide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GA_TB_Reference_Guide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D42F25E626EEFA8F009DC942 /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
@@ -729,6 +731,7 @@
 		D4B0B0C826D01DD0003BD1EA /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				B4D616542E89CDA0003E4F79 /* NotesBottomSheetDelegate.swift */,
 				D4B0B0D626D02A02003BD1EA /* ContentListViewController.swift */,
 				D4B0B0DA26D0474D003BD1EA /* GuideViewController.swift */,
 				D4B0B0EA26D0648A003BD1EA /* SubChapterViewController.swift */,
@@ -1097,6 +1100,7 @@
 				D4B0B0D726D02A02003BD1EA /* ContentListViewController.swift in Sources */,
 				D4710CB427441AD400F6EBFF /* SettingsViewsViewController.swift in Sources */,
 				B474B07E2C2DA54B0092F4F6 /* FontSettingsView.swift in Sources */,
+				B4D616552E89CDA0003E4F79 /* NotesBottomSheetDelegate.swift in Sources */,
 				D4710CAB2744128300F6EBFF /* Settings.swift in Sources */,
 				D4710CE9274ABA4700F6EBFF /* FeedbackForm.swift in Sources */,
 				B473888C2D5C82CE00A4C168 /* FileToOpenCheckers.swift in Sources */,
