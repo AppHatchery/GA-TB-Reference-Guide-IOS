@@ -92,6 +92,9 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     
     private var searchTimer: Timer?
     
+    var currentSearchResultIndex = 0
+    var totalSearchResults = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -99,16 +102,12 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             searchView.isHidden = searchTerm.isEmpty
             searchTermView.text = searchTerm
             
-            UIView.animate(withDuration: 1, delay: 0, options: .curveEaseInOut, animations: {
-                self.searchNavStackView.isHidden = false
-            })
+            self.searchNavStackView.isHidden = false
             
             search.text = searchTerm
         } else {
             searchView.isHidden = true
-            UIView.animate(withDuration: 1, delay: 0, options: .curveEaseOut, animations: {
-                self.searchNavStackView.isHidden = true
-            })
+            self.searchNavStackView.isHidden = true
         }
         
         configureSearchBar()
@@ -584,6 +583,14 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         }
     }
     
+    func updateSearchResultsDisplay() {
+        currentSearchTermIndex.text = "\(currentSearchResultIndex)"
+        totalSearchTermsFound.text = "\(totalSearchResults)"
+        
+        // Show/hide navigation if there are results
+        searchNavStackView.isHidden = totalSearchResults == 0
+    }
+    
     func highlightSearchWithCount(term: String) {
         var terms = term.split(separator: " ").map({String($0)})
         if !terms.contains(term) {terms.append(term)}
@@ -596,38 +603,31 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
                 // Inject the search code
                 webView.evaluateJavaScript(jsCode, completionHandler: nil)
                 
-                // First count the words using inline JavaScript
-                let countScript = """
-                function countOccurrences(searchTerms) {
-                    var totalCount = 0;
-                    var bodyText = document.body.innerText || document.body.textContent;
-                    
-                    searchTerms.forEach(function(term) {
-                        var regex = new RegExp(term, 'gi');
-                        var matches = bodyText.match(regex);
-                        if (matches) {
-                            totalCount += matches.length;
-                        }
-                    });
-                    
-                    return totalCount;
-                }
-                
-                countOccurrences(\(terms));
-                """
-                
-                webView.evaluateJavaScript(countScript) { [weak self] (result, error) in
+                // Use the new navigation-enabled function for the first term
+                let searchString = "WKWebView_HighlightAllOccurencesOfStringWithNavigation('\(terms[0])', true)"
+                webView.evaluateJavaScript(searchString) { [weak self] (result, error) in
                     if let error = error {
-                        print("Error counting words: \(error)")
+                        print("Error highlighting: \(error)")
                     } else if let count = result as? Int {
-                        print("Words found: \(count)")
+                        self?.totalSearchResults = count
+                        self?.currentSearchResultIndex = count > 0 ? 1 : 0
+                        
+                        DispatchQueue.main.async {
+                            self?.updateSearchResultsDisplay()
+                        }
                     }
                 }
                 
-                // Then highlight them
-                for (i, t) in terms.enumerated() {
-                    let searchString = "WKWebView_HighlightAllOccurencesOfString('\(t)', \(i == 0))"
-                    webView.evaluateJavaScript(searchString, completionHandler: nil)
+                // For additional terms, use the original function to avoid interfering with navigation
+                for i in 1..<terms.count {
+                    let additionalSearchString = "WKWebView_HighlightAllOccurencesOfString('\(terms[i])', false)"
+                    webView.evaluateJavaScript(additionalSearchString) { [weak self] (result, error) in
+                        if let error = error {
+                            print("Error highlighting additional term: \(error)")
+                        }
+                        // Note: We don't add to totalSearchResults for additional terms
+                        // to keep navigation focused on the primary search term
+                    }
                 }
                 
             } catch {
@@ -638,11 +638,37 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     
     
     @IBAction func goToPreviousSearchTerm(_ sender: Any) {
-        
+        webView.evaluateJavaScript("WKWebView_GoToPreviousSearchResult()") { [weak self] (result, error) in
+            if let success = result as? Bool, success {
+                // Get updated search info
+                self?.webView.evaluateJavaScript("WKWebView_GetSearchInfo()") { (infoResult, infoError) in
+                    if let infoDict = infoResult as? [String: Any],
+                       let currentPosition = infoDict["currentPosition"] as? Int {
+                        DispatchQueue.main.async {
+                            self?.currentSearchResultIndex = currentPosition
+                            self?.updateSearchResultsDisplay()
+                        }
+                    }
+                }
+            }
+        }
     }
     
     @IBAction func goToNextSearchTerm(_ sender: Any) {
-        
+        webView.evaluateJavaScript("WKWebView_GoToNextSearchResult()") { [weak self] (result, error) in
+            if let success = result as? Bool, success {
+                // Get updated search info
+                self?.webView.evaluateJavaScript("WKWebView_GetSearchInfo()") { (infoResult, infoError) in
+                    if let infoDict = infoResult as? [String: Any],
+                       let currentPosition = infoDict["currentPosition"] as? Int {
+                        DispatchQueue.main.async {
+                            self?.currentSearchResultIndex = currentPosition
+                            self?.updateSearchResultsDisplay()
+                        }
+                    }
+                }
+            }
+        }
     }
     
 
@@ -1341,62 +1367,47 @@ extension WebViewViewController: UISearchBarDelegate {
         }
         
         // Method for real-time search with lighter operations
-        private func performRealTimeSearch(term: String) {
-            guard !term.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-                removeHighlights()
-                return
-            }
-            
-            var terms = term.split(separator: " ").map({String($0)})
-            if !terms.contains(term) { terms.append(term) }
-            
-            if let path = Bundle.main.url(forResource: "WebView", withExtension: "js") {
-                do {
-                    let data: Data = try Data(contentsOf: path)
-                    let jsCode: String = String(decoding: data, as: UTF8.self)
-                    
-                    // Inject the search code
-                    webView.evaluateJavaScript(jsCode, completionHandler: nil)
-                    
-                    // Count words (lighter operation for real-time)
-                    let countScript = """
-                    function countOccurrences(searchTerms) {
-                        var totalCount = 0;
-                        var bodyText = document.body.innerText || document.body.textContent;
+    private func performRealTimeSearch(term: String) {
+        guard !term.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            removeHighlights()
+            searchNavStackView.isHidden = true
+            return
+        }
+        
+        // For real-time search, use the navigable function for better UX
+        var terms = term.split(separator: " ").map({String($0)})
+        if !terms.contains(term) { terms.append(term) }
+        
+        if let path = Bundle.main.url(forResource: "WebView", withExtension: "js") {
+            do {
+                let data: Data = try Data(contentsOf: path)
+                let jsCode: String = String(decoding: data, as: UTF8.self)
+                
+                // Inject the search code
+                webView.evaluateJavaScript(jsCode, completionHandler: nil)
+                
+                // Use navigation-enabled highlighting for primary term
+                let searchString = "WKWebView_HighlightAllOccurencesOfStringWithNavigation('\(terms[0])', true)"
+                webView.evaluateJavaScript(searchString) { [weak self] (result, error) in
+                    if let count = result as? Int {
+                        self?.totalSearchResults = count
+                        self?.currentSearchResultIndex = count > 0 ? 1 : 0
                         
-                        searchTerms.forEach(function(term) {
-                            var regex = new RegExp(term, 'gi');
-                            var matches = bodyText.match(regex);
-                            if (matches) {
-                                totalCount += matches.length;
-                            }
-                        });
-                        
-                        return totalCount;
-                    }
-                    
-                    countOccurrences(\(terms));
-                    """
-                    
-                    webView.evaluateJavaScript(countScript) { [weak self] (result, error) in
-                        if let error = error {
-                            print("Error counting words: \(error)")
-                        } else if let count = result as? Int {
-                            print("Real-time search - Words found: \(count)")
-                            // You could update a results label here instead of printing
-                            // self?.updateSearchResultsLabel(count: count)
+                        DispatchQueue.main.async {
+                            self?.updateSearchResultsDisplay()
                         }
                     }
-                    
-                    // Highlight with lighter styling for real-time (optional)
-                    for (i, t) in terms.enumerated() {
-                        let searchString = "WKWebView_HighlightAllOccurencesOfString('\(t)', \(i == 0))"
-                        webView.evaluateJavaScript(searchString, completionHandler: nil)
-                    }
-                    
-                } catch {
-                    print("Could not load javascript: \(error)")
                 }
+                
+                // Highlight additional terms with original function
+                for i in 1..<terms.count {
+                    let additionalSearchString = "WKWebView_HighlightAllOccurencesOfString('\(terms[i])', false)"
+                    webView.evaluateJavaScript(additionalSearchString, completionHandler: nil)
+                }
+                
+            } catch {
+                print("Could not load javascript: \(error)")
             }
         }
+    }
 }
