@@ -905,53 +905,6 @@ Start by opening any subchapter or chart.</string>
                                 </subviews>
                                 <color key="backgroundColor" name="backgroundColor"/>
                             </stackView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="doE-r2-vu4">
-                                <rect key="frame" x="24" y="504" width="327" height="46"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2pP-Bw-BQS">
-                                        <rect key="frame" x="20" y="10" width="62.5" height="26"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kdy-S2-KzM">
-                                        <rect key="frame" x="83" y="12" width="221" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="close" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pta-Ef-nPC">
-                                        <rect key="frame" x="265.5" y="6" width="61.5" height="32"/>
-                                        <buttonConfiguration key="configuration" style="filled">
-                                            <backgroundConfiguration key="background" cornerRadius="23">
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </backgroundConfiguration>
-                                        </buttonConfiguration>
-                                        <connections>
-                                            <action selector="closeSearchBar:" destination="MDz-7h-Sal" eventType="touchUpInside" id="YeA-ZY-G3l"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" name="colorPrimary"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="Pta-Ef-nPC" secondAttribute="trailing" id="404-Kg-hy8"/>
-                                    <constraint firstAttribute="bottom" secondItem="Pta-Ef-nPC" secondAttribute="bottom" constant="8" id="7XL-JN-KAT"/>
-                                    <constraint firstAttribute="bottom" secondItem="2pP-Bw-BQS" secondAttribute="bottom" constant="10" id="7md-qc-OIP"/>
-                                    <constraint firstItem="2pP-Bw-BQS" firstAttribute="leading" secondItem="doE-r2-vu4" secondAttribute="leading" constant="20" id="8j1-yI-aN1"/>
-                                    <constraint firstItem="kdy-S2-KzM" firstAttribute="leading" secondItem="2pP-Bw-BQS" secondAttribute="trailing" constant="0.5" id="FLK-MU-ypP"/>
-                                    <constraint firstItem="Pta-Ef-nPC" firstAttribute="leading" secondItem="kdy-S2-KzM" secondAttribute="trailing" constant="0.5" id="FrI-mc-96u"/>
-                                    <constraint firstItem="2pP-Bw-BQS" firstAttribute="centerY" secondItem="doE-r2-vu4" secondAttribute="centerY" id="GBw-pm-ym6"/>
-                                    <constraint firstItem="Pta-Ef-nPC" firstAttribute="leading" secondItem="2pP-Bw-BQS" secondAttribute="trailing" constant="183" id="L2h-HP-0gt"/>
-                                    <constraint firstAttribute="height" constant="46" id="Q6p-MX-9Xp"/>
-                                    <constraint firstItem="kdy-S2-KzM" firstAttribute="bottom" secondItem="Pta-Ef-nPC" secondAttribute="bottom" constant="-8" id="Uhe-xn-V0U"/>
-                                    <constraint firstItem="kdy-S2-KzM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2pP-Bw-BQS" secondAttribute="trailing" id="Wle-yi-MM6"/>
-                                    <constraint firstItem="Pta-Ef-nPC" firstAttribute="top" secondItem="doE-r2-vu4" secondAttribute="top" constant="6" id="ZEF-1W-Ymr"/>
-                                    <constraint firstItem="2pP-Bw-BQS" firstAttribute="top" secondItem="doE-r2-vu4" secondAttribute="top" constant="10" id="Zbn-lX-dkj"/>
-                                    <constraint firstItem="2pP-Bw-BQS" firstAttribute="top" secondItem="kdy-S2-KzM" secondAttribute="top" id="hwE-Fv-eCl"/>
-                                    <constraint firstItem="kdy-S2-KzM" firstAttribute="top" secondItem="Pta-Ef-nPC" secondAttribute="top" constant="4" id="ukb-Dc-lec"/>
-                                </constraints>
-                            </view>
                             <stackView clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" distribution="fillEqually" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Sk-qE-mCt">
                                 <rect key="frame" x="0.0" y="597" width="375" height="70"/>
                                 <subviews>
@@ -1186,12 +1139,9 @@ Start by opening any subchapter or chart.</string>
                             <constraint firstItem="fa8-rg-KLK" firstAttribute="leading" secondItem="iku-5P-OPX" secondAttribute="leading" constant="20" id="4wG-Ms-ASh"/>
                             <constraint firstItem="iku-5P-OPX" firstAttribute="trailing" secondItem="1Sk-qE-mCt" secondAttribute="trailing" id="8Oa-WP-jbI"/>
                             <constraint firstItem="iku-5P-OPX" firstAttribute="trailing" secondItem="fa8-rg-KLK" secondAttribute="trailing" constant="20" id="CIe-W2-SZY"/>
-                            <constraint firstItem="1Sk-qE-mCt" firstAttribute="top" secondItem="doE-r2-vu4" secondAttribute="bottom" constant="47" id="Mv8-tD-akZ"/>
                             <constraint firstItem="XZg-De-pgK" firstAttribute="leading" secondItem="iku-5P-OPX" secondAttribute="leading" id="P2q-hO-DKU"/>
-                            <constraint firstItem="doE-r2-vu4" firstAttribute="leading" secondItem="iku-5P-OPX" secondAttribute="leading" constant="24" id="Z9y-L5-S8S"/>
                             <constraint firstItem="XZg-De-pgK" firstAttribute="trailing" secondItem="iku-5P-OPX" secondAttribute="trailing" id="ZT3-1N-gem"/>
                             <constraint firstItem="1Sk-qE-mCt" firstAttribute="leading" secondItem="iku-5P-OPX" secondAttribute="leading" id="dSk-XI-qak"/>
-                            <constraint firstItem="iku-5P-OPX" firstAttribute="trailing" secondItem="doE-r2-vu4" secondAttribute="trailing" constant="24" id="nV4-WP-osW"/>
                             <constraint firstItem="1Sk-qE-mCt" firstAttribute="bottom" secondItem="iku-5P-OPX" secondAttribute="bottom" id="ra5-Dn-me4"/>
                             <constraint firstItem="fa8-rg-KLK" firstAttribute="top" secondItem="XZg-De-pgK" secondAttribute="bottom" constant="20" id="tGf-CT-mvd"/>
                         </constraints>
@@ -1206,8 +1156,6 @@ Start by opening any subchapter or chart.</string>
                         <outlet property="metadataView" destination="TL0-rX-dOD" id="pTH-1x-TvN"/>
                         <outlet property="search" destination="UQj-1v-8eh" id="BGw-JT-xvS"/>
                         <outlet property="searchNavStackView" destination="ue8-Rw-A0X" id="sUT-tb-tJz"/>
-                        <outlet property="searchTermView" destination="kdy-S2-KzM" id="Tn2-tn-dIX"/>
-                        <outlet property="searchView" destination="doE-r2-vu4" id="WaS-11-H4l"/>
                         <outlet property="titleLabel" destination="wxl-6c-aLt" id="jd6-ec-PS8"/>
                         <outlet property="totalSearchTermsFound" destination="4CS-1f-dLd" id="RPq-xP-HyR"/>
                     </connections>

@@ -24,10 +24,6 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     @IBOutlet weak var currentSearchTermIndex: UILabel!
     @IBOutlet weak var totalSearchTermsFound: UILabel!
     
-    
-    
-    @IBOutlet weak var searchTermView: UILabel!
-    @IBOutlet weak var searchView: UIView!
 	@IBOutlet var metadataView: UIView!
 
 	var identifier = ""
@@ -99,14 +95,13 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         super.viewDidLoad()
         
         if let searchTerm = searchTerm, comingFromSearch, !searchTerm.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty{
-            searchView.isHidden = searchTerm.isEmpty
-            searchTermView.text = searchTerm
-            
-            self.searchNavStackView.isHidden = false
-            
             search.text = searchTerm
+            
+            searchTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { [weak self] _ in
+                self?.performRealTimeSearch(term: searchTerm)
+                self?.searchNavStackView.isHidden = false
+            }
         } else {
-            searchView.isHidden = true
             self.searchNavStackView.isHidden = true
         }
         
@@ -236,13 +231,6 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         )
         textField.layer.cornerRadius = 60
         textField.backgroundColor = UIColor.searchBar
-
-        searchView.frame = CGRect(
-            x: searchView.frame.origin.x,
-            y: searchView.frame.origin.y,
-            width: searchView.frame.width,
-            height: search.frame.height + 10
-        )
 
         textField.setSearchIcon(UIImage(named: "magnifyingGlass"), tintColor: UIColor.searchBarText)
         textField
@@ -588,7 +576,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         totalSearchTermsFound.text = "\(totalSearchResults)"
         
         // Show/hide navigation if there are results
-        searchNavStackView.isHidden = totalSearchResults == 0
+//        searchNavStackView.isHidden = totalSearchResults == 0
     }
     
     func highlightSearchWithCount(term: String) {
@@ -603,7 +591,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
                 // Inject the search code
                 webView.evaluateJavaScript(jsCode, completionHandler: nil)
                 
-                // Use the new navigation-enabled function for the first term
+                // Use ONLY the new navigation-enabled function for the first term
                 let searchString = "WKWebView_HighlightAllOccurencesOfStringWithNavigation('\(terms[0])', true)"
                 webView.evaluateJavaScript(searchString) { [weak self] (result, error) in
                     if let error = error {
@@ -625,8 +613,6 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
                         if let error = error {
                             print("Error highlighting additional term: \(error)")
                         }
-                        // Note: We don't add to totalSearchResults for additional terms
-                        // to keep navigation focused on the primary search term
                     }
                 }
                 
@@ -773,40 +759,40 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         popUpOverlay.displayPopUp(sender:self)
     }
     
-    @IBAction func closeSearchBar(_ sender: UIButton) {
-        searchView.isHidden = true
-        removeHighlights()
-    }
-    
-    func highlightSearch(term: String)  {
-        
+    func highlightSearch(term: String) {
         var terms = term.split(separator: " ").map({String($0)})
         if !terms.contains(term) {terms.append(term)}
         
         if let path = Bundle.main.url(forResource: "WebView", withExtension: "js") {
-            do{
-                let data:Data = try Data(contentsOf: path)
-                let jsCode:String = String(decoding: data, as: UTF8.self)
+            do {
+                let data: Data = try Data(contentsOf: path)
+                let jsCode: String = String(decoding: data, as: UTF8.self)
                 
-                
-                //print( jsCode)
-                
-                //inject the search code
+                // Inject the search code
                 webView.evaluateJavaScript(jsCode, completionHandler: nil)
                 
-                //search function
-                for (i, t) in terms.enumerated() {
-                    let searchString = "WKWebView_HighlightAllOccurencesOfString('\(t)', \(i == 0))"
-                    //perform search
-                    webView.evaluateJavaScript(searchString, completionHandler: nil)
+                // Use navigation-enabled function for primary term
+                let searchString = "WKWebView_HighlightAllOccurencesOfStringWithNavigation('\(terms[0])', true)"
+                webView.evaluateJavaScript(searchString) { [weak self] (result, error) in
+                    if let count = result as? Int {
+                        self?.totalSearchResults = count
+                        self?.currentSearchResultIndex = count > 0 ? 1 : 0
+                        
+                        DispatchQueue.main.async {
+                            self?.updateSearchResultsDisplay()
+                        }
+                    }
+                }
+                
+                // Highlight additional terms with original function
+                for i in 1..<terms.count {
+                    let additionalSearchString = "WKWebView_HighlightAllOccurencesOfString('\(terms[i])', false)"
+                    webView.evaluateJavaScript(additionalSearchString, completionHandler: nil)
                 }
                 
             } catch {
-                print("could not load javascript:\(error)")
-
+                print("Could not load javascript: \(error)")
             }
-        
-            
         }
     }
     
@@ -1335,14 +1321,46 @@ extension WebViewViewController: UISearchBarDelegate {
             // Clear highlights if search text is empty
             if searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                 removeHighlights()
-                searchNavStackView.isHidden = true
+                
+                UIView.animate(withDuration: 0.2, delay: 0) {
+                    self.searchNavStackView.transform = CGAffineTransform(translationX: self.searchNavStackView.frame.width, y: 0)
+                    self.searchNavStackView.alpha = 0
+                } completion: { _ in
+                    self.searchNavStackView.isHidden = true
+                    self.searchNavStackView.transform = .identity
+                    self.searchNavStackView.alpha = 1
+                    
+                    // Animate the parent stack view layout change
+                    UIView.animate(withDuration: 0.2, delay: 0) {
+                        self.view.layoutIfNeeded() // or self.parentStackView.layoutIfNeeded() if you have a reference
+                    }
+                }
+                
                 return
             }
+
+            // Check if searchNavStackView is already visible - if so, don't animate it in again
+            let shouldAnimateIn = searchNavStackView.isHidden
             
             // Set up a new timer to delay the search (debounce)
             searchTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { [weak self] _ in
-                self?.performRealTimeSearch(term: searchText)
-                self?.searchNavStackView.isHidden = false
+                guard let self = self else { return }
+                
+                self.performRealTimeSearch(term: searchText)
+                
+                // Only animate in if it's currently hidden
+                if shouldAnimateIn {
+                    // Prepare for right-to-left animation
+                    self.searchNavStackView.transform = CGAffineTransform(translationX: self.searchNavStackView.frame.width, y: 0)
+                    self.searchNavStackView.alpha = 0
+                    self.searchNavStackView.isHidden = false
+                    
+                    UIView.animate(withDuration: 0.3) {
+                        self.searchNavStackView.transform = .identity
+                        self.searchNavStackView.alpha = 1
+                        self.view.layoutIfNeeded() // This ensures the parent stack view animates the layout change too
+                    }
+                }
             }
         }
         
