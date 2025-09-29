@@ -41,6 +41,8 @@
 		B474B0832C2DFE230092F4F6 /* Pods_GA_TB_Reference_Guide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF23FEBF71C372B82094033D /* Pods_GA_TB_Reference_Guide.framework */; };
 		B4D616552E89CDA0003E4F79 /* NotesBottomSheetDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D616542E89CDA0003E4F79 /* NotesBottomSheetDelegate.swift */; };
 		B4DC30712C5BF2E90019CCA1 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC30702C5BF2E90019CCA1 /* Search.swift */; };
+		B4E88A152E8A83D100396ABB /* BookmarkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B4E88A142E8A83D100396ABB /* BookmarkTableViewCell.xib */; };
+		B4E88A162E8A83D100396ABB /* BookmarkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E88A132E8A83D100396ABB /* BookmarkTableViewCell.swift */; };
 		D42F25E826EEFA8F009DC942 /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42F25E626EEFA8F009DC942 /* NoteTableViewCell.swift */; };
 		D42F25E926EEFA8F009DC942 /* NoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D42F25E726EEFA8F009DC942 /* NoteTableViewCell.xib */; };
 		D42F263C26EF821B009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi).html in Resources */ = {isa = PBXBuildFile; fileRef = D42F25EE26EF81F8009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi).html */; };
@@ -237,6 +239,8 @@
 		B474B07D2C2DA54B0092F4F6 /* FontSettingsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FontSettingsView.xib; sourceTree = "<group>"; };
 		B4D616542E89CDA0003E4F79 /* NotesBottomSheetDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesBottomSheetDelegate.swift; sourceTree = "<group>"; };
 		B4DC30702C5BF2E90019CCA1 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
+		B4E88A132E8A83D100396ABB /* BookmarkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTableViewCell.swift; sourceTree = "<group>"; };
+		B4E88A142E8A83D100396ABB /* BookmarkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarkTableViewCell.xib; sourceTree = "<group>"; };
 		BF23FEBF71C372B82094033D /* Pods_GA_TB_Reference_Guide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GA_TB_Reference_Guide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D42F25E626EEFA8F009DC942 /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
 		D42F25E726EEFA8F009DC942 /* NoteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteTableViewCell.xib; sourceTree = "<group>"; };
@@ -706,6 +710,8 @@
 				B401CE5D2C58D96D00149414 /* SuggestionTableViewCell.xib */,
 				B401CE602C5BD8C300149414 /* RecentSearchTableViewCell.swift */,
 				B401CE612C5BD8C300149414 /* RecentSearchTableViewCell.xib */,
+				B4E88A132E8A83D100396ABB /* BookmarkTableViewCell.swift */,
+				B4E88A142E8A83D100396ABB /* BookmarkTableViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -942,6 +948,7 @@
 				D4A5D2A82B2C9BA500812C53 /* Emory_university.png in Resources */,
 				D47A4DEC276691CA0095815A /* quote.html in Resources */,
 				D42F264F26EF821B009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__b__selected_diagnostic_test_characteristics.html in Resources */,
+				B4E88A152E8A83D100396ABB /* BookmarkTableViewCell.xib in Resources */,
 				D42F265B26EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__g__antiretroviral_therapy_(art)_and_treatment_of_persons.html in Resources */,
 				D449FCBE26EC660E008C3ACB /* SaveNote.xib in Resources */,
 				D42F267D26EF821B009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__f__targeted_testing_and_diagnostic_tests_for_ltbi.html in Resources */,
@@ -1094,6 +1101,7 @@
 				D4B0B0EB26D0648A003BD1EA /* SubChapterViewController.swift in Sources */,
 				D4B0B13326D174F9003BD1EA /* chapterIndex.swift in Sources */,
 				B401CE622C5BD8C300149414 /* RecentSearchTableViewCell.swift in Sources */,
+				B4E88A162E8A83D100396ABB /* BookmarkTableViewCell.swift in Sources */,
 				D4B0B0EE26D0693F003BD1EA /* SubChapterContentView.swift in Sources */,
 				D4710CB1274418EC00F6EBFF /* SettingsViewController.swift in Sources */,
 				B401CE5E2C58D96D00149414 /* SuggestionTableViewCell.swift in Sources */,

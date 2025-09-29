@@ -8,18 +8,15 @@
 import UIKit
 import RealmSwift
 
-class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, SaveFavoriteDelegate {
     
-    @IBOutlet weak var searchView: UIView!
-    @IBOutlet weak var search: UISearchBar!
-    
-    @IBOutlet weak var contentTabs: UISegmentedControl!
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var headertitle: UILabel!
+    
     @IBOutlet weak var emptyView: UIView!
+    
     @IBOutlet weak var emptyMessage: UILabel!
-    @IBOutlet weak var editButton: UIButton!
+    
     var isGradientAdded: Bool = false
     
     // Initialize the Realm database
@@ -56,13 +53,11 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor : UIColor.white]
         
-        search.delegate = self
-//        searchReturns.isHidden = true
-
-        let textFieldInsideSearchBar = search.value(forKey: "searchField") as? UITextField
-        textFieldInsideSearchBar?.textColor = UIColor.darkGray
-        textFieldInsideSearchBar?.layer.cornerRadius = 60
-        textFieldInsideSearchBar?.backgroundColor = UIColor.init(white: 255/255, alpha: 1.0)
+        let navbarTitle = UILabel()
+        navbarTitle.text = "Bookmarks"
+        navbarTitle.textColor = UIColor.white
+        navbarTitle.font = UIFont.boldSystemFont(ofSize: 16.0)
+        navigationItem.titleView = navbarTitle
                 
         navigationController?.navigationBar.setGradientBackground(to: self.navigationController!)
         navigationController?.navigationBar.tintColor = UIColor.white
@@ -73,6 +68,7 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.dataSource = self
         tableView.register( UITableViewCell.self, forCellReuseIdentifier: type(of: self).description())
         tableView.register(UINib(nibName: "NoteTableViewCell", bundle: nil), forCellReuseIdentifier: "noteCell")
+        tableView.register(UINib(nibName: "BookmarkTableViewCell", bundle: nil), forCellReuseIdentifier: "bookmarkCell")
         tableView.estimatedRowHeight = 80
         tableView.estimatedRowHeight = UITableView.automaticDimension
         
@@ -85,9 +81,10 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         doneButton.addTarget( self, action: #selector( self.dismissKeyboard), for: .touchUpInside )
         customView.addSubview( doneButton )
         
-        search.inputAccessoryView = customView
+        tableView.separatorColor = .clear
+        tableView.backgroundColor = .clear
         
-        toggleState(contentTabs)
+        tableView.reloadData()
     }
     
     //--------------------------------------------------------------------------------------------------
@@ -141,14 +138,6 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         
         tableView.reloadData()
-        // If number of cells is 0, then
-        if tableView.visibleCells.count == 0 {
-            emptyView.isHidden = false
-            editButton.isHidden = true
-        } else {
-            emptyView.isHidden = true
-            editButton.isHidden = false
-        }
     }
         
     //--------------------------------------------------------------------------------------------------
@@ -173,13 +162,48 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         if isNotes {
             let cell = tableView.dequeueReusableCell(withIdentifier: "noteCell", for: indexPath) as! NoteTableViewCell
-            cell.backgroundColor = UIColor.backgroundColor
+            cell.backgroundColor = .clear
             cell.header.text = "In \(notesTitles[indexPath.row])"
             cell.content.text = notesContent[indexPath.row]
             cell.colorTag.backgroundColor = colorTags[notesColors[indexPath.row]]
             tableViewCells[indexPath.row] = cell
             
             return cell
+        } else if isFavorite {
+
+            let cell = tableView.dequeueReusableCell(withIdentifier: "bookmarkCell", for: indexPath) as! BookmarkTableViewCell
+            cell.backgroundColor = .clear
+            cell.selectionStyle = .none
+            
+            cell.chapterTitleLabel.text = favoriteNames[indexPath.row]
+            cell.chapterTitleSmallLabel.text = favoriteNames[indexPath.row]
+            cell.subchapterTitleLabel.text = favoriteChapters[indexPath.row]
+            
+            cell.editBookmarkButton.tag = indexPath.row
+            cell.editBookmarkButton.addTarget(self, action: #selector(editBookmarkTapped(_:)), for: .touchUpInside)
+            
+            cell.contentView.layoutMargins = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
+            cell.preservesSuperviewLayoutMargins = false
+            
+            let chapterName = favoriteNames[indexPath.row]
+            let tablePattern = "^Table\\s+\\d+:"
+            
+            if let regex = try? NSRegularExpression(pattern: tablePattern, options: []),
+                       regex.firstMatch(in: chapterName, options: [], range: NSRange(location: 0, length: chapterName.utf16.count)) != nil {
+                        // It's a table chapter
+                        cell.sideView.backgroundColor = .colorGreen
+                        cell.chapterIcon.image = UIImage(named: "icChartGreen")
+                    } else {
+                        // It's a regular chapter
+                        cell.sideView.backgroundColor = .colorPrimary
+                        cell.chapterIcon.image = UIImage(named: "icChapterBlue")
+                    }
+            cell.accessoryType = .none
+
+            tableViewCells[indexPath.row] = cell
+            
+            return cell
+            
         } else {
             var cell: UITableViewCell! = tableViewCells[indexPath.row]
             
@@ -289,6 +313,67 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
          }
     }
     
+    func didSaveName(_ name: String) {
+            // Update the bookmark name in Realm
+            guard !name.isEmpty else { return }
+            
+            if let contentDatabase = realm!.object(ofType: ContentPage.self, forPrimaryKey: favoriteURLs[arrayPointer]) {
+                RealmHelper.sharedInstance.update(contentDatabase, properties: [
+                    "favoriteName": name
+                ]) { updated in
+                    self.favoriteNames[self.arrayPointer] = name
+                    self.tableView.reloadRows(at: [IndexPath(row: self.arrayPointer, section: 0)], with: .automatic)
+                }
+            }
+        }
+        
+        func didRemoveFavorite() {
+            // Remove the favorite from Realm
+            if let contentDatabase = realm!.object(ofType: ContentPage.self, forPrimaryKey: favoriteURLs[arrayPointer]) {
+                RealmHelper.sharedInstance.update(contentDatabase, properties: [
+                    "favorite": false,
+                    "favoriteName": ""
+                ]) { updated in
+                    let indexPath = IndexPath(row: self.arrayPointer, section: 0)
+                    self.favoriteURLs.remove(at: self.arrayPointer)
+                    self.favoriteNames.remove(at: self.arrayPointer)
+                    self.favoriteSubChapters.remove(at: self.arrayPointer)
+                    self.favoriteChapters.remove(at: self.arrayPointer)
+                    self.tableView.deleteRows(at: [indexPath], with: .fade)
+                }
+            }
+        }
+    
+    //--------------------------------------------------------------------------------------------------
+    @objc func editBookmarkTapped(_ sender: UIButton) {
+        let index = sender.tag
+        
+        // Get the content page from Realm
+        guard let contentPage = realm!.object(ofType: ContentPage.self, forPrimaryKey: favoriteURLs[index]) else {
+            return
+        }
+        
+        // Create and show the custom SaveFavorite dialog
+        let saveFavoriteDialog = SaveFavorite(
+            frame: self.view.bounds,
+            content: contentPage,
+            title: favoriteNames[index],
+            delegate: self
+        )
+        
+        // Store the current index for use in delegate methods
+        arrayPointer = index
+        
+        // Add to view with animation
+        self.view.addSubview(saveFavoriteDialog)
+        saveFavoriteDialog.overlayView.alpha = 0
+        saveFavoriteDialog.contentView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
+        
+        UIView.animate(withDuration: 0.25, delay: 0.0, options: UIView.AnimationOptions(), animations: {
+            saveFavoriteDialog.overlayView.alpha = 0.5
+            saveFavoriteDialog.contentView.transform = CGAffineTransform.identity
+        }, completion: nil)
+    }
     //--------------------------------------------------------------------------------------------------
     @IBAction func showEditing(_ sender: UIButton)
      {
@@ -308,8 +393,6 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBAction func toggleState(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
-            headertitle.text = "Your Bookmarks"
-            search.placeholder = "Search Bookmarks"
             isLastOpened = false
             isFavorite = true
             isNotes = false
@@ -326,8 +409,6 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
             emptyMessage.attributedText = attributedString
         case 1:
-            headertitle.text = "Last Opened"
-            search.placeholder = "Search Recents"
             isLastOpened = true
             isFavorite = false
             isNotes = false
@@ -338,8 +419,6 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
             Start by opening any subchapter or chart.
             """
         case 2:
-            headertitle.text = "Your Notes"
-            search.placeholder = "Search Notes"
             isLastOpened = false
             isFavorite = false
             isNotes = true
@@ -359,13 +438,6 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         
         tableView.reloadData()
-        if tableView.visibleCells.count == 0 {
-            emptyView.isHidden = false
-            editButton.isHidden = true
-        } else {
-            emptyView.isHidden = true
-            editButton.isHidden = false
-        }
     }
     
     //--------------------------------------------------------------------------------------------------

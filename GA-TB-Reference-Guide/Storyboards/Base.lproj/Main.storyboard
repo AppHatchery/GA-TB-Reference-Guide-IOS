@@ -69,75 +69,14 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="564"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vup-hB-9ed">
-                                        <rect key="frame" x="0.0" y="90.5" width="375" height="473.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="564"/>
                                         <color key="backgroundColor" name="backgroundColor"/>
                                     </tableView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N9s-Aa-H0a">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                    <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SFl-6P-9Hn" userLabel="Empty View">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="564"/>
                                         <subviews>
-                                            <searchBar hidden="YES" contentMode="redraw" searchBarStyle="minimal" placeholder="Search Recents" translatesAutoresizingMaskIntoConstraints="NO" id="SBF-j7-SA1">
-                                                <rect key="frame" x="12" y="41" width="351" height="64"/>
-                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </searchBar>
-                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="WD1-wr-0wO">
-                                                <rect key="frame" x="20" y="0.0" width="335" height="32"/>
-                                                <color key="backgroundColor" white="1" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <segments>
-                                                    <segment title="Bookmarks"/>
-                                                    <segment title="Recents"/>
-                                                    <segment title="Notes"/>
-                                                </segments>
-                                                <connections>
-                                                    <action selector="toggleState:" destination="Dot-Zi-baJ" eventType="valueChanged" id="ULK-FY-QYg"/>
-                                                </connections>
-                                            </segmentedControl>
-                                        </subviews>
-                                        <color key="backgroundColor" name="colorPrimary"/>
-                                        <constraints>
-                                            <constraint firstItem="SBF-j7-SA1" firstAttribute="leading" secondItem="N9s-Aa-H0a" secondAttribute="leading" constant="12" id="CeI-uA-EW0"/>
-                                            <constraint firstAttribute="trailing" secondItem="SBF-j7-SA1" secondAttribute="trailing" constant="12" id="EKL-R5-gPD"/>
-                                            <constraint firstItem="SBF-j7-SA1" firstAttribute="top" secondItem="WD1-wr-0wO" secondAttribute="bottom" constant="10" id="HdL-pw-R4Q"/>
-                                            <constraint firstItem="WD1-wr-0wO" firstAttribute="top" secondItem="N9s-Aa-H0a" secondAttribute="top" id="aU3-oK-PSo"/>
-                                            <constraint firstItem="WD1-wr-0wO" firstAttribute="leading" secondItem="N9s-Aa-H0a" secondAttribute="leading" constant="20" id="cNA-gk-cNg"/>
-                                            <constraint firstAttribute="trailing" secondItem="WD1-wr-0wO" secondAttribute="trailing" constant="20" id="f7A-DH-X8t"/>
-                                            <constraint firstAttribute="height" constant="50" id="hRE-xU-Ppr"/>
-                                        </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U54-rf-Ua3">
-                                        <rect key="frame" x="0.0" y="50" width="375" height="0.5"/>
-                                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="0.5" id="2Rd-wL-26q"/>
-                                        </constraints>
-                                    </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Bookmarks" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iCf-0a-hzL">
-                                        <rect key="frame" x="20" y="55.5" width="150" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hbz-Zu-kxB">
-                                        <rect key="frame" x="295" y="55.5" width="60" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="oWU-dq-yEg"/>
-                                        </constraints>
-                                        <state key="normal" title="Edit">
-                                            <color key="titleColor" name="custom333"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="showEditing:" destination="Dot-Zi-baJ" eventType="touchUpInside" id="DXW-0g-WFX"/>
-                                        </connections>
-                                    </button>
-                                    <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SFl-6P-9Hn">
-                                        <rect key="frame" x="0.0" y="85.5" width="375" height="478.5"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1sc-g9-GWW">
-                                                <rect key="frame" x="40" y="188.5" width="295" height="101.5"/>
-                                                <string key="text">
-Content you view will appear here.
-
-Start by opening any subchapter or chart.</string>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Content you bookmark will appear here." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1sc-g9-GWW">
+                                                <rect key="frame" x="40" y="261.5" width="295" height="41"/>
                                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -153,26 +92,13 @@ Start by opening any subchapter or chart.</string>
                                 </subviews>
                                 <color key="backgroundColor" name="backgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="Hbz-Zu-kxB" secondAttribute="trailing" constant="20" id="1FB-57-5rA"/>
-                                    <constraint firstItem="Hbz-Zu-kxB" firstAttribute="top" secondItem="U54-rf-Ua3" secondAttribute="bottom" constant="5" id="8Ej-z1-HGA"/>
+                                    <constraint firstItem="vup-hB-9ed" firstAttribute="top" secondItem="JeE-wx-uaD" secondAttribute="top" id="8ns-0q-TmG"/>
                                     <constraint firstAttribute="trailing" secondItem="SFl-6P-9Hn" secondAttribute="trailing" id="EL4-h9-62m"/>
-                                    <constraint firstAttribute="trailing" secondItem="N9s-Aa-H0a" secondAttribute="trailing" id="Nah-ZV-CiG"/>
-                                    <constraint firstItem="vup-hB-9ed" firstAttribute="top" secondItem="Hbz-Zu-kxB" secondAttribute="bottom" constant="5" id="bln-Vu-yGl"/>
-                                    <constraint firstItem="U54-rf-Ua3" firstAttribute="top" secondItem="N9s-Aa-H0a" secondAttribute="bottom" id="cwZ-Ea-ReY"/>
+                                    <constraint firstItem="SFl-6P-9Hn" firstAttribute="top" secondItem="JeE-wx-uaD" secondAttribute="top" id="cLK-go-l15"/>
                                     <constraint firstAttribute="trailing" secondItem="vup-hB-9ed" secondAttribute="trailing" id="dxr-pc-qua"/>
-                                    <constraint firstItem="SFl-6P-9Hn" firstAttribute="top" secondItem="iCf-0a-hzL" secondAttribute="bottom" id="ekj-O2-NwC"/>
-                                    <constraint firstItem="N9s-Aa-H0a" firstAttribute="leading" secondItem="JeE-wx-uaD" secondAttribute="leading" id="fTa-2J-0vW"/>
-                                    <constraint firstItem="Hbz-Zu-kxB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iCf-0a-hzL" secondAttribute="trailing" constant="20" id="ghl-nz-QZd"/>
-                                    <constraint firstItem="vup-hB-9ed" firstAttribute="top" secondItem="iCf-0a-hzL" secondAttribute="bottom" constant="5" id="gm7-4f-2qm"/>
                                     <constraint firstItem="vup-hB-9ed" firstAttribute="leading" secondItem="JeE-wx-uaD" secondAttribute="leading" id="gn1-Gb-mch"/>
-                                    <constraint firstItem="iCf-0a-hzL" firstAttribute="leading" secondItem="JeE-wx-uaD" secondAttribute="leading" constant="20" id="jLI-OL-dmi"/>
-                                    <constraint firstAttribute="trailing" secondItem="U54-rf-Ua3" secondAttribute="trailing" id="l8n-gJ-B3A"/>
-                                    <constraint firstItem="U54-rf-Ua3" firstAttribute="leading" secondItem="JeE-wx-uaD" secondAttribute="leading" id="o3a-Ec-2qD"/>
                                     <constraint firstAttribute="bottom" secondItem="vup-hB-9ed" secondAttribute="bottom" id="oD4-x5-AUh"/>
-                                    <constraint firstItem="N9s-Aa-H0a" firstAttribute="top" secondItem="JeE-wx-uaD" secondAttribute="top" id="qfv-ev-p7m"/>
                                     <constraint firstItem="SFl-6P-9Hn" firstAttribute="leading" secondItem="JeE-wx-uaD" secondAttribute="leading" id="qtT-q1-pNG"/>
-                                    <constraint firstItem="vup-hB-9ed" firstAttribute="top" secondItem="U54-rf-Ua3" secondAttribute="bottom" constant="40" id="vSj-0r-deg"/>
-                                    <constraint firstItem="iCf-0a-hzL" firstAttribute="top" secondItem="U54-rf-Ua3" secondAttribute="bottom" constant="5" id="wkc-WU-YhY"/>
                                     <constraint firstAttribute="bottom" secondItem="SFl-6P-9Hn" secondAttribute="bottom" id="zas-ks-hbP"/>
                                 </constraints>
                             </view>
@@ -189,20 +115,15 @@ Start by opening any subchapter or chart.</string>
                     <navigationItem key="navigationItem" id="L5p-Hp-32P"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <outlet property="contentTabs" destination="WD1-wr-0wO" id="Rlu-aC-3bj"/>
-                        <outlet property="editButton" destination="Hbz-Zu-kxB" id="wkX-ER-oyk"/>
-                        <outlet property="emptyMessage" destination="1sc-g9-GWW" id="2Ql-bq-OdN"/>
-                        <outlet property="emptyView" destination="SFl-6P-9Hn" id="xbt-dq-FnM"/>
-                        <outlet property="headertitle" destination="iCf-0a-hzL" id="m6c-lc-AMz"/>
-                        <outlet property="search" destination="SBF-j7-SA1" id="m51-Z6-8EU"/>
-                        <outlet property="searchView" destination="N9s-Aa-H0a" id="qLX-6B-uEZ"/>
-                        <outlet property="tableView" destination="vup-hB-9ed" id="Shn-Co-9OA"/>
+                        <outlet property="emptyMessage" destination="1sc-g9-GWW" id="0ir-Zu-p5n"/>
+                        <outlet property="emptyView" destination="SFl-6P-9Hn" id="KvP-ZK-KIT"/>
+                        <outlet property="tableView" destination="vup-hB-9ed" id="1Qg-gg-Xu1"/>
                         <segue destination="MDz-7h-Sal" kind="show" identifier="SegueToWebViewViewController" id="eA2-yB-9Oc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FH4-5t-1xh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1043" y="823"/>
+            <point key="canvasLocation" x="1042.4000000000001" y="821.73913043478262"/>
         </scene>
         <!--Settings-->
         <scene sceneID="dTg-G9-nSA">
@@ -1302,9 +1223,6 @@ Start by opening any subchapter or chart.</string>
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

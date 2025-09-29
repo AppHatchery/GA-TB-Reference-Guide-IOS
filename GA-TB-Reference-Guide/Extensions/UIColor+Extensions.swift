@@ -68,6 +68,11 @@ extension UIColor
 	{
 		return UIColor(named: "colorPrimary")!
 	}
+    
+    class var colorGreen: UIColor
+    {
+        return UIColor(named: "colorGreen")!
+    }
 
 	class var colorWhite: UIColor
 	{

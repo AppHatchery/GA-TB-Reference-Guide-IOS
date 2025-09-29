@@ -488,9 +488,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 					if let chartName = cell.subchapterLabel.text,
 						chartName.range(of: #"^Table \d+:"#, options: .regularExpression) != nil {
 						cell.chapterIcon.image = UIImage(named: "icChartGreen")
-						print("Valid table name format: \(chartName)")
 					} else {
-						print("Invalid table name format: \(cell.subchapterLabel.text ?? "")")
 						cell.chapterIcon.image = UIImage(named: "icChapterBlue")
 					}
 				} else if showChapters {
@@ -519,11 +517,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 					if let chartName = cell.subchapterLabel.text,
 						chartName.range(of: #"^Table \d+:"#, options: .regularExpression) != nil {
 						cell.chapterIcon.image = UIImage(named: "icChartGreen")
-						print("Valid table name format: \(chartName)")
 					} else {
 							// Invalid format (does not start with "Table X:")
 						cell.chapterIcon.image = UIImage(named: "icChapterBlue")
-						print("Invalid table name format: \(cell.subchapterLabel.text ?? "")")
 					}
 				}
 

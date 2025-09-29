@@ -23,6 +23,7 @@ class SaveFavorite: UIView {
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var nameField: UITextField!
+    @IBOutlet weak var bookmarkSourceField: UITextField!
     
     // Dialog Constraints
     @IBOutlet weak var dialogLeftConstraint: NSLayoutConstraint!
@@ -86,14 +87,38 @@ class SaveFavorite: UIView {
         saveButton.layer.masksToBounds = true
         saveButton.layer.borderColor = UIColor.label.cgColor
         
+        
+        let nameFieldPaddingView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: nameField.frame.height))
+        
+        nameField.layer.cornerRadius = 10
+        nameField.layer.borderWidth = 0
+        nameField.layer.borderColor = UIColor.clear.cgColor
+        nameField.layer.masksToBounds = true
+        nameField.borderStyle = .none
+        nameField.leftView = nameFieldPaddingView
+        nameField.leftViewMode = .always
+        
+        let bookmarkSourceFieldPaddingView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: bookmarkSourceField.frame.height))
+        
+        bookmarkSourceField.layer.cornerRadius = 10
+        bookmarkSourceField.layer.borderWidth = 0
+        bookmarkSourceField.layer.borderColor = UIColor.clear.cgColor
+        bookmarkSourceField.layer.masksToBounds = true
+        bookmarkSourceField.borderStyle = .none
+        bookmarkSourceField.leftView = bookmarkSourceFieldPaddingView
+        bookmarkSourceField.leftViewMode = .always
+        
         if subChapter.favorite == true {
             titleLabel.text = "Edit Bookmark Title"
             nameField.text = subChapter.favoriteName
-            cancelButton.setTitle("Remove", for: .normal)
-            saveButton.setTitle("Update", for: .normal)
+            bookmarkSourceField.text = subChapter.chapterParent
+            
+            cancelButton.setTitle("Delete Bookmark", for: .normal)
+            saveButton.setTitle("Save Changes", for: .normal)
             cancelButton.addTarget(self, action: #selector(self.deleteButtonPressed), for: .touchUpInside)
         } else {
             nameField.text = currentTitle
+            bookmarkSourceField.text = subChapter.chapterParent
             cancelButton.addTarget(self, action: #selector(self.cancelButtonPressed), for: .touchUpInside)
         }
         closeButton.addTarget(self, action: #selector(self.cancelButtonPressed), for: .touchUpInside)
