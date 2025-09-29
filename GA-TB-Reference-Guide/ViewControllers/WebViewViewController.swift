@@ -526,19 +526,99 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     
     // This function is just preventing the within the app pages to move to the web links because there is no new page that we need to call the goBack() function from
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        // Comes to this function before knowing what the url is so it's always false")
-//        if comingFromHyperLink == true {
-//            decisionHandler(.cancel)
-//            comingFromHyperLink = false
-//        } else {
-//            decisionHandler(.allow)
-//        }
+        
+        guard let url = navigationAction.request.url else {
+            decisionHandler(.allow)
+            return
+        }
+        
+        let urlString = url.absoluteString
+        
+        // Allow initial page load
+        if navigationAction.navigationType == .other {
+            decisionHandler(.allow)
+            return
+        }
+        
+        // Handle internal app links (file:// URLs)
+        if urlString.hasPrefix("file:///") {
+            // Extract the filename
+            let components = urlString.components(separatedBy: "GA-TB-Reference-Guide.app/")
+            guard components.count > 1 else {
+                decisionHandler(.allow)
+                return
+            }
+            
+            let newURL = components[1]
+            
+            // Check if it's an anchor link within the same page
+            if newURL.contains("#") {
+                let baseFile = newURL.components(separatedBy: "#")[0]
+                let currentFile = self.url.lastPathComponent
+                
+                // If it's the same file, allow navigation (anchor scroll)
+                if baseFile == currentFile || baseFile.isEmpty {
+                    decisionHandler(.allow)
+                    return
+                }
+            }
+            
+            // It's a different page - handle custom navigation
+            // Cancel the WebView's navigation
+            decisionHandler(.cancel)
+            
+            // Find the chapter index
+            let fileName = newURL.components(separatedBy: ".")[0].components(separatedBy: "#")[0]
+            guard let urlsarray = Array(chapterIndex.chapterCode.joined()).firstIndex(of: fileName) else {
+                return
+            }
+            
+            // Create and push new view controller
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            guard let vc = storyBoard.instantiateViewController(withIdentifier: "web") as? WebViewViewController else {
+                return
+            }
+            
+            // Configure the new view controller
+            if newURL.contains("#") {
+                let anchor = "#" + newURL.components(separatedBy: "#")[1].replacingOccurrences(of: ")", with: "")
+                let baseURL = Bundle.main.url(forResource: Array(chapterIndex.chapterCode.joined())[urlsarray], withExtension: "html")!
+                vc.url = URL(string: anchor, relativeTo: baseURL)
+            } else {
+                vc.url = Bundle.main.url(forResource: Array(chapterIndex.chapterCode.joined())[urlsarray], withExtension: "html")!
+            }
+            
+            vc.titlelabel = Array(chapterIndex.chapterNested.joined())[urlsarray]
+            vc.navTitle = chapterIndex.chaptermapsubchapter[urlsarray]
+            vc.uniqueAddress = Array(chapterIndex.chapterCode.joined())[urlsarray]
+            
+            // Push the view controller
+            navigationController?.pushViewController(vc, animated: true)
+            return
+        }
+        
+        // Handle external links
+        if navigationAction.navigationType == .linkActivated {
+            decisionHandler(.cancel)
+            
+            let alertDelete = UIAlertController(
+                title: "This link will open in your browser, do you want to continue?",
+                message: "",
+                preferredStyle: .alert
+            )
+            
+            alertDelete.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            })
+            
+            alertDelete.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            
+            present(alertDelete, animated: true)
+            return
+        }
+        
+        // Default: allow navigation
         decisionHandler(.allow)
-    }
-    
-    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
-        preferences.preferredContentMode = .mobile
-        decisionHandler(.allow,preferences)
     }
     
     func searchAndCountWords(term: String) {
