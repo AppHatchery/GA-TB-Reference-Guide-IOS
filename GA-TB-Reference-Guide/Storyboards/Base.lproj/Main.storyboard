@@ -1051,9 +1051,9 @@
                                     <constraint firstItem="A7h-yx-Qom" firstAttribute="top" secondItem="XZg-De-pgK" secondAttribute="top" constant="8" id="zV0-iD-WM8"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jny-f0-Iwl">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jny-f0-Iwl">
                                 <rect key="frame" x="280.5" y="140" width="74.5" height="30"/>
-                                <color key="backgroundColor" name="colorYellow"/>
+                                <color key="backgroundColor" name="colorYellowLight"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Kur-2v-ITX"/>
                                 </constraints>
@@ -1209,8 +1209,8 @@
         <namedColor name="colorTextSecondary">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="colorYellow">
-            <color red="1" green="0.75686274509803919" blue="0.027450980392156862" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="colorYellowLight">
+            <color red="0.94117647058823528" green="0.78431372549019607" blue="0.34509803921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="custom333">
             <color red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -134,6 +134,8 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         dateLabel.text = "Updated \( chapterIndex.updateDate)"
         
         viewNotesButton.layer.cornerRadius = 16
+        viewNotesButton.adjustsImageWhenHighlighted = false
+        viewNotesButton.dropShadow()
         
 //        contentView.topAnchor.constraint(equalTo: pseudoseparator.bottomAnchor, constant: 5).isActive = true
         

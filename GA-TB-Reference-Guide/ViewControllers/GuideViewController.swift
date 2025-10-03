@@ -51,6 +51,7 @@ class GuideViewController: UIViewController, URLSessionDelegate {
         navbarTitle.minimumScaleFactor = 0.5
         navbarTitle.adjustsFontSizeToFitWidth = true
         navigationItem.titleView = navbarTitle
+        navigationItem.backButtonDisplayMode = .minimal
         
         // Do any additional setup after loading the view
     }
