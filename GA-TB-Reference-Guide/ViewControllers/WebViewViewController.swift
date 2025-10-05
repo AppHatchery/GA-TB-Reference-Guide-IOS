@@ -222,6 +222,14 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             }
         }
         
+        if let notesCount = content?.notes.count {
+            viewNotesButton.isHidden = false
+            viewNotesButton.setTitle("(\(notesCount))", for: .normal)
+        } else {
+            viewNotesButton.isHidden = true
+            viewNotesButton.setTitle("(0)", for: .normal)
+        }
+        
         NotificationCenter.default.addObserver(self, selector: #selector(fontSizeChanged(_:)), name: NSNotification.Name("FontSizeChanged"), object: nil)
         webView.load( URLRequest( url: url ))
     }
@@ -388,11 +396,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
 //            loadTable()
 //        }
         
-        if let notesCount = content?.notes.count {
-            viewNotesButton.setTitle("(\(notesCount))", for: .normal)
-        } else {
-            viewNotesButton.setTitle("(0)", for: .normal)
-        }
+        updateNotesButton()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -435,6 +439,8 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             
             // Add observer to the WebView so that when the URL changes it triggers our detection function
             webView.addObserver(self, forKeyPath: "URL", options: [.new, .old], context: nil)
+        
+        updateNotesButton()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -1078,8 +1084,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
                     print("appended the note properly?")
                 }
                 
-                self.viewNotesButton.setTitle("(\(self.content.notes.count))", for: .normal)
-
+                self.updateNotesButton()
             }
         } else {
             RealmHelper.sharedInstance.update(note, properties: [
@@ -1094,8 +1099,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     //--------------------------------------------------------------------------------------------------
     func didDeleteNote(_ note: Notes) {
         RealmHelper.sharedInstance.delete(note) { [weak self] deleted in
-            let count = self?.content.notes.count ?? 0
-            self?.viewNotesButton.setTitle("(\(count))", for: .normal)
+            self?.updateNotesButton()
         }
     }
     
@@ -1352,6 +1356,49 @@ extension WebViewViewController: UISearchBarDelegate {
         // This will open the note editing window when a note is selected
         if let selectedNote = realm!.object(ofType: Notes.self, forPrimaryKey: note.id) {
             openNoteWindow(noteChosen: selectedNote)
+        }
+    }
+    
+    func updateNotesButton() {
+        let count = content?.notes.count ?? 0
+        
+        if count <= 0 {
+            // Animate fade out and scale down
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
+                self.viewNotesButton.alpha = 0
+                self.viewNotesButton.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+            }, completion: { _ in
+                self.viewNotesButton.isHidden = true
+                self.viewNotesButton.setTitle("(0)", for: .normal)
+                // Reset transform for next time it appears
+                self.viewNotesButton.transform = .identity
+            })
+        } else {
+            _ = Int(
+                viewNotesButton
+                    .title(for: .normal)?
+                    .replacingOccurrences(of: "(", with: "")
+                    .replacingOccurrences(of: ")", with: "") ?? "0"
+            ) ?? 0
+            
+            // If button is hidden, show it first
+            if viewNotesButton.isHidden {
+                viewNotesButton.isHidden = false
+                viewNotesButton.alpha = 0
+                viewNotesButton.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+            }
+            
+            // Animate the count change with a pop effect
+            UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseOut, animations: {
+                self.viewNotesButton.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+                self.viewNotesButton.alpha = 1
+            }, completion: { _ in
+                self.viewNotesButton.setTitle("(\(count))", for: .normal)
+                
+                UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseIn, animations: {
+                    self.viewNotesButton.transform = .identity
+                })
+            })
         }
     }
 }

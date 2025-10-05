@@ -114,7 +114,6 @@ class SaveNote: UIView {
             cancelButton.setTitle("Delete", for: .normal)
             saveButton.setTitle("Update", for: .normal)
             cancelButton.addTarget(self, action: #selector(self.deleteButtonPressed), for: .touchUpInside)
-            cancelButton.setImage(UIImage(systemName: "trash"), for: .normal)
         }
     }
     

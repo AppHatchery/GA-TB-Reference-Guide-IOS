@@ -9,22 +9,28 @@ import UIKit
 
 class ChapterNoteTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var parentView: UIView!
     @IBOutlet weak var header: UILabel!
     @IBOutlet weak var colorTag: UIView!
     @IBOutlet weak var content: UILabel!
     @IBOutlet weak var edit: UIButton!
-    @IBOutlet weak var shadowView: UIView!
+    @IBOutlet weak var mainView: UIView!
+    
+    var onEditTapped: (() -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
 //        shadowView.dropShadow()
-        shadowView.layer.cornerRadius = 5
-        shadowView.layer.borderWidth = 0.25
-        shadowView.layer.borderColor = UIColor.lightGray.cgColor
-        shadowView.dropShadowNote()
+        parentView.layer.cornerRadius = 4
+        mainView.layer.cornerRadius = 4
+        colorTag.layer.cornerRadius = 4
+        colorTag.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner] // Left corners only
+//        shadowView.dropShadowNote()
         
 //        contentView.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+        
+        edit.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -33,4 +39,12 @@ class ChapterNoteTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    @objc private func editButtonTapped() {
+        onEditTapped?()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        onEditTapped = nil
+    }
 }

@@ -12,103 +12,92 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="chapterNote" rowHeight="109" id="KGk-i7-Jjw" customClass="ChapterNoteTableViewCell" customModule="GA_TB_Reference_Guide" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="342" height="109"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="137"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="342" height="109"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="137"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yPc-nO-e7X">
-                        <rect key="frame" x="0.0" y="0.0" width="340" height="108"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yPc-nO-e7X" userLabel="Main View">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="121"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cjo-cZ-rc0">
-                                <rect key="frame" x="0.0" y="0.0" width="6" height="108"/>
-                                <color key="backgroundColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="0.0" y="0.0" width="6" height="121"/>
+                                <color key="backgroundColor" name="colorPrimary"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="6" id="tm9-Jb-W1b"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="20" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yXp-0s-1fU">
-                                <rect key="frame" x="10" y="10" width="296" height="58"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="58" id="pzj-4C-GHs"/>
-                                    <constraint firstAttribute="width" constant="296" id="sdT-Sw-XC1"/>
-                                </constraints>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yXp-0s-1fU">
+                                <rect key="frame" x="22" y="16" width="254" height="62"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pU6-Jx-ktL">
-                                <rect key="frame" x="316" y="10" width="24" height="24"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="24" id="Kax-TC-ZRS"/>
-                                    <constraint firstAttribute="width" constant="24" id="ijR-YF-IUt"/>
-                                </constraints>
-                                <color key="tintColor" name="colorPrimary"/>
-                                <state key="normal" title=" " image="icEditNote">
-                                    <color key="titleColor" name="customDarkGray"/>
-                                </state>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Note - Last Edited 00/00/0000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PTU-bV-4jw">
-                                <rect key="frame" x="10" y="78" width="320" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="pEf-vd-Hgm"/>
-                                </constraints>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Note - Last Edited 00/00/0000" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PTU-bV-4jw">
+                                <rect key="frame" x="22" y="88" width="282" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" name="colorText"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n2u-38-8qO">
+                                <rect key="frame" x="286" y="16" width="24" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="24" id="6te-Nk-l4a"/>
+                                    <constraint firstAttribute="height" constant="24" id="PUj-XS-7hz"/>
+                                </constraints>
+                                <color key="tintColor" name="colorPrimary"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="icEditNote" title=" "/>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" name="backgroundColor"/>
+                        <color key="backgroundColor" name="colorBackgroundSecondary"/>
                         <constraints>
-                            <constraint firstItem="yXp-0s-1fU" firstAttribute="leading" secondItem="Cjo-cZ-rc0" secondAttribute="trailing" constant="4" id="5Ie-9f-9hn"/>
-                            <constraint firstAttribute="trailing" secondItem="PTU-bV-4jw" secondAttribute="trailing" constant="10" id="6WL-Rv-Fob"/>
-                            <constraint firstAttribute="trailing" secondItem="pU6-Jx-ktL" secondAttribute="trailing" id="6hE-88-RFM"/>
+                            <constraint firstItem="PTU-bV-4jw" firstAttribute="top" secondItem="yXp-0s-1fU" secondAttribute="bottom" constant="10" id="2Dd-Uf-e1E"/>
+                            <constraint firstItem="yXp-0s-1fU" firstAttribute="leading" secondItem="Cjo-cZ-rc0" secondAttribute="trailing" constant="16" id="5Ie-9f-9hn"/>
+                            <constraint firstAttribute="trailing" secondItem="PTU-bV-4jw" secondAttribute="trailing" constant="16" id="6WL-Rv-Fob"/>
                             <constraint firstItem="Cjo-cZ-rc0" firstAttribute="leading" secondItem="yPc-nO-e7X" secondAttribute="leading" id="8Ww-OM-8Gd"/>
-                            <constraint firstItem="PTU-bV-4jw" firstAttribute="top" secondItem="yXp-0s-1fU" secondAttribute="bottom" constant="10" id="GP5-Kn-PBY"/>
+                            <constraint firstAttribute="trailing" secondItem="n2u-38-8qO" secondAttribute="trailing" constant="10" id="Eav-jD-3rY"/>
                             <constraint firstItem="Cjo-cZ-rc0" firstAttribute="top" secondItem="yPc-nO-e7X" secondAttribute="top" id="IkD-9C-aTl"/>
-                            <constraint firstItem="yXp-0s-1fU" firstAttribute="top" secondItem="yPc-nO-e7X" secondAttribute="top" constant="10" id="Isz-pf-tfs"/>
+                            <constraint firstItem="yXp-0s-1fU" firstAttribute="top" secondItem="yPc-nO-e7X" secondAttribute="top" constant="16" id="Isz-pf-tfs"/>
                             <constraint firstAttribute="bottom" secondItem="Cjo-cZ-rc0" secondAttribute="bottom" id="JsM-PY-hc3"/>
-                            <constraint firstItem="pU6-Jx-ktL" firstAttribute="leading" secondItem="yXp-0s-1fU" secondAttribute="trailing" constant="10" id="UZh-JP-VeX"/>
-                            <constraint firstItem="PTU-bV-4jw" firstAttribute="leading" secondItem="Cjo-cZ-rc0" secondAttribute="trailing" constant="4" id="a2y-CG-CAn"/>
-                            <constraint firstItem="pU6-Jx-ktL" firstAttribute="top" secondItem="yPc-nO-e7X" secondAttribute="top" constant="10" id="m1O-B1-28a"/>
-                            <constraint firstAttribute="bottom" secondItem="PTU-bV-4jw" secondAttribute="bottom" constant="10" id="tkA-7Y-LaD"/>
+                            <constraint firstItem="PTU-bV-4jw" firstAttribute="leading" secondItem="Cjo-cZ-rc0" secondAttribute="trailing" constant="16" id="a2y-CG-CAn"/>
+                            <constraint firstItem="n2u-38-8qO" firstAttribute="top" secondItem="yPc-nO-e7X" secondAttribute="top" constant="16" id="aHL-Hi-6Js"/>
+                            <constraint firstItem="n2u-38-8qO" firstAttribute="leading" secondItem="yXp-0s-1fU" secondAttribute="trailing" constant="10" id="kVs-7m-3m5"/>
+                            <constraint firstAttribute="bottom" secondItem="PTU-bV-4jw" secondAttribute="bottom" constant="16" id="mGw-c3-nHv"/>
                         </constraints>
                     </view>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstItem="yPc-nO-e7X" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="65f-sF-Kim"/>
-                    <constraint firstItem="yPc-nO-e7X" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Bwf-HJ-crW"/>
-                    <constraint firstAttribute="bottom" secondItem="yPc-nO-e7X" secondAttribute="bottom" id="Iza-RN-cP7"/>
-                    <constraint firstAttribute="trailing" secondItem="yPc-nO-e7X" secondAttribute="trailing" id="KxX-Kx-tl8"/>
-                    <constraint firstItem="yPc-nO-e7X" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="ajN-FF-43a"/>
-                    <constraint firstItem="yPc-nO-e7X" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="r9F-Yu-NlD"/>
+                    <constraint firstAttribute="trailing" secondItem="yPc-nO-e7X" secondAttribute="trailing" id="Ozx-Uj-T2c"/>
+                    <constraint firstItem="yPc-nO-e7X" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="UC4-qT-Tfh"/>
+                    <constraint firstAttribute="bottom" secondItem="yPc-nO-e7X" secondAttribute="bottom" constant="16" id="imH-GR-X5v"/>
+                    <constraint firstItem="yPc-nO-e7X" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="omS-kV-NHK"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="colorTag" destination="Cjo-cZ-rc0" id="csR-Ef-coG"/>
                 <outlet property="content" destination="yXp-0s-1fU" id="awi-A6-NNi"/>
-                <outlet property="edit" destination="pU6-Jx-ktL" id="MTy-0P-nes"/>
+                <outlet property="edit" destination="n2u-38-8qO" id="SFp-va-yxJ"/>
                 <outlet property="header" destination="PTU-bV-4jw" id="kT0-Fa-bHu"/>
-                <outlet property="shadowView" destination="yPc-nO-e7X" id="yz9-D0-iZM"/>
+                <outlet property="mainView" destination="yPc-nO-e7X" id="r0q-8b-Hdm"/>
+                <outlet property="parentView" destination="H2p-sc-9uM" id="yjV-0i-K81"/>
             </connections>
             <point key="canvasLocation" x="152.17391304347828" y="147.65625"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="icEditNote" width="24" height="24"/>
-        <namedColor name="backgroundColor">
-            <color red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="colorBackgroundSecondary">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="colorPrimary">
             <color red="0.31764705882352939" green="0.50980392156862742" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="colorText">
             <color red="0.45490196078431372" green="0.45490196078431372" blue="0.45490196078431372" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="customDarkGray">
-            <color red="0.33300000429153442" green="0.33300000429153442" blue="0.33300000429153442" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

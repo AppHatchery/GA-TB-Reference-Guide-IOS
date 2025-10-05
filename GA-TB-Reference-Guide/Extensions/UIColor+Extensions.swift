@@ -48,6 +48,11 @@ extension UIColor
     {
         return UIColor(named: "backgroundColor")!
     }
+    
+    class var colorBackground: UIColor
+    {
+        return UIColor(named: "colorBackground")!
+    }
 
 	class var colorBackgroundSecondary: UIColor
 	{

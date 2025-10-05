@@ -38,10 +38,10 @@ class NotesBottomSheetViewController: UIViewController {
     
     // MARK: - Setup Methods
     private func setupUI() {
-        view.backgroundColor = UIColor.systemBackground
+        view.backgroundColor = .colorBackground
         
         // Setup header view
-        headerView.backgroundColor = UIColor.systemBackground
+        headerView.backgroundColor = .colorBackground
         headerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(headerView)
         
@@ -54,14 +54,14 @@ class NotesBottomSheetViewController: UIViewController {
         headerView.addSubview(titleLabel)
         
         // Setup dismiss button
-        dismissButton.setTitle("Done", for: .normal)
-        dismissButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        dismissButton.addTarget(self, action: #selector(dismissTapped), for: .touchUpInside)
-        dismissButton.translatesAutoresizingMaskIntoConstraints = false
-        headerView.addSubview(dismissButton)
+//        dismissButton.setTitle("Done", for: .normal)
+//        dismissButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+//        dismissButton.addTarget(self, action: #selector(dismissTapped), for: .touchUpInside)
+//        dismissButton.translatesAutoresizingMaskIntoConstraints = false
+//        headerView.addSubview(dismissButton)
         
         // Setup empty state label
-        emptyStateLabel.text = "No notes saved for this chapter"
+        emptyStateLabel.text = "No notes saved"
         emptyStateLabel.font = UIFont.systemFont(ofSize: 16)
         emptyStateLabel.textColor = UIColor.secondaryLabel
         emptyStateLabel.textAlignment = .center
@@ -70,9 +70,14 @@ class NotesBottomSheetViewController: UIViewController {
         view.addSubview(emptyStateLabel)
         
         // Setup constraints
-        NSLayoutConstraint.activate([
+        NSLayoutConstraint.activate(
+[
             // Header view
-            headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            headerView.topAnchor
+                .constraint(
+                    equalTo: view.safeAreaLayoutGuide.topAnchor,
+                    constant: 29
+                ),
             headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             headerView.heightAnchor.constraint(equalToConstant: 60),
@@ -82,8 +87,8 @@ class NotesBottomSheetViewController: UIViewController {
             titleLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 20),
             
             // Dismiss button
-            dismissButton.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
-            dismissButton.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -20),
+//            dismissButton.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
+//            dismissButton.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -20),
             
             // Empty state label
             emptyStateLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -100,7 +105,7 @@ class NotesBottomSheetViewController: UIViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 120
         tableView.separatorStyle = .none
-        tableView.backgroundColor = UIColor.systemBackground
+        tableView.backgroundColor = .colorBackground
         tableView.contentInset = UIEdgeInsets(top: 16, left: 0, bottom: 16, right: 0)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
@@ -154,19 +159,27 @@ extension NotesBottomSheetViewController: UITableViewDataSource {
         cell.colorTag.backgroundColor = colorTags[note.colorTag]
         cell.selectionStyle = .none
         
+        cell.contentView.layoutMargins = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+        cell.backgroundColor = .clear
+        
+        cell.onEditTapped = { [weak self] in
+            self?.delegate?.didSelectNote(note)
+            self?.dismiss(animated: true)
+        }
+        
         return cell
     }
 }
 
 // MARK: - UITableViewDelegate
 extension NotesBottomSheetViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let notes = content?.notes, indexPath.row < notes.count else { return }
-        
-        let note = notes[notes.count - 1 - indexPath.row]
-        delegate?.didSelectNote(note)
-        dismiss(animated: true)
-    }
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        guard let notes = content?.notes, indexPath.row < notes.count else { return }
+//        
+//        let note = notes[notes.count - 1 - indexPath.row]
+//        delegate?.didSelectNote(note)
+//        dismiss(animated: true)
+//    }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
