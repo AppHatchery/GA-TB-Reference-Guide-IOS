@@ -109,6 +109,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         
         configureSearchBar()
         
+        metadataView.isHidden = true
 
 		let filename = "15_appendix_district_tb_coordinators_(by_district).html"
 

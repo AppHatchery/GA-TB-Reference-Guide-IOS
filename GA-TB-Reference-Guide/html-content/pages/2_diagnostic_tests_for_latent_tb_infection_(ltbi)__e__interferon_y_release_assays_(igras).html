@@ -15,19 +15,37 @@
 <body>
 
 <div class="uk-container">
-    <p>
+    <div>
+        <div class="chapter-header">
+            <div class="header-title">
+                <div>
+                    <img src="ic_chapter.svg" width="16" height="16" class="ic_chapter_icon">
+                </div>
+                <p class="chapter-title">Interferon-γ Release Assays (IGRAs)</p>
+            </div>
+            <p class="last-updated"><i>Last Updated June 2024</i></p>
+        </div>
+        <hr>
+    </div>
+    <p class="uk-paragraph">
         Two FDA-approved IGRA tests are commercially available in the
         U.S. These include the QuantiFERON-TB Gold Plus (QFT) test and
         the TSPOT.TB (TSPOT) test. Guidelines on the use of these IGRAs
         as diagnostic tests for LTBI have been published by the American
         Thoracic Society (ATS), CDC, and the Infectious Diseases Society
-        of America (IDSA) [Clin Infect Dis 2017; 64(2):111–5]. IGRAs are invitro blood tests that are based on
+        of America (IDSA) [Clin Infect Dis 2017; 64(2):111–5].</p>
+    <p class="uk-paragraph">
+        IGRAs are in vitro blood tests that are based on
         interferon-γ (IFN-γ) release
         after stimulation by relatively TB-specific antigens (i.e., ESAT-6
-        and CFP-10 in both assays). The QFT is a whole blood assay that
+        and CFP-10 in both assays).</p>
+    <p class="uk-paragraph">
+        The QFT is a whole blood assay that
         uses an ELISA technique to measure IFN-γ production. TSPOT
         uses peripheral blood mononuclear cells (PBMCs) and detects (by
-        use of ELISPOT) the number of T cells producing IFN-γ. Because
+        use of ELISPOT) the number of T cells producing IFN-γ. </p>
+    <p class="uk-paragraph">
+        Because
         the antigens used in the IGRAs are not found in M. bovis BCG (or
         most non-tuberculous mycobacteria), the IGRAs are more specific than the TST when used to test persons who have
         received
@@ -38,7 +56,7 @@
         and
         <a href="#table2">Table 2</a>.
     </p>
-    <h4 id="table1">Table 1. Interpretation Criteria for the QuantiFERON-TB Gold Plus Test (QFT-Plus)</h4>
+    <h4 id="table1" class="custom-table-title">Table 1. Interpretation Criteria for the QuantiFERON-TB Gold Plus Test (QFT-Plus)</h4>
     <div class="uk-overflow-auto">
         <div class="uk-tabs-container">
             <ul class="tabs">
@@ -69,47 +87,15 @@
                     <td colspan="2">Any</td>
                 </tr>
                 <tr>
-                    <th>QFT-Plus Result</th>
-                    <td colspan="2">Positive</td>
-                </tr>
-                <tr>
                     <th>Report/Interpretation</th>
                     <td colspan="2">M. <i>tuberculosis </i>infection likely</td>
                 </tr>
             </tbody>
         </table>
 
-        <table id="tab-content1" class="uk-table uk-table-small uk-table-divider tab-content">
-            <tbody>
-                <tr>
-                    <th>Nil (IU/ml)</th>
-                    <td> &lt; 8.0</td>
-                    <td>&gt; 8.0</td>
-                </tr>
-                <tr>
-                    <th class="uk-text-nowrap">TB1 minus Nil (IU/ml)</th>
-                    <td>&gt; 0.35 and &gt; 25% of Nil</td>
-                    <td>Any</td>
-                </tr>
-                <tr>
-                    <th class="uk-text-nowrap">TB2 minus Nil (IU/ml)</th>
-                    <td>&gt; 0.35 and &gt; 25% of Nil</td>
-                    <td>Any</td>
-                </tr>
-                <tr>
-                    <th>Mitogen minus Nil</th>
-                    <td> &lt; 0.50</td>
-                    <td>Any</td>
-                </tr>
-                <tr>
-                    <th>Report/Interpretation</th>
-                    <td colspan="2">M. <i>tuberculosis </i>infection NOT likely</td>
-                </tr>
-            </tbody>
-        </table>
+<table id="tab-content1" class="uk-table uk-table-small uk-table-divider tab-content">
 
-        <table id="tab-content2" class="uk-table tab-content">
-            <tbody>
+             <tbody>
                 <tr>
                     <th colspan="2">Nil (IU/ml)</th>
                     <td colspan="2"> &lt; 8.0</td>
@@ -128,16 +114,48 @@
                 </tr>
                 <tr>
                     <th colspan="2">Report/Interpretation</th>
+                    <td colspan="2">M. <i>tuberculosis </i>infection not likely</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table id="tab-content2" class="uk-table tab-content">
+            <tbody>
+                <tr>
+                    <th>Nil (IU/ml)</th>
+                    <td> &lt; 8.0</td>
+                    <td>&gt; 8.0</td>
+                </tr>
+                <tr>
+                    <th class="uk-text-nowrap">TB1 minus Nil (IU/ml)</th>
+                    <td>< 0.35 or > 0.35 and < 25% of Nil</td>
+                    <td>Any</td>
+                </tr>
+                <tr>
+                    <th class="uk-text-nowrap">TB2 minus Nil (IU/ml)</th>
+                    <td>< 0.35 or > 0.35 and < 25% of Nil</td>
+                    <td>Any</td>
+                </tr>
+                <tr>
+                    <th>Mitogen minus Nil</th>
+                    <td> &lt; 0.50</td>
+                    <td>Any</td>
+                </tr>
+                <tr>
+                    <th>Report/Interpretation</th>
                     <td colspan="2">Likelihood of M. <i>tuberculosis </i>infection cannot be determined</td>
                 </tr>
             </tbody>
         </table>
     </div>
-
-    <p><b>Source</b>: Based on manufacturer recommendations for QuantiFERON-TB Gold Plus [Package insert]. <br>Available at:
-        <a href="https://www.quantiferon.com/us/wp-content/uploads/sites/13/2020/01/L1095849-R06-QFT-Plus-ELISA-IFU.pdf"  class="res-width">
-            https://www.quantiferon.com/us/wp-content/uploads/sites/13/2020/01/L1095849-R06-QFT-Plus-ELISA-IFU.pdf</a></p>
-    <h4 id="table2">Table 2. Interpretation Criteria for the T-SPOT.TB Test (T-Spot)</h4>
+    <p>
+        <b>Source</b>: Based on manufacturer recommendations for QuantiFERON-TB Gold Plus [Package insert]. <br>Available
+        at:
+        <a href="https://www.qiagen.com/us/resources/resource?id=ac068fc7-a994-4443-ac7c-dda43ce2bc5e&lang=en" class="res-width">
+            https://www.qiagen.com/us/resources/resource?id=ac068fc7-a994-4443-ac7c-dda43ce2bc5e&lang=en</a>
+    </p>
+    
+    <h4 id="table2" class="custom-table-title">Table 2. Interpretation Criteria for the T-SPOT.TB Test (T-Spot)</h4>
     <div class="uk-overflow-auto" id="table2">
         <div class="uk-tabs-container">
             <ul class="tabs">
@@ -152,7 +170,7 @@
             <tbody>
                 <tr>
                     <th colspan="1">Nil*</th>
-                    <td colspan="1">&lt; 8.0</td>
+                    <td colspan="1">&le; 10 spots</td>
                 </tr>
                 <tr>
                     <th colspan="1">TB Response&dagger;</th>
@@ -169,7 +187,7 @@
             <tbody>
                 <tr>
                     <th colspan="1">Nil*</th>
-                    <td colspan="1">&lt; 10</td>
+                    <td colspan="1">&lt; 10 spots</td>
                 </tr>
                 <tr>
                     <th colspan="1">TB Response&dagger;</th>
@@ -186,7 +204,7 @@
             <tbody>
                 <tr>
                     <th colspan="1">Nil*</th>
-                    <td colspan="1">&le; 10</td>
+                    <td colspan="1">&le; 10 spots</td>
                 </tr>
                 <tr>
                     <th colspan="1">TB Response&dagger;</th>
@@ -203,8 +221,8 @@
             <tbody>
                 <tr>
                     <th colspan="1">Nil*</th>
-                    <td colspan="1">&le; 10</td>
-                    <td colspan="1">&le; 10</td>
+                    <td colspan="1">&le; 10 spots</td>
+                    <td colspan="1">&le; 10 spots</td>
                 </tr>
                 <tr>
                     <th colspan="1">TB Response&dagger;</th>
@@ -223,8 +241,8 @@
     <p>
         <b>Source</b>: Based on Oxford Immunotec T-Spot.TB package insert. <br>
         Available at: <a
-            href="http://www.oxfordimmunotec.com/international/wp-content/uploads/sites/3/Final-File-PI-TB-US-V6.pdf " class="res-width">
-        http://www.oxfordimmunotec.com/international/wp-content/uploads/sites/3/Final-File-PI-TB-US-V6.pdf
+            href="https://www.tspot.com/wp-content/uploads/2021/04/TB-PI-US-0001-V9.pdf" class="res-width">
+        https://www.tspot.com/wp-content/uploads/2021/04/TB-PI-US-0001-V9.pdf
     </a>
     </p>
 

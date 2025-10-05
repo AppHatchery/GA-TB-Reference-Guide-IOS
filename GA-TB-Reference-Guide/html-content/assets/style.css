@@ -142,6 +142,8 @@ html {
 body {
   margin: 0;
   line-height: 1.7;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 a:active,
@@ -188,10 +190,39 @@ img {
   object-fit: contain;
 }
 
+.ic_chapter_icon {
+  height: 24px !important;
+  width: 24px !important;
+  object-fit: fill !important;
+}
+
 .ic_title_icon {
     height: 50px !important;
     width: 50px !important;
-	object-fit: fill !important;
+    object-fit: fill !important;
+}
+
+.chapter-header {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+}
+
+.header-title {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: start;
+}
+
+.chapter-header .last-updated {
+  text-align: center;
+  font-style: italic;
+  font-weight: 300;
+  line-height: 16px;
+  letter-spacing: -0.408px;
+  margin-top: 0;
 }
 
 /* ========================================================================
@@ -462,7 +493,7 @@ a {
     font-size: 1rem;
     font-weight: bold;
     color: var(--table-title-color);
-    text-transform: capitalize;
+    text-transform: none;
 }
 
 .uk-table td {
@@ -504,7 +535,7 @@ a {
     border: none;
     border-radius: var(--tab-radius);
     box-shadow: var(--tab-box-shadow);
-    width: 146px;
+    max-width: 150px;
     height: 100%;
     box-sizing: border-box;
 }
@@ -606,12 +637,14 @@ h3.highlight {
 }
 
 .uk-list-title,
+.uk-table-title,
 .custom-table-title {
     position: relative;
     padding-left: 1.5rem;
 }
 
 .uk-list-title::before,
+.uk-table-title::before,
 .custom-table-title::before {
   content: "";
   position: absolute;
