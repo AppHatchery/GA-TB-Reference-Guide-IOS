@@ -191,8 +191,7 @@ public class ChapterIndex {
     "V. Treatment of Current (Active) Disease Therapy",
     "V. Treatment of Current (Active) Disease Therapy",
     "VI. Pregnancy and TB",
-	"X. TB Infection Control: Hospital Isolation Procedures",
-	"V. Treatment of Current (Active) Disease Therapy"]
+	"X. TB Infection Control: Hospital Isolation Procedures"]
     
 let updateDate = "June 2024"
     

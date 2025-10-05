@@ -86,6 +86,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         navbarTitle.adjustsFontSizeToFitWidth = true
         navigationItem.titleView = navbarTitle
         
+        navigationItem.backButtonDisplayMode = .minimal
+        
         search.delegate = self
 
 		guard let textField = search.value(forKey: "searchField") as? UITextField else { return }
@@ -556,33 +558,34 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == self.tableView {
-            if isFiltering {
-				switch (showCharts, showChapters) {
-					case (true, _):
-						subArrayPointer = tempChartsHTML.firstIndex(of: chartResults[indexPath.row]) ?? 0
-					case (_, true):
-						subArrayPointer = tempChaptersHTML.firstIndex(of: chapterResults[indexPath.row]) ?? 0
-					default:
-						subArrayPointer = tempHTML.firstIndex(of: allSearchResults[indexPath.row]) ?? 0
-				}
-				
-            } else {
-                subArrayPointer = indexPath.row
-            }
+                if isFiltering {
+                    switch (showCharts, showChapters) {
+                        case (true, _):
+                            subArrayPointer = tempChartsHTML.firstIndex(of: chartResults[indexPath.row]) ?? 0
+                        case (_, true):
+                            subArrayPointer = tempChaptersHTML.firstIndex(of: chapterResults[indexPath.row]) ?? 0
+                        default:
+                            subArrayPointer = tempHTML.firstIndex(of: allSearchResults[indexPath.row]) ?? 0
+                    }
+                    
+                } else {
+                    subArrayPointer = indexPath.row
+                }
+                
+                // FIX: Use subArrayPointer instead of indexPath.row
+                navTitle = showCharts ? chapterIndex.chartmapsubchapter[subArrayPointer] : chapterIndex.chaptermapsubchapter[subArrayPointer]
             
-			navTitle = showCharts ? chapterIndex.chartmapsubchapter[indexPath.row] : chapterIndex.chaptermapsubchapter[indexPath.row]
-		
-            addRecentSearch(searchTerm: searchTerm)
+                addRecentSearch(searchTerm: searchTerm)
 
-            // Analytics and tracking code
-            Analytics.logEvent("search", parameters: [
-                "search": (searchTerm) as String,
-            ])
-            
-            PendoManager.shared().track("search", properties: ["searchTerm": searchTerm, "selectedResult": chapterIndex.subChapterNames[indexPath.row]])
-            
-            performSegue(withIdentifier: "SegueToWebViewViewController", sender: nil)
-        } else if tableView == self.searchSuggestionsTableView {
+                // Analytics and tracking code
+                Analytics.logEvent("search", parameters: [
+                    "search": (searchTerm) as String,
+                ])
+                
+                PendoManager.shared().track("search", properties: ["searchTerm": searchTerm, "selectedResult": chapterIndex.subChapterNames[subArrayPointer]])
+                
+                performSegue(withIdentifier: "SegueToWebViewViewController", sender: nil)
+            } else if tableView == self.searchSuggestionsTableView {
             search.text = suggestionsList[indexPath.row]
             searchTerm = suggestionsList[indexPath.row]
 			

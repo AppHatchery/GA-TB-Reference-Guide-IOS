@@ -787,13 +787,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="fa8-rg-KLK">
-                                <rect key="frame" x="20" y="164" width="335" height="433"/>
+                                <rect key="frame" x="20" y="144" width="335" height="453"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TL0-rX-dOD" userLabel="Metadata View">
-                                        <rect key="frame" x="0.0" y="0.0" width="335" height="45"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="335" height="50"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Updated Nov 2021" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2T8-CA-J1j">
-                                                <rect key="frame" x="0.0" y="29" width="335" height="16"/>
+                                                <rect key="frame" x="0.0" y="34" width="335" height="16"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="16" id="pgc-U5-M7n"/>
                                                 </constraints>
@@ -802,7 +802,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Placeholder Title" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="375" translatesAutoresizingMaskIntoConstraints="NO" id="wxl-6c-aLt">
-                                                <rect key="frame" x="0.0" y="0.0" width="335" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="335" height="25.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -821,7 +821,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jSc-wm-b9l">
-                                        <rect key="frame" x="0.0" y="61" width="335" height="372"/>
+                                        <rect key="frame" x="0.0" y="66" width="335" height="387"/>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" name="backgroundColor"/>
@@ -1083,7 +1083,7 @@
                             <constraint firstItem="XZg-De-pgK" firstAttribute="trailing" secondItem="iku-5P-OPX" secondAttribute="trailing" id="ZT3-1N-gem"/>
                             <constraint firstItem="1Sk-qE-mCt" firstAttribute="leading" secondItem="iku-5P-OPX" secondAttribute="leading" id="dSk-XI-qak"/>
                             <constraint firstItem="1Sk-qE-mCt" firstAttribute="bottom" secondItem="iku-5P-OPX" secondAttribute="bottom" id="ra5-Dn-me4"/>
-                            <constraint firstItem="fa8-rg-KLK" firstAttribute="top" secondItem="XZg-De-pgK" secondAttribute="bottom" constant="20" id="tGf-CT-mvd"/>
+                            <constraint firstItem="fa8-rg-KLK" firstAttribute="top" secondItem="XZg-De-pgK" secondAttribute="bottom" id="tGf-CT-mvd"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Cpf-At-T5L"/>

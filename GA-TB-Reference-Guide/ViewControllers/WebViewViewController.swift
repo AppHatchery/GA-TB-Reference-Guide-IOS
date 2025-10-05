@@ -128,6 +128,9 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         navbarTitle.minimumScaleFactor = 0.5
         navbarTitle.adjustsFontSizeToFitWidth = true
         navigationItem.titleView = navbarTitle
+        
+        navigationItem.backButtonDisplayMode = .minimal
+
 //        self.title = navTitle
         self.hidesBottomBarWhenPushed = true
                 
@@ -544,7 +547,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         let urlString = url.absoluteString
         
         // Allow initial page load
-        if navigationAction.navigationType == .other {
+        if navigationAction.navigationType == .other || navigationAction.navigationType == .reload {
             decisionHandler(.allow)
             return
         }
