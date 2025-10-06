@@ -20,6 +20,8 @@
   --tab-box-shadow: 0px 0px 32px 0px rgba(187, 187, 187, 0.25);
   --transition-duration: 500ms;
   --list-title-color: var(--yellow-color);
+  --divider-color: #C6C6C8;
+  --last-updated-color: #636366;
 }
 
 @media screen and (prefers-color-scheme: dark) {
@@ -43,26 +45,28 @@
     --tab-box-shadow: 0px 0px 32px 0px rgba(0, 0, 0, 0.2);
     --transition-duration: 500ms;
     --list-title-color: var(--yellow-color);
+    --divider-color: #C6C6C8;
+    --last-updated-color: #B9B9B9;
   }
 }
 
 /* Keyframes + Animations */
 @keyframes fadeIn {
-  from { 
+  from {
     opacity: 0;
   }
-  to { 
+  to {
     opacity: 1;
   }
 }
 
 @keyframes slideInTop {
-  from { 
+  from {
     opacity: 0;
     /* height: 0; */
     transform: translateY(-100%);
   }
-  to { 
+  to {
     opacity: 1;
     /* height: auto; */
     transform: translateY(0);
@@ -70,12 +74,12 @@
 }
 
 @keyframes slideOutTop {
-  from { 
+  from {
     opacity: 1;
     height: auto;
     transform: translateY(0);
   }
-  to { 
+  to {
     opacity: 0;
     height: 0;
     transform: translateY(-20%);
@@ -83,44 +87,44 @@
 }
 
 @keyframes slideInLeft {
-  from { 
+  from {
     opacity: 0;
     transform: translateX(-10%);
   }
-  to { 
+  to {
     opacity: 1;
     transform: translateX(0);
   }
 }
 
 @keyframes slideOutRight {
-  from { 
+  from {
     opacity: 1;
     transform: translateX(0);
   }
-  to { 
+  to {
     opacity: 0;
     transform: translateX(-10%);
   }
 }
 
 @keyframes slideInBottom {
-  from { 
+  from {
     opacity: 0;
     transform: translateY(10%);
   }
-  to { 
+  to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
 @keyframes slideOutBottom {
-  from { 
+  from {
     opacity: 1;
     transform: translateY(0);
   }
-  to { 
+  to {
     opacity: 0;
     transform: translateY(-10%);
   }
@@ -156,6 +160,9 @@ a,
   color: #1e87f0;
   text-decoration: none;
   cursor: pointer;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+  white-space: normal;
 }
 a:hover,
 .uk-link:hover,
@@ -207,22 +214,43 @@ img {
   flex-direction: column;
   justify-content: start;
   align-items: start;
+  margin: 0;
+  padding: 0;
+}
+
+.chapter-header .header-title .chapter-title {
+  font-size: 16px;
+  padding: 0;
+  margin: 0;
 }
 
 .header-title {
   display: flex;
   gap: 10px;
-  align-items: center;
+  align-items: start;
   justify-content: start;
+  margin-bottom: 16px;
 }
 
-.chapter-header .last-updated {
-  text-align: center;
+.last-updated {
+  color: var(--last-updated-color);
+  font-size: 15px;
+  text-align: start;
   font-style: italic;
   font-weight: 300;
   line-height: 16px;
   letter-spacing: -0.408px;
   margin-top: 0;
+  padding-bottom: 16px;
+}
+
+hr {
+  border-color: var(--divider-color) !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-bottom: none !important;
+  margin: 0 !important;
+  padding: 16px 0 !important;
 }
 
 /* ========================================================================
@@ -630,10 +658,10 @@ h3.highlight {
   position: absolute;
   left: 0;
   top: -0.25rem;
-  height: 2rem; 
-  width: 0.5rem; 
+  height: 2rem;
+  width: 0.5rem;
   background-color: var(--primary-color);
-  border-radius: 0.25rem; 
+  border-radius: 0.25rem;
 }
 
 .uk-list-title,
@@ -650,9 +678,9 @@ h3.highlight {
   position: absolute;
   left: 0;
   top: -0.1875rem;
-  height: 2rem; 
-  width: 0.5rem; 
-  border-radius: 0.25rem; 
+  height: 2rem;
+  width: 0.5rem;
+  border-radius: 0.25rem;
 }
 
 .uk-list-title::before {
@@ -681,7 +709,7 @@ h3.highlight {
 .chevron-up {
     transform: rotate(-180deg);
     transition: transform var(--transition-duration) ease-in-out;
-    font-size: 1.5rem; 
+    font-size: 1.5rem;
 }
 
 .chevron-up.active {

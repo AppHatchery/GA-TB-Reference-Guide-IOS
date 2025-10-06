@@ -787,13 +787,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="fa8-rg-KLK">
-                                <rect key="frame" x="20" y="144" width="335" height="453"/>
+                                <rect key="frame" x="18" y="144" width="339" height="453"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TL0-rX-dOD" userLabel="Metadata View">
-                                        <rect key="frame" x="0.0" y="0.0" width="335" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="339" height="50"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Updated Nov 2021" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2T8-CA-J1j">
-                                                <rect key="frame" x="0.0" y="34" width="335" height="16"/>
+                                                <rect key="frame" x="0.0" y="34" width="339" height="16"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="16" id="pgc-U5-M7n"/>
                                                 </constraints>
@@ -802,7 +802,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Placeholder Title" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="375" translatesAutoresizingMaskIntoConstraints="NO" id="wxl-6c-aLt">
-                                                <rect key="frame" x="0.0" y="0.0" width="335" height="25.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="339" height="25.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -821,7 +821,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jSc-wm-b9l">
-                                        <rect key="frame" x="0.0" y="66" width="335" height="387"/>
+                                        <rect key="frame" x="0.0" y="66" width="339" height="387"/>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" name="backgroundColor"/>
@@ -1074,9 +1074,9 @@
                         <constraints>
                             <constraint firstItem="XZg-De-pgK" firstAttribute="top" secondItem="iku-5P-OPX" secondAttribute="top" id="1Aa-SX-Nsb"/>
                             <constraint firstItem="1Sk-qE-mCt" firstAttribute="top" secondItem="fa8-rg-KLK" secondAttribute="bottom" id="2pQ-Ye-qBJ"/>
-                            <constraint firstItem="fa8-rg-KLK" firstAttribute="leading" secondItem="iku-5P-OPX" secondAttribute="leading" constant="20" id="4wG-Ms-ASh"/>
+                            <constraint firstItem="fa8-rg-KLK" firstAttribute="leading" secondItem="iku-5P-OPX" secondAttribute="leading" constant="18" id="4wG-Ms-ASh"/>
                             <constraint firstItem="iku-5P-OPX" firstAttribute="trailing" secondItem="1Sk-qE-mCt" secondAttribute="trailing" id="8Oa-WP-jbI"/>
-                            <constraint firstItem="iku-5P-OPX" firstAttribute="trailing" secondItem="fa8-rg-KLK" secondAttribute="trailing" constant="20" id="CIe-W2-SZY"/>
+                            <constraint firstItem="iku-5P-OPX" firstAttribute="trailing" secondItem="fa8-rg-KLK" secondAttribute="trailing" constant="18" id="CIe-W2-SZY"/>
                             <constraint firstItem="jny-f0-Iwl" firstAttribute="top" secondItem="XZg-De-pgK" secondAttribute="bottom" constant="24" id="Icb-lp-Eio"/>
                             <constraint firstItem="iku-5P-OPX" firstAttribute="trailing" secondItem="jny-f0-Iwl" secondAttribute="trailing" constant="20" id="MqN-Ek-xZN"/>
                             <constraint firstItem="XZg-De-pgK" firstAttribute="leading" secondItem="iku-5P-OPX" secondAttribute="leading" id="P2q-hO-DKU"/>
@@ -1167,7 +1167,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="sNt-ij-jaz"/>
-        <segue reference="QdM-r2-YsT"/>
+        <segue reference="Kvm-QI-PmY"/>
         <segue reference="c87-MO-uwg"/>
     </inferredMetricsTieBreakers>
     <resources>
