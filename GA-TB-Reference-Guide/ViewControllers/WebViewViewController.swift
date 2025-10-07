@@ -128,7 +128,6 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
 //        navbarTitle.minimumScaleFactor = 0
         navbarTitle.adjustsFontSizeToFitWidth = true
         navigationItem.titleView = navbarTitle
-        
         navigationItem.backButtonDisplayMode = .minimal
 
 //        self.title = navTitle
@@ -137,7 +136,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         titleLabel.text = titlelabel
         dateLabel.text = "Updated \( chapterIndex.updateDate)"
         
-        viewNotesButton.layer.cornerRadius = 16
+        viewNotesButton.layer.cornerRadius = 15
         viewNotesButton.adjustsImageWhenHighlighted = false
         viewNotesButton.dropShadow()
         

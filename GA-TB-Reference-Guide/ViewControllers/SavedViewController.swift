@@ -58,6 +58,7 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         navbarTitle.textColor = UIColor.white
         navbarTitle.font = UIFont.boldSystemFont(ofSize: 16.0)
         navigationItem.titleView = navbarTitle
+        navigationItem.backButtonDisplayMode = .minimal
                 
         navigationController?.navigationBar.setGradientBackground(to: self.navigationController!)
         navigationController?.navigationBar.tintColor = UIColor.white

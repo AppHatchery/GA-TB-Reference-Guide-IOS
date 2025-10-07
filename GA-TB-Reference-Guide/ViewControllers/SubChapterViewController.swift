@@ -31,8 +31,8 @@ class SubChapterViewController: UIViewController, UITableViewDelegate, UITableVi
         navbarTitle.minimumScaleFactor = 0.5
         navbarTitle.adjustsFontSizeToFitWidth = true
         navigationItem.titleView = navbarTitle
-//        self.title = navTitle
         navigationItem.rightBarButtonItem?.isEnabled = true
+        navigationItem.backButtonDisplayMode = .minimal
         
         tableView.delegate = self
         tableView.dataSource = self

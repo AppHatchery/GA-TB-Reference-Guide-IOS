@@ -94,7 +94,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         navbarTitle.minimumScaleFactor = 0.5
         navbarTitle.adjustsFontSizeToFitWidth = true
         navigationItem.titleView = navbarTitle
-        
         navigationItem.backButtonDisplayMode = .minimal
         
         search.delegate = self

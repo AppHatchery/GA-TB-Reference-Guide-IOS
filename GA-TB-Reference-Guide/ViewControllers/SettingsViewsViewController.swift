@@ -50,6 +50,7 @@ class SettingsViewsViewController: UIViewController, WKUIDelegate, WKNavigationD
         navbarTitle.minimumScaleFactor = 0.5
         navbarTitle.adjustsFontSizeToFitWidth = true
         navigationItem.titleView = navbarTitle
+        navigationItem.backButtonDisplayMode = .minimal
         
         setupUI()
         

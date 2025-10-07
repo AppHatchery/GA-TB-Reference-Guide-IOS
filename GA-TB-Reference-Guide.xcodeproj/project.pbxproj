@@ -84,7 +84,6 @@
 		D42F265726EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__j__adjunctive_use_of_corticosteroid_therapy.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F260926EF8204009DC942 /* 5_treatment_of_current_(active)_disease_therapy__j__adjunctive_use_of_corticosteroid_therapy.html */; };
 		D42F265926EF821B009DC942 /* table_14_antituberculosis_medications_which_may_be_used_for_patients_who_have_contraindications_to_or_intolerance.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F260B26EF8205009DC942 /* table_14_antituberculosis_medications_which_may_be_used_for_patients_who_have_contraindications_to_or_intolerance.html */; };
 		D42F265A26EF821B009DC942 /* 14_references.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F260C26EF8205009DC942 /* 14_references.html */; };
-		D42F265B26EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__g__antiretroviral_therapy_(art)_and_treatment_of_persons.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F260D26EF8206009DC942 /* 5_treatment_of_current_(active)_disease_therapy__g__antiretroviral_therapy_(art)_and_treatment_of_persons.html */; };
 		D42F265D26EF821B009DC942 /* table_7_recommended_regimens_for_treatment_of_adults_and_children_with_drug_susceptible_tb_pulmonary_tb.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F260F26EF8207009DC942 /* table_7_recommended_regimens_for_treatment_of_adults_and_children_with_drug_susceptible_tb_pulmonary_tb.html */; };
 		D42F265E26EF821B009DC942 /* table_3_high_prevalence_and_high_risk_groups.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F261026EF8207009DC942 /* table_3_high_prevalence_and_high_risk_groups.html */; };
 		D42F265F26EF821B009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__c__laboratory_diagnosis_of_pulmonary_tuberculosis.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F261126EF8208009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__c__laboratory_diagnosis_of_pulmonary_tuberculosis.html */; };
@@ -287,7 +286,6 @@
 		D42F260926EF8204009DC942 /* 5_treatment_of_current_(active)_disease_therapy__j__adjunctive_use_of_corticosteroid_therapy.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "5_treatment_of_current_(active)_disease_therapy__j__adjunctive_use_of_corticosteroid_therapy.html"; sourceTree = "<group>"; };
 		D42F260B26EF8205009DC942 /* table_14_antituberculosis_medications_which_may_be_used_for_patients_who_have_contraindications_to_or_intolerance.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = table_14_antituberculosis_medications_which_may_be_used_for_patients_who_have_contraindications_to_or_intolerance.html; sourceTree = "<group>"; };
 		D42F260C26EF8205009DC942 /* 14_references.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = 14_references.html; sourceTree = "<group>"; };
-		D42F260D26EF8206009DC942 /* 5_treatment_of_current_(active)_disease_therapy__g__antiretroviral_therapy_(art)_and_treatment_of_persons.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "5_treatment_of_current_(active)_disease_therapy__g__antiretroviral_therapy_(art)_and_treatment_of_persons.html"; sourceTree = "<group>"; };
 		D42F260F26EF8207009DC942 /* table_7_recommended_regimens_for_treatment_of_adults_and_children_with_drug_susceptible_tb_pulmonary_tb.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = table_7_recommended_regimens_for_treatment_of_adults_and_children_with_drug_susceptible_tb_pulmonary_tb.html; sourceTree = "<group>"; };
 		D42F261026EF8207009DC942 /* table_3_high_prevalence_and_high_risk_groups.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = table_3_high_prevalence_and_high_risk_groups.html; sourceTree = "<group>"; };
 		D42F261126EF8208009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__c__laboratory_diagnosis_of_pulmonary_tuberculosis.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = 4_laboratory_diagnosis_of_active_tuberculosis__c__laboratory_diagnosis_of_pulmonary_tuberculosis.html; sourceTree = "<group>"; };
@@ -477,11 +475,8 @@
 				D4A5D2972B2C9BA500812C53 /* signature_marcos_schechter_m_d.jpg */,
 				D4A5D29B2B2C9BA500812C53 /* signature_susan_m_ray_m_d.jpg */,
 				D4A5D29C2B2C9BA500812C53 /* table18.png */,
-				D4CCBF5127C023AB00E42BC9 /* 7_childhood_tuberculosis.html */,
 				D47A4DEB276691CA0095815A /* quote.html */,
 				D47A4DD6276686D00095815A /* about_us.html */,
-				D46313AB2721A27F00C7D9EC /* 5_treatment_of_current_(active)_disease_therapy.html */,
-				D46313AC2721A27F00C7D9EC /* 6_pregnancy_and_tb.html */,
 				D42F261226EF8208009DC942 /* 1_epidemiology.html */,
 				D42F263926EF821A009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__a__tuberculin_skin_test.html */,
 				D42F260726EF8203009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__b__criteria_for_a_positive_tuberculin_test_by_risk_group.html */,
@@ -508,13 +503,15 @@
 				D42F260426EF8201009DC942 /* 5_treatment_of_current_(active)_disease_therapy__d__drug_resistance.html */,
 				D42F261326EF8208009DC942 /* 5_treatment_of_current_(active)_disease_therapy__e__monitoring_patients_on_therapy_for_response_and_adverse_events.html */,
 				D42F25F426EF81FA009DC942 /* 5_treatment_of_current_(active)_disease_therapy__f__tb_and_hiv.html */,
-				D42F260D26EF8206009DC942 /* 5_treatment_of_current_(active)_disease_therapy__g__antiretroviral_therapy_(art)_and_treatment_of_persons.html */,
 				D42F25FC26EF81FE009DC942 /* 5_treatment_of_current_(active)_disease_therapy__h__immune_reconstitution_inflammatory_syndrome.html */,
 				D42F262A26EF8213009DC942 /* 5_treatment_of_current_(active)_disease_therapy__i__treatment_of_extrapulmonary_tb.html */,
 				D42F260926EF8204009DC942 /* 5_treatment_of_current_(active)_disease_therapy__j__adjunctive_use_of_corticosteroid_therapy.html */,
+				D46313AB2721A27F00C7D9EC /* 5_treatment_of_current_(active)_disease_therapy.html */,
 				D42F260326EF8201009DC942 /* 6_pregnancy_and_tb__a__treatment_for_ltbi_and_risk_factors.html */,
 				D42F263026EF8216009DC942 /* 6_pregnancy_and_tb__b__treatment_of_active_tb_in_pregnancy.html */,
+				D46313AC2721A27F00C7D9EC /* 6_pregnancy_and_tb.html */,
 				D42F261A26EF820C009DC942 /* 7_childhood_tuberculosis__a__management_considerations.html */,
+				D4CCBF5127C023AB00E42BC9 /* 7_childhood_tuberculosis.html */,
 				D42F25FF26EF81FF009DC942 /* 8_tuberculosis_and_long-term_care_facilities.html */,
 				D42F261526EF8209009DC942 /* 9_bcg_vaccination.html */,
 				D42F25EF26EF81F8009DC942 /* 10_tb_infection_control_hospital_isolation_procedures__a__administrative_controls.html */,
@@ -966,7 +963,6 @@
 				D47A4DEC276691CA0095815A /* quote.html in Resources */,
 				D42F264F26EF821B009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__b__selected_diagnostic_test_characteristics.html in Resources */,
 				B4E88A152E8A83D100396ABB /* BookmarkTableViewCell.xib in Resources */,
-				D42F265B26EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__g__antiretroviral_therapy_(art)_and_treatment_of_persons.html in Resources */,
 				D449FCBE26EC660E008C3ACB /* SaveNote.xib in Resources */,
 				D42F267D26EF821B009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__f__targeted_testing_and_diagnostic_tests_for_ltbi.html in Resources */,
 				D42F265D26EF821B009DC942 /* table_7_recommended_regimens_for_treatment_of_adults_and_children_with_drug_susceptible_tb_pulmonary_tb.html in Resources */,

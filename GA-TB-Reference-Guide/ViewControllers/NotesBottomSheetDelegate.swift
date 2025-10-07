@@ -46,8 +46,8 @@ class NotesBottomSheetViewController: UIViewController {
         view.addSubview(headerView)
         
         // Setup title label
-        let notesCount = content?.notes.count ?? 0
-        titleLabel.text = "Notes (\(notesCount))"
+        updateNotesCount()
+        
         titleLabel.font = UIFont.boldSystemFont(ofSize: 15)
         titleLabel.textColor = UIColor.label
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -120,6 +120,11 @@ class NotesBottomSheetViewController: UIViewController {
         ])
     }
     
+    private func updateNotesCount() {
+        let notesCount = content?.notes.count ?? 0
+        titleLabel.text = "Notes (\(notesCount))"
+    }
+    
     private func updateEmptyState() {
         let hasNotes = content?.notes.count ?? 0 > 0
         emptyStateLabel.isHidden = hasNotes
@@ -135,6 +140,7 @@ class NotesBottomSheetViewController: UIViewController {
     func reloadData() {
         tableView.reloadData()
         updateEmptyState()
+        updateNotesCount()
     }
 }
 
@@ -193,6 +199,7 @@ extension NotesBottomSheetViewController: UITableViewDelegate {
             DispatchQueue.main.async { [weak self] in
                 self?.tableView.reloadData()
                 self?.updateEmptyState()
+                self?.updateNotesCount()
             }
         }
     }

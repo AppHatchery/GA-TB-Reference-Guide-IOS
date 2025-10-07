@@ -78,8 +78,8 @@
             filePath = "GA-TB-Reference-Guide/ViewControllers/SavedViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "370"
-            endingLineNumber = "370"
+            startingLineNumber = "371"
+            endingLineNumber = "371"
             landmarkName = "editBookmarkTapped(_:)"
             landmarkType = "7">
          </BreakpointContent>

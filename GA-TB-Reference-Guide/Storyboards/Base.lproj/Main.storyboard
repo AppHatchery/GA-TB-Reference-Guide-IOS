@@ -1049,7 +1049,7 @@
                                     <constraint firstItem="A7h-yx-Qom" firstAttribute="top" secondItem="XZg-De-pgK" secondAttribute="top" constant="8" id="zV0-iD-WM8"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jny-f0-Iwl">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jny-f0-Iwl">
                                 <rect key="frame" x="280.5" y="168" width="74.5" height="30"/>
                                 <color key="backgroundColor" name="colorYellowLight"/>
                                 <constraints>

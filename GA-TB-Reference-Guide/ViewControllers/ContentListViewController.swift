@@ -34,6 +34,7 @@ class ContentListViewController: UIViewController, UITableViewDelegate, UITableV
         navbarTitle.minimumScaleFactor = 0.5
         navbarTitle.adjustsFontSizeToFitWidth = true
         navigationItem.titleView = navbarTitle
+        navigationItem.backButtonDisplayMode = .minimal
         
         tableView.delegate = self
         tableView.dataSource = self
