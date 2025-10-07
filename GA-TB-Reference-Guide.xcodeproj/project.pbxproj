@@ -39,6 +39,7 @@
 		B474B07E2C2DA54B0092F4F6 /* FontSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B474B07C2C2DA54B0092F4F6 /* FontSettingsView.swift */; };
 		B474B07F2C2DA54B0092F4F6 /* FontSettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B474B07D2C2DA54B0092F4F6 /* FontSettingsView.xib */; };
 		B474B0832C2DFE230092F4F6 /* Pods_GA_TB_Reference_Guide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF23FEBF71C372B82094033D /* Pods_GA_TB_Reference_Guide.framework */; };
+		B47FDD9E2E95531800CC4C7B /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47FDD9D2E95531800CC4C7B /* ThemeManager.swift */; };
 		B4847B502E92BE56006DE174 /* ic_chapter.svg in Resources */ = {isa = PBXBuildFile; fileRef = B4847B4F2E92BE56006DE174 /* ic_chapter.svg */; };
 		B4847B612E92C9BC006DE174 /* 11_community_tuberculosis_control.html in Resources */ = {isa = PBXBuildFile; fileRef = B4847B5F2E92C9BC006DE174 /* 11_community_tuberculosis_control.html */; };
 		B4847B622E92C9BC006DE174 /* 11_community_tuberculosis_control__a__tb_surveillance_in_georgia.html in Resources */ = {isa = PBXBuildFile; fileRef = B4847B602E92C9BC006DE174 /* 11_community_tuberculosis_control__a__tb_surveillance_in_georgia.html */; };
@@ -240,6 +241,7 @@
 		B47388922D5C997B00A4C168 /* RemoteConfigHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigHelper.swift; sourceTree = "<group>"; };
 		B474B07C2C2DA54B0092F4F6 /* FontSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsView.swift; sourceTree = "<group>"; };
 		B474B07D2C2DA54B0092F4F6 /* FontSettingsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FontSettingsView.xib; sourceTree = "<group>"; };
+		B47FDD9D2E95531800CC4C7B /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		B4847B4F2E92BE56006DE174 /* ic_chapter.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = ic_chapter.svg; sourceTree = "<group>"; };
 		B4847B5F2E92C9BC006DE174 /* 11_community_tuberculosis_control.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 11_community_tuberculosis_control.html; sourceTree = "<group>"; };
 		B4847B602E92C9BC006DE174 /* 11_community_tuberculosis_control__a__tb_surveillance_in_georgia.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 11_community_tuberculosis_control__a__tb_surveillance_in_georgia.html; sourceTree = "<group>"; };
@@ -506,7 +508,6 @@
 				D42F260426EF8201009DC942 /* 5_treatment_of_current_(active)_disease_therapy__d__drug_resistance.html */,
 				D42F261326EF8208009DC942 /* 5_treatment_of_current_(active)_disease_therapy__e__monitoring_patients_on_therapy_for_response_and_adverse_events.html */,
 				D42F25F426EF81FA009DC942 /* 5_treatment_of_current_(active)_disease_therapy__f__tb_and_hiv.html */,
-				D42F263826EF8219009DC942 /* fig1_factors_to_be_considered.html */,
 				D42F260D26EF8206009DC942 /* 5_treatment_of_current_(active)_disease_therapy__g__antiretroviral_therapy_(art)_and_treatment_of_persons.html */,
 				D42F25FC26EF81FE009DC942 /* 5_treatment_of_current_(active)_disease_therapy__h__immune_reconstitution_inflammatory_syndrome.html */,
 				D42F262A26EF8213009DC942 /* 5_treatment_of_current_(active)_disease_therapy__i__treatment_of_extrapulmonary_tb.html */,
@@ -538,6 +539,7 @@
 				D42F262526EF8211009DC942 /* 17_acknowledgements.html */,
 				D42F25F326EF81FA009DC942 /* 18_hello_and_welcome_clinical_statement.html */,
 				D42F263526EF8218009DC942 /* 19_for_more_information.html */,
+				D42F263826EF8219009DC942 /* fig1_factors_to_be_considered.html */,
 				D42F262326EF8210009DC942 /* table_1_interpretation_criteria_for_the_quantiferon_tb_gold_plus_test.html */,
 				D42F262826EF8212009DC942 /* table_2_interpretation_criteria_for_the_t_spot_tb_test.html */,
 				D42F261026EF8207009DC942 /* table_3_high_prevalence_and_high_risk_groups.html */,
@@ -675,6 +677,7 @@
 		D4B0B0C426D01DB3003BD1EA /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				B47FDD9D2E95531800CC4C7B /* ThemeManager.swift */,
 				B47388922D5C997B00A4C168 /* RemoteConfigHelper.swift */,
 				B473888B2D5C82AB00A4C168 /* FileToOpenCheckers.swift */,
 				B47388892D5C7D4400A4C168 /* BatchDownloadManager.swift */,
@@ -1107,6 +1110,7 @@
 				D4B0B0E126D05002003BD1EA /* UINavigationBar+Extensions.swift in Sources */,
 				D463130B271CD38300C7D9EC /* Guide.swift in Sources */,
 				B47388932D5C997B00A4C168 /* RemoteConfigHelper.swift in Sources */,
+				B47FDD9E2E95531800CC4C7B /* ThemeManager.swift in Sources */,
 				D42F25E826EEFA8F009DC942 /* NoteTableViewCell.swift in Sources */,
 				D449FCBB26EC6604008C3ACB /* SaveNote.swift in Sources */,
 				D4B0B0CC26D0239C003BD1EA /* UIColor+Extensions.swift in Sources */,

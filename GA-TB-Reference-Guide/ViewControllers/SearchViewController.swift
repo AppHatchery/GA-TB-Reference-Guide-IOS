@@ -72,6 +72,15 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 	var showChapters: Bool = false
 	var showCharts: Bool = false
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        // Focus search bar when returning to this view
+        if !isFiltering || searchTerm.isEmpty {
+            search.becomeFirstResponder()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

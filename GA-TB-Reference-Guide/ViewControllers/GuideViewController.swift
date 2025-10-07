@@ -54,6 +54,9 @@ class GuideViewController: UIViewController, URLSessionDelegate {
         navigationItem.backButtonDisplayMode = .minimal
         
         // Do any additional setup after loading the view
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+            self?.preloadKeyboard()
+        }
     }
     
     //--------------------------------------------------------------------------------------------------
@@ -166,6 +169,15 @@ class GuideViewController: UIViewController, URLSessionDelegate {
 		alert.addAction(UIAlertAction(title: "OK", style: .default))
 		present(alert, animated: true)
 	}
+    
+    // This is to remove the keyboard lag/delay when the app has just been launched for the first time
+    private func preloadKeyboard() {
+        let tempTextField = UITextField()
+        view.addSubview(tempTextField)
+        tempTextField.becomeFirstResponder()
+        tempTextField.resignFirstResponder()
+        tempTextField.removeFromSuperview()
+    }
 
     
     @IBAction func tapTopButton(_ sender: UIButton){
