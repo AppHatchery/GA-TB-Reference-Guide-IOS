@@ -101,6 +101,7 @@ class ChartListViewController: UIViewController, UITableViewDelegate, UITableVie
             webViewViewController.url = Bundle.main.url(forResource: chapterIndex.chartURLs[arrayPointer], withExtension: "html")!
             print(chapterIndex.chartURLs[arrayPointer])
             webViewViewController.titlelabel = chapterIndex.charts[arrayPointer]
+            webViewViewController.navTitle = chapterIndex.charts[arrayPointer]
             webViewViewController.uniqueAddress = chapterIndex.chartURLs[arrayPointer]
         }
     }

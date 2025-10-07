@@ -241,7 +241,7 @@ class GuideViewController: UIViewController, URLSessionDelegate {
         {
             webViewViewController.url = Bundle.main.url(forResource: bible.chartURLs[quickPointer], withExtension: "html")!
             webViewViewController.titlelabel = quickTitle
-            webViewViewController.navTitle = "Charts"
+            webViewViewController.navTitle = quickTitle
             webViewViewController.uniqueAddress = bible.chartURLs[quickPointer]
             webViewViewController.hidesBottomBarWhenPushed = true
         }

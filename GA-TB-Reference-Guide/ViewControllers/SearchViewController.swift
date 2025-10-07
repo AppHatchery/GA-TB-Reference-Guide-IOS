@@ -743,44 +743,47 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     }
     
     //--------------------------------------------------------------------------------------------------
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		if let webViewViewController = segue.destination as? WebViewViewController {
-			let url: URL
-			let titleLabel: String
-			let uniqueAddress: String
-			
-			switch (showCharts, showChapters) {
-				case (true, _):
-					let chartCodes = Array(chapterIndex.chartCode.joined())
-					let chartNested = Array(chapterIndex.chartNested.joined())
-					url = Bundle.main.url(forResource: chartCodes[subArrayPointer], withExtension: "html")!
-					titleLabel = chartNested[subArrayPointer]
-					uniqueAddress = chartCodes[subArrayPointer]
-					
-				case (_, true):
-					let chapterCodes = Array(chaptersOnly.joined())
-					let chapterNested = Array(chapterIndex.chapterNested.joined())
-					url = getFileURL(for: chapterCodes[subArrayPointer])
-					titleLabel = chapterNested[subArrayPointer]
-					uniqueAddress = chapterCodes[subArrayPointer]
-					
-				default:
-					let chapterCodes = Array(chapterIndex.chapterCode.joined())
-					let chapterNested = Array(chapterIndex.chapterNested.joined())
-					url = getFileURL(for: chapterCodes[subArrayPointer])
-					titleLabel = chapterNested[subArrayPointer]
-					uniqueAddress = chapterCodes[subArrayPointer]
-			}
-			
-			webViewViewController.url = url
-			webViewViewController.titlelabel = titleLabel
-			webViewViewController.uniqueAddress = uniqueAddress
-			webViewViewController.navTitle = navTitle
-			webViewViewController.comingFromSearch = true
-			webViewViewController.searchTerm = search.text?.isEmpty == false ? search.text : nil
-			webViewViewController.hidesBottomBarWhenPushed = true
-		}
-	}
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let webViewViewController = segue.destination as? WebViewViewController {
+            let url: URL
+            let titleLabel: String
+            let uniqueAddress: String
+
+            switch (showCharts, showChapters) {
+                case (true, _):
+                    let chartCodes = Array(chapterIndex.chartCode.joined())
+                    let chartNested = Array(chapterIndex.chartNested.joined())
+                    url = Bundle.main.url(forResource: chartCodes[subArrayPointer], withExtension: "html")!
+                    titleLabel = chartNested[subArrayPointer]
+                    uniqueAddress = chartCodes[subArrayPointer]
+
+                case (_, true):
+                    let chapterCodes = Array(chaptersOnly.joined())
+                    let chapterNested = Array(chapterIndex.chapterNested.joined())
+                    url = getFileURL(for: chapterCodes[subArrayPointer])
+                    titleLabel = chapterNested[subArrayPointer]
+                    uniqueAddress = chapterCodes[subArrayPointer]
+
+                default:
+                    let chapterCodes = Array(chapterIndex.chapterCode.joined())
+                    let chapterNested = Array(chapterIndex.chapterNested.joined())
+                    url = getFileURL(for: chapterCodes[subArrayPointer])
+                    titleLabel = chapterNested[subArrayPointer]
+                    uniqueAddress = chapterCodes[subArrayPointer]
+            }
+
+            webViewViewController.url = url
+            webViewViewController.titlelabel = titleLabel
+            webViewViewController.uniqueAddress = uniqueAddress
+
+            webViewViewController.navTitle = titleLabel
+
+            webViewViewController.comingFromSearch = true
+            webViewViewController.searchTerm = search.text?.isEmpty == false ? search.text : nil
+            webViewViewController.hidesBottomBarWhenPushed = true
+        }
+    }
+
     
     //--------------------------------------------------------------------------------------------------
     // Bolding function from online - https://exceptionshub.com/making-text-bold-using-attributed-string-in-swift.html
@@ -789,13 +792,15 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         let boldString = NSMutableAttributedString(string: fullString as String, attributes:nonBoldFontAttribute)
         let lowercase = fullString.lowercased as NSString
         for i in 0 ..< boldPartsOfString.count {
-			boldString
-				.addAttribute(
-					.backgroundColor,
-					value: UIColor.colorYellow,
-					range: lowercase.range(of: boldPartsOfString[i] as String)
-				)
-            boldString.addAttribute(.foregroundColor, value: UIColor.black, range: lowercase.range(of: boldPartsOfString[i] as String))
+            //            boldString
+            //                .addAttribute(
+            //                    .backgroundColor,
+            //                    value: UIColor.colorYellow,
+            //                    range: lowercase.range(of: boldPartsOfString[i] as String)
+            //                )
+            let range = lowercase.range(of: boldPartsOfString[i] as String)
+            boldString.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 12), range: range)
+            boldString.addAttribute(.foregroundColor, value: UIColor.colorPrimary, range: lowercase.range(of: boldPartsOfString[i] as String))
         }
         return boldString
     }

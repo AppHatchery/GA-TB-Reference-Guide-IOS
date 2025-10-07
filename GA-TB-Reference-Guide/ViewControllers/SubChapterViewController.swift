@@ -110,7 +110,7 @@ class SubChapterViewController: UIViewController, UITableViewDelegate, UITableVi
 			}
 			
             webViewViewController.titlelabel = chapterIndex.chapterNested[arrayPointer][subArrayPointer]
-            webViewViewController.navTitle = navTitle
+            webViewViewController.navTitle = chapterIndex.chapterNested[arrayPointer][subArrayPointer]
             webViewViewController.uniqueAddress = chapterIndex.chapterCode[arrayPointer][subArrayPointer]
         }
     }

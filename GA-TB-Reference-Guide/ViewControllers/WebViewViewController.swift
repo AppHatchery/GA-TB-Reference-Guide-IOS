@@ -125,7 +125,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         navbarTitle.font = UIFont.boldSystemFont(ofSize: 16.0)
         navbarTitle.numberOfLines = 2
         navbarTitle.textAlignment = .center
-        navbarTitle.minimumScaleFactor = 0.5
+//        navbarTitle.minimumScaleFactor = 0
         navbarTitle.adjustsFontSizeToFitWidth = true
         navigationItem.titleView = navbarTitle
         

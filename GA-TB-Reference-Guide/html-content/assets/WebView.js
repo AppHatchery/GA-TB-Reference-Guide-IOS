@@ -146,7 +146,7 @@ function WKWebView_UpdateHighlightStyles() {
     for (var i = 0; i < WKWebView_SearchResults.length; i++) {
         var span = WKWebView_SearchResults[i];
         if (span && span.parentNode) {
-            span.style.backgroundColor = "#FFBE0C"; // Yellow for inactive
+            span.style.backgroundColor = "FFBE0A"; // Yellow for inactive
             span.style.color = "black";
             span.style.fontWeight = "normal";
         }
@@ -156,8 +156,8 @@ function WKWebView_UpdateHighlightStyles() {
     if (WKWebView_CurrentIndex >= 0 && WKWebView_CurrentIndex < WKWebView_SearchResults.length) {
         var activeSpan = WKWebView_SearchResults[WKWebView_CurrentIndex];
         if (activeSpan && activeSpan.parentNode) {
-            activeSpan.style.backgroundColor = "#FF6B35"; // Orange for active
-            activeSpan.style.color = "white";
+            activeSpan.style.backgroundColor = "FFBE0A"; // Yellow for active
+            activeSpan.style.color = "black";
             activeSpan.style.fontWeight = "bold";
         }
     }
