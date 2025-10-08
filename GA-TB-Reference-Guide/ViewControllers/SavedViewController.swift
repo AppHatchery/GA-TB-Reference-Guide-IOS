@@ -8,7 +8,7 @@
 import UIKit
 import RealmSwift
 
-class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, SaveFavoriteDelegate {
+class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, SaveFavoriteDelegate, DeleteConfirmationPopUpDelegate {
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -88,7 +88,7 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.reloadData()
     }
     
-    //--------------------------------------------------------------------------------------------------
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
@@ -141,7 +141,7 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.reloadData()
     }
         
-    //--------------------------------------------------------------------------------------------------
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Decide what to display according to the corresponding filter
         if isFavorite {
@@ -329,23 +329,25 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         
         func didRemoveFavorite() {
-            // Remove the favorite from Realm
-            if let contentDatabase = realm!.object(ofType: ContentPage.self, forPrimaryKey: favoriteURLs[arrayPointer]) {
-                RealmHelper.sharedInstance.update(contentDatabase, properties: [
-                    "favorite": false,
-                    "favoriteName": ""
-                ]) { updated in
-                    let indexPath = IndexPath(row: self.arrayPointer, section: 0)
-                    self.favoriteURLs.remove(at: self.arrayPointer)
-                    self.favoriteNames.remove(at: self.arrayPointer)
-                    self.favoriteSubChapters.remove(at: self.arrayPointer)
-                    self.favoriteChapters.remove(at: self.arrayPointer)
-                    self.tableView.deleteRows(at: [indexPath], with: .fade)
-                }
+            
+            let bookmarkName = favoriteNames[arrayPointer]
+
+            let bookmarkURL = favoriteURLs[arrayPointer]
+            
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let sceneDelegate = windowScene.delegate as? SceneDelegate,
+               let window = sceneDelegate.window {
+                
+                DeleteConfirmationPopUp.show(
+                    in: window,
+                    bookmarkName: bookmarkName,
+                    bookmarkUrl: bookmarkURL,
+                    delegate: self
+                )
             }
         }
     
-    //--------------------------------------------------------------------------------------------------
+    
     @objc func editBookmarkTapped(_ sender: UIButton) {
         let index = sender.tag
         
@@ -375,7 +377,7 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
             saveFavoriteDialog.contentView.transform = CGAffineTransform.identity
         }, completion: nil)
     }
-    //--------------------------------------------------------------------------------------------------
+    
     @IBAction func showEditing(_ sender: UIButton)
      {
         if(self.tableView.isEditing == true)
@@ -390,7 +392,7 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
     
-    //--------------------------------------------------------------------------------------------------
+    
     @IBAction func toggleState(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
@@ -441,7 +443,7 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.reloadData()
     }
     
-    //--------------------------------------------------------------------------------------------------
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if let webViewViewController = segue.destination as? WebViewViewController
@@ -479,16 +481,52 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
     
-    //--------------------------------------------------------------------------------------------------
+    
     // To hide the keyboard when the user clicks search
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.view.endEditing(true)
     }
     
-    //--------------------------------------------------------------------------------------------------
+    
     @objc func dismissKeyboard() {
         // To hide the keyboard when the user clicks search
         self.view.endEditing(true)
     }
     
+    func didTapDeleteBookmark(for url: String?) {
+        // unwrap the optional URL
+        guard let url = url else { return }
+        
+        // find the index in favoriteURLs
+        guard let index = favoriteURLs.firstIndex(of: url) else { return }
+        
+        if let contentDatabase = realm!.object(ofType: ContentPage.self, forPrimaryKey: url) {
+            RealmHelper.sharedInstance.update(contentDatabase, properties: [
+                "favorite": false,
+                "favoriteName": ""
+            ]) { [weak self] updated in
+                guard let self = self else { return }
+                
+                let deletedBookmarkName = self.favoriteNames[index]
+
+                let indexPath = IndexPath(row: index, section: 0)
+                self.favoriteURLs.remove(at: index)
+                self.favoriteNames.remove(at: index)
+                self.favoriteSubChapters.remove(at: index)
+                self.favoriteChapters.remove(at: index)
+                self.tableView.deleteRows(at: [indexPath], with: .fade)
+                
+                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                   let window = windowScene.windows.first(where: { $0.isKeyWindow }) {
+                    
+                    CustomPopUp.showTemporary(
+                        in: window,
+                        popupLabelText: "Bookmark \(deletedBookmarkName) deleted!",
+                        isBookmark: true,
+                    bookmarkName: deletedBookmarkName
+                    )
+                }
+            }
+        }
+    }
 }

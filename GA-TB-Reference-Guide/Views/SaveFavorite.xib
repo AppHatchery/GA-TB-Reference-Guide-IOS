@@ -76,7 +76,7 @@
                                 <action selector="saveButtonPressed:" destination="-1" eventType="touchUpInside" id="x4x-s7-MPK"/>
                             </connections>
                         </button>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="Hvg-ww-zZ7">
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Hvg-ww-zZ7">
                             <rect key="frame" x="20" y="50" width="294" height="50"/>
                             <color key="backgroundColor" name="colorBackground"/>
                             <constraints>
@@ -100,7 +100,7 @@
                             <color key="textColor" name="colorTextDarker"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="1O2-zv-QTj">
+                        <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1O2-zv-QTj">
                             <rect key="frame" x="20" y="150" width="294" height="50"/>
                             <color key="backgroundColor" name="colorBackground"/>
                             <constraints>

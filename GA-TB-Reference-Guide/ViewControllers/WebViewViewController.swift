@@ -11,7 +11,7 @@ import RealmSwift
 import FirebaseAnalytics
 import FirebaseDynamicLinks
 
-class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, SaveFavoriteDelegate, SaveNoteDelegate, WKScriptMessageHandler, NotesBottomSheetDelegate {
+class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, SaveFavoriteDelegate, SaveNoteDelegate, WKScriptMessageHandler, NotesBottomSheetDelegate, BookmarkSavedPopUpDelegate, DeleteConfirmationPopUpDelegate {
 
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -1026,6 +1026,17 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             //
             self?.favoriteIcon.setImage(UIImage(named: "icBookmarksFolderColored"), for: .normal)
             self?.favoriteIcon.setAttributedTitle(bookmarkedText, for: .normal)
+            
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let sceneDelegate = windowScene.delegate as? SceneDelegate,
+               let window = sceneDelegate.window {
+                
+                BookmarkSavedPopUp.show(
+                    in: window,
+                    bookmarkName: name,
+                    delegate: self
+                )
+            }
         }
             
 //        try! realm.write
@@ -1041,33 +1052,17 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     }
     
     //--------------------------------------------------------------------------------------------------
-    func didRemoveFavorite( )
-    {
-        let bookmarkText = NSAttributedString(
-            string: "Bookmark",
-            attributes: [
-                .foregroundColor: UIColor.label,
-                .font: UIFont.systemFont(ofSize: 9.0)
-            ]
-        )
+    func didRemoveFavorite() {
+        let windowScene = UIApplication.shared.connectedScenes.first as! UIWindowScene
+        let sceneDelegate = windowScene.delegate as! SceneDelegate
         
-        // let realm = try! Realm() Realm()
-        
-        RealmHelper.sharedInstance.update(content, properties: [
-            "favoriteName": "",
-            "favorite": false
-        ]) { [weak self] updated in
-            //
-            self?.favoriteIcon.setImage(UIImage(named: "icBookmarksFolder"), for: .normal)
-            self?.favoriteIcon.setAttributedTitle(bookmarkText, for: .normal)
+        if let window = sceneDelegate.window {
+            DeleteConfirmationPopUp.show(
+                in: window,
+                bookmarkName: content.favoriteName,
+                delegate: self
+            )
         }
-        
-//        try!  realm!.write
-//        {
-//            content.favoriteName = ""
-//            content.favorite = false
-//            favoriteIcon.setImage(UIImage(systemName: "star"), for: .normal)
-//        }
     }
     
     //--------------------------------------------------------------------------------------------------
@@ -1211,6 +1206,45 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             })
         }
     }
+    
+    func didTapVisitBookmarks() {
+        self.performSegue(withIdentifier: "segueFromWebToBookmarks", sender: nil)
+    }
+    
+    func didTapDeleteBookmark(for url: String?) {
+        let bookmarkText = NSAttributedString(
+            string: "Bookmark",
+            attributes: [
+                .foregroundColor: UIColor.label,
+                .font: UIFont.systemFont(ofSize: 9.0)
+            ]
+        )
+        
+        let deletedBookmarkName = content.favoriteName
+        
+        RealmHelper.sharedInstance.update(content, properties: [
+            "favoriteName": "",
+            "favorite": false
+        ]) { [weak self] _ in
+            guard let self = self else { return }
+            self.favoriteIcon.setImage(UIImage(named: "icBookmarksFolder"), for: .normal)
+            self.favoriteIcon.setAttributedTitle(bookmarkText, for: .normal)
+            
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                       let sceneDelegate = windowScene.delegate as? SceneDelegate,
+                       let window = sceneDelegate.window {
+                        
+                        CustomPopUp.showTemporary(
+                            in: window,
+                            popupLabelText: "Bookmark \(deletedBookmarkName) deleted!",
+                            isBookmark: true,
+                            bookmarkName: deletedBookmarkName,
+                            duration: 2.0
+                        )
+                    }
+        }
+    }
+
     
     
     

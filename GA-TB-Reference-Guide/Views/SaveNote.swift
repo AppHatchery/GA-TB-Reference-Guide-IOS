@@ -168,15 +168,22 @@ class SaveNote: UIView {
     }
     
     //------------------------------------------------------------------------------
-    @objc func deleteButtonPressed(_ sender: Any)
-    {
-        UIView.animate( withDuration: 0.25, delay: 0.0, options: UIView.AnimationOptions(), animations: {
+    @objc func deleteButtonPressed(_ sender: Any) {
+        UIView.animate(withDuration: 0.25, delay: 0.0, options: [], animations: {
             self.overlayView.alpha = 0
-            self.contentView.transform = CGAffineTransform( scaleX: 0.001, y: 0.001 )
-        }, completion: { (value: Bool) in
-            
+            self.contentView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
+        }) { _ in
             self.delegate.didDeleteNote(self.note)
             self.removeFromSuperview()
-        })
+            
+            // Show popup safely in iOS 13+
+            if let windowScene = UIApplication.shared.connectedScenes
+                .filter({ $0.activationState == .foregroundActive })
+                .first as? UIWindowScene,
+               let window = windowScene.windows.first(where: { $0.isKeyWindow }) {
+                
+                CustomPopUp.showTemporary(in: window, popupLabelText: "Note Deleted")
+            }
+        }
     }
 }

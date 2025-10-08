@@ -40,6 +40,13 @@
 		B474B07F2C2DA54B0092F4F6 /* FontSettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B474B07D2C2DA54B0092F4F6 /* FontSettingsView.xib */; };
 		B474B0832C2DFE230092F4F6 /* Pods_GA_TB_Reference_Guide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF23FEBF71C372B82094033D /* Pods_GA_TB_Reference_Guide.framework */; };
 		B47FDD9E2E95531800CC4C7B /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47FDD9D2E95531800CC4C7B /* ThemeManager.swift */; };
+		B47FDDA42E96429800CC4C7B /* BookmarkSavedPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47FDDA32E96429800CC4C7B /* BookmarkSavedPopUp.swift */; };
+		B47FDDA62E9642B700CC4C7B /* BookmarkSavedPopUp.xib in Resources */ = {isa = PBXBuildFile; fileRef = B47FDDA52E9642B700CC4C7B /* BookmarkSavedPopUp.xib */; };
+		B47FDDA82E96536F00CC4C7B /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47FDDA72E96536F00CC4C7B /* UILabel+Extensions.swift */; };
+		B47FDDAA2E9657A400CC4C7B /* DeleteConfirmationPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47FDDA92E9657A400CC4C7B /* DeleteConfirmationPopUp.swift */; };
+		B47FDDAC2E9657AF00CC4C7B /* DeleteConfirmationPopUp.xib in Resources */ = {isa = PBXBuildFile; fileRef = B47FDDAB2E9657AF00CC4C7B /* DeleteConfirmationPopUp.xib */; };
+		B47FDDAE2E967E8900CC4C7B /* CustomPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47FDDAD2E967E8900CC4C7B /* CustomPopUp.swift */; };
+		B47FDDB02E967E9800CC4C7B /* CustomPopUp.xib in Resources */ = {isa = PBXBuildFile; fileRef = B47FDDAF2E967E9800CC4C7B /* CustomPopUp.xib */; };
 		B4847B502E92BE56006DE174 /* ic_chapter.svg in Resources */ = {isa = PBXBuildFile; fileRef = B4847B4F2E92BE56006DE174 /* ic_chapter.svg */; };
 		B4847B612E92C9BC006DE174 /* 11_community_tuberculosis_control.html in Resources */ = {isa = PBXBuildFile; fileRef = B4847B5F2E92C9BC006DE174 /* 11_community_tuberculosis_control.html */; };
 		B4847B622E92C9BC006DE174 /* 11_community_tuberculosis_control__a__tb_surveillance_in_georgia.html in Resources */ = {isa = PBXBuildFile; fileRef = B4847B602E92C9BC006DE174 /* 11_community_tuberculosis_control__a__tb_surveillance_in_georgia.html */; };
@@ -241,6 +248,13 @@
 		B474B07C2C2DA54B0092F4F6 /* FontSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsView.swift; sourceTree = "<group>"; };
 		B474B07D2C2DA54B0092F4F6 /* FontSettingsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FontSettingsView.xib; sourceTree = "<group>"; };
 		B47FDD9D2E95531800CC4C7B /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		B47FDDA32E96429800CC4C7B /* BookmarkSavedPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkSavedPopUp.swift; sourceTree = "<group>"; };
+		B47FDDA52E9642B700CC4C7B /* BookmarkSavedPopUp.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarkSavedPopUp.xib; sourceTree = "<group>"; };
+		B47FDDA72E96536F00CC4C7B /* UILabel+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
+		B47FDDA92E9657A400CC4C7B /* DeleteConfirmationPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteConfirmationPopUp.swift; sourceTree = "<group>"; };
+		B47FDDAB2E9657AF00CC4C7B /* DeleteConfirmationPopUp.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeleteConfirmationPopUp.xib; sourceTree = "<group>"; };
+		B47FDDAD2E967E8900CC4C7B /* CustomPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopUp.swift; sourceTree = "<group>"; };
+		B47FDDAF2E967E9800CC4C7B /* CustomPopUp.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomPopUp.xib; sourceTree = "<group>"; };
 		B4847B4F2E92BE56006DE174 /* ic_chapter.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = ic_chapter.svg; sourceTree = "<group>"; };
 		B4847B5F2E92C9BC006DE174 /* 11_community_tuberculosis_control.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 11_community_tuberculosis_control.html; sourceTree = "<group>"; };
 		B4847B602E92C9BC006DE174 /* 11_community_tuberculosis_control__a__tb_surveillance_in_georgia.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 11_community_tuberculosis_control__a__tb_surveillance_in_georgia.html; sourceTree = "<group>"; };
@@ -439,6 +453,19 @@
 				BF23FEBF71C372B82094033D /* Pods_GA_TB_Reference_Guide.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B47FDDA02E9641D800CC4C7B /* PopUps */ = {
+			isa = PBXGroup;
+			children = (
+				B47FDDA32E96429800CC4C7B /* BookmarkSavedPopUp.swift */,
+				B47FDDA52E9642B700CC4C7B /* BookmarkSavedPopUp.xib */,
+				B47FDDA92E9657A400CC4C7B /* DeleteConfirmationPopUp.swift */,
+				B47FDDAB2E9657AF00CC4C7B /* DeleteConfirmationPopUp.xib */,
+				B47FDDAD2E967E8900CC4C7B /* CustomPopUp.swift */,
+				B47FDDAF2E967E9800CC4C7B /* CustomPopUp.xib */,
+			);
+			path = PopUps;
 			sourceTree = "<group>";
 		};
 		D42F25ED26EF81C8009DC942 /* pages */ = {
@@ -667,6 +694,7 @@
 				D46861C127A86090002061E4 /* UINavigationAppearance.swift */,
 				D48BD77F2779F13800D8A25D /* UIButton+Extensions.swift */,
 				B40EA6852DF2F13E00B72567 /* UITextField+Extensions.swift */,
+				B47FDDA72E96536F00CC4C7B /* UILabel+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -692,6 +720,7 @@
 		D4B0B0C526D01DB7003BD1EA /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B47FDDA02E9641D800CC4C7B /* PopUps */,
 				D4B0B0E426D0612E003BD1EA /* SubChapterListView.swift */,
 				D4B0B0E726D0614A003BD1EA /* SubChapterListView.xib */,
 				D4B0B0ED26D0693F003BD1EA /* SubChapterContentView.swift */,
@@ -888,6 +917,7 @@
 				D42F264426EF821B009DC942 /* table_19_guidelines_for_treatment_of_extrapulmonary_tuberculosis.html in Resources */,
 				D46313AE2721A27F00C7D9EC /* 5_treatment_of_current_(active)_disease_therapy.html in Resources */,
 				D42F266E26EF821B009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__g__medical_evaluation_after_testing_for_ltbi.html in Resources */,
+				B47FDDA62E9642B700CC4C7B /* BookmarkSavedPopUp.xib in Resources */,
 				D42F264B26EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__b__standard_therapy_for_current_(active)_disease.html in Resources */,
 				D4B0B0B626D01CA8003BD1EA /* Assets.xcassets in Resources */,
 				D42F263E26EF821B009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi).html in Resources */,
@@ -919,6 +949,7 @@
 				D42F264226EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__f__tb_and_hiv.html in Resources */,
 				D42F267B26EF821B009DC942 /* table_12_pediatric_dosages_pyrazinamide_in_children_(birth_to_15_years).html in Resources */,
 				D42F266726EF821B009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__e__interferon_y_release_assays_(igras).html in Resources */,
+				B47FDDAC2E9657AF00CC4C7B /* DeleteConfirmationPopUp.xib in Resources */,
 				D42F266A26EF821B009DC942 /* table_8_first-line_tb_drugs_dosing_for_adults_(ages_16_and_over)_directly_observed_therapy_(dot)_is_mandatory.html in Resources */,
 				D4710CAE2744129000F6EBFF /* Settings.xib in Resources */,
 				D4515E7126DAE60600EE6592 /* style.css in Resources */,
@@ -969,6 +1000,7 @@
 				D42F265526EF821B009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__b__criteria_for_a_positive_tuberculin_test_by_risk_group.html in Resources */,
 				D45BD0BC26E3936A0037E2A8 /* SearchCell.xib in Resources */,
 				D42F266C26EF821B009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi)__a__treatment_regimens.html in Resources */,
+				B47FDDB02E967E9800CC4C7B /* CustomPopUp.xib in Resources */,
 				D42F267926EF821B009DC942 /* 15_appendix_district_tb_coordinators_(by_district).html in Resources */,
 				D42F267826EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__i__treatment_of_extrapulmonary_tb.html in Resources */,
 				D4A5D29E2B2C9BA500812C53 /* figure1.png in Resources */,
@@ -1095,6 +1127,7 @@
 				D4515DE526D9101F00EE6592 /* ChartListViewController.swift in Sources */,
 				B473888A2D5C7D5300A4C168 /* BatchDownloadManager.swift in Sources */,
 				D42F269926F1AC31009DC942 /* ContentSizedTableView.swift in Sources */,
+				B47FDDA82E96536F00CC4C7B /* UILabel+Extensions.swift in Sources */,
 				D449FCB526EC5357008C3ACB /* SaveFavorite.swift in Sources */,
 				D42F269526F05B64009DC942 /* ChapterNoteTableViewCell.swift in Sources */,
 				D4A06A5526E6D2330093D144 /* ContentPage.swift in Sources */,
@@ -1104,16 +1137,19 @@
 				D4A06A5E26E6F59C0093D144 /* ContentAccess.swift in Sources */,
 				D4C0C0DF2800D64600346F96 /* OldRealmFile.swift in Sources */,
 				D4B0B0E126D05002003BD1EA /* UINavigationBar+Extensions.swift in Sources */,
+				B47FDDA42E96429800CC4C7B /* BookmarkSavedPopUp.swift in Sources */,
 				D463130B271CD38300C7D9EC /* Guide.swift in Sources */,
 				B47388932D5C997B00A4C168 /* RemoteConfigHelper.swift in Sources */,
 				B47FDD9E2E95531800CC4C7B /* ThemeManager.swift in Sources */,
 				D42F25E826EEFA8F009DC942 /* NoteTableViewCell.swift in Sources */,
+				B47FDDAE2E967E8900CC4C7B /* CustomPopUp.swift in Sources */,
 				D449FCBB26EC6604008C3ACB /* SaveNote.swift in Sources */,
 				D4B0B0CC26D0239C003BD1EA /* UIColor+Extensions.swift in Sources */,
 				D4B0B0EB26D0648A003BD1EA /* SubChapterViewController.swift in Sources */,
 				D4B0B13326D174F9003BD1EA /* chapterIndex.swift in Sources */,
 				B401CE622C5BD8C300149414 /* RecentSearchTableViewCell.swift in Sources */,
 				B4E88A162E8A83D100396ABB /* BookmarkTableViewCell.swift in Sources */,
+				B47FDDAA2E9657A400CC4C7B /* DeleteConfirmationPopUp.swift in Sources */,
 				D4B0B0EE26D0693F003BD1EA /* SubChapterContentView.swift in Sources */,
 				D4710CB1274418EC00F6EBFF /* SettingsViewController.swift in Sources */,
 				B401CE5E2C58D96D00149414 /* SuggestionTableViewCell.swift in Sources */,
