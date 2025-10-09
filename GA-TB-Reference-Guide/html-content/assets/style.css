@@ -141,6 +141,7 @@ html {
   /* 3 */
   background: var(--background-color);
   color: var(--body-color);
+  scroll-behavior: smooth;
 }
 
 body {

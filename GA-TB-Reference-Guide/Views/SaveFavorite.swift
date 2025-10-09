@@ -111,7 +111,7 @@ class SaveFavorite: UIView {
         if subChapter.favorite == true {
             titleLabel.text = "Edit Bookmark Title"
             nameField.text = subChapter.favoriteName
-            bookmarkSourceField.text = subChapter.name
+            bookmarkSourceField.text = subChapter.chapterParent
             
             cancelButton.setTitle("Delete Bookmark", for: .normal)
             saveButton.setTitle("Save Changes", for: .normal)
