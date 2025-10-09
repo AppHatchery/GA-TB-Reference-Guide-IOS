@@ -56,6 +56,8 @@
 		B4847B782E92D10F006DE174 /* 11_community_tuberculosis_control__g__curetb_program_(internation_linkage_to_tb_care).html in Resources */ = {isa = PBXBuildFile; fileRef = B4847B742E92D10F006DE174 /* 11_community_tuberculosis_control__g__curetb_program_(internation_linkage_to_tb_care).html */; };
 		B4847B792E92D10F006DE174 /* 11_community_tuberculosis_control__e__hospital_discharge_planning_for_patients_with_suspected_or_proven_tb.html in Resources */ = {isa = PBXBuildFile; fileRef = B4847B722E92D10F006DE174 /* 11_community_tuberculosis_control__e__hospital_discharge_planning_for_patients_with_suspected_or_proven_tb.html */; };
 		B4847B7A2E92D10F006DE174 /* 11_community_tuberculosis_control__f__interjurisdictional_tb_notification(ijn).html in Resources */ = {isa = PBXBuildFile; fileRef = B4847B732E92D10F006DE174 /* 11_community_tuberculosis_control__f__interjurisdictional_tb_notification(ijn).html */; };
+		B4C6DBC72E97462B006D8D5A /* NoteSavedPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C6DBC62E97462B006D8D5A /* NoteSavedPopUp.swift */; };
+		B4C6DBC92E97462F006D8D5A /* NoteSavedPopUp.xib in Resources */ = {isa = PBXBuildFile; fileRef = B4C6DBC82E97462F006D8D5A /* NoteSavedPopUp.xib */; };
 		B4D616552E89CDA0003E4F79 /* NotesBottomSheetDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D616542E89CDA0003E4F79 /* NotesBottomSheetDelegate.swift */; };
 		B4DC30712C5BF2E90019CCA1 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC30702C5BF2E90019CCA1 /* Search.swift */; };
 		B4E88A152E8A83D100396ABB /* BookmarkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B4E88A142E8A83D100396ABB /* BookmarkTableViewCell.xib */; };
@@ -264,6 +266,8 @@
 		B4847B722E92D10F006DE174 /* 11_community_tuberculosis_control__e__hospital_discharge_planning_for_patients_with_suspected_or_proven_tb.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 11_community_tuberculosis_control__e__hospital_discharge_planning_for_patients_with_suspected_or_proven_tb.html; sourceTree = "<group>"; };
 		B4847B732E92D10F006DE174 /* 11_community_tuberculosis_control__f__interjurisdictional_tb_notification(ijn).html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "11_community_tuberculosis_control__f__interjurisdictional_tb_notification(ijn).html"; sourceTree = "<group>"; };
 		B4847B742E92D10F006DE174 /* 11_community_tuberculosis_control__g__curetb_program_(internation_linkage_to_tb_care).html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "11_community_tuberculosis_control__g__curetb_program_(internation_linkage_to_tb_care).html"; sourceTree = "<group>"; };
+		B4C6DBC62E97462B006D8D5A /* NoteSavedPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteSavedPopUp.swift; sourceTree = "<group>"; };
+		B4C6DBC82E97462F006D8D5A /* NoteSavedPopUp.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteSavedPopUp.xib; sourceTree = "<group>"; };
 		B4D616542E89CDA0003E4F79 /* NotesBottomSheetDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesBottomSheetDelegate.swift; sourceTree = "<group>"; };
 		B4DC30702C5BF2E90019CCA1 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		B4E88A132E8A83D100396ABB /* BookmarkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTableViewCell.swift; sourceTree = "<group>"; };
@@ -464,6 +468,8 @@
 				B47FDDAB2E9657AF00CC4C7B /* DeleteConfirmationPopUp.xib */,
 				B47FDDAD2E967E8900CC4C7B /* CustomPopUp.swift */,
 				B47FDDAF2E967E9800CC4C7B /* CustomPopUp.xib */,
+				B4C6DBC62E97462B006D8D5A /* NoteSavedPopUp.swift */,
+				B4C6DBC82E97462F006D8D5A /* NoteSavedPopUp.xib */,
 			);
 			path = PopUps;
 			sourceTree = "<group>";
@@ -1033,6 +1039,7 @@
 				B40FEE182DF0898700FBEBB7 /* Chevron.png in Resources */,
 				B40FEE1B2DF0898700FBEBB7 /* chapter_1_image_2.png in Resources */,
 				D42F267226EF821B009DC942 /* table_15_clinical_situations_for_which_standard_therapy_cannot_be_given_or_is_not_well_tolerated.html in Resources */,
+				B4C6DBC92E97462F006D8D5A /* NoteSavedPopUp.xib in Resources */,
 				D42F263C26EF821B009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi).html in Resources */,
 				D42F265326EF821B009DC942 /* 12_alternative_housing_program_for_homeless_tb_patients_in_georgia.html in Resources */,
 				D42F269626F05B64009DC942 /* ChapterNoteTableViewCell.xib in Resources */,
@@ -1126,6 +1133,7 @@
 				D4B0B0B126D01CA6003BD1EA /* ViewController.swift in Sources */,
 				D4515DE526D9101F00EE6592 /* ChartListViewController.swift in Sources */,
 				B473888A2D5C7D5300A4C168 /* BatchDownloadManager.swift in Sources */,
+				B4C6DBC72E97462B006D8D5A /* NoteSavedPopUp.swift in Sources */,
 				D42F269926F1AC31009DC942 /* ContentSizedTableView.swift in Sources */,
 				B47FDDA82E96536F00CC4C7B /* UILabel+Extensions.swift in Sources */,
 				D449FCB526EC5357008C3ACB /* SaveFavorite.swift in Sources */,

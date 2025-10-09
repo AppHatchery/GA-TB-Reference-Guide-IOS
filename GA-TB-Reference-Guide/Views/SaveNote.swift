@@ -7,9 +7,12 @@
 
 import UIKit
 import RealmSwift
+import Pendo
 
 protocol SaveNoteDelegate
 {
+    func didSaveNote(_ note: Notes, shouldSubmitAsFeedback: Bool)
+
     func didSaveNote( _ note: Notes )
     
     func didDeleteNote( _ note: Notes)
@@ -31,6 +34,11 @@ class SaveNote: UIView {
     @IBOutlet weak var dialogRightConstraint: NSLayoutConstraint!
     
     @IBOutlet var colors: [UIButton]!
+    @IBOutlet weak var submitAsFeedbackSwitch: UISwitch!
+    @IBOutlet weak var submitAsFeedbackLabel: UILabel!
+    
+    @IBOutlet weak var feedbackStackView: UIStackView!
+    
     
     var contentViewTopConstraint: NSLayoutConstraint!
     var delegate: SaveNoteDelegate!
@@ -114,6 +122,8 @@ class SaveNote: UIView {
             cancelButton.setTitle("Delete", for: .normal)
             saveButton.setTitle("Update", for: .normal)
             cancelButton.addTarget(self, action: #selector(self.deleteButtonPressed), for: .touchUpInside)
+            submitAsFeedbackSwitch.isOn = false
+            feedbackStackView.isHidden = true
         }
     }
     
@@ -133,15 +143,24 @@ class SaveNote: UIView {
     }
     
     //------------------------------------------------------------------------------
-    @IBAction func saveButtonPressed(_ sender: Any )
-    {
+    @IBAction func saveButtonPressed(_ sender: Any ) {
+        guard let noteText = noteField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
+              !noteText.isEmpty else {
+            
+            noteField.layer.borderColor = UIColor.red.cgColor
+            noteField.layer.borderWidth = 1.0
+            return
+        }
+        
+        noteField.layer.borderWidth = 0
+        
         UIView.animate( withDuration: 0.25, delay: 0.0, options: UIView.AnimationOptions(), animations: {
             self.overlayView.alpha = 0
             self.contentView.transform = CGAffineTransform( scaleX: 0.001, y: 0.001 )
         }, completion: { (value: Bool) in
             // Realm
             RealmHelper.sharedInstance.update(self.note, properties: [
-                "content":self.noteField.text!,
+                "content":noteText,
                 "colorTag":self.colorTagChosen
             ]) { updated in
                 //
@@ -151,7 +170,13 @@ class SaveNote: UIView {
 //                self.note.content = self.noteField.text
 //                self.note.colorTag = self.colorTagChosen
 //            }
-            self.delegate.didSaveNote(self.note)
+            
+            if !self.note.savedToRealm {
+                self.delegate.didSaveNote(self.note, shouldSubmitAsFeedback: self.submitAsFeedbackSwitch.isOn)
+            } else {
+                self.delegate.didSaveNote(self.note)
+            }
+            
             self.removeFromSuperview()
         })
     }

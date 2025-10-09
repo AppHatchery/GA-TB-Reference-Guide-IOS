@@ -10,8 +10,10 @@ import WebKit
 import RealmSwift
 import FirebaseAnalytics
 import FirebaseDynamicLinks
+import Pendo
 
-class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, SaveFavoriteDelegate, SaveNoteDelegate, WKScriptMessageHandler, NotesBottomSheetDelegate, BookmarkSavedPopUpDelegate, DeleteConfirmationPopUpDelegate {
+class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, SaveFavoriteDelegate, SaveNoteDelegate, WKScriptMessageHandler, NotesBottomSheetDelegate, BookmarkSavedPopUpDelegate, NoteSavedPopUpDelegate,
+    DeleteConfirmationPopUpDelegate {
 
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -1094,6 +1096,70 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         }
     }
     
+    func didSaveNote(_ note: Notes, shouldSubmitAsFeedback: Bool) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/YYYY"
+        
+        if !note.savedToRealm {
+            RealmHelper.sharedInstance.update(note, properties: [
+                "subChapterURL": uniqueAddress!,
+                "savedToRealm": true,
+                "lastEdited": formatter.string(from: Date()),
+                "subChapterName": titlelabel
+            ]) { [weak self] updated in
+                guard let self = self else { return }
+                
+                RealmHelper.sharedInstance.appendNote(self.content, property: self.content.notes, itemToAppend: note) { appended in
+                    print("appended the note properly?")
+                }
+                
+                self.updateNotesButton()
+                
+                // Track note save with feedback flag
+                PendoManager.shared().track("user_feedback_submitted", properties: [
+                    "page_url": self.uniqueAddress ?? "",
+                    "page_title": self.titlelabel
+                ])
+                
+                if shouldSubmitAsFeedback {
+                    self.submitNoteAsFeedback(note)
+                }
+            }
+        } else {
+            RealmHelper.sharedInstance.update(note, properties: [
+                "lastEdited": formatter.string(from: Date()),
+                "subChapterName": titlelabel
+            ]) { [weak self] updated in
+                guard self != nil else { return }
+                
+            }
+        }
+    }
+    
+    private func submitNoteAsFeedback(_ note: Notes) {
+        PendoManager.shared().track("user_feedback_submitted", properties: [
+            "feedback_content": note.content,
+            "page_url": uniqueAddress ?? "",
+            "page_title": titlelabel,
+        ])
+        
+        print("Submitting note as feedback: \(note.content)")
+        
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let sceneDelegate = windowScene.delegate as? SceneDelegate,
+           let window = sceneDelegate.window {
+            
+            NoteSavedPopUp.show(in: window, delegate: self)
+        }
+        
+        // Track Firebase analytics as well
+        Analytics.logEvent("feedback_submitted", parameters: [
+            "page": uniqueAddress as String,
+            "content_length": note.content.count,
+            "chapter": navTitle
+        ])
+    }
+    
     //--------------------------------------------------------------------------------------------------
     func didDeleteNote(_ note: Notes) {
         RealmHelper.sharedInstance.delete(note) { [weak self] deleted in
@@ -1209,6 +1275,10 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     
     func didTapVisitBookmarks() {
         self.performSegue(withIdentifier: "segueFromWebToBookmarks", sender: nil)
+    }
+    
+    func didTapVisitSettings() {
+        self.performSegue(withIdentifier: "segueFromWebToSettings", sender: nil)
     }
     
     func didTapDeleteBookmark(for url: String?) {

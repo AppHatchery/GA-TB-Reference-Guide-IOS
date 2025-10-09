@@ -130,11 +130,11 @@
             <objects>
                 <viewController id="nKP-sb-qKu" customClass="SettingsViewController" customModule="GA_TB_Reference_Guide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Jdd-bm-5bY">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="584"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="657"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MG9-YC-DjR">
-                                <rect key="frame" x="0.0" y="74" width="375" height="510"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="657"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                             </view>
                         </subviews>
@@ -162,14 +162,14 @@
             <objects>
                 <viewController id="mfJ-WS-8gE" customClass="SettingsViewsViewController" customModule="GA_TB_Reference_Guide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NR9-zQ-wVN">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="584"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="657"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YPN-gG-ViF">
-                                <rect key="frame" x="0.0" y="74" width="375" height="510"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="657"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lv2-F2-H6I">
-                                        <rect key="frame" x="74.5" y="410" width="2" height="20"/>
+                                        <rect key="frame" x="74.5" y="557" width="2" height="20"/>
                                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="3qE-Xd-iGg"/>
@@ -177,7 +177,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZQU-rG-YO8">
-                                        <rect key="frame" x="298.5" y="410" width="2" height="20"/>
+                                        <rect key="frame" x="298.5" y="557" width="2" height="20"/>
                                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="2" id="hxq-wt-iqt"/>
@@ -185,7 +185,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dAo-WI-ksx">
-                                        <rect key="frame" x="221.5" y="410" width="2" height="20"/>
+                                        <rect key="frame" x="221.5" y="557" width="2" height="20"/>
                                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="2" id="ecw-m1-NeH"/>
@@ -193,7 +193,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xFp-er-vra">
-                                        <rect key="frame" x="151.5" y="410" width="2" height="20"/>
+                                        <rect key="frame" x="151.5" y="557" width="2" height="20"/>
                                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="2" id="Tfh-WS-WaH"/>
@@ -201,7 +201,7 @@
                                         </constraints>
                                     </view>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1.1000000000000001" minValue="0.75" maxValue="1.75" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ls5-5T-Wrf">
-                                        <rect key="frame" x="62.5" y="401" width="250" height="34"/>
+                                        <rect key="frame" x="62.5" y="548" width="250" height="34"/>
                                         <color key="tintColor" name="colorPrimary"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="250" id="9OI-za-eVP"/>
@@ -212,7 +212,7 @@
                                         </connections>
                                     </slider>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xRK-LN-Sal">
-                                        <rect key="frame" x="332.5" y="410" width="22.5" height="20"/>
+                                        <rect key="frame" x="332.5" y="557" width="22.5" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="QSP-aJ-kp7"/>
                                         </constraints>
@@ -221,7 +221,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vhb-O9-L0K">
-                                        <rect key="frame" x="20" y="410" width="22.5" height="20"/>
+                                        <rect key="frame" x="20" y="557" width="22.5" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="OjL-NI-Whs"/>
                                         </constraints>
@@ -230,7 +230,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Font Size: Regular" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5AO-Fj-zem">
-                                        <rect key="frame" x="20" y="450" width="335" height="21"/>
+                                        <rect key="frame" x="20" y="597" width="335" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1114,6 +1114,7 @@
                         <outlet property="totalSearchTermsFound" destination="4CS-1f-dLd" id="RPq-xP-HyR"/>
                         <outlet property="viewNotesButton" destination="jny-f0-Iwl" id="rmH-6c-4GO"/>
                         <segue destination="Dot-Zi-baJ" kind="show" identifier="segueFromWebToBookmarks" id="v9M-jo-0Ac"/>
+                        <segue destination="nKP-sb-qKu" kind="show" identifier="segueFromWebToSettings" id="1nj-Ud-1Tt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="em9-c3-RPA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1184,6 +1185,7 @@
         <segue reference="DAg-07-fMt"/>
         <segue reference="eA2-yB-9Oc"/>
         <segue reference="c87-MO-uwg"/>
+        <segue reference="1nj-Ud-1Tt"/>
         <segue reference="v9M-jo-0Ac"/>
     </inferredMetricsTieBreakers>
     <resources>

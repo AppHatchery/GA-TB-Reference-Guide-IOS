@@ -367,6 +367,18 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         // Store the current index for use in delegate methods
         arrayPointer = index
         
+        let customView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
+            customView.backgroundColor = UIColor(red: 0xd5/255.0, green: 0xd8/255.0, blue: 0xdc/255.0, alpha: 1)
+            
+            let doneButton = UIButton(frame: CGRect(x: view.frame.width - 70 - 10, y: 0, width: 70, height: 44))
+            doneButton.setTitle("Dismiss", for: .normal)
+            doneButton.setTitleColor(UIColor.systemBlue, for: .normal)
+            doneButton.addTarget(self, action: #selector(self.dismissKeyboard), for: .touchUpInside)
+            customView.addSubview(doneButton)
+            
+            // Assign to the text field in the dialog (you'll need to access it)
+        saveFavoriteDialog.nameField?.inputAccessoryView = customView
+        
         // Add to view with animation
         self.view.addSubview(saveFavoriteDialog)
         saveFavoriteDialog.overlayView.alpha = 0
