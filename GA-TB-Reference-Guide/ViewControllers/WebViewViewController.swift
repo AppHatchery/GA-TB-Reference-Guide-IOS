@@ -125,10 +125,17 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         navbarTitle.text = navTitle
         navbarTitle.textColor = UIColor.white
         navbarTitle.font = UIFont.boldSystemFont(ofSize: 16.0)
-        navbarTitle.numberOfLines = 2
+        navbarTitle.numberOfLines = 0
         navbarTitle.textAlignment = .center
-//        navbarTitle.minimumScaleFactor = 0
+        navbarTitle.minimumScaleFactor = 0.7
         navbarTitle.adjustsFontSizeToFitWidth = true
+        navigationItem.titleView = navbarTitle
+        navigationItem.backButtonDisplayMode = .minimal
+        
+        let navBarWidth = navigationController?.navigationBar.bounds.width ?? UIScreen.main.bounds.width
+        navbarTitle.frame = CGRect(x: 0, y: 0, width: navBarWidth - 100, height: 44)
+        // The -100 accounts for back button and any right bar button items
+        
         navigationItem.titleView = navbarTitle
         navigationItem.backButtonDisplayMode = .minimal
 

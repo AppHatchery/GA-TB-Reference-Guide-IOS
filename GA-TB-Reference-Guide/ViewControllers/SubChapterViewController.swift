@@ -28,11 +28,13 @@ class SubChapterViewController: UIViewController, UITableViewDelegate, UITableVi
         navbarTitle.font = UIFont.boldSystemFont(ofSize: 16.0)
         navbarTitle.numberOfLines = 2
         navbarTitle.textAlignment = .center
-        navbarTitle.minimumScaleFactor = 0.5
+        navbarTitle.minimumScaleFactor = 0.7
         navbarTitle.adjustsFontSizeToFitWidth = true
         navigationItem.titleView = navbarTitle
-        navigationItem.rightBarButtonItem?.isEnabled = true
         navigationItem.backButtonDisplayMode = .minimal
+        
+        let navBarWidth = navigationController?.navigationBar.bounds.width ?? UIScreen.main.bounds.width
+        navbarTitle.frame = CGRect(x: 0, y: 0, width: navBarWidth - 100, height: 44)
         
         tableView.delegate = self
         tableView.dataSource = self

@@ -439,6 +439,7 @@ hr {
 
   .uk-tabs-container .tabs {
     justify-content: start !important;
+    justify-content: center !important; /* Center tabs on small screens */
   }
 }
 .uk-table tbody tr {
@@ -553,10 +554,10 @@ a {
     justify-content: center;
     align-items: center;
     gap: 1rem;
-    padding: 1rem;
+    padding: 0.75rem;
     text-align: center;
     vertical-align: bottom;
-    font-size: 1rem;
+    font-size: 0.870rem;
     background-color: var(--inactive-tab-color);
     color: var(--inactive-tab-text-color);
     text-transform: capitalize;
@@ -564,8 +565,13 @@ a {
     border: none;
     border-radius: var(--tab-radius);
     box-shadow: var(--tab-box-shadow);
-    max-width: 150px;
-    height: 100%;
+    min-width: 120px;
+    max-width: 200px;
+    width: auto;
+    height: auto;
+    white-space: normal;
+    word-wrap: break-word;
+    min-height: 70px;
     box-sizing: border-box;
 }
 
