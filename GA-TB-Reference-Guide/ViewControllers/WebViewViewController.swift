@@ -982,17 +982,11 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             }
             
             // AUTO-EXPAND TOGGLES WHEN COMING FROM SEARCH
-            if comingFromSearch {
-                let expandTogglesJS = """
-                (function() {
-                    const chevrons = document.querySelectorAll('.chevron-up');
-                    chevrons.forEach(function(chevron) {
-                        chevron.click();  // simulate user clicking the chevron
-                    });
-                })();
-                """
-                webView.evaluateJavaScript(expandTogglesJS, completionHandler: nil)
-            }
+//            if comingFromSearch {
+//                expandAllToggles()
+//            }
+            
+            expandAllToggles()
             
             if let searchTerm = searchTerm {
                 highlightSearch(term: searchTerm)
@@ -1336,6 +1330,17 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         }
     }
 
+    private func expandAllToggles() {
+        let expandTogglesJS = """
+        (function() {
+            const chevrons = document.querySelectorAll('.chevron-up');
+            chevrons.forEach(function(chevron) {
+                chevron.click();  // simulate user clicking the chevron
+            });
+        })();
+        """
+        webView.evaluateJavaScript(expandTogglesJS, completionHandler: nil)
+    }
     
     
     
