@@ -980,6 +980,20 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             webView.evaluateJavaScript(javascript) { (response, error) in
                 print()
             }
+            
+            // AUTO-EXPAND TOGGLES WHEN COMING FROM SEARCH
+            if comingFromSearch {
+                let expandTogglesJS = """
+                (function() {
+                    const chevrons = document.querySelectorAll('.chevron-up');
+                    chevrons.forEach(function(chevron) {
+                        chevron.click();  // simulate user clicking the chevron
+                    });
+                })();
+                """
+                webView.evaluateJavaScript(expandTogglesJS, completionHandler: nil)
+            }
+            
             if let searchTerm = searchTerm {
                 highlightSearch(term: searchTerm)
             }
