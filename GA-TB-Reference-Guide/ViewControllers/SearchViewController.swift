@@ -487,8 +487,13 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 					let subchapterNameIndex = tempChartsHTML.firstIndex(of: chartResults[indexPath.row]) ?? 0
 					
 					// For Charts, Table Names should appear first
-					cell.subchapterLabel.text = chartNames[subchapterNameIndex]
-					cell.chapterLabel.text = chapterIndex.chartmapsubchapter[subchapterNameIndex]
+					cell.subchapterLabel.text = chartNames.indices.contains(subchapterNameIndex) ? chartNames[subchapterNameIndex] : nil
+					// Use chartmapsubchapter for charts
+					if chapterIndex.chartmapsubchapter.indices.contains(subchapterNameIndex) {
+						cell.chapterLabel.text = chapterIndex.chartmapsubchapter[subchapterNameIndex]
+					} else {
+						cell.chapterLabel.text = ""
+					}
 					
 					let TSTrange = chartResults[indexPath.row].lowercased().range(of: searchTerm.lowercased())
 					let startRange = chartResults[indexPath.row].index(TSTrange?.lowerBound ?? chartResults[indexPath.row].startIndex, offsetBy: -30, limitedBy: chartResults[indexPath.row].startIndex) ?? chartResults[indexPath.row].startIndex
@@ -505,7 +510,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 					let subchapterNameIndex = tempChaptersHTML.firstIndex(of: chapterResults[indexPath.row]) ?? 0
 					
 					cell.subchapterLabel.text = chapterIndex.subChapterNames[subchapterNameIndex]
-					cell.chapterLabel.text = chapterIndex.chaptermapsubchapter[subchapterNameIndex]
+					if chapterIndex.chaptermapsubchapter.indices.contains(subchapterNameIndex) {
+						cell.chapterLabel.text = chapterIndex.chaptermapsubchapter[subchapterNameIndex]
+					} else {
+						cell.chapterLabel.text = ""
+					}
 					
 					let TSTrange = chapterResults[indexPath.row].lowercased().range(of: searchTerm.lowercased())
 					let startRange = chapterResults[indexPath.row].index(TSTrange?.lowerBound ?? chapterResults[indexPath.row].startIndex, offsetBy: -30, limitedBy: chapterResults[indexPath.row].startIndex) ?? chapterResults[indexPath.row].startIndex
@@ -516,7 +525,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 					let subchapterNameIndex = tempHTML.firstIndex(of: allSearchResults[indexPath.row]) ?? 0
 
 					cell.subchapterLabel.text = chapterIndex.subChapterNames[subchapterNameIndex]
-					cell.chapterLabel.text = chapterIndex.chaptermapsubchapter[subchapterNameIndex]
+					if chapterIndex.chaptermapsubchapter.indices.contains(subchapterNameIndex) {
+						cell.chapterLabel.text = chapterIndex.chaptermapsubchapter[subchapterNameIndex]
+					} else {
+						cell.chapterLabel.text = ""
+					}
 					
 					let TSTrange = allSearchResults[indexPath.row].lowercased().range(of: searchTerm.lowercased())
 					let startRange = allSearchResults[indexPath.row].index(TSTrange?.lowerBound ?? allSearchResults[indexPath.row].startIndex, offsetBy: -30, limitedBy: allSearchResults[indexPath.row].startIndex) ?? allSearchResults[indexPath.row].startIndex
@@ -580,8 +593,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                     subArrayPointer = indexPath.row
                 }
                 
-                // FIX: Use subArrayPointer instead of indexPath.row
-                navTitle = showCharts ? chapterIndex.chartmapsubchapter[subArrayPointer] : chapterIndex.chaptermapsubchapter[subArrayPointer]
+                // FIX: Use charts mapping for charts
+                navTitle = showCharts
+                    ? (chapterIndex.chartmapsubchapter.indices.contains(subArrayPointer) ? chapterIndex.chartmapsubchapter[subArrayPointer] : "")
+                    : (chapterIndex.chaptermapsubchapter.indices.contains(subArrayPointer) ? chapterIndex.chaptermapsubchapter[subArrayPointer] : "")
             
                 addRecentSearch(searchTerm: searchTerm)
 
@@ -804,3 +819,4 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         return boldString
     }
 }
+
