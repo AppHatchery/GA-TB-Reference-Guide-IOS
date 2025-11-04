@@ -126,7 +126,6 @@
 		D42F267F26EF821B009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__h__reporting_of_pediatric_positive_tests_for_ltbi.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F263126EF8216009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__h__reporting_of_pediatric_positive_tests_for_ltbi.html */; };
 		D42F268026EF821B009DC942 /* 10_tb_infection_control_hospital_isolation_procedures__d__personal_respiratory_protection.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F263226EF8217009DC942 /* 10_tb_infection_control_hospital_isolation_procedures__d__personal_respiratory_protection.html */; };
 		D42F268126EF821B009DC942 /* table_21_grady_hospital_tb_isolation_policy.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F263326EF8217009DC942 /* table_21_grady_hospital_tb_isolation_policy.html */; };
-		D42F268226EF821B009DC942 /* table_17_what_to_start_choice_of_tb_therapy_and_antiretroviral_therapy_(art)_when)treating_co-infected_patients.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F263426EF8217009DC942 /* table_17_what_to_start_choice_of_tb_therapy_and_antiretroviral_therapy_(art)_when)treating_co-infected_patients.html */; };
 		D42F268326EF821B009DC942 /* 19_for_more_information.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F263526EF8218009DC942 /* 19_for_more_information.html */; };
 		D42F268426EF821B009DC942 /* table_6_ltbi_treatment_drug_adverse_reactions.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F263626EF8218009DC942 /* table_6_ltbi_treatment_drug_adverse_reactions.html */; };
 		D42F268526EF821B009DC942 /* table_20_use_of_anti-tb_medications_in_special_situations_pregnancy_tuberculosis_meningitis_and_renal_failure.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F263726EF8219009DC942 /* table_20_use_of_anti-tb_medications_in_special_situations_pregnancy_tuberculosis_meningitis_and_renal_failure.html */; };
@@ -174,6 +173,7 @@
 		D48063852A97BCFA006C9861 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D44B84FA272701C400A5B0E9 /* GoogleService-Info.plist */; };
 		D48BD7802779F13800D8A25D /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48BD77F2779F13800D8A25D /* UIButton+Extensions.swift */; };
 		D48BD797277E4F5300D8A25D /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48BD796277E4F5200D8A25D /* UserSettings.swift */; };
+		D498E0A02EBA788600B6BD56 /* table_17_what_to_start_choice_of_tb_therapy_and_antiretroviral_therapy_(art)_when_treating_co-infected_patients.html in Resources */ = {isa = PBXBuildFile; fileRef = D498E09F2EBA788600B6BD56 /* table_17_what_to_start_choice_of_tb_therapy_and_antiretroviral_therapy_(art)_when_treating_co-infected_patients.html */; };
 		D4A06A5526E6D2330093D144 /* ContentPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A06A5426E6D2330093D144 /* ContentPage.swift */; };
 		D4A06A5826E6D2C10093D144 /* Notes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A06A5726E6D2C10093D144 /* Notes.swift */; };
 		D4A06A5B26E6E35E0093D144 /* SavedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A06A5A26E6E35E0093D144 /* SavedViewController.swift */; };
@@ -337,7 +337,6 @@
 		D42F263126EF8216009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__h__reporting_of_pediatric_positive_tests_for_ltbi.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "2_diagnostic_tests_for_latent_tb_infection_(ltbi)__h__reporting_of_pediatric_positive_tests_for_ltbi.html"; sourceTree = "<group>"; };
 		D42F263226EF8217009DC942 /* 10_tb_infection_control_hospital_isolation_procedures__d__personal_respiratory_protection.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = 10_tb_infection_control_hospital_isolation_procedures__d__personal_respiratory_protection.html; sourceTree = "<group>"; };
 		D42F263326EF8217009DC942 /* table_21_grady_hospital_tb_isolation_policy.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = table_21_grady_hospital_tb_isolation_policy.html; sourceTree = "<group>"; };
-		D42F263426EF8217009DC942 /* table_17_what_to_start_choice_of_tb_therapy_and_antiretroviral_therapy_(art)_when)treating_co-infected_patients.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "table_17_what_to_start_choice_of_tb_therapy_and_antiretroviral_therapy_(art)_when)treating_co-infected_patients.html"; sourceTree = "<group>"; };
 		D42F263526EF8218009DC942 /* 19_for_more_information.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = 19_for_more_information.html; sourceTree = "<group>"; };
 		D42F263626EF8218009DC942 /* table_6_ltbi_treatment_drug_adverse_reactions.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = table_6_ltbi_treatment_drug_adverse_reactions.html; sourceTree = "<group>"; };
 		D42F263726EF8219009DC942 /* table_20_use_of_anti-tb_medications_in_special_situations_pregnancy_tuberculosis_meningitis_and_renal_failure.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "table_20_use_of_anti-tb_medications_in_special_situations_pregnancy_tuberculosis_meningitis_and_renal_failure.html"; sourceTree = "<group>"; };
@@ -381,6 +380,7 @@
 		D48BD77F2779F13800D8A25D /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		D48BD786277CA0D100D8A25D /* GA-TB-Reference-Guide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GA-TB-Reference-Guide.entitlements"; sourceTree = "<group>"; };
 		D48BD796277E4F5200D8A25D /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
+		D498E09F2EBA788600B6BD56 /* table_17_what_to_start_choice_of_tb_therapy_and_antiretroviral_therapy_(art)_when_treating_co-infected_patients.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "table_17_what_to_start_choice_of_tb_therapy_and_antiretroviral_therapy_(art)_when_treating_co-infected_patients.html"; sourceTree = "<group>"; };
 		D4A06A5426E6D2330093D144 /* ContentPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentPage.swift; sourceTree = "<group>"; };
 		D4A06A5726E6D2C10093D144 /* Notes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notes.swift; sourceTree = "<group>"; };
 		D4A06A5A26E6E35E0093D144 /* SavedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedViewController.swift; sourceTree = "<group>"; };
@@ -586,7 +586,7 @@
 				D42F260B26EF8205009DC942 /* table_14_antituberculosis_medications_which_may_be_used_for_patients_who_have_contraindications_to_or_intolerance.html */,
 				D42F262426EF8210009DC942 /* table_15_clinical_situations_for_which_standard_therapy_cannot_be_given_or_is_not_well_tolerated.html */,
 				D42F262626EF8211009DC942 /* table_16_when_to_start_hiv_therapy.html */,
-				D42F263426EF8217009DC942 /* table_17_what_to_start_choice_of_tb_therapy_and_antiretroviral_therapy_(art)_when)treating_co-infected_patients.html */,
+				D498E09F2EBA788600B6BD56 /* table_17_what_to_start_choice_of_tb_therapy_and_antiretroviral_therapy_(art)_when_treating_co-infected_patients.html */,
 				D4597EA72A7022E300EF8906 /* table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html */,
 				D42F25F626EF81FB009DC942 /* table_19_guidelines_for_treatment_of_extrapulmonary_tuberculosis.html */,
 				D42F263726EF8219009DC942 /* table_20_use_of_anti-tb_medications_in_special_situations_pregnancy_tuberculosis_meningitis_and_renal_failure.html */,
@@ -933,6 +933,7 @@
 				D4A5D29F2B2C9BA500812C53 /* DPH.png in Resources */,
 				D4A5D29D2B2C9BA500812C53 /* 1_epidemiology_image_1_number_of_tb_cases_city_of_atlanta_metro_atlanta_georgia_2000_2020.png in Resources */,
 				D42F265F26EF821B009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__c__laboratory_diagnosis_of_pulmonary_tuberculosis.html in Resources */,
+				D498E0A02EBA788600B6BD56 /* table_17_what_to_start_choice_of_tb_therapy_and_antiretroviral_therapy_(art)_when_treating_co-infected_patients.html in Resources */,
 				D42F268426EF821B009DC942 /* table_6_ltbi_treatment_drug_adverse_reactions.html in Resources */,
 				D42F266F26EF821B009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__e__rapid_molecular_drug_susceptibility_tests_(dst).html in Resources */,
 				D4631308271CD35A00C7D9EC /* Guide.xib in Resources */,
@@ -949,7 +950,6 @@
 				D42F263D26EF821B009DC942 /* 10_tb_infection_control_hospital_isolation_procedures__a__administrative_controls.html in Resources */,
 				D42F265226EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__d__drug_resistance.html in Resources */,
 				D4CCBF5227C023AB00E42BC9 /* 7_childhood_tuberculosis.html in Resources */,
-				D42F268226EF821B009DC942 /* table_17_what_to_start_choice_of_tb_therapy_and_antiretroviral_therapy_(art)_when)treating_co-infected_patients.html in Resources */,
 				D4A5D2A32B2C9BA500812C53 /* 1_epidemiology_image_2_us_born_and_foreign_born_tb_cases_georgia_2000_2020.png in Resources */,
 				D42F267726EF821B009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi)__b__monitoring_of_patients_on_treatment_for_ltbi.html in Resources */,
 				D42F264226EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__f__tb_and_hiv.html in Resources */,
@@ -1325,7 +1325,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = RD62LTBAPA;
+				DEVELOPMENT_TEAM = 3RQHVA7936;
 				INFOPLIST_FILE = "GA-TB-Reference-Guide/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1351,7 +1351,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = RD62LTBAPA;
+				DEVELOPMENT_TEAM = 3RQHVA7936;
 				INFOPLIST_FILE = "GA-TB-Reference-Guide/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
