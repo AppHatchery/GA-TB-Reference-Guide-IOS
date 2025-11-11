@@ -504,7 +504,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
                     vc.url = Bundle.main.url(forResource: Array(chapterIndex.chapterCode.joined())[urlsarray ?? 0], withExtension: "html")!
                 }
                 vc.titlelabel = Array(chapterIndex.chapterNested.joined())[urlsarray ?? 0]
-                vc.navTitle = chapterIndex.chaptermapsubchapter[urlsarray ?? 0]
+                vc.navTitle = chapterIndex.chaptermapsubchapternested[urlsarray ?? 0]
                 vc.uniqueAddress = Array(chapterIndex.chapterCode.joined())[urlsarray ?? 0]
                 
                 // Remove the observer for the previous screen so that it won't double fire when the URL changes again
@@ -609,7 +609,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             }
             
             vc.titlelabel = Array(chapterIndex.chapterNested.joined())[urlsarray]
-            vc.navTitle = chapterIndex.chaptermapsubchapter[urlsarray]
+            vc.navTitle = chapterIndex.chaptermapsubchapternested[urlsarray]
             vc.uniqueAddress = Array(chapterIndex.chapterCode.joined())[urlsarray]
             
             // Push the view controller
