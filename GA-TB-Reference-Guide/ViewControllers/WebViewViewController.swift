@@ -115,11 +115,11 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
 
 		let filename = "15_appendix_district_tb_coordinators_(by_district).html"
 
-		if url.lastPathComponent == filename {
-			metadataView.isHidden = true
-			metadataView.heightAnchor.constraint(equalToConstant: 0).isActive = true
-			metadataView.frame.size.height = 0
-		}
+        if url.lastPathComponent == filename {
+            metadataView.isHidden = true
+            metadataView.heightAnchor.constraint(equalToConstant: 0).isActive = true
+            metadataView.frame.size.height = 0
+        }
 
         let navbarTitle = UILabel()
         navbarTitle.text = navTitle
@@ -279,6 +279,20 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name("FontSizeChanged"), object: nil)
     }
     
+    // Helper to resolve the parent chapter title from uniqueAddress via ChapterIndex
+    private func resolvedChapterParent(for code: String?) -> String {
+        guard let code = code, !code.isEmpty else { return navTitle }
+        // Strip any anchor
+        let baseCode = code.components(separatedBy: "#").first ?? code
+        let flatCodes = Array(chapterIndex.chapterCode.joined())
+        if let idx = flatCodes.firstIndex(of: baseCode),
+           idx < chapterIndex.chaptermapsubchapter.count {
+            return chapterIndex.chaptermapsubchapter[idx]
+        }
+        // Fallback to navTitle to avoid empty UI if mapping not found
+        return navTitle
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
@@ -294,14 +308,10 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             content = ContentPage()
             content.name = titlelabel
             content.url = uniqueAddress
-            content.chapterParent = navTitle
+            // Set chapterParent using ChapterIndex mapping (not navTitle)
+            content.chapterParent = resolvedChapterParent(for: uniqueAddress)
             content.lastOpened = Date()
             content.openedTimes += 1
-            // Add it to Realm
-//            try! realm.write
-//                    {
-//            realm.add(content)
-//                    }
             RealmHelper.sharedInstance.save(content) { saved in
                 //
             }
@@ -323,7 +333,8 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             let currentAccessedContent = ContentAccess()
             currentAccessedContent.name = titlelabel
             currentAccessedContent.url = uniqueAddress
-            currentAccessedContent.chapterParent = navTitle
+            // Set chapterParent using ChapterIndex mapping (not navTitle)
+            currentAccessedContent.chapterParent = resolvedChapterParent(for: uniqueAddress)
             currentAccessedContent.date = Date()
             RealmHelper.sharedInstance.save(currentAccessedContent) { [weak self] saved in
                 //
@@ -334,7 +345,6 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
                 }
             }
             
-//            content.isHistory = true // This statement is useless unless I also change the variable when content is history gets refreshed
         } else {
             // Should move entry to the top of the history list...
             let newAccessed = lastAccessed.filter("url == '\(content.url)'")
@@ -808,6 +818,9 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     @IBAction func toggleFavorite(_ sender: UIButton){
         let windowScene = UIApplication.shared.connectedScenes.first as! UIWindowScene
         let sceneDelegate = windowScene.delegate as! SceneDelegate
+        
+        print("CONTENT")
+        print(content)
         
         if let window = sceneDelegate.window
         {
@@ -1535,3 +1548,4 @@ extension WebViewViewController: UISearchBarDelegate {
         }
     }
 }
+
