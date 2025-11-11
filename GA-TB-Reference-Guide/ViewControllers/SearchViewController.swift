@@ -501,25 +501,48 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 					cell.contentLabel.text = "..." + String(chartResults[indexPath.row][startRange..<endRange]) + "..."
 
 					if let chartName = cell.subchapterLabel.text,
-						chartName.range(of: #"^Table \d+:"#, options: .regularExpression) != nil {
+                       chartName
+                        .range(
+                            of: #"^Table \d+:"#,
+                            options: .regularExpression
+                        ) != nil || chartName
+                        .range(
+                            of: #"^Figure 1."#,
+                            options: .regularExpression
+                        ) != nil {
 						cell.chapterIcon.image = UIImage(named: "icChartGreen")
 					} else {
 						cell.chapterIcon.image = UIImage(named: "icChapterBlue")
 					}
 				} else if showChapters {
-					let subchapterNameIndex = tempChaptersHTML.firstIndex(of: chapterResults[indexPath.row]) ?? 0
+					// Safely resolve index into tempChaptersHTML, then map to names/labels only if within bounds
+					guard indexPath.row < chapterResults.count else { return cell }
+					guard let subchapterNameIndex = tempChaptersHTML.firstIndex(of: chapterResults[indexPath.row]) else {
+						// If the filtered result cannot be mapped back, clear labels to avoid crash
+						cell.subchapterLabel.text = ""
+						cell.chapterLabel.text = ""
+						cell.contentLabel.text = ""
+						cell.chapterIcon.image = UIImage(named: "icChapterBlue")
+						return cell
+					}
 					
-					cell.subchapterLabel.text = chapterIndex.subChapterNames[subchapterNameIndex]
+					if chapterIndex.subChapterNames.indices.contains(subchapterNameIndex) {
+						cell.subchapterLabel.text = chapterIndex.subChapterNames[subchapterNameIndex]
+					} else {
+						cell.subchapterLabel.text = ""
+					}
+					
 					if chapterIndex.chaptermapsubchapter.indices.contains(subchapterNameIndex) {
 						cell.chapterLabel.text = chapterIndex.chaptermapsubchapter[subchapterNameIndex]
 					} else {
 						cell.chapterLabel.text = ""
 					}
 					
-					let TSTrange = chapterResults[indexPath.row].lowercased().range(of: searchTerm.lowercased())
-					let startRange = chapterResults[indexPath.row].index(TSTrange?.lowerBound ?? chapterResults[indexPath.row].startIndex, offsetBy: -30, limitedBy: chapterResults[indexPath.row].startIndex) ?? chapterResults[indexPath.row].startIndex
-					let endRange = chapterResults[indexPath.row].index(TSTrange?.lowerBound ?? chapterResults[indexPath.row].endIndex, offsetBy: 90, limitedBy: chapterResults[indexPath.row].endIndex) ?? chapterResults[indexPath.row].endIndex
-					cell.contentLabel.text = "..." + String(chapterResults[indexPath.row][startRange..<endRange]) + "..."
+					let text = chapterResults[indexPath.row]
+					let TSTrange = text.lowercased().range(of: searchTerm.lowercased())
+					let startRange = text.index(TSTrange?.lowerBound ?? text.startIndex, offsetBy: -30, limitedBy: text.startIndex) ?? text.startIndex
+					let endRange = text.index(TSTrange?.lowerBound ?? text.endIndex, offsetBy: 90, limitedBy: text.endIndex) ?? text.endIndex
+					cell.contentLabel.text = "..." + String(text[startRange..<endRange]) + "..."
 					cell.chapterIcon.image = UIImage(named: "icChapterBlue")
 				} else {
 					let subchapterNameIndex = tempHTML.firstIndex(of: allSearchResults[indexPath.row]) ?? 0
@@ -538,7 +561,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 
 						// Check if the chart name starts with "Table X:" where X is an integer
 					if let chartName = cell.subchapterLabel.text,
-						chartName.range(of: #"^Table \d+:"#, options: .regularExpression) != nil {
+						chartName.range(of: #"^Table \d+:"#, options: .regularExpression) != nil || chartName
+                        .range(
+                            of: #"^Figure 1."#,
+                            options: .regularExpression
+                        ) != nil {
 						cell.chapterIcon.image = UIImage(named: "icChartGreen")
 					} else {
 							// Invalid format (does not start with "Table X:")
@@ -584,7 +611,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                         case (true, _):
                             subArrayPointer = tempChartsHTML.firstIndex(of: chartResults[indexPath.row]) ?? 0
                         case (_, true):
-                            subArrayPointer = tempChaptersHTML.firstIndex(of: chapterResults[indexPath.row]) ?? 0
+                            // Safely derive pointer for chapters only
+                            if indexPath.row < chapterResults.count,
+                               let idx = tempChaptersHTML.firstIndex(of: chapterResults[indexPath.row]) {
+                                subArrayPointer = idx
+                            } else {
+                                tableView.deselectRow(at: indexPath, animated: true)
+                                return
+                            }
                         default:
                             subArrayPointer = tempHTML.firstIndex(of: allSearchResults[indexPath.row]) ?? 0
                     }
@@ -594,9 +628,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                 }
                 
                 // FIX: Use charts mapping for charts
-                navTitle = showCharts
-                    ? (chapterIndex.chartmapsubchapter.indices.contains(subArrayPointer) ? chapterIndex.chartmapsubchapter[subArrayPointer] : "")
-                    : (chapterIndex.chaptermapsubchapter.indices.contains(subArrayPointer) ? chapterIndex.chaptermapsubchapter[subArrayPointer] : "")
+                if showCharts {
+                    navTitle = chapterIndex.chartmapsubchapter.indices.contains(subArrayPointer) ? chapterIndex.chartmapsubchapter[subArrayPointer] : ""
+                } else {
+                    navTitle = chapterIndex.chaptermapsubchapter.indices.contains(subArrayPointer) ? chapterIndex.chaptermapsubchapter[subArrayPointer] : ""
+                }
             
                 addRecentSearch(searchTerm: searchTerm)
 
@@ -605,7 +641,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                     "search": (searchTerm) as String,
                 ])
                 
-                PendoManager.shared().track("search", properties: ["searchTerm": searchTerm, "selectedResult": chapterIndex.subChapterNames[subArrayPointer]])
+                let safeIndex = min(subArrayPointer, max(0, chapterIndex.subChapterNames.count - 1))
+                PendoManager.shared().track("search", properties: ["searchTerm": searchTerm, "selectedResult": chapterIndex.subChapterNames.indices.contains(safeIndex) ? chapterIndex.subChapterNames[safeIndex] : ""])
                 
                 performSegue(withIdentifier: "SegueToWebViewViewController", sender: nil)
             } else if tableView == self.searchSuggestionsTableView {
@@ -767,6 +804,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                 case (true, _):
                     let chartCodes = Array(chapterIndex.chartCode.joined())
                     let chartNested = Array(chapterIndex.chartNested.joined())
+                    guard subArrayPointer < chartCodes.count,
+                          subArrayPointer < chartNested.count,
+                          subArrayPointer < chapterIndex.chartmapsubchapter.count else {
+                        return
+                    }
                     url = Bundle.main.url(forResource: chartCodes[subArrayPointer], withExtension: "html")!
                     titleLabel = chartNested[subArrayPointer]
                     uniqueAddress = chartCodes[subArrayPointer]
@@ -774,6 +816,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                 case (_, true):
                     let chapterCodes = Array(chaptersOnly.joined())
                     let chapterNested = Array(chapterIndex.chapterNested.joined())
+                    guard subArrayPointer < chapterCodes.count,
+                          subArrayPointer < chapterNested.count else {
+                        return
+                    }
                     url = getFileURL(for: chapterCodes[subArrayPointer])
                     titleLabel = chapterNested[subArrayPointer]
                     uniqueAddress = chapterCodes[subArrayPointer]
@@ -781,6 +827,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                 default:
                     let chapterCodes = Array(chapterIndex.chapterCode.joined())
                     let chapterNested = Array(chapterIndex.chapterNested.joined())
+                    guard subArrayPointer < chapterCodes.count,
+                          subArrayPointer < chapterNested.count else {
+                        return
+                    }
                     url = getFileURL(for: chapterCodes[subArrayPointer])
                     titleLabel = chapterNested[subArrayPointer]
                     uniqueAddress = chapterCodes[subArrayPointer]
