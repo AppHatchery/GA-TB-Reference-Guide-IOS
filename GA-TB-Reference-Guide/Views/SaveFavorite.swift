@@ -113,8 +113,8 @@ class SaveFavorite: UIView {
             nameField.text = subChapter.favoriteName
             bookmarkSourceField.text = subChapter.chapterParent
             
-            cancelButton.setTitle("Delete Bookmark", for: .normal)
-            saveButton.setTitle("Save Changes", for: .normal)
+            cancelButton.setTitle("Delete", for: .normal)
+            saveButton.setTitle("Save", for: .normal)
             cancelButton.addTarget(self, action: #selector(self.deleteButtonPressed), for: .touchUpInside)
         } else {
             nameField.text = currentTitle
@@ -151,15 +151,10 @@ class SaveFavorite: UIView {
     //------------------------------------------------------------------------------
     @objc func deleteButtonPressed()
     {
-        UIView.animate(
- withDuration: 0.25,
- delay: 0.0,
- options: UIView.AnimationOptions(),
- animations: {
+        UIView.animate(withDuration: 0.25, delay: 0.0, options: UIView.AnimationOptions(), animations: {
             self.overlayView.alpha = 0
             self.contentView.transform = CGAffineTransform( scaleX: 0.001, y: 0.001 )
-        },
- completion: { (value: Bool) in
+        }, completion: { (value: Bool) in
             self.delegate.didRemoveFavorite()
             self.removeFromSuperview()
         })

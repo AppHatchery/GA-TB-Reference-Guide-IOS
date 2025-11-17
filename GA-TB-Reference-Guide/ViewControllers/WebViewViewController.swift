@@ -271,11 +271,16 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             try? realm?.write {
                 userSettings.fontSize = fontNumber
             }
-            webView.reload()
+            
+            UIView.animate(withDuration: 0.20, animations: {
+                self.webView.alpha = 0
+            }) { _ in
+                self.webView.reload()
+            }
         }
     }
     
-    private func applyFontSizeWithIconScaling(fontSize: Int) {
+    private func applyIconAndParagraphScaling(fontSize: Int) {
         // Compute scale factor relative to 125% baseline (matching Android)
         let scaleFactor = Double(fontSize) / 125.0
         let iconPx = 16.0 * scaleFactor
@@ -291,15 +296,6 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         let ukWidthPxStr = String(format: "%.2f", ukWidthPx)
         let ukTopPxStr = String(format: "%.2f", ukTopPx)
         let ukRadiusPxStr = String(format: "%.2f", ukRadiusPx)
-        
-        // Apply text zoom first
-        let textSize = fontSize >= 75 ? fontSize : 100
-        let javascript = "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '\(textSize)%'"
-        webView.evaluateJavaScript(javascript) { (response, error) in
-            if let error = error {
-                print("Error applying text zoom: \(error)")
-            }
-        }
         
         // 1) Set CSS variable consumed by .ic_chapter_icon in style.css (which uses !important)
         let setVar = """
@@ -402,7 +398,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         """
         
         // Execute all JavaScript on the WebView with a small delay to ensure DOM is ready
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now()) { [weak self] in
             guard let self = self else { return }
             
             self.webView.evaluateJavaScript(setVar) { result, error in
@@ -1150,7 +1146,11 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             webView.evaluateJavaScript(jsString2, completionHandler: nil)
             webView.evaluateJavaScript(js3, completionHandler: nil)
             
-            // Apply font size and icon scaling after CSS is loaded
+            UIView.animate(withDuration: 0.20) {
+                self.webView.alpha = 1
+            }
+            
+            // Apply font size - this sets the text zoom
             let textSize = fontNumber >= 75 ? fontNumber : 100
             let javascript = "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '\(textSize)%'"
             webView.evaluateJavaScript(javascript) { (response, error) in
@@ -1164,8 +1164,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
                 highlightSearch(term: searchTerm)
             }
             
-            // Apply icon and paragraph scaling after page loads
-            applyFontSizeWithIconScaling(fontSize: fontNumber)
+            applyIconAndParagraphScaling(fontSize: fontNumber)
             
         } else {
             print("outside the app, don't apply styling")

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24128" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24063"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -28,22 +28,25 @@
                     <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cMP-nW-TaN" userLabel="contentView">
-                            <rect key="frame" x="46" y="340" width="301" height="172"/>
+                            <rect key="frame" x="46" y="352" width="301" height="148"/>
                             <subviews>
                                 <stackView autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="QZW-rT-eOR" userLabel="Vertical Stack View">
-                                    <rect key="frame" x="19" y="29" width="263.66666666666669" height="112"/>
+                                    <rect key="frame" x="19" y="16" width="263.66666666666669" height="116"/>
                                     <subviews>
                                         <stackView autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="cWL-ug-pEm">
                                             <rect key="frame" x="0.0" y="0.0" width="263.66666666666669" height="24"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Font Size Settings" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pve-OY-1MR">
-                                                    <rect key="frame" x="0.0" y="0.0" width="218" height="24"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="238.66666666666666" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V6k-2v-hAl" userLabel="closePopUpButton">
-                                                    <rect key="frame" x="218" y="0.0" width="45.666666666666686" height="24"/>
+                                                    <rect key="frame" x="238.66666666666669" y="0.0" width="25" height="24"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="25" id="g8N-8o-bzI"/>
+                                                    </constraints>
                                                     <color key="tintColor" name="colorPrimary"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                     <state key="normal" image="icClose">
@@ -65,7 +68,7 @@
                                             </subviews>
                                         </stackView>
                                         <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1.1000000000000001" minValue="0.75" maxValue="1.75" continuous="NO" minimumValueImage="icFontSmall" maximumValueImage="icFontLarge" translatesAutoresizingMaskIntoConstraints="NO" id="BIX-sI-gyR" userLabel="fontSlider">
-                                            <rect key="frame" x="-2" y="44" width="267.66666666666669" height="31"/>
+                                            <rect key="frame" x="0.0" y="44" width="263.66666666666669" height="34"/>
                                             <color key="tintColor" name="colorPrimary"/>
                                             <color key="maximumTrackTintColor" systemColor="systemGray5Color"/>
                                             <connections>
@@ -73,7 +76,7 @@
                                             </connections>
                                         </slider>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Font Size: Regular" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hQ7-4Q-c1Y">
-                                            <rect key="frame" x="0.0" y="94" width="263.66666666666669" height="18"/>
+                                            <rect key="frame" x="0.0" y="98" width="263.66666666666669" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -89,8 +92,8 @@
                             </subviews>
                             <color key="backgroundColor" name="backgroundColor"/>
                             <constraints>
-                                <constraint firstItem="QZW-rT-eOR" firstAttribute="top" secondItem="cMP-nW-TaN" secondAttribute="top" constant="29" id="01d-dS-b9x"/>
-                                <constraint firstAttribute="bottom" secondItem="QZW-rT-eOR" secondAttribute="bottom" constant="30.670000000000002" id="A2A-3e-04K"/>
+                                <constraint firstItem="QZW-rT-eOR" firstAttribute="top" secondItem="cMP-nW-TaN" secondAttribute="top" constant="16" id="01d-dS-b9x"/>
+                                <constraint firstAttribute="bottom" secondItem="QZW-rT-eOR" secondAttribute="bottom" constant="16" id="A2A-3e-04K"/>
                                 <constraint firstAttribute="trailing" secondItem="QZW-rT-eOR" secondAttribute="trailing" constant="18.329999999999998" id="Mh8-Z4-PWS"/>
                                 <constraint firstItem="QZW-rT-eOR" firstAttribute="leading" secondItem="cMP-nW-TaN" secondAttribute="leading" constant="19" id="Wi4-be-mxj"/>
                             </constraints>

@@ -188,17 +188,23 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
             
             let chapterName = favoriteNames[indexPath.row]
             let tablePattern = "^Table\\s+\\d+:"
+            let figurePattern = "^Figure\\s+\\d+\\:"
             
             if let regex = try? NSRegularExpression(pattern: tablePattern, options: []),
-                       regex.firstMatch(in: chapterName, options: [], range: NSRange(location: 0, length: chapterName.utf16.count)) != nil {
-                        // It's a table chapter
-                        cell.sideView.backgroundColor = .colorGreen
-                        cell.chapterIcon.image = UIImage(named: "icChartGreen")
-                    } else {
-                        // It's a regular chapter
-                        cell.sideView.backgroundColor = .colorPrimary
-                        cell.chapterIcon.image = UIImage(named: "icChapterBlue")
-                    }
+                   regex.firstMatch(in: chapterName, options: [], range: NSRange(location: 0, length: chapterName.utf16.count)) != nil {
+                    // It's a table chapter
+                    cell.sideView.backgroundColor = .colorGreen
+                    cell.chapterIcon.image = UIImage(named: "icChartGreen")
+                } else if let regexFigure = try? NSRegularExpression(pattern: figurePattern, options: []),
+                        regexFigure.firstMatch(in: chapterName, options: [], range: NSRange(location: 0, length: chapterName.utf16.count)) != nil {
+                  // It's a figure chapter
+                    cell.sideView.backgroundColor = .colorGreen
+                  cell.chapterIcon.image = UIImage(named: "icChartGreen")
+              } else {
+                  // It's a regular chapter
+                cell.sideView.backgroundColor = .colorPrimary
+                cell.chapterIcon.image = UIImage(named: "icChapterBlue")
+            }
             cell.accessoryType = .none
 
             tableViewCells[indexPath.row] = cell
