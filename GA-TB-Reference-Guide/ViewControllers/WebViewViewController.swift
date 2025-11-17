@@ -274,6 +274,168 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             webView.reload()
         }
     }
+    
+    private func applyFontSizeWithIconScaling(fontSize: Int) {
+        // Compute scale factor relative to 125% baseline (matching Android)
+        let scaleFactor = Double(fontSize) / 125.0
+        let iconPx = 16.0 * scaleFactor
+        let iconPxStr = String(format: "%.2f", iconPx)
+        
+        // Compute scaled metrics for the decorative line used by `.uk-paragraph`
+        let remBasePx = 16.0 // 1rem baseline
+        let ukHeightPx = 2.0 * remBasePx * scaleFactor      // was 2rem
+        let ukWidthPx = 0.5 * remBasePx * scaleFactor       // was 0.5rem
+        let ukTopPx = -0.25 * remBasePx * scaleFactor       // was -0.25rem
+        let ukRadiusPx = 0.25 * remBasePx * scaleFactor     // was 0.25rem
+        let ukHeightPxStr = String(format: "%.2f", ukHeightPx)
+        let ukWidthPxStr = String(format: "%.2f", ukWidthPx)
+        let ukTopPxStr = String(format: "%.2f", ukTopPx)
+        let ukRadiusPxStr = String(format: "%.2f", ukRadiusPx)
+        
+        // Apply text zoom first
+        let textSize = fontSize >= 75 ? fontSize : 100
+        let javascript = "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '\(textSize)%'"
+        webView.evaluateJavaScript(javascript) { (response, error) in
+            if let error = error {
+                print("Error applying text zoom: \(error)")
+            }
+        }
+        
+        // 1) Set CSS variable consumed by .ic_chapter_icon in style.css (which uses !important)
+        let setVar = """
+            (function(){
+                try {
+                    var size='\(iconPxStr)px';
+                    document.documentElement.style.setProperty('--chapter-icon-size', size);
+                } catch(e) { console.log('Error setting CSS var:', e); }
+            })();
+        """
+        
+        // 2) Ensure chapter icon image gets the class so the CSS rule applies, without touching other content images
+        let tagIcons = """
+            (function(){
+                try {
+                    var nodes = document.querySelectorAll('img[src$="ic_chapter.svg"], img[src*="/ic_chapter.svg"], img[src*="ic_chapter.svg"]');
+                    console.log('Found', nodes.length, 'chapter icons');
+                    nodes.forEach(function(n){
+                        if(n.classList && !n.classList.contains('ic_chapter_icon')) n.classList.add('ic_chapter_icon');
+                    });
+                } catch(e) { console.log('Error tagging icons:', e); }
+            })();
+        """
+        
+        // 3) Inject an explicit override rule with !important placed after external CSS
+        let injectOverride = """
+            (function(){
+                 try {
+                     var style = document.getElementById('chapter-icon-override');
+                     if(!style){
+                         style = document.createElement('style');
+                         style.id = 'chapter-icon-override';
+                         document.head.appendChild(style);
+                     }
+                     var size='\(iconPxStr)px';
+                     style.textContent = '.ic_chapter_icon{width:'+size+' !important;height:'+size+' !important;}';
+                     console.log('Injected icon override style:', size);
+                 } catch(e) { console.log('Error injecting override:', e); }
+            })();
+        """
+        
+        // 4) Also apply inline size and attributes so pages missing style.css still resize correctly
+        let sizeIcons = """
+            (function(){
+                 try {
+                     var cssSize='\(iconPxStr)px';
+                     var attrSize='\(iconPxStr)';
+                     var nodes = document.querySelectorAll('img[src$="ic_chapter.svg"], img[src*="/ic_chapter.svg"], img[src*="ic_chapter.svg"]');
+                     console.log('Sizing', nodes.length, 'icons to', cssSize);
+                     nodes.forEach(function(n){
+                         // Ensure the parent wrapper also reserves space for the icon
+                         var p = n.parentElement;
+                         if (p) {
+                             p.style.width = cssSize;
+                             p.style.height = cssSize;
+                             p.style.flex = '0 0 auto';
+                         }
+                         // Apply explicit sizing on the image
+                         n.style.display = 'inline-block';
+                         n.style.width = cssSize;
+                         n.style.height = cssSize;
+                         n.style.maxWidth = cssSize;
+                         n.style.maxHeight = cssSize;
+                         if (n.setAttribute) {
+                             n.setAttribute('width', attrSize);
+                             n.setAttribute('height', attrSize);
+                         }
+                     });
+                 } catch(e) { console.log('Error sizing icons:', e); }
+            })();
+        """
+        
+        // 5) Scale the decorative line for paragraphs `.uk-paragraph::before` to match text zoom
+        let paragraphOverride = """
+            (function(){
+                 try {
+                     var style = document.getElementById('uk-paragraph-override');
+                     if(!style){
+                         style = document.createElement('style');
+                         style.id = 'uk-paragraph-override';
+                         document.head.appendChild(style);
+                     }
+                     var h='\(ukHeightPxStr)px';
+                     var w='\(ukWidthPxStr)px';
+                     var t='\(ukTopPxStr)px';
+                     var r='\(ukRadiusPxStr)px';
+                     style.textContent = ''+
+                       '.uk-paragraph{position: relative;}'+
+                       '.uk-paragraph::before{'+
+                         'content:""; position:absolute; left:0; '+
+                         'top:'+t+' !important; '+
+                         'height:'+h+' !important; '+
+                         'width:'+w+' !important; '+
+                         'background-color: var(--primary-color); '+
+                         'border-radius:'+r+' !important;'+
+                       '}';
+                     console.log('Applied paragraph override');
+                 } catch(e) { console.log('Error with paragraph override:', e); }
+            })();
+        """
+        
+        // Execute all JavaScript on the WebView with a small delay to ensure DOM is ready
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0) { [weak self] in
+            guard let self = self else { return }
+            
+            self.webView.evaluateJavaScript(setVar) { result, error in
+                if let error = error {
+                    print("setVar error: \(error)")
+                }
+            }
+            
+            self.webView.evaluateJavaScript(tagIcons) { result, error in
+                if let error = error {
+                    print("tagIcons error: \(error)")
+                }
+            }
+            
+            self.webView.evaluateJavaScript(injectOverride) { result, error in
+                if let error = error {
+                    print("injectOverride error: \(error)")
+                }
+            }
+            
+            self.webView.evaluateJavaScript(sizeIcons) { result, error in
+                if let error = error {
+                    print("sizeIcons error: \(error)")
+                }
+            }
+            
+            self.webView.evaluateJavaScript(paragraphOverride) { result, error in
+                if let error = error {
+                    print("paragraphOverride error: \(error)")
+                }
+            }
+        }
+    }
         
     deinit {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name("FontSizeChanged"), object: nil)
@@ -984,10 +1146,11 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             // Could potentially replace this with just the link to the file rather than having to convert it to string, save some computational power
             let jsString2 = "var style2 = document.createElement('style'); style2.innerHTML = '\(cssString2)'; document.head.appendChild(style2);"
             
-//            webView.evaluateJavaScript(jsString, completionHandler: nil)
             let js3 = "var script2 = document.createElement('script'); script2.src = 'uikit-icons.js'; document.body.appendChild(script2);"
             webView.evaluateJavaScript(jsString2, completionHandler: nil)
             webView.evaluateJavaScript(js3, completionHandler: nil)
+            
+            // Apply font size and icon scaling after CSS is loaded
             let textSize = fontNumber >= 75 ? fontNumber : 100
             let javascript = "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '\(textSize)%'"
             webView.evaluateJavaScript(javascript) { (response, error) in
@@ -995,17 +1158,14 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             }
             
             // AUTO-EXPAND TOGGLES WHEN COMING FROM SEARCH
-//            if comingFromSearch {
-//                expandAllToggles()
-//            }
-            
             expandAllToggles()
             
             if let searchTerm = searchTerm {
                 highlightSearch(term: searchTerm)
             }
             
-            
+            // Apply icon and paragraph scaling after page loads
+            applyFontSizeWithIconScaling(fontSize: fontNumber)
             
         } else {
             print("outside the app, don't apply styling")
