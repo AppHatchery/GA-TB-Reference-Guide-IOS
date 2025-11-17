@@ -25,15 +25,15 @@
                 <outlet property="submitAsFeedbackSwitch" destination="0Pa-GR-tpX" id="BFm-Vg-mPb"/>
                 <outlet property="tagLabel" destination="FGh-If-hgK" id="Thx-Gb-xzw"/>
                 <outlet property="titleLabel" destination="GAF-WP-Dmr" id="LU1-Bx-b38"/>
-                <outletCollection property="colors" destination="Wgk-Bi-65S" collectionClass="NSMutableArray" id="Oxp-UQ-tUO"/>
-                <outletCollection property="colors" destination="JHf-T0-BxQ" collectionClass="NSMutableArray" id="puq-kP-Sql"/>
-                <outletCollection property="colors" destination="xM6-J7-ikW" collectionClass="NSMutableArray" id="boc-gp-OZk"/>
-                <outletCollection property="colors" destination="Ee2-o8-UqA" collectionClass="NSMutableArray" id="DOF-fG-nNy"/>
-                <outletCollection property="colors" destination="cOr-xu-i5e" collectionClass="NSMutableArray" id="xV0-vw-pO1"/>
-                <outletCollection property="colors" destination="kJn-fv-ew8" collectionClass="NSMutableArray" id="zUY-lQ-FfZ"/>
-                <outletCollection property="colors" destination="84B-1a-sgM" collectionClass="NSMutableArray" id="J2y-Ot-nYb"/>
-                <outletCollection property="colors" destination="4MK-K4-k5g" collectionClass="NSMutableArray" id="t8s-dG-3Sy"/>
-                <outletCollection property="colors" destination="xlj-7y-kjV" collectionClass="NSMutableArray" id="Ett-TQ-pxw"/>
+                <outletCollection property="colors" destination="xlj-7y-kjV" collectionClass="NSMutableArray" id="tuc-dR-7d4"/>
+                <outletCollection property="colors" destination="cOr-xu-i5e" collectionClass="NSMutableArray" id="CQt-Ud-Txm"/>
+                <outletCollection property="colors" destination="xM6-J7-ikW" collectionClass="NSMutableArray" id="umO-W1-0ik"/>
+                <outletCollection property="colors" destination="Wgk-Bi-65S" collectionClass="NSMutableArray" id="nB5-z8-R62"/>
+                <outletCollection property="colors" destination="Ee2-o8-UqA" collectionClass="NSMutableArray" id="cqb-Ib-yCX"/>
+                <outletCollection property="colors" destination="4MK-K4-k5g" collectionClass="NSMutableArray" id="6Bz-9G-ovA"/>
+                <outletCollection property="colors" destination="JHf-T0-BxQ" collectionClass="NSMutableArray" id="6bZ-CZ-lta"/>
+                <outletCollection property="colors" destination="84B-1a-sgM" collectionClass="NSMutableArray" id="b37-fU-cAt"/>
+                <outletCollection property="colors" destination="kJn-fv-ew8" collectionClass="NSMutableArray" id="sgi-t0-mkj"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

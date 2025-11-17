@@ -1402,25 +1402,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
                 self.addNoteDialogView.overlayView.alpha = 0.5
                 self.addNoteDialogView.contentView.transform = CGAffineTransform( scaleX: 1.0, y: 1.0 )
             }, completion: { (value: Bool) in
-                // Load the correct button sizes and shapes
-                for button in self.addNoteDialogView.colors {
-                    button.layer.cornerRadius = button.frame.width/2
-                }
-
-                self.addNoteDialogView.highlightedColor = UIView(frame: self.addNoteDialogView.colors[0].bounds)
-                self.addNoteDialogView.highlightedColor.frame.origin.x -= 3
-                self.addNoteDialogView.highlightedColor.frame.origin.y -= 3
-                self.addNoteDialogView.highlightedColor.frame.size.width += 6
-                self.addNoteDialogView.highlightedColor.frame.size.height += 6
-
-                self.addNoteDialogView.highlightedColor.layer.cornerRadius = self.addNoteDialogView.highlightedColor.frame.width/2
-            
-                self.addNoteDialogView.highlightedColor.backgroundColor = UIColor.clear
-                self.addNoteDialogView.highlightedColor.layer.borderWidth = 1.5
-                self.addNoteDialogView.highlightedColor.layer.borderColor = UIColor.systemBlue.cgColor
-                self.addNoteDialogView.highlightedColor.layer.cornerRadius = self.addNoteDialogView.highlightedColor.frame.width/2
-                // Defaulting to black color selected
-                self.addNoteDialogView.colors[self.note.colorTag].addSubview(self.addNoteDialogView.highlightedColor)
+                
             })
             
             let customView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))

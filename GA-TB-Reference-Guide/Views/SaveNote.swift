@@ -34,6 +34,7 @@ class SaveNote: UIView {
     @IBOutlet weak var dialogRightConstraint: NSLayoutConstraint!
     
     @IBOutlet var colors: [UIButton]!
+
     @IBOutlet weak var submitAsFeedbackSwitch: UISwitch!
     @IBOutlet weak var submitAsFeedbackLabel: UILabel!
     
@@ -109,21 +110,34 @@ class SaveNote: UIView {
         cancelButton.addTarget(self, action: #selector(self.cancelButtonPressed), for: .touchUpInside)
         
         for button in colors {
+            button.layer.cornerRadius = button.frame.width/2
             button.addTarget(self, action: #selector(self.pickColor), for: .touchDown)
         }
+        
         highlightedColor = UIView(frame: colors[0].bounds)
+        highlightedColor.frame.origin.x -= 3
+        highlightedColor.frame.origin.y -= 3
+        highlightedColor.frame.size.width += 6
+        highlightedColor.frame.size.height += 6
+        highlightedColor.layer.cornerRadius = highlightedColor.frame.width/2
+        highlightedColor.backgroundColor = UIColor.clear
+        highlightedColor.layer.borderWidth = 1.5
+        highlightedColor.layer.borderColor = UIColor.systemBlue.cgColor
+        highlightedColor.isUserInteractionEnabled = false
         
         if note.savedToRealm == true {
             titleLabel.text = "Edit Note"
             noteField.text = note.content
             colors[note.colorTag].addSubview(highlightedColor)
-            highlightedColor.isUserInteractionEnabled = false
             colorTagChosen = note.colorTag
             cancelButton.setTitle("Delete", for: .normal)
             saveButton.setTitle("Update", for: .normal)
             cancelButton.addTarget(self, action: #selector(self.deleteButtonPressed), for: .touchUpInside)
             submitAsFeedbackSwitch.isOn = false
             feedbackStackView.isHidden = true
+        } else {
+            colors[0].addSubview(highlightedColor)
+            colorTagChosen = 0
         }
     }
     
