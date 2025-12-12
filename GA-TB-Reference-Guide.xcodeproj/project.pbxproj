@@ -1396,7 +1396,7 @@
 			repositoryURL = "https://github.com/pendo-io/pendo-mobile-ios";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 3.3.0;
+				minimumVersion = 3.9.2;
 			};
 		};
 		D46BECD52756E5BB000D8553 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
