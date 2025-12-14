@@ -14,7 +14,6 @@
 		B401CE632C5BD8C300149414 /* RecentSearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B401CE612C5BD8C300149414 /* RecentSearchTableViewCell.xib */; };
 		B40EA6862DF2F13E00B72567 /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40EA6852DF2F13E00B72567 /* UITextField+Extensions.swift */; };
 		B40EA6F42C46B90400C03A12 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B40EA6F32C46B90400C03A12 /* UserNotifications.framework */; };
-		B40FEDE92DF085A600FBEBB7 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = B40FEDE82DF085A600FBEBB7 /* main.js */; };
 		B40FEE032DF0898700FBEBB7 /* considerations_image_1.png in Resources */ = {isa = PBXBuildFile; fileRef = B40FEDF12DF0898700FBEBB7 /* considerations_image_1.png */; };
 		B40FEE042DF0898700FBEBB7 /* chapter_1_image_3.png in Resources */ = {isa = PBXBuildFile; fileRef = B40FEDEE2DF0898700FBEBB7 /* chapter_1_image_3.png */; };
 		B40FEE052DF0898700FBEBB7 /* image_3.png in Resources */ = {isa = PBXBuildFile; fileRef = B40FEDFB2DF0898700FBEBB7 /* image_3.png */; };
@@ -48,14 +47,89 @@
 		B47FDDAE2E967E8900CC4C7B /* CustomPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47FDDAD2E967E8900CC4C7B /* CustomPopUp.swift */; };
 		B47FDDB02E967E9800CC4C7B /* CustomPopUp.xib in Resources */ = {isa = PBXBuildFile; fileRef = B47FDDAF2E967E9800CC4C7B /* CustomPopUp.xib */; };
 		B4847B502E92BE56006DE174 /* ic_chapter.svg in Resources */ = {isa = PBXBuildFile; fileRef = B4847B4F2E92BE56006DE174 /* ic_chapter.svg */; };
-		B4847B612E92C9BC006DE174 /* 11_community_tuberculosis_control.html in Resources */ = {isa = PBXBuildFile; fileRef = B4847B5F2E92C9BC006DE174 /* 11_community_tuberculosis_control.html */; };
-		B4847B622E92C9BC006DE174 /* 11_community_tuberculosis_control__a__tb_surveillance_in_georgia.html in Resources */ = {isa = PBXBuildFile; fileRef = B4847B602E92C9BC006DE174 /* 11_community_tuberculosis_control__a__tb_surveillance_in_georgia.html */; };
-		B4847B752E92D10F006DE174 /* 11_community_tuberculosis_control__d__role_of_the_health_department.html in Resources */ = {isa = PBXBuildFile; fileRef = B4847B712E92D10F006DE174 /* 11_community_tuberculosis_control__d__role_of_the_health_department.html */; };
-		B4847B762E92D10F006DE174 /* 11_community_tuberculosis_control__c__tb_case_definitions_for_public_health_surveillance.html in Resources */ = {isa = PBXBuildFile; fileRef = B4847B702E92D10F006DE174 /* 11_community_tuberculosis_control__c__tb_case_definitions_for_public_health_surveillance.html */; };
-		B4847B772E92D10F006DE174 /* 11_community_tuberculosis_control__b__how_to_report_tb_as_a_notifiable_disease.html in Resources */ = {isa = PBXBuildFile; fileRef = B4847B6F2E92D10F006DE174 /* 11_community_tuberculosis_control__b__how_to_report_tb_as_a_notifiable_disease.html */; };
-		B4847B782E92D10F006DE174 /* 11_community_tuberculosis_control__g__curetb_program_(internation_linkage_to_tb_care).html in Resources */ = {isa = PBXBuildFile; fileRef = B4847B742E92D10F006DE174 /* 11_community_tuberculosis_control__g__curetb_program_(internation_linkage_to_tb_care).html */; };
-		B4847B792E92D10F006DE174 /* 11_community_tuberculosis_control__e__hospital_discharge_planning_for_patients_with_suspected_or_proven_tb.html in Resources */ = {isa = PBXBuildFile; fileRef = B4847B722E92D10F006DE174 /* 11_community_tuberculosis_control__e__hospital_discharge_planning_for_patients_with_suspected_or_proven_tb.html */; };
-		B4847B7A2E92D10F006DE174 /* 11_community_tuberculosis_control__f__interjurisdictional_tb_notification(ijn).html in Resources */ = {isa = PBXBuildFile; fileRef = B4847B732E92D10F006DE174 /* 11_community_tuberculosis_control__f__interjurisdictional_tb_notification(ijn).html */; };
+		B4C348482EEF2D7000B11877 /* hello_and_welcome_clinical_statement.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348322EEF2D7000B11877 /* hello_and_welcome_clinical_statement.html */; };
+		B4C348492EEF2D7000B11877 /* table_9_pediatric_dosage_isoniazid_in_children_(birth_to_15_years).html in Resources */ = {isa = PBXBuildFile; fileRef = B4C3483D2EEF2D7000B11877 /* table_9_pediatric_dosage_isoniazid_in_children_(birth_to_15_years).html */; };
+		B4C3484A2EEF2D7000B11877 /* table_17_use_of_anti-tb_medications_in_special_situations_pregnancy_tuberculosis_meningitis_and_renal_failure.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348452EEF2D7000B11877 /* table_17_use_of_anti-tb_medications_in_special_situations_pregnancy_tuberculosis_meningitis_and_renal_failure.html */; };
+		B4C3484B2EEF2D7000B11877 /* 3_treatment_of_latent_tb_infection_(ltbi)__b__monitoring_of_patients_on_treatment_for_ltbi.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348022EEF2D7000B11877 /* 3_treatment_of_latent_tb_infection_(ltbi)__b__monitoring_of_patients_on_treatment_for_ltbi.html */; };
+		B4C3484C2EEF2D7000B11877 /* 6_pregnancy_and_tb__a__treatment_for_ltbi_and_risk_factors.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348152EEF2D7000B11877 /* 6_pregnancy_and_tb__a__treatment_for_ltbi_and_risk_factors.html */; };
+		B4C3484D2EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__g__medical_evaluation_after_testing_for_ltbi.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C347FE2EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__g__medical_evaluation_after_testing_for_ltbi.html */; };
+		B4C3484E2EEF2D7000B11877 /* 8_tuberculosis_and_long_term_care_facilities.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348192EEF2D7000B11877 /* 8_tuberculosis_and_long_term_care_facilities.html */; };
+		B4C3484F2EEF2D7000B11877 /* table_8_first-line_tb_drugs_dosing_for_adults_(ages_16_and_over)_directly_observed_therapy_(dot)_is_mandatory.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C3483C2EEF2D7000B11877 /* table_8_first-line_tb_drugs_dosing_for_adults_(ages_16_and_over)_directly_observed_therapy_(dot)_is_mandatory.html */; };
+		B4C348502EEF2D7000B11877 /* table_1_interpretation_criteria_for_the_quantiferon_tb_gold_plus_test.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348352EEF2D7000B11877 /* table_1_interpretation_criteria_for_the_quantiferon_tb_gold_plus_test.html */; };
+		B4C348512EEF2D7000B11877 /* 11_community_tuberculosis_control__a__tb_surveillance_in_georgia.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348212EEF2D7000B11877 /* 11_community_tuberculosis_control__a__tb_surveillance_in_georgia.html */; };
+		B4C348522EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis__a__considerations.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348052EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis__a__considerations.html */; };
+		B4C348532EEF2D7000B11877 /* 11_community_tuberculosis_control__e__hospital_discharge_planning_for_patients_with_suspected_or_proven_tb.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348252EEF2D7000B11877 /* 11_community_tuberculosis_control__e__hospital_discharge_planning_for_patients_with_suspected_or_proven_tb.html */; };
+		B4C348542EEF2D7000B11877 /* table_2_interpretation_criteria_for_the_t_spot_tb_test.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348362EEF2D7000B11877 /* table_2_interpretation_criteria_for_the_t_spot_tb_test.html */; };
+		B4C348552EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__c__special_clinical_situations.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C3480D2EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__c__special_clinical_situations.html */; };
+		B4C348562EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__d__anergy_testing.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C347FB2EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__d__anergy_testing.html */; };
+		B4C348572EEF2D7000B11877 /* 17_acknowledgements.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C3482E2EEF2D7000B11877 /* 17_acknowledgements.html */; };
+		B4C348582EEF2D7000B11877 /* 10_tb_infection_control_hospital_isolation_procedures.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C3481B2EEF2D7000B11877 /* 10_tb_infection_control_hospital_isolation_procedures.html */; };
+		B4C348592EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi).html in Resources */ = {isa = PBXBuildFile; fileRef = B4C347F72EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi).html */; };
+		B4C3485A2EEF2D7000B11877 /* 3_treatment_of_latent_tb_infection_(ltbi)__a__treatment_regimens.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348012EEF2D7000B11877 /* 3_treatment_of_latent_tb_infection_(ltbi)__a__treatment_regimens.html */; };
+		B4C3485B2EEF2D7000B11877 /* 7_childhood_tuberculosis__a__management_considerations.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348182EEF2D7000B11877 /* 7_childhood_tuberculosis__a__management_considerations.html */; };
+		B4C3485C2EEF2D7000B11877 /* 11_community_tuberculosis_control__d__role_of_the_health_department.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348242EEF2D7000B11877 /* 11_community_tuberculosis_control__d__role_of_the_health_department.html */; };
+		B4C3485D2EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__a__tuberculin_skin_test.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C347F82EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__a__tuberculin_skin_test.html */; };
+		B4C3485E2EEF2D7000B11877 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = B4C348332EEF2D7000B11877 /* main.js */; };
+		B4C3485F2EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__h__reporting_of_pediatric_positive_tests_for_ltbi.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C347FF2EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__h__reporting_of_pediatric_positive_tests_for_ltbi.html */; };
+		B4C348602EEF2D7000B11877 /* 6_pregnancy_and_tb.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348142EEF2D7000B11877 /* 6_pregnancy_and_tb.html */; };
+		B4C348612EEF2D7000B11877 /* table_15_summary_of_recommendations_for_treatment_of_active_tb_disease_in_persons_with_hiv.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348432EEF2D7000B11877 /* table_15_summary_of_recommendations_for_treatment_of_active_tb_disease_in_persons_with_hiv.html */; };
+		B4C348622EEF2D7000B11877 /* 10_tb_infection_control_hospital_isolation_procedures__b__surveillance_for_health_care_workers.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C3481D2EEF2D7000B11877 /* 10_tb_infection_control_hospital_isolation_procedures__b__surveillance_for_health_care_workers.html */; };
+		B4C348632EEF2D7000B11877 /* 11_community_tuberculosis_control__g__curetb_program_(internation_linkage_to_tb_care).html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348272EEF2D7000B11877 /* 11_community_tuberculosis_control__g__curetb_program_(internation_linkage_to_tb_care).html */; };
+		B4C348642EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__c__two_step_testing_and_the_booster_reaction.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C347FA2EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__c__two_step_testing_and_the_booster_reaction.html */; };
+		B4C348652EEF2D7000B11877 /* 6_pregnancy_and_tb__b__treatment_of_active_tb_in_pregnancy.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348162EEF2D7000B11877 /* 6_pregnancy_and_tb__b__treatment_of_active_tb_in_pregnancy.html */; };
+		B4C348662EEF2D7000B11877 /* 10_tb_infection_control_hospital_isolation_procedures__c__environmental_controls.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C3481E2EEF2D7000B11877 /* 10_tb_infection_control_hospital_isolation_procedures__c__environmental_controls.html */; };
+		B4C348672EEF2D7000B11877 /* table_13_when_to_start_hiv_therapy.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348412EEF2D7000B11877 /* table_13_when_to_start_hiv_therapy.html */; };
+		B4C348682EEF2D7000B11877 /* 12_alternative_housing_program_for_homeless_tb_patients_in_georgia.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348282EEF2D7000B11877 /* 12_alternative_housing_program_for_homeless_tb_patients_in_georgia.html */; };
+		B4C348692EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__f__tb_and_hiv.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348102EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__f__tb_and_hiv.html */; };
+		B4C3486A2EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis__b__selected_diagnostic_test_characteristics.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348062EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis__b__selected_diagnostic_test_characteristics.html */; };
+		B4C3486B2EEF2D7000B11877 /* 18_for_more_information.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C3482F2EEF2D7000B11877 /* 18_for_more_information.html */; };
+		B4C3486C2EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__b__criteria_for_a_positive_tuberculin_test_by_risk_group.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C347F92EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__b__criteria_for_a_positive_tuberculin_test_by_risk_group.html */; };
+		B4C3486D2EEF2D7000B11877 /* 11_community_tuberculosis_control__b__how_to_report_tb_as_a_notifiable_disease.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348222EEF2D7000B11877 /* 11_community_tuberculosis_control__b__how_to_report_tb_as_a_notifiable_disease.html */; };
+		B4C3486E2EEF2D7000B11877 /* 11_community_tuberculosis_control__c__tb_case_definitions_for_public_health_surveillance.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348232EEF2D7000B11877 /* 11_community_tuberculosis_control__c__tb_case_definitions_for_public_health_surveillance.html */; };
+		B4C3486F2EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C3480A2EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy.html */; };
+		B4C348702EEF2D7000B11877 /* fig1_factors_to_be_considered.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348312EEF2D7000B11877 /* fig1_factors_to_be_considered.html */; };
+		B4C348712EEF2D7000B11877 /* 7_childhood_tuberculosis.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348172EEF2D7000B11877 /* 7_childhood_tuberculosis.html */; };
+		B4C348722EEF2D7000B11877 /* 10_tb_infection_control_hospital_isolation_procedures__d__personal_respiratory_protection.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C3481F2EEF2D7000B11877 /* 10_tb_infection_control_hospital_isolation_procedures__d__personal_respiratory_protection.html */; };
+		B4C348732EEF2D7000B11877 /* 10_tb_infection_control_hospital_isolation_procedures__a__administrative_controls.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C3481C2EEF2D7000B11877 /* 10_tb_infection_control_hospital_isolation_procedures__a__administrative_controls.html */; };
+		B4C348742EEF2D7000B11877 /* table_4_recommendations_for_regimens_to_treat_latent_tuberculosis_infection.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348382EEF2D7000B11877 /* table_4_recommendations_for_regimens_to_treat_latent_tuberculosis_infection.html */; };
+		B4C348752EEF2D7000B11877 /* table_5_dosages_for_recommended_lbti_treatment_regimens.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348392EEF2D7000B11877 /* table_5_dosages_for_recommended_lbti_treatment_regimens.html */; };
+		B4C348762EEF2D7000B11877 /* table_6_ltbi_treatment_drug_adverse_reactions.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C3483A2EEF2D7000B11877 /* table_6_ltbi_treatment_drug_adverse_reactions.html */; };
+		B4C348772EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__i__treatment_of_extrapulmonary_tb.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348122EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__i__treatment_of_extrapulmonary_tb.html */; };
+		B4C348782EEF2D7000B11877 /* table_16_guidelines_for_treatment_of_extrapulmonary_tuberculosis.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348442EEF2D7000B11877 /* table_16_guidelines_for_treatment_of_extrapulmonary_tuberculosis.html */; };
+		B4C348792EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__d__drug_resistance.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C3480E2EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__d__drug_resistance.html */; };
+		B4C3487A2EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis__e__rapid_molecular_drug_susceptibility_tests_(dst).html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348092EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis__e__rapid_molecular_drug_susceptibility_tests_(dst).html */; };
+		B4C3487B2EEF2D7000B11877 /* 14_references.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C3482A2EEF2D7000B11877 /* 14_references.html */; };
+		B4C3487C2EEF2D7000B11877 /* 15_appendix_district_tb_coordinators_(by_district).html in Resources */ = {isa = PBXBuildFile; fileRef = B4C3482B2EEF2D7000B11877 /* 15_appendix_district_tb_coordinators_(by_district).html */; };
+		B4C3487D2EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__j__adjunctive_use_of_corticosteroid_therapy.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348132EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__j__adjunctive_use_of_corticosteroid_therapy.html */; };
+		B4C3487E2EEF2D7000B11877 /* table_7_recommended_regimens_for_treatment_of_adults_and_children_with_drug_susceptible_tb_pulmonary_tb.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C3483B2EEF2D7000B11877 /* table_7_recommended_regimens_for_treatment_of_adults_and_children_with_drug_susceptible_tb_pulmonary_tb.html */; };
+		B4C3487F2EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__e__interferon_y_release_assays_(igras).html in Resources */ = {isa = PBXBuildFile; fileRef = B4C347FC2EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__e__interferon_y_release_assays_(igras).html */; };
+		B4C348802EEF2D7000B11877 /* table_11_antituberculosis_medications_which_may_be_used_for_patients_who_have_contraindications_to_or_intolerance.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C3483F2EEF2D7000B11877 /* table_11_antituberculosis_medications_which_may_be_used_for_patients_who_have_contraindications_to_or_intolerance.html */; };
+		B4C348812EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__b__standard_therapy_for_current_(active)_disease.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C3480C2EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__b__standard_therapy_for_current_(active)_disease.html */; };
+		B4C348822EEF2D7000B11877 /* table_12_clinical_situations_for_which_standard_therapy_cannot_be_given_or_is_not_well_tolerated.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348402EEF2D7000B11877 /* table_12_clinical_situations_for_which_standard_therapy_cannot_be_given_or_is_not_well_tolerated.html */; };
+		B4C348832EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__h__immune_reconstitution_inflammatory_syndrome.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348112EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__h__immune_reconstitution_inflammatory_syndrome.html */; };
+		B4C348842EEF2D7000B11877 /* 11_community_tuberculosis_control.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348202EEF2D7000B11877 /* 11_community_tuberculosis_control.html */; };
+		B4C348852EEF2D7000B11877 /* table_19_grady_hospital_tb_isolation_policy.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348472EEF2D7000B11877 /* table_19_grady_hospital_tb_isolation_policy.html */; };
+		B4C348862EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis__d__laboratory_diagnosis_of_extrapulmary_tuberculosis.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348082EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis__d__laboratory_diagnosis_of_extrapulmary_tuberculosis.html */; };
+		B4C348872EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__f__targeted_testing_and_diagnostic_tests_for_ltbi.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C347FD2EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__f__targeted_testing_and_diagnostic_tests_for_ltbi.html */; };
+		B4C348882EEF2D7000B11877 /* 1_epidemiology.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C347F62EEF2D7000B11877 /* 1_epidemiology.html */; };
+		B4C348892EEF2D7000B11877 /* quote.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348342EEF2D7000B11877 /* quote.html */; };
+		B4C3488A2EEF2D7000B11877 /* table_10_antituberculosis_antibiotics_in_adult_patients_with_renal_impairment.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C3483E2EEF2D7000B11877 /* table_10_antituberculosis_antibiotics_in_adult_patients_with_renal_impairment.html */; };
+		B4C3488B2EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis__c__laboratory_diagnosis_of_pulmonary_tuberculosis.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348072EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis__c__laboratory_diagnosis_of_pulmonary_tuberculosis.html */; };
+		B4C3488C2EEF2D7000B11877 /* 13_georgia_department_of_public_health_(dph)_community_guidelines_for_respiratory.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348292EEF2D7000B11877 /* 13_georgia_department_of_public_health_(dph)_community_guidelines_for_respiratory.html */; };
+		B4C3488D2EEF2D7000B11877 /* table_3_high_prevalence_and_high_risk_groups.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348372EEF2D7000B11877 /* table_3_high_prevalence_and_high_risk_groups.html */; };
+		B4C3488E2EEF2D7000B11877 /* table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348462EEF2D7000B11877 /* table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html */; };
+		B4C3488F2EEF2D7000B11877 /* table_14_what_to_start_choice_of_tb_therapy_and_antiretroviral_therapy_(art)_when_treating_co-infected_patients.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348422EEF2D7000B11877 /* table_14_what_to_start_choice_of_tb_therapy_and_antiretroviral_therapy_(art)_when_treating_co-infected_patients.html */; };
+		B4C348902EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__e__monitoring_patients_on_therapy_for_response_and_adverse_events.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C3480F2EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__e__monitoring_patients_on_therapy_for_response_and_adverse_events.html */; };
+		B4C348912EEF2D7000B11877 /* 16_abbreviations.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C3482C2EEF2D7000B11877 /* 16_abbreviations.html */; };
+		B4C348922EEF2D7000B11877 /* 3_treatment_of_latent_tb_infection_(ltbi).html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348002EEF2D7000B11877 /* 3_treatment_of_latent_tb_infection_(ltbi).html */; };
+		B4C348932EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__a__considerations.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C3480B2EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__a__considerations.html */; };
+		B4C348942EEF2D7000B11877 /* 9_bcg_vaccination.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C3481A2EEF2D7000B11877 /* 9_bcg_vaccination.html */; };
+		B4C348952EEF2D7000B11877 /* 3_treatment_of_latent_tb_infection_(ltbi)__c__contacts_of_mdr_tb_cases.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348032EEF2D7000B11877 /* 3_treatment_of_latent_tb_infection_(ltbi)__c__contacts_of_mdr_tb_cases.html */; };
+		B4C348962EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348042EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis.html */; };
+		B4C348972EEF2D7000B11877 /* 11_community_tuberculosis_control__f__interjurisdictional_tb_notification(ijn).html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348262EEF2D7000B11877 /* 11_community_tuberculosis_control__f__interjurisdictional_tb_notification(ijn).html */; };
+		B4C348982EEF2D7000B11877 /* about_us.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348302EEF2D7000B11877 /* about_us.html */; };
+		B4C348992EEF2D7000B11877 /* 16_for_more_information.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C3482D2EEF2D7000B11877 /* 16_for_more_information.html */; };
+		B4C3489B2EEF34E900B11877 /* ic_chart.svg in Resources */ = {isa = PBXBuildFile; fileRef = B4C3489A2EEF34E900B11877 /* ic_chart.svg */; };
 		B4C6DBC72E97462B006D8D5A /* NoteSavedPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C6DBC62E97462B006D8D5A /* NoteSavedPopUp.swift */; };
 		B4C6DBC92E97462F006D8D5A /* NoteSavedPopUp.xib in Resources */ = {isa = PBXBuildFile; fileRef = B4C6DBC82E97462F006D8D5A /* NoteSavedPopUp.xib */; };
 		B4D616552E89CDA0003E4F79 /* NotesBottomSheetDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D616542E89CDA0003E4F79 /* NotesBottomSheetDelegate.swift */; };
@@ -64,74 +138,6 @@
 		B4E88A162E8A83D100396ABB /* BookmarkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E88A132E8A83D100396ABB /* BookmarkTableViewCell.swift */; };
 		D42F25E826EEFA8F009DC942 /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42F25E626EEFA8F009DC942 /* NoteTableViewCell.swift */; };
 		D42F25E926EEFA8F009DC942 /* NoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D42F25E726EEFA8F009DC942 /* NoteTableViewCell.xib */; };
-		D42F263C26EF821B009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi).html in Resources */ = {isa = PBXBuildFile; fileRef = D42F25EE26EF81F8009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi).html */; };
-		D42F263D26EF821B009DC942 /* 10_tb_infection_control_hospital_isolation_procedures__a__administrative_controls.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F25EF26EF81F8009DC942 /* 10_tb_infection_control_hospital_isolation_procedures__a__administrative_controls.html */; };
-		D42F263E26EF821B009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi).html in Resources */ = {isa = PBXBuildFile; fileRef = D42F25F026EF81F9009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi).html */; };
-		D42F263F26EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__a__considerations.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F25F126EF81F9009DC942 /* 5_treatment_of_current_(active)_disease_therapy__a__considerations.html */; };
-		D42F264026EF821B009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__d__anergy_testing.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F25F226EF81F9009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__d__anergy_testing.html */; };
-		D42F264126EF821B009DC942 /* 18_hello_and_welcome_clinical_statement.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F25F326EF81FA009DC942 /* 18_hello_and_welcome_clinical_statement.html */; };
-		D42F264226EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__f__tb_and_hiv.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F25F426EF81FA009DC942 /* 5_treatment_of_current_(active)_disease_therapy__f__tb_and_hiv.html */; };
-		D42F264326EF821B009DC942 /* 13_georgia_department_of_public_health_(dph)_community_guidelines_for_respiratory.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F25F526EF81FB009DC942 /* 13_georgia_department_of_public_health_(dph)_community_guidelines_for_respiratory.html */; };
-		D42F264426EF821B009DC942 /* table_19_guidelines_for_treatment_of_extrapulmonary_tuberculosis.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F25F626EF81FB009DC942 /* table_19_guidelines_for_treatment_of_extrapulmonary_tuberculosis.html */; };
-		D42F264526EF821B009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__c__two_step_testing_and_the_booster_reaction.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F25F726EF81FB009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__c__two_step_testing_and_the_booster_reaction.html */; };
-		D42F264626EF821B009DC942 /* 10_tb_infection_control_hospital_isolation_procedures__c__environmental_controls.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F25F826EF81FC009DC942 /* 10_tb_infection_control_hospital_isolation_procedures__c__environmental_controls.html */; };
-		D42F264726EF821B009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F25F926EF81FC009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis.html */; };
-		D42F264826EF821B009DC942 /* 10_tb_infection_control_hospital_isolation_procedures__b__surveillance_for_health_care_workers.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F25FA26EF81FD009DC942 /* 10_tb_infection_control_hospital_isolation_procedures__b__surveillance_for_health_care_workers.html */; };
-		D42F264926EF821B009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__d__laboratory_diagnosis_of_extrapulmary_tuberculosis.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F25FB26EF81FD009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__d__laboratory_diagnosis_of_extrapulmary_tuberculosis.html */; };
-		D42F264A26EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__h__immune_reconstitution_inflammatory_syndrome.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F25FC26EF81FE009DC942 /* 5_treatment_of_current_(active)_disease_therapy__h__immune_reconstitution_inflammatory_syndrome.html */; };
-		D42F264B26EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__b__standard_therapy_for_current_(active)_disease.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F25FD26EF81FE009DC942 /* 5_treatment_of_current_(active)_disease_therapy__b__standard_therapy_for_current_(active)_disease.html */; };
-		D42F264C26EF821B009DC942 /* 10_tb_infection_control_hospital_isolation_procedures.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F25FE26EF81FE009DC942 /* 10_tb_infection_control_hospital_isolation_procedures.html */; };
-		D42F264D26EF821B009DC942 /* 8_tuberculosis_and_long-term_care_facilities.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F25FF26EF81FF009DC942 /* 8_tuberculosis_and_long-term_care_facilities.html */; };
-		D42F264E26EF821B009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi)__c__contacts_of_mdr_tb_cases.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F260026EF81FF009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi)__c__contacts_of_mdr_tb_cases.html */; };
-		D42F264F26EF821B009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__b__selected_diagnostic_test_characteristics.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F260126EF8200009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__b__selected_diagnostic_test_characteristics.html */; };
-		D42F265126EF821B009DC942 /* 6_pregnancy_and_tb__a__treatment_for_ltbi_and_risk_factors.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F260326EF8201009DC942 /* 6_pregnancy_and_tb__a__treatment_for_ltbi_and_risk_factors.html */; };
-		D42F265226EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__d__drug_resistance.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F260426EF8201009DC942 /* 5_treatment_of_current_(active)_disease_therapy__d__drug_resistance.html */; };
-		D42F265326EF821B009DC942 /* 12_alternative_housing_program_for_homeless_tb_patients_in_georgia.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F260526EF8202009DC942 /* 12_alternative_housing_program_for_homeless_tb_patients_in_georgia.html */; };
-		D42F265426EF821B009DC942 /* table_10_pediatric_dosages_rifampin_in_children_(birth_to_15_years).html in Resources */ = {isa = PBXBuildFile; fileRef = D42F260626EF8202009DC942 /* table_10_pediatric_dosages_rifampin_in_children_(birth_to_15_years).html */; };
-		D42F265526EF821B009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__b__criteria_for_a_positive_tuberculin_test_by_risk_group.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F260726EF8203009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__b__criteria_for_a_positive_tuberculin_test_by_risk_group.html */; };
-		D42F265626EF821B009DC942 /* table_13_antituberculosis_antibiotics_in_adult_patients_with_renal_impairment.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F260826EF8203009DC942 /* table_13_antituberculosis_antibiotics_in_adult_patients_with_renal_impairment.html */; };
-		D42F265726EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__j__adjunctive_use_of_corticosteroid_therapy.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F260926EF8204009DC942 /* 5_treatment_of_current_(active)_disease_therapy__j__adjunctive_use_of_corticosteroid_therapy.html */; };
-		D42F265926EF821B009DC942 /* table_14_antituberculosis_medications_which_may_be_used_for_patients_who_have_contraindications_to_or_intolerance.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F260B26EF8205009DC942 /* table_14_antituberculosis_medications_which_may_be_used_for_patients_who_have_contraindications_to_or_intolerance.html */; };
-		D42F265A26EF821B009DC942 /* 14_references.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F260C26EF8205009DC942 /* 14_references.html */; };
-		D42F265D26EF821B009DC942 /* table_7_recommended_regimens_for_treatment_of_adults_and_children_with_drug_susceptible_tb_pulmonary_tb.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F260F26EF8207009DC942 /* table_7_recommended_regimens_for_treatment_of_adults_and_children_with_drug_susceptible_tb_pulmonary_tb.html */; };
-		D42F265E26EF821B009DC942 /* table_3_high_prevalence_and_high_risk_groups.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F261026EF8207009DC942 /* table_3_high_prevalence_and_high_risk_groups.html */; };
-		D42F265F26EF821B009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__c__laboratory_diagnosis_of_pulmonary_tuberculosis.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F261126EF8208009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__c__laboratory_diagnosis_of_pulmonary_tuberculosis.html */; };
-		D42F266026EF821B009DC942 /* 1_epidemiology.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F261226EF8208009DC942 /* 1_epidemiology.html */; };
-		D42F266126EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__e__monitoring_patients_on_therapy_for_response_and_adverse_events.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F261326EF8208009DC942 /* 5_treatment_of_current_(active)_disease_therapy__e__monitoring_patients_on_therapy_for_response_and_adverse_events.html */; };
-		D42F266226EF821B009DC942 /* 16_for_more_information.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F261426EF8209009DC942 /* 16_for_more_information.html */; };
-		D42F266326EF821B009DC942 /* 9_bcg_vaccination.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F261526EF8209009DC942 /* 9_bcg_vaccination.html */; };
-		D42F266426EF821B009DC942 /* 16_abbreviations.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F261626EF820A009DC942 /* 16_abbreviations.html */; };
-		D42F266526EF821B009DC942 /* table_5_dosages_for_recommended_lbti_treatment_regimens.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F261726EF820A009DC942 /* table_5_dosages_for_recommended_lbti_treatment_regimens.html */; };
-		D42F266626EF821B009DC942 /* table_11_pediatric_dosages_ethambutol_in_children_(birth_to_15_years).html in Resources */ = {isa = PBXBuildFile; fileRef = D42F261826EF820B009DC942 /* table_11_pediatric_dosages_ethambutol_in_children_(birth_to_15_years).html */; };
-		D42F266726EF821B009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__e__interferon_y_release_assays_(igras).html in Resources */ = {isa = PBXBuildFile; fileRef = D42F261926EF820B009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__e__interferon_y_release_assays_(igras).html */; };
-		D42F266826EF821B009DC942 /* 7_childhood_tuberculosis__a__management_considerations.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F261A26EF820C009DC942 /* 7_childhood_tuberculosis__a__management_considerations.html */; };
-		D42F266A26EF821B009DC942 /* table_8_first-line_tb_drugs_dosing_for_adults_(ages_16_and_over)_directly_observed_therapy_(dot)_is_mandatory.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F261C26EF820D009DC942 /* table_8_first-line_tb_drugs_dosing_for_adults_(ages_16_and_over)_directly_observed_therapy_(dot)_is_mandatory.html */; };
-		D42F266C26EF821B009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi)__a__treatment_regimens.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F261E26EF820E009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi)__a__treatment_regimens.html */; };
-		D42F266D26EF821B009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__a__considerations.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F261F26EF820E009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__a__considerations.html */; };
-		D42F266E26EF821B009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__g__medical_evaluation_after_testing_for_ltbi.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F262026EF820E009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__g__medical_evaluation_after_testing_for_ltbi.html */; };
-		D42F266F26EF821B009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__e__rapid_molecular_drug_susceptibility_tests_(dst).html in Resources */ = {isa = PBXBuildFile; fileRef = D42F262126EF820F009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__e__rapid_molecular_drug_susceptibility_tests_(dst).html */; };
-		D42F267126EF821B009DC942 /* table_1_interpretation_criteria_for_the_quantiferon_tb_gold_plus_test.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F262326EF8210009DC942 /* table_1_interpretation_criteria_for_the_quantiferon_tb_gold_plus_test.html */; };
-		D42F267226EF821B009DC942 /* table_15_clinical_situations_for_which_standard_therapy_cannot_be_given_or_is_not_well_tolerated.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F262426EF8210009DC942 /* table_15_clinical_situations_for_which_standard_therapy_cannot_be_given_or_is_not_well_tolerated.html */; };
-		D42F267326EF821B009DC942 /* 17_acknowledgements.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F262526EF8211009DC942 /* 17_acknowledgements.html */; };
-		D42F267426EF821B009DC942 /* table_16_when_to_start_hiv_therapy.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F262626EF8211009DC942 /* table_16_when_to_start_hiv_therapy.html */; };
-		D42F267526EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__c__special_clinical_situations.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F262726EF8212009DC942 /* 5_treatment_of_current_(active)_disease_therapy__c__special_clinical_situations.html */; };
-		D42F267626EF821B009DC942 /* table_2_interpretation_criteria_for_the_t_spot_tb_test.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F262826EF8212009DC942 /* table_2_interpretation_criteria_for_the_t_spot_tb_test.html */; };
-		D42F267726EF821B009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi)__b__monitoring_of_patients_on_treatment_for_ltbi.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F262926EF8212009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi)__b__monitoring_of_patients_on_treatment_for_ltbi.html */; };
-		D42F267826EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__i__treatment_of_extrapulmonary_tb.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F262A26EF8213009DC942 /* 5_treatment_of_current_(active)_disease_therapy__i__treatment_of_extrapulmonary_tb.html */; };
-		D42F267926EF821B009DC942 /* 15_appendix_district_tb_coordinators_(by_district).html in Resources */ = {isa = PBXBuildFile; fileRef = D42F262B26EF8213009DC942 /* 15_appendix_district_tb_coordinators_(by_district).html */; };
-		D42F267A26EF821B009DC942 /* table_9_pediatric_dosage_isoniazid_in_children_(birth_to_15_years).html in Resources */ = {isa = PBXBuildFile; fileRef = D42F262C26EF8214009DC942 /* table_9_pediatric_dosage_isoniazid_in_children_(birth_to_15_years).html */; };
-		D42F267B26EF821B009DC942 /* table_12_pediatric_dosages_pyrazinamide_in_children_(birth_to_15_years).html in Resources */ = {isa = PBXBuildFile; fileRef = D42F262D26EF8214009DC942 /* table_12_pediatric_dosages_pyrazinamide_in_children_(birth_to_15_years).html */; };
-		D42F267D26EF821B009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__f__targeted_testing_and_diagnostic_tests_for_ltbi.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F262F26EF8215009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__f__targeted_testing_and_diagnostic_tests_for_ltbi.html */; };
-		D42F267E26EF821B009DC942 /* 6_pregnancy_and_tb__b__treatment_of_active_tb_in_pregnancy.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F263026EF8216009DC942 /* 6_pregnancy_and_tb__b__treatment_of_active_tb_in_pregnancy.html */; };
-		D42F267F26EF821B009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__h__reporting_of_pediatric_positive_tests_for_ltbi.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F263126EF8216009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__h__reporting_of_pediatric_positive_tests_for_ltbi.html */; };
-		D42F268026EF821B009DC942 /* 10_tb_infection_control_hospital_isolation_procedures__d__personal_respiratory_protection.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F263226EF8217009DC942 /* 10_tb_infection_control_hospital_isolation_procedures__d__personal_respiratory_protection.html */; };
-		D42F268126EF821B009DC942 /* table_21_grady_hospital_tb_isolation_policy.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F263326EF8217009DC942 /* table_21_grady_hospital_tb_isolation_policy.html */; };
-		D42F268326EF821B009DC942 /* 19_for_more_information.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F263526EF8218009DC942 /* 19_for_more_information.html */; };
-		D42F268426EF821B009DC942 /* table_6_ltbi_treatment_drug_adverse_reactions.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F263626EF8218009DC942 /* table_6_ltbi_treatment_drug_adverse_reactions.html */; };
-		D42F268526EF821B009DC942 /* table_20_use_of_anti-tb_medications_in_special_situations_pregnancy_tuberculosis_meningitis_and_renal_failure.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F263726EF8219009DC942 /* table_20_use_of_anti-tb_medications_in_special_situations_pregnancy_tuberculosis_meningitis_and_renal_failure.html */; };
-		D42F268626EF821B009DC942 /* fig1_factors_to_be_considered.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F263826EF8219009DC942 /* fig1_factors_to_be_considered.html */; };
-		D42F268726EF821B009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__a__tuberculin_skin_test.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F263926EF821A009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__a__tuberculin_skin_test.html */; };
-		D42F268926EF821B009DC942 /* table_4_recommendations_for_regimens_to_treat_latent_tuberculosis_infection.html in Resources */ = {isa = PBXBuildFile; fileRef = D42F263B26EF821B009DC942 /* table_4_recommendations_for_regimens_to_treat_latent_tuberculosis_infection.html */; };
 		D42F269526F05B64009DC942 /* ChapterNoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42F269326F05B64009DC942 /* ChapterNoteTableViewCell.swift */; };
 		D42F269626F05B64009DC942 /* ChapterNoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D42F269426F05B64009DC942 /* ChapterNoteTableViewCell.xib */; };
 		D42F269926F1AC31009DC942 /* ContentSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42F269826F1AC31009DC942 /* ContentSizedTableView.swift */; };
@@ -148,13 +154,10 @@
 		D4515E7126DAE60600EE6592 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = D4515E6D26DAE60600EE6592 /* style.css */; };
 		D4515E7226DAE60600EE6592 /* uikit-icons.js in Resources */ = {isa = PBXBuildFile; fileRef = D4515E6E26DAE60600EE6592 /* uikit-icons.js */; };
 		D4597EA62A701B4E00EF8906 /* Pendo in Frameworks */ = {isa = PBXBuildFile; productRef = D4597EA52A701B4E00EF8906 /* Pendo */; };
-		D4597EA82A7022E300EF8906 /* table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html in Resources */ = {isa = PBXBuildFile; fileRef = D4597EA72A7022E300EF8906 /* table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html */; };
 		D45BD0BB26E3936A0037E2A8 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45BD0B926E3936A0037E2A8 /* SearchCell.swift */; };
 		D45BD0BC26E3936A0037E2A8 /* SearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D45BD0BA26E3936A0037E2A8 /* SearchCell.xib */; };
 		D4631308271CD35A00C7D9EC /* Guide.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4631307271CD35A00C7D9EC /* Guide.xib */; };
 		D463130B271CD38300C7D9EC /* Guide.swift in Sources */ = {isa = PBXBuildFile; fileRef = D463130A271CD38300C7D9EC /* Guide.swift */; };
-		D46313AE2721A27F00C7D9EC /* 5_treatment_of_current_(active)_disease_therapy.html in Resources */ = {isa = PBXBuildFile; fileRef = D46313AB2721A27F00C7D9EC /* 5_treatment_of_current_(active)_disease_therapy.html */; };
-		D46313AF2721A27F00C7D9EC /* 6_pregnancy_and_tb.html in Resources */ = {isa = PBXBuildFile; fileRef = D46313AC2721A27F00C7D9EC /* 6_pregnancy_and_tb.html */; };
 		D46861C227A86090002061E4 /* UINavigationAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46861C127A86090002061E4 /* UINavigationAppearance.swift */; };
 		D46BECD72756E5BB000D8553 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D46BECD62756E5BB000D8553 /* FirebaseAnalytics */; };
 		D46BECD92756E5BB000D8553 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = D46BECD82756E5BB000D8553 /* FirebaseCrashlytics */; };
@@ -168,12 +171,9 @@
 		D4710CE6274AB5E000F6EBFF /* georgia-tb-privacy-policy.html in Resources */ = {isa = PBXBuildFile; fileRef = D4710CE5274AB5E000F6EBFF /* georgia-tb-privacy-policy.html */; };
 		D4710CE9274ABA4700F6EBFF /* FeedbackForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4710CE8274ABA4700F6EBFF /* FeedbackForm.swift */; };
 		D4710CEC274ABA5700F6EBFF /* FeedbackForm.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4710CEB274ABA5700F6EBFF /* FeedbackForm.xib */; };
-		D47A4DD7276686D00095815A /* about_us.html in Resources */ = {isa = PBXBuildFile; fileRef = D47A4DD6276686D00095815A /* about_us.html */; };
-		D47A4DEC276691CA0095815A /* quote.html in Resources */ = {isa = PBXBuildFile; fileRef = D47A4DEB276691CA0095815A /* quote.html */; };
 		D48063852A97BCFA006C9861 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D44B84FA272701C400A5B0E9 /* GoogleService-Info.plist */; };
 		D48BD7802779F13800D8A25D /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48BD77F2779F13800D8A25D /* UIButton+Extensions.swift */; };
 		D48BD797277E4F5300D8A25D /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48BD796277E4F5200D8A25D /* UserSettings.swift */; };
-		D498E0A02EBA788600B6BD56 /* table_17_what_to_start_choice_of_tb_therapy_and_antiretroviral_therapy_(art)_when_treating_co-infected_patients.html in Resources */ = {isa = PBXBuildFile; fileRef = D498E09F2EBA788600B6BD56 /* table_17_what_to_start_choice_of_tb_therapy_and_antiretroviral_therapy_(art)_when_treating_co-infected_patients.html */; };
 		D4A06A5526E6D2330093D144 /* ContentPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A06A5426E6D2330093D144 /* ContentPage.swift */; };
 		D4A06A5826E6D2C10093D144 /* Notes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A06A5726E6D2C10093D144 /* Notes.swift */; };
 		D4A06A5B26E6E35E0093D144 /* SavedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A06A5A26E6E35E0093D144 /* SavedViewController.swift */; };
@@ -211,7 +211,6 @@
 		D4B0B13326D174F9003BD1EA /* chapterIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B0B13226D174F9003BD1EA /* chapterIndex.swift */; };
 		D4C0C0DD27FCE3B900346F96 /* RealmHelpter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C0C0DC27FCE3B900346F96 /* RealmHelpter.swift */; };
 		D4C0C0DF2800D64600346F96 /* OldRealmFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C0C0DE2800D64600346F96 /* OldRealmFile.swift */; };
-		D4CCBF5227C023AB00E42BC9 /* 7_childhood_tuberculosis.html in Resources */ = {isa = PBXBuildFile; fileRef = D4CCBF5127C023AB00E42BC9 /* 7_childhood_tuberculosis.html */; };
 		D4CCBF5727C032B400E42BC9 /* subchapter.json in Resources */ = {isa = PBXBuildFile; fileRef = D4CCBF5327C032B400E42BC9 /* subchapter.json */; };
 		D4CCBF5827C032B400E42BC9 /* abrreviation.json in Resources */ = {isa = PBXBuildFile; fileRef = D4CCBF5427C032B400E42BC9 /* abrreviation.json */; };
 		D4CCBF5927C032B400E42BC9 /* chapter.json in Resources */ = {isa = PBXBuildFile; fileRef = D4CCBF5527C032B400E42BC9 /* chapter.json */; };
@@ -227,7 +226,6 @@
 		B401CE612C5BD8C300149414 /* RecentSearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecentSearchTableViewCell.xib; sourceTree = "<group>"; };
 		B40EA6852DF2F13E00B72567 /* UITextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
 		B40EA6F32C46B90400C03A12 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
-		B40FEDE82DF085A600FBEBB7 /* main.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
 		B40FEDEA2DF0898700FBEBB7 /* acknowledge.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = acknowledge.svg; sourceTree = "<group>"; };
 		B40FEDEB2DF0898700FBEBB7 /* c_lab_diagnosis_image_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_lab_diagnosis_image_1.png; sourceTree = "<group>"; };
 		B40FEDEC2DF0898700FBEBB7 /* chapter_1_image_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chapter_1_image_1.png; sourceTree = "<group>"; };
@@ -258,14 +256,89 @@
 		B47FDDAD2E967E8900CC4C7B /* CustomPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopUp.swift; sourceTree = "<group>"; };
 		B47FDDAF2E967E9800CC4C7B /* CustomPopUp.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomPopUp.xib; sourceTree = "<group>"; };
 		B4847B4F2E92BE56006DE174 /* ic_chapter.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = ic_chapter.svg; sourceTree = "<group>"; };
-		B4847B5F2E92C9BC006DE174 /* 11_community_tuberculosis_control.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 11_community_tuberculosis_control.html; sourceTree = "<group>"; };
-		B4847B602E92C9BC006DE174 /* 11_community_tuberculosis_control__a__tb_surveillance_in_georgia.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 11_community_tuberculosis_control__a__tb_surveillance_in_georgia.html; sourceTree = "<group>"; };
-		B4847B6F2E92D10F006DE174 /* 11_community_tuberculosis_control__b__how_to_report_tb_as_a_notifiable_disease.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 11_community_tuberculosis_control__b__how_to_report_tb_as_a_notifiable_disease.html; sourceTree = "<group>"; };
-		B4847B702E92D10F006DE174 /* 11_community_tuberculosis_control__c__tb_case_definitions_for_public_health_surveillance.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 11_community_tuberculosis_control__c__tb_case_definitions_for_public_health_surveillance.html; sourceTree = "<group>"; };
-		B4847B712E92D10F006DE174 /* 11_community_tuberculosis_control__d__role_of_the_health_department.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 11_community_tuberculosis_control__d__role_of_the_health_department.html; sourceTree = "<group>"; };
-		B4847B722E92D10F006DE174 /* 11_community_tuberculosis_control__e__hospital_discharge_planning_for_patients_with_suspected_or_proven_tb.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 11_community_tuberculosis_control__e__hospital_discharge_planning_for_patients_with_suspected_or_proven_tb.html; sourceTree = "<group>"; };
-		B4847B732E92D10F006DE174 /* 11_community_tuberculosis_control__f__interjurisdictional_tb_notification(ijn).html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "11_community_tuberculosis_control__f__interjurisdictional_tb_notification(ijn).html"; sourceTree = "<group>"; };
-		B4847B742E92D10F006DE174 /* 11_community_tuberculosis_control__g__curetb_program_(internation_linkage_to_tb_care).html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "11_community_tuberculosis_control__g__curetb_program_(internation_linkage_to_tb_care).html"; sourceTree = "<group>"; };
+		B4C347F62EEF2D7000B11877 /* 1_epidemiology.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 1_epidemiology.html; sourceTree = "<group>"; };
+		B4C347F72EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi).html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "2_diagnostic_tests_for_latent_tb_infection_(ltbi).html"; sourceTree = "<group>"; };
+		B4C347F82EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__a__tuberculin_skin_test.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "2_diagnostic_tests_for_latent_tb_infection_(ltbi)__a__tuberculin_skin_test.html"; sourceTree = "<group>"; };
+		B4C347F92EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__b__criteria_for_a_positive_tuberculin_test_by_risk_group.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "2_diagnostic_tests_for_latent_tb_infection_(ltbi)__b__criteria_for_a_positive_tuberculin_test_by_risk_group.html"; sourceTree = "<group>"; };
+		B4C347FA2EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__c__two_step_testing_and_the_booster_reaction.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "2_diagnostic_tests_for_latent_tb_infection_(ltbi)__c__two_step_testing_and_the_booster_reaction.html"; sourceTree = "<group>"; };
+		B4C347FB2EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__d__anergy_testing.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "2_diagnostic_tests_for_latent_tb_infection_(ltbi)__d__anergy_testing.html"; sourceTree = "<group>"; };
+		B4C347FC2EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__e__interferon_y_release_assays_(igras).html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "2_diagnostic_tests_for_latent_tb_infection_(ltbi)__e__interferon_y_release_assays_(igras).html"; sourceTree = "<group>"; };
+		B4C347FD2EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__f__targeted_testing_and_diagnostic_tests_for_ltbi.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "2_diagnostic_tests_for_latent_tb_infection_(ltbi)__f__targeted_testing_and_diagnostic_tests_for_ltbi.html"; sourceTree = "<group>"; };
+		B4C347FE2EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__g__medical_evaluation_after_testing_for_ltbi.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "2_diagnostic_tests_for_latent_tb_infection_(ltbi)__g__medical_evaluation_after_testing_for_ltbi.html"; sourceTree = "<group>"; };
+		B4C347FF2EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__h__reporting_of_pediatric_positive_tests_for_ltbi.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "2_diagnostic_tests_for_latent_tb_infection_(ltbi)__h__reporting_of_pediatric_positive_tests_for_ltbi.html"; sourceTree = "<group>"; };
+		B4C348002EEF2D7000B11877 /* 3_treatment_of_latent_tb_infection_(ltbi).html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "3_treatment_of_latent_tb_infection_(ltbi).html"; sourceTree = "<group>"; };
+		B4C348012EEF2D7000B11877 /* 3_treatment_of_latent_tb_infection_(ltbi)__a__treatment_regimens.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "3_treatment_of_latent_tb_infection_(ltbi)__a__treatment_regimens.html"; sourceTree = "<group>"; };
+		B4C348022EEF2D7000B11877 /* 3_treatment_of_latent_tb_infection_(ltbi)__b__monitoring_of_patients_on_treatment_for_ltbi.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "3_treatment_of_latent_tb_infection_(ltbi)__b__monitoring_of_patients_on_treatment_for_ltbi.html"; sourceTree = "<group>"; };
+		B4C348032EEF2D7000B11877 /* 3_treatment_of_latent_tb_infection_(ltbi)__c__contacts_of_mdr_tb_cases.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "3_treatment_of_latent_tb_infection_(ltbi)__c__contacts_of_mdr_tb_cases.html"; sourceTree = "<group>"; };
+		B4C348042EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 4_laboratory_diagnosis_of_active_tuberculosis.html; sourceTree = "<group>"; };
+		B4C348052EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis__a__considerations.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 4_laboratory_diagnosis_of_active_tuberculosis__a__considerations.html; sourceTree = "<group>"; };
+		B4C348062EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis__b__selected_diagnostic_test_characteristics.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 4_laboratory_diagnosis_of_active_tuberculosis__b__selected_diagnostic_test_characteristics.html; sourceTree = "<group>"; };
+		B4C348072EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis__c__laboratory_diagnosis_of_pulmonary_tuberculosis.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 4_laboratory_diagnosis_of_active_tuberculosis__c__laboratory_diagnosis_of_pulmonary_tuberculosis.html; sourceTree = "<group>"; };
+		B4C348082EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis__d__laboratory_diagnosis_of_extrapulmary_tuberculosis.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 4_laboratory_diagnosis_of_active_tuberculosis__d__laboratory_diagnosis_of_extrapulmary_tuberculosis.html; sourceTree = "<group>"; };
+		B4C348092EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis__e__rapid_molecular_drug_susceptibility_tests_(dst).html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "4_laboratory_diagnosis_of_active_tuberculosis__e__rapid_molecular_drug_susceptibility_tests_(dst).html"; sourceTree = "<group>"; };
+		B4C3480A2EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "5_treatment_of_current_(active)_disease_therapy.html"; sourceTree = "<group>"; };
+		B4C3480B2EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__a__considerations.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "5_treatment_of_current_(active)_disease_therapy__a__considerations.html"; sourceTree = "<group>"; };
+		B4C3480C2EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__b__standard_therapy_for_current_(active)_disease.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "5_treatment_of_current_(active)_disease_therapy__b__standard_therapy_for_current_(active)_disease.html"; sourceTree = "<group>"; };
+		B4C3480D2EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__c__special_clinical_situations.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "5_treatment_of_current_(active)_disease_therapy__c__special_clinical_situations.html"; sourceTree = "<group>"; };
+		B4C3480E2EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__d__drug_resistance.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "5_treatment_of_current_(active)_disease_therapy__d__drug_resistance.html"; sourceTree = "<group>"; };
+		B4C3480F2EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__e__monitoring_patients_on_therapy_for_response_and_adverse_events.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "5_treatment_of_current_(active)_disease_therapy__e__monitoring_patients_on_therapy_for_response_and_adverse_events.html"; sourceTree = "<group>"; };
+		B4C348102EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__f__tb_and_hiv.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "5_treatment_of_current_(active)_disease_therapy__f__tb_and_hiv.html"; sourceTree = "<group>"; };
+		B4C348112EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__h__immune_reconstitution_inflammatory_syndrome.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "5_treatment_of_current_(active)_disease_therapy__h__immune_reconstitution_inflammatory_syndrome.html"; sourceTree = "<group>"; };
+		B4C348122EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__i__treatment_of_extrapulmonary_tb.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "5_treatment_of_current_(active)_disease_therapy__i__treatment_of_extrapulmonary_tb.html"; sourceTree = "<group>"; };
+		B4C348132EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__j__adjunctive_use_of_corticosteroid_therapy.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "5_treatment_of_current_(active)_disease_therapy__j__adjunctive_use_of_corticosteroid_therapy.html"; sourceTree = "<group>"; };
+		B4C348142EEF2D7000B11877 /* 6_pregnancy_and_tb.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 6_pregnancy_and_tb.html; sourceTree = "<group>"; };
+		B4C348152EEF2D7000B11877 /* 6_pregnancy_and_tb__a__treatment_for_ltbi_and_risk_factors.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 6_pregnancy_and_tb__a__treatment_for_ltbi_and_risk_factors.html; sourceTree = "<group>"; };
+		B4C348162EEF2D7000B11877 /* 6_pregnancy_and_tb__b__treatment_of_active_tb_in_pregnancy.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 6_pregnancy_and_tb__b__treatment_of_active_tb_in_pregnancy.html; sourceTree = "<group>"; };
+		B4C348172EEF2D7000B11877 /* 7_childhood_tuberculosis.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 7_childhood_tuberculosis.html; sourceTree = "<group>"; };
+		B4C348182EEF2D7000B11877 /* 7_childhood_tuberculosis__a__management_considerations.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 7_childhood_tuberculosis__a__management_considerations.html; sourceTree = "<group>"; };
+		B4C348192EEF2D7000B11877 /* 8_tuberculosis_and_long_term_care_facilities.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 8_tuberculosis_and_long_term_care_facilities.html; sourceTree = "<group>"; };
+		B4C3481A2EEF2D7000B11877 /* 9_bcg_vaccination.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 9_bcg_vaccination.html; sourceTree = "<group>"; };
+		B4C3481B2EEF2D7000B11877 /* 10_tb_infection_control_hospital_isolation_procedures.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 10_tb_infection_control_hospital_isolation_procedures.html; sourceTree = "<group>"; };
+		B4C3481C2EEF2D7000B11877 /* 10_tb_infection_control_hospital_isolation_procedures__a__administrative_controls.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 10_tb_infection_control_hospital_isolation_procedures__a__administrative_controls.html; sourceTree = "<group>"; };
+		B4C3481D2EEF2D7000B11877 /* 10_tb_infection_control_hospital_isolation_procedures__b__surveillance_for_health_care_workers.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 10_tb_infection_control_hospital_isolation_procedures__b__surveillance_for_health_care_workers.html; sourceTree = "<group>"; };
+		B4C3481E2EEF2D7000B11877 /* 10_tb_infection_control_hospital_isolation_procedures__c__environmental_controls.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 10_tb_infection_control_hospital_isolation_procedures__c__environmental_controls.html; sourceTree = "<group>"; };
+		B4C3481F2EEF2D7000B11877 /* 10_tb_infection_control_hospital_isolation_procedures__d__personal_respiratory_protection.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 10_tb_infection_control_hospital_isolation_procedures__d__personal_respiratory_protection.html; sourceTree = "<group>"; };
+		B4C348202EEF2D7000B11877 /* 11_community_tuberculosis_control.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 11_community_tuberculosis_control.html; sourceTree = "<group>"; };
+		B4C348212EEF2D7000B11877 /* 11_community_tuberculosis_control__a__tb_surveillance_in_georgia.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 11_community_tuberculosis_control__a__tb_surveillance_in_georgia.html; sourceTree = "<group>"; };
+		B4C348222EEF2D7000B11877 /* 11_community_tuberculosis_control__b__how_to_report_tb_as_a_notifiable_disease.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 11_community_tuberculosis_control__b__how_to_report_tb_as_a_notifiable_disease.html; sourceTree = "<group>"; };
+		B4C348232EEF2D7000B11877 /* 11_community_tuberculosis_control__c__tb_case_definitions_for_public_health_surveillance.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 11_community_tuberculosis_control__c__tb_case_definitions_for_public_health_surveillance.html; sourceTree = "<group>"; };
+		B4C348242EEF2D7000B11877 /* 11_community_tuberculosis_control__d__role_of_the_health_department.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 11_community_tuberculosis_control__d__role_of_the_health_department.html; sourceTree = "<group>"; };
+		B4C348252EEF2D7000B11877 /* 11_community_tuberculosis_control__e__hospital_discharge_planning_for_patients_with_suspected_or_proven_tb.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 11_community_tuberculosis_control__e__hospital_discharge_planning_for_patients_with_suspected_or_proven_tb.html; sourceTree = "<group>"; };
+		B4C348262EEF2D7000B11877 /* 11_community_tuberculosis_control__f__interjurisdictional_tb_notification(ijn).html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "11_community_tuberculosis_control__f__interjurisdictional_tb_notification(ijn).html"; sourceTree = "<group>"; };
+		B4C348272EEF2D7000B11877 /* 11_community_tuberculosis_control__g__curetb_program_(internation_linkage_to_tb_care).html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "11_community_tuberculosis_control__g__curetb_program_(internation_linkage_to_tb_care).html"; sourceTree = "<group>"; };
+		B4C348282EEF2D7000B11877 /* 12_alternative_housing_program_for_homeless_tb_patients_in_georgia.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 12_alternative_housing_program_for_homeless_tb_patients_in_georgia.html; sourceTree = "<group>"; };
+		B4C348292EEF2D7000B11877 /* 13_georgia_department_of_public_health_(dph)_community_guidelines_for_respiratory.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "13_georgia_department_of_public_health_(dph)_community_guidelines_for_respiratory.html"; sourceTree = "<group>"; };
+		B4C3482A2EEF2D7000B11877 /* 14_references.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 14_references.html; sourceTree = "<group>"; };
+		B4C3482B2EEF2D7000B11877 /* 15_appendix_district_tb_coordinators_(by_district).html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "15_appendix_district_tb_coordinators_(by_district).html"; sourceTree = "<group>"; };
+		B4C3482C2EEF2D7000B11877 /* 16_abbreviations.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 16_abbreviations.html; sourceTree = "<group>"; };
+		B4C3482D2EEF2D7000B11877 /* 16_for_more_information.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 16_for_more_information.html; sourceTree = "<group>"; };
+		B4C3482E2EEF2D7000B11877 /* 17_acknowledgements.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 17_acknowledgements.html; sourceTree = "<group>"; };
+		B4C3482F2EEF2D7000B11877 /* 18_for_more_information.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = 18_for_more_information.html; sourceTree = "<group>"; };
+		B4C348302EEF2D7000B11877 /* about_us.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = about_us.html; sourceTree = "<group>"; };
+		B4C348312EEF2D7000B11877 /* fig1_factors_to_be_considered.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = fig1_factors_to_be_considered.html; sourceTree = "<group>"; };
+		B4C348322EEF2D7000B11877 /* hello_and_welcome_clinical_statement.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = hello_and_welcome_clinical_statement.html; sourceTree = "<group>"; };
+		B4C348332EEF2D7000B11877 /* main.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
+		B4C348342EEF2D7000B11877 /* quote.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = quote.html; sourceTree = "<group>"; };
+		B4C348352EEF2D7000B11877 /* table_1_interpretation_criteria_for_the_quantiferon_tb_gold_plus_test.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = table_1_interpretation_criteria_for_the_quantiferon_tb_gold_plus_test.html; sourceTree = "<group>"; };
+		B4C348362EEF2D7000B11877 /* table_2_interpretation_criteria_for_the_t_spot_tb_test.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = table_2_interpretation_criteria_for_the_t_spot_tb_test.html; sourceTree = "<group>"; };
+		B4C348372EEF2D7000B11877 /* table_3_high_prevalence_and_high_risk_groups.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = table_3_high_prevalence_and_high_risk_groups.html; sourceTree = "<group>"; };
+		B4C348382EEF2D7000B11877 /* table_4_recommendations_for_regimens_to_treat_latent_tuberculosis_infection.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = table_4_recommendations_for_regimens_to_treat_latent_tuberculosis_infection.html; sourceTree = "<group>"; };
+		B4C348392EEF2D7000B11877 /* table_5_dosages_for_recommended_lbti_treatment_regimens.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = table_5_dosages_for_recommended_lbti_treatment_regimens.html; sourceTree = "<group>"; };
+		B4C3483A2EEF2D7000B11877 /* table_6_ltbi_treatment_drug_adverse_reactions.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = table_6_ltbi_treatment_drug_adverse_reactions.html; sourceTree = "<group>"; };
+		B4C3483B2EEF2D7000B11877 /* table_7_recommended_regimens_for_treatment_of_adults_and_children_with_drug_susceptible_tb_pulmonary_tb.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = table_7_recommended_regimens_for_treatment_of_adults_and_children_with_drug_susceptible_tb_pulmonary_tb.html; sourceTree = "<group>"; };
+		B4C3483C2EEF2D7000B11877 /* table_8_first-line_tb_drugs_dosing_for_adults_(ages_16_and_over)_directly_observed_therapy_(dot)_is_mandatory.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "table_8_first-line_tb_drugs_dosing_for_adults_(ages_16_and_over)_directly_observed_therapy_(dot)_is_mandatory.html"; sourceTree = "<group>"; };
+		B4C3483D2EEF2D7000B11877 /* table_9_pediatric_dosage_isoniazid_in_children_(birth_to_15_years).html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "table_9_pediatric_dosage_isoniazid_in_children_(birth_to_15_years).html"; sourceTree = "<group>"; };
+		B4C3483E2EEF2D7000B11877 /* table_10_antituberculosis_antibiotics_in_adult_patients_with_renal_impairment.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = table_10_antituberculosis_antibiotics_in_adult_patients_with_renal_impairment.html; sourceTree = "<group>"; };
+		B4C3483F2EEF2D7000B11877 /* table_11_antituberculosis_medications_which_may_be_used_for_patients_who_have_contraindications_to_or_intolerance.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = table_11_antituberculosis_medications_which_may_be_used_for_patients_who_have_contraindications_to_or_intolerance.html; sourceTree = "<group>"; };
+		B4C348402EEF2D7000B11877 /* table_12_clinical_situations_for_which_standard_therapy_cannot_be_given_or_is_not_well_tolerated.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = table_12_clinical_situations_for_which_standard_therapy_cannot_be_given_or_is_not_well_tolerated.html; sourceTree = "<group>"; };
+		B4C348412EEF2D7000B11877 /* table_13_when_to_start_hiv_therapy.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = table_13_when_to_start_hiv_therapy.html; sourceTree = "<group>"; };
+		B4C348422EEF2D7000B11877 /* table_14_what_to_start_choice_of_tb_therapy_and_antiretroviral_therapy_(art)_when_treating_co-infected_patients.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "table_14_what_to_start_choice_of_tb_therapy_and_antiretroviral_therapy_(art)_when_treating_co-infected_patients.html"; sourceTree = "<group>"; };
+		B4C348432EEF2D7000B11877 /* table_15_summary_of_recommendations_for_treatment_of_active_tb_disease_in_persons_with_hiv.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = table_15_summary_of_recommendations_for_treatment_of_active_tb_disease_in_persons_with_hiv.html; sourceTree = "<group>"; };
+		B4C348442EEF2D7000B11877 /* table_16_guidelines_for_treatment_of_extrapulmonary_tuberculosis.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = table_16_guidelines_for_treatment_of_extrapulmonary_tuberculosis.html; sourceTree = "<group>"; };
+		B4C348452EEF2D7000B11877 /* table_17_use_of_anti-tb_medications_in_special_situations_pregnancy_tuberculosis_meningitis_and_renal_failure.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "table_17_use_of_anti-tb_medications_in_special_situations_pregnancy_tuberculosis_meningitis_and_renal_failure.html"; sourceTree = "<group>"; };
+		B4C348462EEF2D7000B11877 /* table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html; sourceTree = "<group>"; };
+		B4C348472EEF2D7000B11877 /* table_19_grady_hospital_tb_isolation_policy.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = table_19_grady_hospital_tb_isolation_policy.html; sourceTree = "<group>"; };
+		B4C3489A2EEF34E900B11877 /* ic_chart.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = ic_chart.svg; sourceTree = "<group>"; };
 		B4C6DBC62E97462B006D8D5A /* NoteSavedPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteSavedPopUp.swift; sourceTree = "<group>"; };
 		B4C6DBC82E97462F006D8D5A /* NoteSavedPopUp.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteSavedPopUp.xib; sourceTree = "<group>"; };
 		B4D616542E89CDA0003E4F79 /* NotesBottomSheetDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesBottomSheetDelegate.swift; sourceTree = "<group>"; };
@@ -275,74 +348,6 @@
 		BF23FEBF71C372B82094033D /* Pods_GA_TB_Reference_Guide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GA_TB_Reference_Guide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D42F25E626EEFA8F009DC942 /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
 		D42F25E726EEFA8F009DC942 /* NoteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteTableViewCell.xib; sourceTree = "<group>"; };
-		D42F25EE26EF81F8009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi).html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "3_treatment_of_latent_tb_infection_(ltbi).html"; sourceTree = "<group>"; };
-		D42F25EF26EF81F8009DC942 /* 10_tb_infection_control_hospital_isolation_procedures__a__administrative_controls.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = 10_tb_infection_control_hospital_isolation_procedures__a__administrative_controls.html; sourceTree = "<group>"; };
-		D42F25F026EF81F9009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi).html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "2_diagnostic_tests_for_latent_tb_infection_(ltbi).html"; sourceTree = "<group>"; };
-		D42F25F126EF81F9009DC942 /* 5_treatment_of_current_(active)_disease_therapy__a__considerations.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "5_treatment_of_current_(active)_disease_therapy__a__considerations.html"; sourceTree = "<group>"; };
-		D42F25F226EF81F9009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__d__anergy_testing.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "2_diagnostic_tests_for_latent_tb_infection_(ltbi)__d__anergy_testing.html"; sourceTree = "<group>"; };
-		D42F25F326EF81FA009DC942 /* 18_hello_and_welcome_clinical_statement.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = 18_hello_and_welcome_clinical_statement.html; sourceTree = "<group>"; };
-		D42F25F426EF81FA009DC942 /* 5_treatment_of_current_(active)_disease_therapy__f__tb_and_hiv.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "5_treatment_of_current_(active)_disease_therapy__f__tb_and_hiv.html"; sourceTree = "<group>"; };
-		D42F25F526EF81FB009DC942 /* 13_georgia_department_of_public_health_(dph)_community_guidelines_for_respiratory.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "13_georgia_department_of_public_health_(dph)_community_guidelines_for_respiratory.html"; sourceTree = "<group>"; };
-		D42F25F626EF81FB009DC942 /* table_19_guidelines_for_treatment_of_extrapulmonary_tuberculosis.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = table_19_guidelines_for_treatment_of_extrapulmonary_tuberculosis.html; sourceTree = "<group>"; };
-		D42F25F726EF81FB009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__c__two_step_testing_and_the_booster_reaction.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "2_diagnostic_tests_for_latent_tb_infection_(ltbi)__c__two_step_testing_and_the_booster_reaction.html"; sourceTree = "<group>"; };
-		D42F25F826EF81FC009DC942 /* 10_tb_infection_control_hospital_isolation_procedures__c__environmental_controls.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = 10_tb_infection_control_hospital_isolation_procedures__c__environmental_controls.html; sourceTree = "<group>"; };
-		D42F25F926EF81FC009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = 4_laboratory_diagnosis_of_active_tuberculosis.html; sourceTree = "<group>"; };
-		D42F25FA26EF81FD009DC942 /* 10_tb_infection_control_hospital_isolation_procedures__b__surveillance_for_health_care_workers.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = 10_tb_infection_control_hospital_isolation_procedures__b__surveillance_for_health_care_workers.html; sourceTree = "<group>"; };
-		D42F25FB26EF81FD009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__d__laboratory_diagnosis_of_extrapulmary_tuberculosis.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = 4_laboratory_diagnosis_of_active_tuberculosis__d__laboratory_diagnosis_of_extrapulmary_tuberculosis.html; sourceTree = "<group>"; };
-		D42F25FC26EF81FE009DC942 /* 5_treatment_of_current_(active)_disease_therapy__h__immune_reconstitution_inflammatory_syndrome.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "5_treatment_of_current_(active)_disease_therapy__h__immune_reconstitution_inflammatory_syndrome.html"; sourceTree = "<group>"; };
-		D42F25FD26EF81FE009DC942 /* 5_treatment_of_current_(active)_disease_therapy__b__standard_therapy_for_current_(active)_disease.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "5_treatment_of_current_(active)_disease_therapy__b__standard_therapy_for_current_(active)_disease.html"; sourceTree = "<group>"; };
-		D42F25FE26EF81FE009DC942 /* 10_tb_infection_control_hospital_isolation_procedures.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = 10_tb_infection_control_hospital_isolation_procedures.html; sourceTree = "<group>"; };
-		D42F25FF26EF81FF009DC942 /* 8_tuberculosis_and_long-term_care_facilities.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "8_tuberculosis_and_long-term_care_facilities.html"; sourceTree = "<group>"; };
-		D42F260026EF81FF009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi)__c__contacts_of_mdr_tb_cases.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "3_treatment_of_latent_tb_infection_(ltbi)__c__contacts_of_mdr_tb_cases.html"; sourceTree = "<group>"; };
-		D42F260126EF8200009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__b__selected_diagnostic_test_characteristics.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = 4_laboratory_diagnosis_of_active_tuberculosis__b__selected_diagnostic_test_characteristics.html; sourceTree = "<group>"; };
-		D42F260326EF8201009DC942 /* 6_pregnancy_and_tb__a__treatment_for_ltbi_and_risk_factors.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = 6_pregnancy_and_tb__a__treatment_for_ltbi_and_risk_factors.html; sourceTree = "<group>"; };
-		D42F260426EF8201009DC942 /* 5_treatment_of_current_(active)_disease_therapy__d__drug_resistance.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "5_treatment_of_current_(active)_disease_therapy__d__drug_resistance.html"; sourceTree = "<group>"; };
-		D42F260526EF8202009DC942 /* 12_alternative_housing_program_for_homeless_tb_patients_in_georgia.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = 12_alternative_housing_program_for_homeless_tb_patients_in_georgia.html; sourceTree = "<group>"; };
-		D42F260626EF8202009DC942 /* table_10_pediatric_dosages_rifampin_in_children_(birth_to_15_years).html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "table_10_pediatric_dosages_rifampin_in_children_(birth_to_15_years).html"; sourceTree = "<group>"; };
-		D42F260726EF8203009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__b__criteria_for_a_positive_tuberculin_test_by_risk_group.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "2_diagnostic_tests_for_latent_tb_infection_(ltbi)__b__criteria_for_a_positive_tuberculin_test_by_risk_group.html"; sourceTree = "<group>"; };
-		D42F260826EF8203009DC942 /* table_13_antituberculosis_antibiotics_in_adult_patients_with_renal_impairment.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = table_13_antituberculosis_antibiotics_in_adult_patients_with_renal_impairment.html; sourceTree = "<group>"; };
-		D42F260926EF8204009DC942 /* 5_treatment_of_current_(active)_disease_therapy__j__adjunctive_use_of_corticosteroid_therapy.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "5_treatment_of_current_(active)_disease_therapy__j__adjunctive_use_of_corticosteroid_therapy.html"; sourceTree = "<group>"; };
-		D42F260B26EF8205009DC942 /* table_14_antituberculosis_medications_which_may_be_used_for_patients_who_have_contraindications_to_or_intolerance.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = table_14_antituberculosis_medications_which_may_be_used_for_patients_who_have_contraindications_to_or_intolerance.html; sourceTree = "<group>"; };
-		D42F260C26EF8205009DC942 /* 14_references.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = 14_references.html; sourceTree = "<group>"; };
-		D42F260F26EF8207009DC942 /* table_7_recommended_regimens_for_treatment_of_adults_and_children_with_drug_susceptible_tb_pulmonary_tb.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = table_7_recommended_regimens_for_treatment_of_adults_and_children_with_drug_susceptible_tb_pulmonary_tb.html; sourceTree = "<group>"; };
-		D42F261026EF8207009DC942 /* table_3_high_prevalence_and_high_risk_groups.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = table_3_high_prevalence_and_high_risk_groups.html; sourceTree = "<group>"; };
-		D42F261126EF8208009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__c__laboratory_diagnosis_of_pulmonary_tuberculosis.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = 4_laboratory_diagnosis_of_active_tuberculosis__c__laboratory_diagnosis_of_pulmonary_tuberculosis.html; sourceTree = "<group>"; };
-		D42F261226EF8208009DC942 /* 1_epidemiology.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = 1_epidemiology.html; sourceTree = "<group>"; };
-		D42F261326EF8208009DC942 /* 5_treatment_of_current_(active)_disease_therapy__e__monitoring_patients_on_therapy_for_response_and_adverse_events.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "5_treatment_of_current_(active)_disease_therapy__e__monitoring_patients_on_therapy_for_response_and_adverse_events.html"; sourceTree = "<group>"; };
-		D42F261426EF8209009DC942 /* 16_for_more_information.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = 16_for_more_information.html; sourceTree = "<group>"; };
-		D42F261526EF8209009DC942 /* 9_bcg_vaccination.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = 9_bcg_vaccination.html; sourceTree = "<group>"; };
-		D42F261626EF820A009DC942 /* 16_abbreviations.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = 16_abbreviations.html; sourceTree = "<group>"; };
-		D42F261726EF820A009DC942 /* table_5_dosages_for_recommended_lbti_treatment_regimens.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = table_5_dosages_for_recommended_lbti_treatment_regimens.html; sourceTree = "<group>"; };
-		D42F261826EF820B009DC942 /* table_11_pediatric_dosages_ethambutol_in_children_(birth_to_15_years).html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "table_11_pediatric_dosages_ethambutol_in_children_(birth_to_15_years).html"; sourceTree = "<group>"; };
-		D42F261926EF820B009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__e__interferon_y_release_assays_(igras).html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "2_diagnostic_tests_for_latent_tb_infection_(ltbi)__e__interferon_y_release_assays_(igras).html"; sourceTree = "<group>"; };
-		D42F261A26EF820C009DC942 /* 7_childhood_tuberculosis__a__management_considerations.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = 7_childhood_tuberculosis__a__management_considerations.html; sourceTree = "<group>"; };
-		D42F261C26EF820D009DC942 /* table_8_first-line_tb_drugs_dosing_for_adults_(ages_16_and_over)_directly_observed_therapy_(dot)_is_mandatory.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "table_8_first-line_tb_drugs_dosing_for_adults_(ages_16_and_over)_directly_observed_therapy_(dot)_is_mandatory.html"; sourceTree = "<group>"; };
-		D42F261E26EF820E009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi)__a__treatment_regimens.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "3_treatment_of_latent_tb_infection_(ltbi)__a__treatment_regimens.html"; sourceTree = "<group>"; };
-		D42F261F26EF820E009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__a__considerations.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = 4_laboratory_diagnosis_of_active_tuberculosis__a__considerations.html; sourceTree = "<group>"; };
-		D42F262026EF820E009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__g__medical_evaluation_after_testing_for_ltbi.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "2_diagnostic_tests_for_latent_tb_infection_(ltbi)__g__medical_evaluation_after_testing_for_ltbi.html"; sourceTree = "<group>"; };
-		D42F262126EF820F009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__e__rapid_molecular_drug_susceptibility_tests_(dst).html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "4_laboratory_diagnosis_of_active_tuberculosis__e__rapid_molecular_drug_susceptibility_tests_(dst).html"; sourceTree = "<group>"; };
-		D42F262326EF8210009DC942 /* table_1_interpretation_criteria_for_the_quantiferon_tb_gold_plus_test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = table_1_interpretation_criteria_for_the_quantiferon_tb_gold_plus_test.html; sourceTree = "<group>"; };
-		D42F262426EF8210009DC942 /* table_15_clinical_situations_for_which_standard_therapy_cannot_be_given_or_is_not_well_tolerated.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = table_15_clinical_situations_for_which_standard_therapy_cannot_be_given_or_is_not_well_tolerated.html; sourceTree = "<group>"; };
-		D42F262526EF8211009DC942 /* 17_acknowledgements.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = 17_acknowledgements.html; sourceTree = "<group>"; };
-		D42F262626EF8211009DC942 /* table_16_when_to_start_hiv_therapy.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = table_16_when_to_start_hiv_therapy.html; sourceTree = "<group>"; };
-		D42F262726EF8212009DC942 /* 5_treatment_of_current_(active)_disease_therapy__c__special_clinical_situations.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "5_treatment_of_current_(active)_disease_therapy__c__special_clinical_situations.html"; sourceTree = "<group>"; };
-		D42F262826EF8212009DC942 /* table_2_interpretation_criteria_for_the_t_spot_tb_test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = table_2_interpretation_criteria_for_the_t_spot_tb_test.html; sourceTree = "<group>"; };
-		D42F262926EF8212009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi)__b__monitoring_of_patients_on_treatment_for_ltbi.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "3_treatment_of_latent_tb_infection_(ltbi)__b__monitoring_of_patients_on_treatment_for_ltbi.html"; sourceTree = "<group>"; };
-		D42F262A26EF8213009DC942 /* 5_treatment_of_current_(active)_disease_therapy__i__treatment_of_extrapulmonary_tb.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "5_treatment_of_current_(active)_disease_therapy__i__treatment_of_extrapulmonary_tb.html"; sourceTree = "<group>"; };
-		D42F262B26EF8213009DC942 /* 15_appendix_district_tb_coordinators_(by_district).html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "15_appendix_district_tb_coordinators_(by_district).html"; sourceTree = "<group>"; };
-		D42F262C26EF8214009DC942 /* table_9_pediatric_dosage_isoniazid_in_children_(birth_to_15_years).html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "table_9_pediatric_dosage_isoniazid_in_children_(birth_to_15_years).html"; sourceTree = "<group>"; };
-		D42F262D26EF8214009DC942 /* table_12_pediatric_dosages_pyrazinamide_in_children_(birth_to_15_years).html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "table_12_pediatric_dosages_pyrazinamide_in_children_(birth_to_15_years).html"; sourceTree = "<group>"; };
-		D42F262F26EF8215009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__f__targeted_testing_and_diagnostic_tests_for_ltbi.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "2_diagnostic_tests_for_latent_tb_infection_(ltbi)__f__targeted_testing_and_diagnostic_tests_for_ltbi.html"; sourceTree = "<group>"; };
-		D42F263026EF8216009DC942 /* 6_pregnancy_and_tb__b__treatment_of_active_tb_in_pregnancy.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = 6_pregnancy_and_tb__b__treatment_of_active_tb_in_pregnancy.html; sourceTree = "<group>"; };
-		D42F263126EF8216009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__h__reporting_of_pediatric_positive_tests_for_ltbi.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "2_diagnostic_tests_for_latent_tb_infection_(ltbi)__h__reporting_of_pediatric_positive_tests_for_ltbi.html"; sourceTree = "<group>"; };
-		D42F263226EF8217009DC942 /* 10_tb_infection_control_hospital_isolation_procedures__d__personal_respiratory_protection.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = 10_tb_infection_control_hospital_isolation_procedures__d__personal_respiratory_protection.html; sourceTree = "<group>"; };
-		D42F263326EF8217009DC942 /* table_21_grady_hospital_tb_isolation_policy.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = table_21_grady_hospital_tb_isolation_policy.html; sourceTree = "<group>"; };
-		D42F263526EF8218009DC942 /* 19_for_more_information.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = 19_for_more_information.html; sourceTree = "<group>"; };
-		D42F263626EF8218009DC942 /* table_6_ltbi_treatment_drug_adverse_reactions.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = table_6_ltbi_treatment_drug_adverse_reactions.html; sourceTree = "<group>"; };
-		D42F263726EF8219009DC942 /* table_20_use_of_anti-tb_medications_in_special_situations_pregnancy_tuberculosis_meningitis_and_renal_failure.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "table_20_use_of_anti-tb_medications_in_special_situations_pregnancy_tuberculosis_meningitis_and_renal_failure.html"; sourceTree = "<group>"; };
-		D42F263826EF8219009DC942 /* fig1_factors_to_be_considered.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = fig1_factors_to_be_considered.html; sourceTree = "<group>"; };
-		D42F263926EF821A009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__a__tuberculin_skin_test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "2_diagnostic_tests_for_latent_tb_infection_(ltbi)__a__tuberculin_skin_test.html"; sourceTree = "<group>"; };
-		D42F263B26EF821B009DC942 /* table_4_recommendations_for_regimens_to_treat_latent_tuberculosis_infection.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = table_4_recommendations_for_regimens_to_treat_latent_tuberculosis_infection.html; sourceTree = "<group>"; };
 		D42F269326F05B64009DC942 /* ChapterNoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterNoteTableViewCell.swift; sourceTree = "<group>"; };
 		D42F269426F05B64009DC942 /* ChapterNoteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChapterNoteTableViewCell.xib; sourceTree = "<group>"; };
 		D42F269826F1AC31009DC942 /* ContentSizedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSizedTableView.swift; sourceTree = "<group>"; };
@@ -359,13 +364,10 @@
 		D4515E6C26DAE60600EE6592 /* uikit.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = uikit.js; sourceTree = "<group>"; };
 		D4515E6D26DAE60600EE6592 /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
 		D4515E6E26DAE60600EE6592 /* uikit-icons.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "uikit-icons.js"; sourceTree = "<group>"; };
-		D4597EA72A7022E300EF8906 /* table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html; sourceTree = "<group>"; };
 		D45BD0B926E3936A0037E2A8 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		D45BD0BA26E3936A0037E2A8 /* SearchCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchCell.xib; sourceTree = "<group>"; };
 		D4631307271CD35A00C7D9EC /* Guide.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Guide.xib; sourceTree = "<group>"; };
 		D463130A271CD38300C7D9EC /* Guide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Guide.swift; sourceTree = "<group>"; };
-		D46313AB2721A27F00C7D9EC /* 5_treatment_of_current_(active)_disease_therapy.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "5_treatment_of_current_(active)_disease_therapy.html"; sourceTree = "<group>"; };
-		D46313AC2721A27F00C7D9EC /* 6_pregnancy_and_tb.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = 6_pregnancy_and_tb.html; sourceTree = "<group>"; };
 		D46861C127A86090002061E4 /* UINavigationAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationAppearance.swift; sourceTree = "<group>"; };
 		D46BECEA27582FA2000D8553 /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 		D4710CAA2744128300F6EBFF /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -375,12 +377,9 @@
 		D4710CE5274AB5E000F6EBFF /* georgia-tb-privacy-policy.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "georgia-tb-privacy-policy.html"; sourceTree = "<group>"; };
 		D4710CE8274ABA4700F6EBFF /* FeedbackForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackForm.swift; sourceTree = "<group>"; };
 		D4710CEB274ABA5700F6EBFF /* FeedbackForm.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedbackForm.xib; sourceTree = "<group>"; };
-		D47A4DD6276686D00095815A /* about_us.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about_us.html; sourceTree = "<group>"; };
-		D47A4DEB276691CA0095815A /* quote.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = quote.html; sourceTree = "<group>"; };
 		D48BD77F2779F13800D8A25D /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		D48BD786277CA0D100D8A25D /* GA-TB-Reference-Guide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GA-TB-Reference-Guide.entitlements"; sourceTree = "<group>"; };
 		D48BD796277E4F5200D8A25D /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
-		D498E09F2EBA788600B6BD56 /* table_17_what_to_start_choice_of_tb_therapy_and_antiretroviral_therapy_(art)_when_treating_co-infected_patients.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "table_17_what_to_start_choice_of_tb_therapy_and_antiretroviral_therapy_(art)_when_treating_co-infected_patients.html"; sourceTree = "<group>"; };
 		D4A06A5426E6D2330093D144 /* ContentPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentPage.swift; sourceTree = "<group>"; };
 		D4A06A5726E6D2C10093D144 /* Notes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notes.swift; sourceTree = "<group>"; };
 		D4A06A5A26E6E35E0093D144 /* SavedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedViewController.swift; sourceTree = "<group>"; };
@@ -420,7 +419,6 @@
 		D4B0B13226D174F9003BD1EA /* chapterIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chapterIndex.swift; sourceTree = "<group>"; };
 		D4C0C0DC27FCE3B900346F96 /* RealmHelpter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmHelpter.swift; sourceTree = "<group>"; };
 		D4C0C0DE2800D64600346F96 /* OldRealmFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldRealmFile.swift; sourceTree = "<group>"; };
-		D4CCBF5127C023AB00E42BC9 /* 7_childhood_tuberculosis.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = 7_childhood_tuberculosis.html; sourceTree = "<group>"; };
 		D4CCBF5327C032B400E42BC9 /* subchapter.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = subchapter.json; sourceTree = "<group>"; };
 		D4CCBF5427C032B400E42BC9 /* abrreviation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = abrreviation.json; sourceTree = "<group>"; };
 		D4CCBF5527C032B400E42BC9 /* chapter.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = chapter.json; sourceTree = "<group>"; };
@@ -480,8 +478,8 @@
 				D4A5D28F2B2C9BA400812C53 /* 1_epidemiology_image_1_number_of_tb_cases_city_of_atlanta_metro_atlanta_georgia_2000_2020.png */,
 				D4A5D2952B2C9BA500812C53 /* 1_epidemiology_image_2_us_born_and_foreign_born_tb_cases_georgia_2000_2020.png */,
 				D4A5D2922B2C9BA400812C53 /* 16_for_more_information_image_1.gif */,
-				B40FEDE82DF085A600FBEBB7 /* main.js */,
 				B4847B4F2E92BE56006DE174 /* ic_chapter.svg */,
+				B4C3489A2EEF34E900B11877 /* ic_chart.svg */,
 				D4A5D2982B2C9BA500812C53 /* 16_for_more_information_image_2.jpg */,
 				D4A5D2912B2C9BA400812C53 /* DPH.png */,
 				D4A5D2932B2C9BA400812C53 /* Emory_healthcare.png */,
@@ -508,89 +506,88 @@
 				D4A5D2972B2C9BA500812C53 /* signature_marcos_schechter_m_d.jpg */,
 				D4A5D29B2B2C9BA500812C53 /* signature_susan_m_ray_m_d.jpg */,
 				D4A5D29C2B2C9BA500812C53 /* table18.png */,
-				D47A4DEB276691CA0095815A /* quote.html */,
-				D47A4DD6276686D00095815A /* about_us.html */,
-				D42F261226EF8208009DC942 /* 1_epidemiology.html */,
-				D42F263926EF821A009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__a__tuberculin_skin_test.html */,
-				D42F260726EF8203009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__b__criteria_for_a_positive_tuberculin_test_by_risk_group.html */,
-				D42F25F726EF81FB009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__c__two_step_testing_and_the_booster_reaction.html */,
-				D42F25F226EF81F9009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__d__anergy_testing.html */,
-				D42F261926EF820B009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__e__interferon_y_release_assays_(igras).html */,
-				D42F262F26EF8215009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__f__targeted_testing_and_diagnostic_tests_for_ltbi.html */,
-				D42F262026EF820E009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__g__medical_evaluation_after_testing_for_ltbi.html */,
-				D42F263126EF8216009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__h__reporting_of_pediatric_positive_tests_for_ltbi.html */,
-				D42F25F026EF81F9009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi).html */,
-				D42F261E26EF820E009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi)__a__treatment_regimens.html */,
-				D42F262926EF8212009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi)__b__monitoring_of_patients_on_treatment_for_ltbi.html */,
-				D42F260026EF81FF009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi)__c__contacts_of_mdr_tb_cases.html */,
-				D42F25EE26EF81F8009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi).html */,
-				D42F261F26EF820E009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__a__considerations.html */,
-				D42F260126EF8200009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__b__selected_diagnostic_test_characteristics.html */,
-				D42F261126EF8208009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__c__laboratory_diagnosis_of_pulmonary_tuberculosis.html */,
-				D42F25FB26EF81FD009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__d__laboratory_diagnosis_of_extrapulmary_tuberculosis.html */,
-				D42F262126EF820F009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__e__rapid_molecular_drug_susceptibility_tests_(dst).html */,
-				D42F25F926EF81FC009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis.html */,
-				D42F25F126EF81F9009DC942 /* 5_treatment_of_current_(active)_disease_therapy__a__considerations.html */,
-				D42F25FD26EF81FE009DC942 /* 5_treatment_of_current_(active)_disease_therapy__b__standard_therapy_for_current_(active)_disease.html */,
-				D42F262726EF8212009DC942 /* 5_treatment_of_current_(active)_disease_therapy__c__special_clinical_situations.html */,
-				D42F260426EF8201009DC942 /* 5_treatment_of_current_(active)_disease_therapy__d__drug_resistance.html */,
-				D42F261326EF8208009DC942 /* 5_treatment_of_current_(active)_disease_therapy__e__monitoring_patients_on_therapy_for_response_and_adverse_events.html */,
-				D42F25F426EF81FA009DC942 /* 5_treatment_of_current_(active)_disease_therapy__f__tb_and_hiv.html */,
-				D42F25FC26EF81FE009DC942 /* 5_treatment_of_current_(active)_disease_therapy__h__immune_reconstitution_inflammatory_syndrome.html */,
-				D42F262A26EF8213009DC942 /* 5_treatment_of_current_(active)_disease_therapy__i__treatment_of_extrapulmonary_tb.html */,
-				D42F260926EF8204009DC942 /* 5_treatment_of_current_(active)_disease_therapy__j__adjunctive_use_of_corticosteroid_therapy.html */,
-				D46313AB2721A27F00C7D9EC /* 5_treatment_of_current_(active)_disease_therapy.html */,
-				D42F260326EF8201009DC942 /* 6_pregnancy_and_tb__a__treatment_for_ltbi_and_risk_factors.html */,
-				D42F263026EF8216009DC942 /* 6_pregnancy_and_tb__b__treatment_of_active_tb_in_pregnancy.html */,
-				D46313AC2721A27F00C7D9EC /* 6_pregnancy_and_tb.html */,
-				D42F261A26EF820C009DC942 /* 7_childhood_tuberculosis__a__management_considerations.html */,
-				D4CCBF5127C023AB00E42BC9 /* 7_childhood_tuberculosis.html */,
-				D42F25FF26EF81FF009DC942 /* 8_tuberculosis_and_long-term_care_facilities.html */,
-				D42F261526EF8209009DC942 /* 9_bcg_vaccination.html */,
-				D42F25EF26EF81F8009DC942 /* 10_tb_infection_control_hospital_isolation_procedures__a__administrative_controls.html */,
-				D42F25FA26EF81FD009DC942 /* 10_tb_infection_control_hospital_isolation_procedures__b__surveillance_for_health_care_workers.html */,
-				D42F25F826EF81FC009DC942 /* 10_tb_infection_control_hospital_isolation_procedures__c__environmental_controls.html */,
-				D42F263226EF8217009DC942 /* 10_tb_infection_control_hospital_isolation_procedures__d__personal_respiratory_protection.html */,
-				D42F25FE26EF81FE009DC942 /* 10_tb_infection_control_hospital_isolation_procedures.html */,
-				B4847B602E92C9BC006DE174 /* 11_community_tuberculosis_control__a__tb_surveillance_in_georgia.html */,
-				B4847B6F2E92D10F006DE174 /* 11_community_tuberculosis_control__b__how_to_report_tb_as_a_notifiable_disease.html */,
-				B4847B702E92D10F006DE174 /* 11_community_tuberculosis_control__c__tb_case_definitions_for_public_health_surveillance.html */,
-				B4847B712E92D10F006DE174 /* 11_community_tuberculosis_control__d__role_of_the_health_department.html */,
-				B4847B722E92D10F006DE174 /* 11_community_tuberculosis_control__e__hospital_discharge_planning_for_patients_with_suspected_or_proven_tb.html */,
-				B4847B732E92D10F006DE174 /* 11_community_tuberculosis_control__f__interjurisdictional_tb_notification(ijn).html */,
-				B4847B742E92D10F006DE174 /* 11_community_tuberculosis_control__g__curetb_program_(internation_linkage_to_tb_care).html */,
-				B4847B5F2E92C9BC006DE174 /* 11_community_tuberculosis_control.html */,
-				D42F260526EF8202009DC942 /* 12_alternative_housing_program_for_homeless_tb_patients_in_georgia.html */,
-				D42F25F526EF81FB009DC942 /* 13_georgia_department_of_public_health_(dph)_community_guidelines_for_respiratory.html */,
-				D42F260C26EF8205009DC942 /* 14_references.html */,
-				D42F262B26EF8213009DC942 /* 15_appendix_district_tb_coordinators_(by_district).html */,
-				D42F261626EF820A009DC942 /* 16_abbreviations.html */,
-				D42F261426EF8209009DC942 /* 16_for_more_information.html */,
-				D42F262526EF8211009DC942 /* 17_acknowledgements.html */,
-				D42F25F326EF81FA009DC942 /* 18_hello_and_welcome_clinical_statement.html */,
-				D42F263526EF8218009DC942 /* 19_for_more_information.html */,
-				D42F263826EF8219009DC942 /* fig1_factors_to_be_considered.html */,
-				D42F262326EF8210009DC942 /* table_1_interpretation_criteria_for_the_quantiferon_tb_gold_plus_test.html */,
-				D42F262826EF8212009DC942 /* table_2_interpretation_criteria_for_the_t_spot_tb_test.html */,
-				D42F261026EF8207009DC942 /* table_3_high_prevalence_and_high_risk_groups.html */,
-				D42F263B26EF821B009DC942 /* table_4_recommendations_for_regimens_to_treat_latent_tuberculosis_infection.html */,
-				D42F261726EF820A009DC942 /* table_5_dosages_for_recommended_lbti_treatment_regimens.html */,
-				D42F263626EF8218009DC942 /* table_6_ltbi_treatment_drug_adverse_reactions.html */,
-				D42F260F26EF8207009DC942 /* table_7_recommended_regimens_for_treatment_of_adults_and_children_with_drug_susceptible_tb_pulmonary_tb.html */,
-				D42F261C26EF820D009DC942 /* table_8_first-line_tb_drugs_dosing_for_adults_(ages_16_and_over)_directly_observed_therapy_(dot)_is_mandatory.html */,
-				D42F262C26EF8214009DC942 /* table_9_pediatric_dosage_isoniazid_in_children_(birth_to_15_years).html */,
-				D42F260626EF8202009DC942 /* table_10_pediatric_dosages_rifampin_in_children_(birth_to_15_years).html */,
-				D42F261826EF820B009DC942 /* table_11_pediatric_dosages_ethambutol_in_children_(birth_to_15_years).html */,
-				D42F262D26EF8214009DC942 /* table_12_pediatric_dosages_pyrazinamide_in_children_(birth_to_15_years).html */,
-				D42F260826EF8203009DC942 /* table_13_antituberculosis_antibiotics_in_adult_patients_with_renal_impairment.html */,
-				D42F260B26EF8205009DC942 /* table_14_antituberculosis_medications_which_may_be_used_for_patients_who_have_contraindications_to_or_intolerance.html */,
-				D42F262426EF8210009DC942 /* table_15_clinical_situations_for_which_standard_therapy_cannot_be_given_or_is_not_well_tolerated.html */,
-				D42F262626EF8211009DC942 /* table_16_when_to_start_hiv_therapy.html */,
-				D498E09F2EBA788600B6BD56 /* table_17_what_to_start_choice_of_tb_therapy_and_antiretroviral_therapy_(art)_when_treating_co-infected_patients.html */,
-				D4597EA72A7022E300EF8906 /* table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html */,
-				D42F25F626EF81FB009DC942 /* table_19_guidelines_for_treatment_of_extrapulmonary_tuberculosis.html */,
-				D42F263726EF8219009DC942 /* table_20_use_of_anti-tb_medications_in_special_situations_pregnancy_tuberculosis_meningitis_and_renal_failure.html */,
-				D42F263326EF8217009DC942 /* table_21_grady_hospital_tb_isolation_policy.html */,
+				B4C348332EEF2D7000B11877 /* main.js */,
+				B4C347F62EEF2D7000B11877 /* 1_epidemiology.html */,
+				B4C347F72EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi).html */,
+				B4C347F82EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__a__tuberculin_skin_test.html */,
+				B4C347F92EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__b__criteria_for_a_positive_tuberculin_test_by_risk_group.html */,
+				B4C347FA2EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__c__two_step_testing_and_the_booster_reaction.html */,
+				B4C347FB2EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__d__anergy_testing.html */,
+				B4C347FC2EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__e__interferon_y_release_assays_(igras).html */,
+				B4C347FD2EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__f__targeted_testing_and_diagnostic_tests_for_ltbi.html */,
+				B4C347FE2EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__g__medical_evaluation_after_testing_for_ltbi.html */,
+				B4C347FF2EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__h__reporting_of_pediatric_positive_tests_for_ltbi.html */,
+				B4C348002EEF2D7000B11877 /* 3_treatment_of_latent_tb_infection_(ltbi).html */,
+				B4C348012EEF2D7000B11877 /* 3_treatment_of_latent_tb_infection_(ltbi)__a__treatment_regimens.html */,
+				B4C348022EEF2D7000B11877 /* 3_treatment_of_latent_tb_infection_(ltbi)__b__monitoring_of_patients_on_treatment_for_ltbi.html */,
+				B4C348032EEF2D7000B11877 /* 3_treatment_of_latent_tb_infection_(ltbi)__c__contacts_of_mdr_tb_cases.html */,
+				B4C348042EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis.html */,
+				B4C348052EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis__a__considerations.html */,
+				B4C348062EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis__b__selected_diagnostic_test_characteristics.html */,
+				B4C348072EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis__c__laboratory_diagnosis_of_pulmonary_tuberculosis.html */,
+				B4C348082EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis__d__laboratory_diagnosis_of_extrapulmary_tuberculosis.html */,
+				B4C348092EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis__e__rapid_molecular_drug_susceptibility_tests_(dst).html */,
+				B4C3480A2EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy.html */,
+				B4C3480B2EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__a__considerations.html */,
+				B4C3480C2EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__b__standard_therapy_for_current_(active)_disease.html */,
+				B4C3480D2EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__c__special_clinical_situations.html */,
+				B4C3480E2EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__d__drug_resistance.html */,
+				B4C3480F2EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__e__monitoring_patients_on_therapy_for_response_and_adverse_events.html */,
+				B4C348102EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__f__tb_and_hiv.html */,
+				B4C348112EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__h__immune_reconstitution_inflammatory_syndrome.html */,
+				B4C348122EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__i__treatment_of_extrapulmonary_tb.html */,
+				B4C348132EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__j__adjunctive_use_of_corticosteroid_therapy.html */,
+				B4C348142EEF2D7000B11877 /* 6_pregnancy_and_tb.html */,
+				B4C348152EEF2D7000B11877 /* 6_pregnancy_and_tb__a__treatment_for_ltbi_and_risk_factors.html */,
+				B4C348162EEF2D7000B11877 /* 6_pregnancy_and_tb__b__treatment_of_active_tb_in_pregnancy.html */,
+				B4C348172EEF2D7000B11877 /* 7_childhood_tuberculosis.html */,
+				B4C348182EEF2D7000B11877 /* 7_childhood_tuberculosis__a__management_considerations.html */,
+				B4C348192EEF2D7000B11877 /* 8_tuberculosis_and_long_term_care_facilities.html */,
+				B4C3481A2EEF2D7000B11877 /* 9_bcg_vaccination.html */,
+				B4C3481B2EEF2D7000B11877 /* 10_tb_infection_control_hospital_isolation_procedures.html */,
+				B4C3481C2EEF2D7000B11877 /* 10_tb_infection_control_hospital_isolation_procedures__a__administrative_controls.html */,
+				B4C3481D2EEF2D7000B11877 /* 10_tb_infection_control_hospital_isolation_procedures__b__surveillance_for_health_care_workers.html */,
+				B4C3481E2EEF2D7000B11877 /* 10_tb_infection_control_hospital_isolation_procedures__c__environmental_controls.html */,
+				B4C3481F2EEF2D7000B11877 /* 10_tb_infection_control_hospital_isolation_procedures__d__personal_respiratory_protection.html */,
+				B4C348202EEF2D7000B11877 /* 11_community_tuberculosis_control.html */,
+				B4C348212EEF2D7000B11877 /* 11_community_tuberculosis_control__a__tb_surveillance_in_georgia.html */,
+				B4C348222EEF2D7000B11877 /* 11_community_tuberculosis_control__b__how_to_report_tb_as_a_notifiable_disease.html */,
+				B4C348232EEF2D7000B11877 /* 11_community_tuberculosis_control__c__tb_case_definitions_for_public_health_surveillance.html */,
+				B4C348242EEF2D7000B11877 /* 11_community_tuberculosis_control__d__role_of_the_health_department.html */,
+				B4C348252EEF2D7000B11877 /* 11_community_tuberculosis_control__e__hospital_discharge_planning_for_patients_with_suspected_or_proven_tb.html */,
+				B4C348262EEF2D7000B11877 /* 11_community_tuberculosis_control__f__interjurisdictional_tb_notification(ijn).html */,
+				B4C348272EEF2D7000B11877 /* 11_community_tuberculosis_control__g__curetb_program_(internation_linkage_to_tb_care).html */,
+				B4C348282EEF2D7000B11877 /* 12_alternative_housing_program_for_homeless_tb_patients_in_georgia.html */,
+				B4C348292EEF2D7000B11877 /* 13_georgia_department_of_public_health_(dph)_community_guidelines_for_respiratory.html */,
+				B4C3482A2EEF2D7000B11877 /* 14_references.html */,
+				B4C3482B2EEF2D7000B11877 /* 15_appendix_district_tb_coordinators_(by_district).html */,
+				B4C3482C2EEF2D7000B11877 /* 16_abbreviations.html */,
+				B4C3482D2EEF2D7000B11877 /* 16_for_more_information.html */,
+				B4C3482E2EEF2D7000B11877 /* 17_acknowledgements.html */,
+				B4C3482F2EEF2D7000B11877 /* 18_for_more_information.html */,
+				B4C348302EEF2D7000B11877 /* about_us.html */,
+				B4C348312EEF2D7000B11877 /* fig1_factors_to_be_considered.html */,
+				B4C348322EEF2D7000B11877 /* hello_and_welcome_clinical_statement.html */,
+				B4C348342EEF2D7000B11877 /* quote.html */,
+				B4C348352EEF2D7000B11877 /* table_1_interpretation_criteria_for_the_quantiferon_tb_gold_plus_test.html */,
+				B4C348362EEF2D7000B11877 /* table_2_interpretation_criteria_for_the_t_spot_tb_test.html */,
+				B4C348372EEF2D7000B11877 /* table_3_high_prevalence_and_high_risk_groups.html */,
+				B4C348382EEF2D7000B11877 /* table_4_recommendations_for_regimens_to_treat_latent_tuberculosis_infection.html */,
+				B4C348392EEF2D7000B11877 /* table_5_dosages_for_recommended_lbti_treatment_regimens.html */,
+				B4C3483A2EEF2D7000B11877 /* table_6_ltbi_treatment_drug_adverse_reactions.html */,
+				B4C3483B2EEF2D7000B11877 /* table_7_recommended_regimens_for_treatment_of_adults_and_children_with_drug_susceptible_tb_pulmonary_tb.html */,
+				B4C3483C2EEF2D7000B11877 /* table_8_first-line_tb_drugs_dosing_for_adults_(ages_16_and_over)_directly_observed_therapy_(dot)_is_mandatory.html */,
+				B4C3483D2EEF2D7000B11877 /* table_9_pediatric_dosage_isoniazid_in_children_(birth_to_15_years).html */,
+				B4C3483E2EEF2D7000B11877 /* table_10_antituberculosis_antibiotics_in_adult_patients_with_renal_impairment.html */,
+				B4C3483F2EEF2D7000B11877 /* table_11_antituberculosis_medications_which_may_be_used_for_patients_who_have_contraindications_to_or_intolerance.html */,
+				B4C348402EEF2D7000B11877 /* table_12_clinical_situations_for_which_standard_therapy_cannot_be_given_or_is_not_well_tolerated.html */,
+				B4C348412EEF2D7000B11877 /* table_13_when_to_start_hiv_therapy.html */,
+				B4C348422EEF2D7000B11877 /* table_14_what_to_start_choice_of_tb_therapy_and_antiretroviral_therapy_(art)_when_treating_co-infected_patients.html */,
+				B4C348432EEF2D7000B11877 /* table_15_summary_of_recommendations_for_treatment_of_active_tb_disease_in_persons_with_hiv.html */,
+				B4C348442EEF2D7000B11877 /* table_16_guidelines_for_treatment_of_extrapulmonary_tuberculosis.html */,
+				B4C348452EEF2D7000B11877 /* table_17_use_of_anti-tb_medications_in_special_situations_pregnancy_tuberculosis_meningitis_and_renal_failure.html */,
+				B4C348462EEF2D7000B11877 /* table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html */,
+				B4C348472EEF2D7000B11877 /* table_19_grady_hospital_tb_isolation_policy.html */,
 			);
 			path = pages;
 			sourceTree = "<group>";
@@ -899,130 +896,134 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D42F268726EF821B009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__a__tuberculin_skin_test.html in Resources */,
-				D42F265426EF821B009DC942 /* table_10_pediatric_dosages_rifampin_in_children_(birth_to_15_years).html in Resources */,
 				D4515E7026DAE60600EE6592 /* uikit.js in Resources */,
 				D4B0B0B926D01CA8003BD1EA /* LaunchScreen.storyboard in Resources */,
-				D42F267326EF821B009DC942 /* 17_acknowledgements.html in Resources */,
 				D4515E7226DAE60600EE6592 /* uikit-icons.js in Resources */,
-				D42F264726EF821B009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis.html in Resources */,
-				B4847B752E92D10F006DE174 /* 11_community_tuberculosis_control__d__role_of_the_health_department.html in Resources */,
-				B4847B762E92D10F006DE174 /* 11_community_tuberculosis_control__c__tb_case_definitions_for_public_health_surveillance.html in Resources */,
-				B4847B772E92D10F006DE174 /* 11_community_tuberculosis_control__b__how_to_report_tb_as_a_notifiable_disease.html in Resources */,
-				B4847B782E92D10F006DE174 /* 11_community_tuberculosis_control__g__curetb_program_(internation_linkage_to_tb_care).html in Resources */,
-				B4847B792E92D10F006DE174 /* 11_community_tuberculosis_control__e__hospital_discharge_planning_for_patients_with_suspected_or_proven_tb.html in Resources */,
-				B4847B7A2E92D10F006DE174 /* 11_community_tuberculosis_control__f__interjurisdictional_tb_notification(ijn).html in Resources */,
 				D4CCBF5727C032B400E42BC9 /* subchapter.json in Resources */,
-				B40FEDE92DF085A600FBEBB7 /* main.js in Resources */,
 				B401CE632C5BD8C300149414 /* RecentSearchTableViewCell.xib in Resources */,
-				D42F264E26EF821B009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi)__c__contacts_of_mdr_tb_cases.html in Resources */,
-				D42F265126EF821B009DC942 /* 6_pregnancy_and_tb__a__treatment_for_ltbi_and_risk_factors.html in Resources */,
-				D42F266226EF821B009DC942 /* 16_for_more_information.html in Resources */,
-				D47A4DD7276686D00095815A /* about_us.html in Resources */,
-				D42F265A26EF821B009DC942 /* 14_references.html in Resources */,
-				D42F264426EF821B009DC942 /* table_19_guidelines_for_treatment_of_extrapulmonary_tuberculosis.html in Resources */,
-				D46313AE2721A27F00C7D9EC /* 5_treatment_of_current_(active)_disease_therapy.html in Resources */,
-				D42F266E26EF821B009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__g__medical_evaluation_after_testing_for_ltbi.html in Resources */,
 				B47FDDA62E9642B700CC4C7B /* BookmarkSavedPopUp.xib in Resources */,
-				D42F264B26EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__b__standard_therapy_for_current_(active)_disease.html in Resources */,
 				D4B0B0B626D01CA8003BD1EA /* Assets.xcassets in Resources */,
-				D42F263E26EF821B009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi).html in Resources */,
-				D42F266326EF821B009DC942 /* 9_bcg_vaccination.html in Resources */,
-				D42F267626EF821B009DC942 /* table_2_interpretation_criteria_for_the_t_spot_tb_test.html in Resources */,
-				D42F264326EF821B009DC942 /* 13_georgia_department_of_public_health_(dph)_community_guidelines_for_respiratory.html in Resources */,
 				D4A5D29F2B2C9BA500812C53 /* DPH.png in Resources */,
 				D4A5D29D2B2C9BA500812C53 /* 1_epidemiology_image_1_number_of_tb_cases_city_of_atlanta_metro_atlanta_georgia_2000_2020.png in Resources */,
-				D42F265F26EF821B009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__c__laboratory_diagnosis_of_pulmonary_tuberculosis.html in Resources */,
-				D498E0A02EBA788600B6BD56 /* table_17_what_to_start_choice_of_tb_therapy_and_antiretroviral_therapy_(art)_when_treating_co-infected_patients.html in Resources */,
-				D42F268426EF821B009DC942 /* table_6_ltbi_treatment_drug_adverse_reactions.html in Resources */,
-				D42F266F26EF821B009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__e__rapid_molecular_drug_susceptibility_tests_(dst).html in Resources */,
 				D4631308271CD35A00C7D9EC /* Guide.xib in Resources */,
-				D42F267526EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__c__special_clinical_situations.html in Resources */,
-				D42F263F26EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__a__considerations.html in Resources */,
 				D4A5D2A02B2C9BA500812C53 /* 16_for_more_information_image_1.gif in Resources */,
 				B401CE5F2C58D96D00149414 /* SuggestionTableViewCell.xib in Resources */,
 				D42F26B326F94FC5009DC942 /* uikit-copy.js in Resources */,
 				D4CCBF5A27C032B400E42BC9 /* chart.json in Resources */,
-				D4597EA82A7022E300EF8906 /* table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html in Resources */,
 				D4710CEC274ABA5700F6EBFF /* FeedbackForm.xib in Resources */,
-				D42F264A26EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__h__immune_reconstitution_inflammatory_syndrome.html in Resources */,
-				D42F266626EF821B009DC942 /* table_11_pediatric_dosages_ethambutol_in_children_(birth_to_15_years).html in Resources */,
-				D42F263D26EF821B009DC942 /* 10_tb_infection_control_hospital_isolation_procedures__a__administrative_controls.html in Resources */,
-				D42F265226EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__d__drug_resistance.html in Resources */,
-				D4CCBF5227C023AB00E42BC9 /* 7_childhood_tuberculosis.html in Resources */,
 				D4A5D2A32B2C9BA500812C53 /* 1_epidemiology_image_2_us_born_and_foreign_born_tb_cases_georgia_2000_2020.png in Resources */,
-				D42F267726EF821B009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi)__b__monitoring_of_patients_on_treatment_for_ltbi.html in Resources */,
-				D42F264226EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__f__tb_and_hiv.html in Resources */,
-				D42F267B26EF821B009DC942 /* table_12_pediatric_dosages_pyrazinamide_in_children_(birth_to_15_years).html in Resources */,
-				D42F266726EF821B009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__e__interferon_y_release_assays_(igras).html in Resources */,
 				B47FDDAC2E9657AF00CC4C7B /* DeleteConfirmationPopUp.xib in Resources */,
-				D42F266A26EF821B009DC942 /* table_8_first-line_tb_drugs_dosing_for_adults_(ages_16_and_over)_directly_observed_therapy_(dot)_is_mandatory.html in Resources */,
 				D4710CAE2744129000F6EBFF /* Settings.xib in Resources */,
 				D4515E7126DAE60600EE6592 /* style.css in Resources */,
-				D42F266126EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__e__monitoring_patients_on_therapy_for_response_and_adverse_events.html in Resources */,
 				D4A5D2A12B2C9BA500812C53 /* Emory_healthcare.png in Resources */,
-				D42F266826EF821B009DC942 /* 7_childhood_tuberculosis__a__management_considerations.html in Resources */,
 				D4A5D2A72B2C9BA500812C53 /* EU_noShield_hz_280.png in Resources */,
-				D42F264C26EF821B009DC942 /* 10_tb_infection_control_hospital_isolation_procedures.html in Resources */,
+				B4C3489B2EEF34E900B11877 /* ic_chart.svg in Resources */,
 				B45C1EF32D65BD3300AF239F /* ic_title_icon.svg in Resources */,
 				B4847B502E92BE56006DE174 /* ic_chapter.svg in Resources */,
 				D4CCBF5927C032B400E42BC9 /* chapter.json in Resources */,
 				D4A5D2AA2B2C9BA500812C53 /* table18.png in Resources */,
-				D42F265E26EF821B009DC942 /* table_3_high_prevalence_and_high_risk_groups.html in Resources */,
-				D42F265726EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__j__adjunctive_use_of_corticosteroid_therapy.html in Resources */,
-				D42F266526EF821B009DC942 /* table_5_dosages_for_recommended_lbti_treatment_regimens.html in Resources */,
-				D42F264626EF821B009DC942 /* 10_tb_infection_control_hospital_isolation_procedures__c__environmental_controls.html in Resources */,
-				D42F267A26EF821B009DC942 /* table_9_pediatric_dosage_isoniazid_in_children_(birth_to_15_years).html in Resources */,
-				D42F268326EF821B009DC942 /* 19_for_more_information.html in Resources */,
-				D42F265926EF821B009DC942 /* table_14_antituberculosis_medications_which_may_be_used_for_patients_who_have_contraindications_to_or_intolerance.html in Resources */,
 				D4B0B0B426D01CA6003BD1EA /* Main.storyboard in Resources */,
-				D42F267426EF821B009DC942 /* table_16_when_to_start_hiv_therapy.html in Resources */,
-				D42F264D26EF821B009DC942 /* 8_tuberculosis_and_long-term_care_facilities.html in Resources */,
-				B4847B612E92C9BC006DE174 /* 11_community_tuberculosis_control.html in Resources */,
-				B4847B622E92C9BC006DE174 /* 11_community_tuberculosis_control__a__tb_surveillance_in_georgia.html in Resources */,
 				D4515E6F26DAE60600EE6592 /* uikit.css in Resources */,
 				8E0132EA2A68FFB0001533AB /* WebView.js in Resources */,
-				D42F267126EF821B009DC942 /* table_1_interpretation_criteria_for_the_quantiferon_tb_gold_plus_test.html in Resources */,
-				D42F264926EF821B009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__d__laboratory_diagnosis_of_extrapulmary_tuberculosis.html in Resources */,
 				D4A5D2A62B2C9BA500812C53 /* 16_for_more_information_image_2.jpg in Resources */,
-				D42F266026EF821B009DC942 /* 1_epidemiology.html in Resources */,
 				B474B07F2C2DA54B0092F4F6 /* FontSettingsView.xib in Resources */,
-				D42F268926EF821B009DC942 /* table_4_recommendations_for_regimens_to_treat_latent_tuberculosis_infection.html in Resources */,
 				D48063852A97BCFA006C9861 /* GoogleService-Info.plist in Resources */,
-				D42F268026EF821B009DC942 /* 10_tb_infection_control_hospital_isolation_procedures__d__personal_respiratory_protection.html in Resources */,
-				D42F264526EF821B009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__c__two_step_testing_and_the_booster_reaction.html in Resources */,
-				D42F267F26EF821B009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__h__reporting_of_pediatric_positive_tests_for_ltbi.html in Resources */,
 				D4710CE6274AB5E000F6EBFF /* georgia-tb-privacy-policy.html in Resources */,
-				D42F265626EF821B009DC942 /* table_13_antituberculosis_antibiotics_in_adult_patients_with_renal_impairment.html in Resources */,
 				D449FCB826EC5368008C3ACB /* SaveFavorite.xib in Resources */,
 				D4A5D2A42B2C9BA500812C53 /* Emory_university.jpg in Resources */,
 				D4A5D2A82B2C9BA500812C53 /* Emory_university.png in Resources */,
-				D47A4DEC276691CA0095815A /* quote.html in Resources */,
-				D42F264F26EF821B009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__b__selected_diagnostic_test_characteristics.html in Resources */,
 				B4E88A152E8A83D100396ABB /* BookmarkTableViewCell.xib in Resources */,
 				D449FCBE26EC660E008C3ACB /* SaveNote.xib in Resources */,
-				D42F267D26EF821B009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__f__targeted_testing_and_diagnostic_tests_for_ltbi.html in Resources */,
-				D42F265D26EF821B009DC942 /* table_7_recommended_regimens_for_treatment_of_adults_and_children_with_drug_susceptible_tb_pulmonary_tb.html in Resources */,
-				D42F265526EF821B009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__b__criteria_for_a_positive_tuberculin_test_by_risk_group.html in Resources */,
 				D45BD0BC26E3936A0037E2A8 /* SearchCell.xib in Resources */,
-				D42F266C26EF821B009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi)__a__treatment_regimens.html in Resources */,
 				B47FDDB02E967E9800CC4C7B /* CustomPopUp.xib in Resources */,
-				D42F267926EF821B009DC942 /* 15_appendix_district_tb_coordinators_(by_district).html in Resources */,
-				D42F267826EF821B009DC942 /* 5_treatment_of_current_(active)_disease_therapy__i__treatment_of_extrapulmonary_tb.html in Resources */,
+				B4C348482EEF2D7000B11877 /* hello_and_welcome_clinical_statement.html in Resources */,
+				B4C348492EEF2D7000B11877 /* table_9_pediatric_dosage_isoniazid_in_children_(birth_to_15_years).html in Resources */,
+				B4C3484A2EEF2D7000B11877 /* table_17_use_of_anti-tb_medications_in_special_situations_pregnancy_tuberculosis_meningitis_and_renal_failure.html in Resources */,
+				B4C3484B2EEF2D7000B11877 /* 3_treatment_of_latent_tb_infection_(ltbi)__b__monitoring_of_patients_on_treatment_for_ltbi.html in Resources */,
+				B4C3484C2EEF2D7000B11877 /* 6_pregnancy_and_tb__a__treatment_for_ltbi_and_risk_factors.html in Resources */,
+				B4C3484D2EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__g__medical_evaluation_after_testing_for_ltbi.html in Resources */,
+				B4C3484E2EEF2D7000B11877 /* 8_tuberculosis_and_long_term_care_facilities.html in Resources */,
+				B4C3484F2EEF2D7000B11877 /* table_8_first-line_tb_drugs_dosing_for_adults_(ages_16_and_over)_directly_observed_therapy_(dot)_is_mandatory.html in Resources */,
+				B4C348502EEF2D7000B11877 /* table_1_interpretation_criteria_for_the_quantiferon_tb_gold_plus_test.html in Resources */,
+				B4C348512EEF2D7000B11877 /* 11_community_tuberculosis_control__a__tb_surveillance_in_georgia.html in Resources */,
+				B4C348522EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis__a__considerations.html in Resources */,
+				B4C348532EEF2D7000B11877 /* 11_community_tuberculosis_control__e__hospital_discharge_planning_for_patients_with_suspected_or_proven_tb.html in Resources */,
+				B4C348542EEF2D7000B11877 /* table_2_interpretation_criteria_for_the_t_spot_tb_test.html in Resources */,
+				B4C348552EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__c__special_clinical_situations.html in Resources */,
+				B4C348562EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__d__anergy_testing.html in Resources */,
+				B4C348572EEF2D7000B11877 /* 17_acknowledgements.html in Resources */,
+				B4C348582EEF2D7000B11877 /* 10_tb_infection_control_hospital_isolation_procedures.html in Resources */,
+				B4C348592EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi).html in Resources */,
+				B4C3485A2EEF2D7000B11877 /* 3_treatment_of_latent_tb_infection_(ltbi)__a__treatment_regimens.html in Resources */,
+				B4C3485B2EEF2D7000B11877 /* 7_childhood_tuberculosis__a__management_considerations.html in Resources */,
+				B4C3485C2EEF2D7000B11877 /* 11_community_tuberculosis_control__d__role_of_the_health_department.html in Resources */,
+				B4C3485D2EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__a__tuberculin_skin_test.html in Resources */,
+				B4C3485E2EEF2D7000B11877 /* main.js in Resources */,
+				B4C3485F2EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__h__reporting_of_pediatric_positive_tests_for_ltbi.html in Resources */,
+				B4C348602EEF2D7000B11877 /* 6_pregnancy_and_tb.html in Resources */,
+				B4C348612EEF2D7000B11877 /* table_15_summary_of_recommendations_for_treatment_of_active_tb_disease_in_persons_with_hiv.html in Resources */,
+				B4C348622EEF2D7000B11877 /* 10_tb_infection_control_hospital_isolation_procedures__b__surveillance_for_health_care_workers.html in Resources */,
+				B4C348632EEF2D7000B11877 /* 11_community_tuberculosis_control__g__curetb_program_(internation_linkage_to_tb_care).html in Resources */,
+				B4C348642EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__c__two_step_testing_and_the_booster_reaction.html in Resources */,
+				B4C348652EEF2D7000B11877 /* 6_pregnancy_and_tb__b__treatment_of_active_tb_in_pregnancy.html in Resources */,
+				B4C348662EEF2D7000B11877 /* 10_tb_infection_control_hospital_isolation_procedures__c__environmental_controls.html in Resources */,
+				B4C348672EEF2D7000B11877 /* table_13_when_to_start_hiv_therapy.html in Resources */,
+				B4C348682EEF2D7000B11877 /* 12_alternative_housing_program_for_homeless_tb_patients_in_georgia.html in Resources */,
+				B4C348692EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__f__tb_and_hiv.html in Resources */,
+				B4C3486A2EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis__b__selected_diagnostic_test_characteristics.html in Resources */,
+				B4C3486B2EEF2D7000B11877 /* 18_for_more_information.html in Resources */,
+				B4C3486C2EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__b__criteria_for_a_positive_tuberculin_test_by_risk_group.html in Resources */,
+				B4C3486D2EEF2D7000B11877 /* 11_community_tuberculosis_control__b__how_to_report_tb_as_a_notifiable_disease.html in Resources */,
+				B4C3486E2EEF2D7000B11877 /* 11_community_tuberculosis_control__c__tb_case_definitions_for_public_health_surveillance.html in Resources */,
+				B4C3486F2EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy.html in Resources */,
+				B4C348702EEF2D7000B11877 /* fig1_factors_to_be_considered.html in Resources */,
+				B4C348712EEF2D7000B11877 /* 7_childhood_tuberculosis.html in Resources */,
+				B4C348722EEF2D7000B11877 /* 10_tb_infection_control_hospital_isolation_procedures__d__personal_respiratory_protection.html in Resources */,
+				B4C348732EEF2D7000B11877 /* 10_tb_infection_control_hospital_isolation_procedures__a__administrative_controls.html in Resources */,
+				B4C348742EEF2D7000B11877 /* table_4_recommendations_for_regimens_to_treat_latent_tuberculosis_infection.html in Resources */,
+				B4C348752EEF2D7000B11877 /* table_5_dosages_for_recommended_lbti_treatment_regimens.html in Resources */,
+				B4C348762EEF2D7000B11877 /* table_6_ltbi_treatment_drug_adverse_reactions.html in Resources */,
+				B4C348772EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__i__treatment_of_extrapulmonary_tb.html in Resources */,
+				B4C348782EEF2D7000B11877 /* table_16_guidelines_for_treatment_of_extrapulmonary_tuberculosis.html in Resources */,
+				B4C348792EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__d__drug_resistance.html in Resources */,
+				B4C3487A2EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis__e__rapid_molecular_drug_susceptibility_tests_(dst).html in Resources */,
+				B4C3487B2EEF2D7000B11877 /* 14_references.html in Resources */,
+				B4C3487C2EEF2D7000B11877 /* 15_appendix_district_tb_coordinators_(by_district).html in Resources */,
+				B4C3487D2EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__j__adjunctive_use_of_corticosteroid_therapy.html in Resources */,
+				B4C3487E2EEF2D7000B11877 /* table_7_recommended_regimens_for_treatment_of_adults_and_children_with_drug_susceptible_tb_pulmonary_tb.html in Resources */,
+				B4C3487F2EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__e__interferon_y_release_assays_(igras).html in Resources */,
+				B4C348802EEF2D7000B11877 /* table_11_antituberculosis_medications_which_may_be_used_for_patients_who_have_contraindications_to_or_intolerance.html in Resources */,
+				B4C348812EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__b__standard_therapy_for_current_(active)_disease.html in Resources */,
+				B4C348822EEF2D7000B11877 /* table_12_clinical_situations_for_which_standard_therapy_cannot_be_given_or_is_not_well_tolerated.html in Resources */,
+				B4C348832EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__h__immune_reconstitution_inflammatory_syndrome.html in Resources */,
+				B4C348842EEF2D7000B11877 /* 11_community_tuberculosis_control.html in Resources */,
+				B4C348852EEF2D7000B11877 /* table_19_grady_hospital_tb_isolation_policy.html in Resources */,
+				B4C348862EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis__d__laboratory_diagnosis_of_extrapulmary_tuberculosis.html in Resources */,
+				B4C348872EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__f__targeted_testing_and_diagnostic_tests_for_ltbi.html in Resources */,
+				B4C348882EEF2D7000B11877 /* 1_epidemiology.html in Resources */,
+				B4C348892EEF2D7000B11877 /* quote.html in Resources */,
+				B4C3488A2EEF2D7000B11877 /* table_10_antituberculosis_antibiotics_in_adult_patients_with_renal_impairment.html in Resources */,
+				B4C3488B2EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis__c__laboratory_diagnosis_of_pulmonary_tuberculosis.html in Resources */,
+				B4C3488C2EEF2D7000B11877 /* 13_georgia_department_of_public_health_(dph)_community_guidelines_for_respiratory.html in Resources */,
+				B4C3488D2EEF2D7000B11877 /* table_3_high_prevalence_and_high_risk_groups.html in Resources */,
+				B4C3488E2EEF2D7000B11877 /* table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html in Resources */,
+				B4C3488F2EEF2D7000B11877 /* table_14_what_to_start_choice_of_tb_therapy_and_antiretroviral_therapy_(art)_when_treating_co-infected_patients.html in Resources */,
+				B4C348902EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__e__monitoring_patients_on_therapy_for_response_and_adverse_events.html in Resources */,
+				B4C348912EEF2D7000B11877 /* 16_abbreviations.html in Resources */,
+				B4C348922EEF2D7000B11877 /* 3_treatment_of_latent_tb_infection_(ltbi).html in Resources */,
+				B4C348932EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__a__considerations.html in Resources */,
+				B4C348942EEF2D7000B11877 /* 9_bcg_vaccination.html in Resources */,
+				B4C348952EEF2D7000B11877 /* 3_treatment_of_latent_tb_infection_(ltbi)__c__contacts_of_mdr_tb_cases.html in Resources */,
+				B4C348962EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis.html in Resources */,
+				B4C348972EEF2D7000B11877 /* 11_community_tuberculosis_control__f__interjurisdictional_tb_notification(ijn).html in Resources */,
+				B4C348982EEF2D7000B11877 /* about_us.html in Resources */,
+				B4C348992EEF2D7000B11877 /* 16_for_more_information.html in Resources */,
 				D4A5D29E2B2C9BA500812C53 /* figure1.png in Resources */,
-				D42F266D26EF821B009DC942 /* 4_laboratory_diagnosis_of_active_tuberculosis__a__considerations.html in Resources */,
-				D42F264126EF821B009DC942 /* 18_hello_and_welcome_clinical_statement.html in Resources */,
-				D42F268126EF821B009DC942 /* table_21_grady_hospital_tb_isolation_policy.html in Resources */,
 				D4B0B0F126D06952003BD1EA /* SubChapterContentView.xib in Resources */,
 				D4CCBF5827C032B400E42BC9 /* abrreviation.json in Resources */,
 				D4A5D2A22B2C9BA500812C53 /* signature_henry_m_blumberg_m_d.jpg in Resources */,
-				D42F268626EF821B009DC942 /* fig1_factors_to_be_considered.html in Resources */,
 				D4A5D2A92B2C9BA500812C53 /* signature_susan_m_ray_m_d.jpg in Resources */,
 				D42F25E926EEFA8F009DC942 /* NoteTableViewCell.xib in Resources */,
-				D42F267E26EF821B009DC942 /* 6_pregnancy_and_tb__b__treatment_of_active_tb_in_pregnancy.html in Resources */,
-				D42F266426EF821B009DC942 /* 16_abbreviations.html in Resources */,
-				D42F268526EF821B009DC942 /* table_20_use_of_anti-tb_medications_in_special_situations_pregnancy_tuberculosis_meningitis_and_renal_failure.html in Resources */,
-				D42F264826EF821B009DC942 /* 10_tb_infection_control_hospital_isolation_procedures__b__surveillance_for_health_care_workers.html in Resources */,
 				B40FEE032DF0898700FBEBB7 /* considerations_image_1.png in Resources */,
 				B40FEE042DF0898700FBEBB7 /* chapter_1_image_3.png in Resources */,
 				B40FEE052DF0898700FBEBB7 /* image_3.png in Resources */,
@@ -1038,14 +1039,9 @@
 				B40FEE172DF0898700FBEBB7 /* chapter_1_image_4.png in Resources */,
 				B40FEE182DF0898700FBEBB7 /* Chevron.png in Resources */,
 				B40FEE1B2DF0898700FBEBB7 /* chapter_1_image_2.png in Resources */,
-				D42F267226EF821B009DC942 /* table_15_clinical_situations_for_which_standard_therapy_cannot_be_given_or_is_not_well_tolerated.html in Resources */,
 				B4C6DBC92E97462F006D8D5A /* NoteSavedPopUp.xib in Resources */,
-				D42F263C26EF821B009DC942 /* 3_treatment_of_latent_tb_infection_(ltbi).html in Resources */,
-				D42F265326EF821B009DC942 /* 12_alternative_housing_program_for_homeless_tb_patients_in_georgia.html in Resources */,
 				D42F269626F05B64009DC942 /* ChapterNoteTableViewCell.xib in Resources */,
 				D4A5D2A52B2C9BA500812C53 /* signature_marcos_schechter_m_d.jpg in Resources */,
-				D42F264026EF821B009DC942 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__d__anergy_testing.html in Resources */,
-				D46313AF2721A27F00C7D9EC /* 6_pregnancy_and_tb.html in Resources */,
 				D4B0B0E826D0614A003BD1EA /* SubChapterListView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
