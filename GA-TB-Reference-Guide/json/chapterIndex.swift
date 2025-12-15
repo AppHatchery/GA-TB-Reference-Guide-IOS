@@ -364,7 +364,29 @@ public class ChapterIndex {
     "Table 18: Dosage Adjustments for ART and Rifamycins when used in Combination",
     "Table 19: Grady Hospital TB Isolation Policy",
     "Figure 1. Factors to be considered in deciding to initiate treatment empirically for active tuberculosis (TB) (prior to microbiologic confirmation)",
-    
+  ]
+
+  let chartsTrimmed = [
+    "Table 1",
+    "Table 2",
+    "Table 3",
+    "Table 4",
+    "Table 5",
+    "Table 6",
+    "Table 7",
+    "Table 8",
+    "Table 9",
+    "Table 10",
+    "Table 11",
+    "Table 12",
+    "Table 13",
+    "Table 14",
+    "Table 15",
+    "Table 16",
+    "Table 17",
+    "Table 18",
+    "Table 19",
+    "Figure 1",
   ]
 
   let chapters = [

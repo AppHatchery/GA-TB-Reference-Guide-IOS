@@ -181,13 +181,13 @@ class GuideViewController: UIViewController, URLSessionDelegate {
 
     
     @IBAction func tapTopButton(_ sender: UIButton){
-        quickTitle = bible.chapters[sender.tag-1]
-        quickPointer = sender.tag-1
+        quickTitle = bible.chapters[sender.tag]
+        quickPointer = sender.tag
         performSegue( withIdentifier: "SegueToSubChapterViewController", sender: nil )
     }
     
     @IBAction func tapBottomButton(_ sender: UIButton){
-        quickTitle = bible.charts[sender.tag-1]
+        quickTitle = bible.chartsTrimmed[sender.tag-1]
         quickPointer = sender.tag-1
         performSegue( withIdentifier: "SegueToWebViewViewController", sender: nil )
     }

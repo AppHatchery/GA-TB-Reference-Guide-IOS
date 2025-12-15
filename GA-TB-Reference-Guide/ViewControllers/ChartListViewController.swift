@@ -30,7 +30,7 @@ class ChartListViewController: UIViewController, UITableViewDelegate, UITableVie
         navbarTitle.font = UIFont.boldSystemFont(ofSize: 16.0)
         navbarTitle.numberOfLines = 2
         navbarTitle.textAlignment = .center
-        navbarTitle.minimumScaleFactor = 0.5
+        navbarTitle.minimumScaleFactor = 0.7
         navbarTitle.adjustsFontSizeToFitWidth = true
         navigationItem.titleView = navbarTitle
         navigationItem.backButtonDisplayMode = .minimal
@@ -102,7 +102,7 @@ class ChartListViewController: UIViewController, UITableViewDelegate, UITableVie
             webViewViewController.url = Bundle.main.url(forResource: chapterIndex.chartURLs[arrayPointer], withExtension: "html")!
             print(chapterIndex.chartURLs[arrayPointer])
             webViewViewController.titlelabel = chapterIndex.charts[arrayPointer]
-            webViewViewController.navTitle = chapterIndex.charts[arrayPointer]
+            webViewViewController.navTitle = chapterIndex.chartsTrimmed[arrayPointer]
             webViewViewController.uniqueAddress = chapterIndex.chartURLs[arrayPointer]
         }
     }

@@ -269,57 +269,5 @@ document.addEventListener('DOMContentLoaded', function() {
     const tableContainer = document.getElementById('table_17_use_of_anti-tb_medications_in_special_situations_pregnancy_tuberculosis_meningitis_and_renal_failure');
     activateTab(tableContainer, 0);
 });
-
-document.addEventListener("DOMContentLoaded", function () {
-const tooltips = document.querySelectorAll(".info-icon");
-
-document.addEventListener("click", function (event) {
-    if (!event.target.closest(".info-icon")) {
-        document
-        .querySelectorAll(".info-icon.active")
-        .forEach((activeIcon) => {
-            activeIcon.classList.remove("active");
-        });
-    }
-    });
-
-    tooltips.forEach(function (icon) {
-    let tooltip = icon.querySelector(".tooltip");
-    if (!tooltip) {
-        tooltip = document.createElement("div");
-        tooltip.className = "tooltip";
-        tooltip.textContent =
-        icon.getAttribute("data-tooltip") || "Additional information";
-
-        // Get positioning class from data attribute
-        const positionClass =
-        icon.getAttribute("data-tooltip-position") || "tooltip-center";
-        tooltip.classList.add(positionClass);
-
-        icon.appendChild(tooltip);
-    }
-
-    let isTooltipVisible = false;
-
-    icon.addEventListener("click", function (event) {
-        event.stopPropagation();
-
-        document
-        .querySelectorAll(".info-icon.active")
-        .forEach((activeIcon) => {
-            if (activeIcon !== icon) {
-            activeIcon.classList.remove("active");
-            const otherTooltip = activeIcon.querySelector(".tooltip");
-            if (otherTooltip) otherTooltip.style.display = "none";
-            }
-        });
-
-        isTooltipVisible = !this.classList.contains("active");
-        this.classList.toggle("active");
-        tooltip.style.display = isTooltipVisible ? "block" : "none";
-    });
-    });
-});
-  
 </script>
 </html>

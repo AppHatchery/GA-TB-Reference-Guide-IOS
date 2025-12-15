@@ -19,8 +19,8 @@ class SubChapterViewController: UIViewController, UITableViewDelegate, UITableVi
             
     let chapterIndex = ChapterIndex()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewIsAppearing(_ animated: Bool) {
+        super.viewIsAppearing(true)
         
         let navbarTitle = UILabel()
         navbarTitle.text = navTitle
@@ -35,6 +35,10 @@ class SubChapterViewController: UIViewController, UITableViewDelegate, UITableVi
         
         let navBarWidth = navigationController?.navigationBar.bounds.width ?? UIScreen.main.bounds.width
         navbarTitle.frame = CGRect(x: 0, y: 0, width: navBarWidth - 100, height: 44)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         tableView.delegate = self
         tableView.dataSource = self

@@ -134,10 +134,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         
         let navBarWidth = navigationController?.navigationBar.bounds.width ?? UIScreen.main.bounds.width
         navbarTitle.frame = CGRect(x: 0, y: 0, width: navBarWidth - 100, height: 44)
-        // The -100 accounts for back button and any right bar button items
-        
-        navigationItem.titleView = navbarTitle
-        navigationItem.backButtonDisplayMode = .minimal
+//         The -100 accounts for back button and any right bar button items
 
 //        self.title = navTitle
         self.hidesBottomBarWhenPushed = true
