@@ -78,6 +78,7 @@ class SubChapterViewController: UIViewController, UITableViewDelegate, UITableVi
             cell.textLabel?.text = chapterIndex.chapterNested[arrayPointer][indexPath.row]
             cell.textLabel?.lineBreakMode = .byWordWrapping
             cell.textLabel?.numberOfLines = 6
+            cell.textLabel?.font = .systemFont(ofSize: 15)
             
             tableViewCells[indexPath.row] = cell
             

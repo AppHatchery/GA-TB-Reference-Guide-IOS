@@ -74,6 +74,7 @@ class ContentListViewController: UIViewController, UITableViewDelegate, UITableV
             cell.textLabel?.text = chapters[indexPath.row]
             cell.textLabel?.lineBreakMode = .byWordWrapping
             cell.textLabel?.numberOfLines = 6
+            cell.textLabel?.font = .systemFont(ofSize: 15)
             
             tableViewCells[indexPath.row] = cell
             
