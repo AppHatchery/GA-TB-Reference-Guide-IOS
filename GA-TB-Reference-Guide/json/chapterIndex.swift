@@ -80,8 +80,7 @@ public class ChapterIndex {
       "Table 15: Summary of Recommendations for Treatment of Active TB Disease in Persons with HIV",
       "Table 16: Guidelines for Treatment of Extrapulmonary Tuberculosis: Length of Therapy and Adjunctive Use of Corticosteroids",
       "Table 17: Use of Anti-TB Medications in Special Situations: Pregnancy, Tuberculosis Meningitis, and Renal Failure",
-      "Table 18: Dosage Adjustments for ART and Rifamycins when used in Combination",
-      "Table 19: Grady Hospital TB Isolation Policy",
+      "Table 18: Grady Hospital TB Isolation Policy",
       "Figure 1. Factors to be considered in deciding to initiate treatment empirically for active tuberculosis (TB) (prior to microbiologic confirmation)",
     ],
   ]
@@ -118,8 +117,7 @@ public class ChapterIndex {
     [
       "Table 17: Use of Anti-TB Medications in Special Situations: Pregnancy, Tuberculosis Meningitis, and Renal Failure"
     ],
-    ["Table 18: Dosage Adjustments for ART and Rifamycins when used in Combination"],
-    ["Table 19: Grady Hospital TB Isolation Policy"],
+    ["Table 18: Grady Hospital TB Isolation Policy"],
     [
       "Figure 1: Factors to be considered in deciding to initiate treatment empirically for active tuberculosis (TB) (prior to microbiologic confirmation)"
     ],
@@ -201,8 +199,7 @@ public class ChapterIndex {
     "Table 15: Summary of Recommendations for Treatment of Active TB Disease in Persons with HIV",
     "Table 16: Guidelines for Treatment of Extrapulmonary Tuberculosis: Length of Therapy and Adjunctive Use of Corticosteroids",
     "Table 17: Use of Anti-TB Medications in Special Situations: Pregnancy, Tuberculosis Meningitis, and Renal Failure",
-    "Table 18: Dosage Adjustments for ART and Rifamycins when used in Combination",
-    "Table 19: Grady Hospital TB Isolation Policy",
+    "Table 18: Grady Hospital TB Isolation Policy",
     "Figure 1. Factors to be considered in deciding to initiate treatment empirically for active tuberculosis (TB) (prior to microbiologic confirmation)",
   ]
 
@@ -290,8 +287,7 @@ public class ChapterIndex {
       "table_15_summary_of_recommendations_for_treatment_of_active_tb_disease_in_persons_with_hiv",
       "table_16_guidelines_for_treatment_of_extrapulmonary_tuberculosis",
       "table_17_use_of_anti-tb_medications_in_special_situations_pregnancy_tuberculosis_meningitis_and_renal_failure",
-      "table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination",
-      "table_19_grady_hospital_tb_isolation_policy", "fig1_factors_to_be_considered",
+      "table_18_grady_hospital_tb_isolation_policy", "fig1_factors_to_be_considered",
     ],
   ]
 
@@ -314,8 +310,7 @@ public class ChapterIndex {
       "table_15_summary_of_recommendations_for_treatment_of_active_tb_disease_in_persons_with_hiv",
       "table_16_guidelines_for_treatment_of_extrapulmonary_tuberculosis",
       "table_17_use_of_anti-tb_medications_in_special_situations_pregnancy_tuberculosis_meningitis_and_renal_failure",
-      "table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination",
-      "table_19_grady_hospital_tb_isolation_policy",
+      "table_18_grady_hospital_tb_isolation_policy",
       "fig1_factors_to_be_considered",
     ]
   ]
@@ -338,8 +333,7 @@ public class ChapterIndex {
     "table_15_summary_of_recommendations_for_treatment_of_active_tb_disease_in_persons_with_hiv",
     "table_16_guidelines_for_treatment_of_extrapulmonary_tuberculosis",
     "table_17_use_of_anti-tb_medications_in_special_situations_pregnancy_tuberculosis_meningitis_and_renal_failure",
-    "table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination",
-    "table_19_grady_hospital_tb_isolation_policy",
+    "table_18_grady_hospital_tb_isolation_policy",
     "fig1_factors_to_be_considered",
   ]
 
@@ -361,8 +355,7 @@ public class ChapterIndex {
     "Table 15: Summary of Recommendations for Treatment of Active TB Disease in Persons with HIV",
     "Table 16: Guidelines for Treatment of Extrapulmonary Tuberculosis: Length of Therapy and Adjunctive Use of Corticosteroids",
     "Table 17: Use of Anti-TB Medications in Special Situations: Pregnancy, Tuberculosis Meningitis, and Renal Failure",
-    "Table 18: Dosage Adjustments for ART and Rifamycins when used in Combination",
-    "Table 19: Grady Hospital TB Isolation Policy",
+    "Table 18: Grady Hospital TB Isolation Policy",
     "Figure 1. Factors to be considered in deciding to initiate treatment empirically for active tuberculosis (TB) (prior to microbiologic confirmation)",
   ]
 
@@ -447,8 +440,7 @@ public class ChapterIndex {
     "V. Treatment of Current (Active) Disease Therapy",
     "V. Treatment of Current (Active) Disease Therapy",
     "VI. Pregnancy and TB",
-    "V. Treatment of Current (Active) Disease Therapy",
-    "V. Treatment of Current (Active) Disease Therapy",
+    "X. TB Infection Control: Hospital Isolation Procedures",
   ]
 
   let chaptermapsubchapter = [
@@ -622,10 +614,7 @@ public class ChapterIndex {
     "Table 15: Clinical Situations for which Standard Therapy cannot be given or is not well-tolerated or may not be effective: Potential Alternative Regimens (Dosing and/or Drugs)",
     "Table 16: When to start HIV Therapy",
     "Table 17: What to start: Choice of TB Therapy and Antiretroviral Therapy (ART) when treating Co-infected Patients",
-    "Table 18: Dosage Adjustments for ART and Rifamycins when used in Combination",
-    "Table 19: Guidelines for Treatment of Extrapulmonary Tuberculosis: Length of Therapy and Adjunctive Use of Corticosteroids",
-    "Table 20: Use of Anti-TB Medications in Special Situations: Pregnancy, Tuberculosis Meningitis and Renal Failure",
-    "Table 21: Grady Isolation Policy",
+    "Table 18: Grady Isolation Policy",
     "Figure 1. Factors to be considered in deciding to initiate treatment empirically for active tuberculosis (TB) (prior to microbiologic confirmation)",
   ]
 

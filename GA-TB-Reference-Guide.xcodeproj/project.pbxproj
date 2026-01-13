@@ -108,7 +108,7 @@
 		B4C348822EEF2D7000B11877 /* table_12_clinical_situations_for_which_standard_therapy_cannot_be_given_or_is_not_well_tolerated.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348402EEF2D7000B11877 /* table_12_clinical_situations_for_which_standard_therapy_cannot_be_given_or_is_not_well_tolerated.html */; };
 		B4C348832EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__h__immune_reconstitution_inflammatory_syndrome.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348112EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__h__immune_reconstitution_inflammatory_syndrome.html */; };
 		B4C348842EEF2D7000B11877 /* 11_community_tuberculosis_control.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348202EEF2D7000B11877 /* 11_community_tuberculosis_control.html */; };
-		B4C348852EEF2D7000B11877 /* table_19_grady_hospital_tb_isolation_policy.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348472EEF2D7000B11877 /* table_19_grady_hospital_tb_isolation_policy.html */; };
+		B4C348852EEF2D7000B11877 /* table_18_grady_hospital_tb_isolation_policy.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348472EEF2D7000B11877 /* table_18_grady_hospital_tb_isolation_policy.html */; };
 		B4C348862EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis__d__laboratory_diagnosis_of_extrapulmary_tuberculosis.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348082EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis__d__laboratory_diagnosis_of_extrapulmary_tuberculosis.html */; };
 		B4C348872EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__f__targeted_testing_and_diagnostic_tests_for_ltbi.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C347FD2EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__f__targeted_testing_and_diagnostic_tests_for_ltbi.html */; };
 		B4C348882EEF2D7000B11877 /* 1_epidemiology.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C347F62EEF2D7000B11877 /* 1_epidemiology.html */; };
@@ -117,7 +117,6 @@
 		B4C3488B2EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis__c__laboratory_diagnosis_of_pulmonary_tuberculosis.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348072EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis__c__laboratory_diagnosis_of_pulmonary_tuberculosis.html */; };
 		B4C3488C2EEF2D7000B11877 /* 13_georgia_department_of_public_health_(dph)_community_guidelines_for_respiratory.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348292EEF2D7000B11877 /* 13_georgia_department_of_public_health_(dph)_community_guidelines_for_respiratory.html */; };
 		B4C3488D2EEF2D7000B11877 /* table_3_high_prevalence_and_high_risk_groups.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348372EEF2D7000B11877 /* table_3_high_prevalence_and_high_risk_groups.html */; };
-		B4C3488E2EEF2D7000B11877 /* table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348462EEF2D7000B11877 /* table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html */; };
 		B4C3488F2EEF2D7000B11877 /* table_14_what_to_start_choice_of_tb_therapy_and_antiretroviral_therapy_(art)_when_treating_co-infected_patients.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348422EEF2D7000B11877 /* table_14_what_to_start_choice_of_tb_therapy_and_antiretroviral_therapy_(art)_when_treating_co-infected_patients.html */; };
 		B4C348902EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__e__monitoring_patients_on_therapy_for_response_and_adverse_events.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C3480F2EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__e__monitoring_patients_on_therapy_for_response_and_adverse_events.html */; };
 		B4C348912EEF2D7000B11877 /* 16_abbreviations.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C3482C2EEF2D7000B11877 /* 16_abbreviations.html */; };
@@ -336,8 +335,7 @@
 		B4C348432EEF2D7000B11877 /* table_15_summary_of_recommendations_for_treatment_of_active_tb_disease_in_persons_with_hiv.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = table_15_summary_of_recommendations_for_treatment_of_active_tb_disease_in_persons_with_hiv.html; sourceTree = "<group>"; };
 		B4C348442EEF2D7000B11877 /* table_16_guidelines_for_treatment_of_extrapulmonary_tuberculosis.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = table_16_guidelines_for_treatment_of_extrapulmonary_tuberculosis.html; sourceTree = "<group>"; };
 		B4C348452EEF2D7000B11877 /* table_17_use_of_anti-tb_medications_in_special_situations_pregnancy_tuberculosis_meningitis_and_renal_failure.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "table_17_use_of_anti-tb_medications_in_special_situations_pregnancy_tuberculosis_meningitis_and_renal_failure.html"; sourceTree = "<group>"; };
-		B4C348462EEF2D7000B11877 /* table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html; sourceTree = "<group>"; };
-		B4C348472EEF2D7000B11877 /* table_19_grady_hospital_tb_isolation_policy.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = table_19_grady_hospital_tb_isolation_policy.html; sourceTree = "<group>"; };
+		B4C348472EEF2D7000B11877 /* table_18_grady_hospital_tb_isolation_policy.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = table_18_grady_hospital_tb_isolation_policy.html; sourceTree = "<group>"; };
 		B4C3489A2EEF34E900B11877 /* ic_chart.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = ic_chart.svg; sourceTree = "<group>"; };
 		B4C6DBC62E97462B006D8D5A /* NoteSavedPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteSavedPopUp.swift; sourceTree = "<group>"; };
 		B4C6DBC82E97462F006D8D5A /* NoteSavedPopUp.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteSavedPopUp.xib; sourceTree = "<group>"; };
@@ -586,8 +584,7 @@
 				B4C348432EEF2D7000B11877 /* table_15_summary_of_recommendations_for_treatment_of_active_tb_disease_in_persons_with_hiv.html */,
 				B4C348442EEF2D7000B11877 /* table_16_guidelines_for_treatment_of_extrapulmonary_tuberculosis.html */,
 				B4C348452EEF2D7000B11877 /* table_17_use_of_anti-tb_medications_in_special_situations_pregnancy_tuberculosis_meningitis_and_renal_failure.html */,
-				B4C348462EEF2D7000B11877 /* table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html */,
-				B4C348472EEF2D7000B11877 /* table_19_grady_hospital_tb_isolation_policy.html */,
+				B4C348472EEF2D7000B11877 /* table_18_grady_hospital_tb_isolation_policy.html */,
 			);
 			path = pages;
 			sourceTree = "<group>";
@@ -997,7 +994,7 @@
 				B4C348822EEF2D7000B11877 /* table_12_clinical_situations_for_which_standard_therapy_cannot_be_given_or_is_not_well_tolerated.html in Resources */,
 				B4C348832EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__h__immune_reconstitution_inflammatory_syndrome.html in Resources */,
 				B4C348842EEF2D7000B11877 /* 11_community_tuberculosis_control.html in Resources */,
-				B4C348852EEF2D7000B11877 /* table_19_grady_hospital_tb_isolation_policy.html in Resources */,
+				B4C348852EEF2D7000B11877 /* table_18_grady_hospital_tb_isolation_policy.html in Resources */,
 				B4C348862EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis__d__laboratory_diagnosis_of_extrapulmary_tuberculosis.html in Resources */,
 				B4C348872EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__f__targeted_testing_and_diagnostic_tests_for_ltbi.html in Resources */,
 				B4C348882EEF2D7000B11877 /* 1_epidemiology.html in Resources */,
@@ -1006,7 +1003,6 @@
 				B4C3488B2EEF2D7000B11877 /* 4_laboratory_diagnosis_of_active_tuberculosis__c__laboratory_diagnosis_of_pulmonary_tuberculosis.html in Resources */,
 				B4C3488C2EEF2D7000B11877 /* 13_georgia_department_of_public_health_(dph)_community_guidelines_for_respiratory.html in Resources */,
 				B4C3488D2EEF2D7000B11877 /* table_3_high_prevalence_and_high_risk_groups.html in Resources */,
-				B4C3488E2EEF2D7000B11877 /* table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination.html in Resources */,
 				B4C3488F2EEF2D7000B11877 /* table_14_what_to_start_choice_of_tb_therapy_and_antiretroviral_therapy_(art)_when_treating_co-infected_patients.html in Resources */,
 				B4C348902EEF2D7000B11877 /* 5_treatment_of_current_(active)_disease_therapy__e__monitoring_patients_on_therapy_for_response_and_adverse_events.html in Resources */,
 				B4C348912EEF2D7000B11877 /* 16_abbreviations.html in Resources */,
