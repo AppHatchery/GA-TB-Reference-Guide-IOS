@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		8E0132EA2A68FFB0001533AB /* WebView.js in Resources */ = {isa = PBXBuildFile; fileRef = 8E0132E82A68DCAB001533AB /* WebView.js */; };
-		B40030ED2F17B447008D0868 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B47FDC1E2F17AF9000102D5A /* RealmSwift */; };
-		B40030EE2F17B489008D0868 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = B47FDC1E2F17AF9000102D5A /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		B401CE5E2C58D96D00149414 /* SuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B401CE5C2C58D96D00149414 /* SuggestionTableViewCell.swift */; };
 		B401CE5F2C58D96D00149414 /* SuggestionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B401CE5D2C58D96D00149414 /* SuggestionTableViewCell.xib */; };
 		B401CE622C5BD8C300149414 /* RecentSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B401CE602C5BD8C300149414 /* RecentSearchTableViewCell.swift */; };
@@ -48,6 +46,8 @@
 		B47FDDAE2E967E8900CC4C7B /* CustomPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47FDDAD2E967E8900CC4C7B /* CustomPopUp.swift */; };
 		B47FDDB02E967E9800CC4C7B /* CustomPopUp.xib in Resources */ = {isa = PBXBuildFile; fileRef = B47FDDAF2E967E9800CC4C7B /* CustomPopUp.xib */; };
 		B4847B502E92BE56006DE174 /* ic_chapter.svg in Resources */ = {isa = PBXBuildFile; fileRef = B4847B4F2E92BE56006DE174 /* ic_chapter.svg */; };
+		B49351692F17D51A00D7D3D2 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B49351682F17D51A00D7D3D2 /* RealmSwift */; };
+		B493516A2F17D5C800D7D3D2 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = B49351682F17D51A00D7D3D2 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		B4C348482EEF2D7000B11877 /* hello_and_welcome_clinical_statement.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348322EEF2D7000B11877 /* hello_and_welcome_clinical_statement.html */; };
 		B4C348492EEF2D7000B11877 /* table_9_pediatric_dosage_isoniazid_in_children_(birth_to_15_years).html in Resources */ = {isa = PBXBuildFile; fileRef = B4C3483D2EEF2D7000B11877 /* table_9_pediatric_dosage_isoniazid_in_children_(birth_to_15_years).html */; };
 		B4C3484A2EEF2D7000B11877 /* table_17_use_of_anti-tb_medications_in_special_situations_pregnancy_tuberculosis_meningitis_and_renal_failure.html in Resources */ = {isa = PBXBuildFile; fileRef = B4C348452EEF2D7000B11877 /* table_17_use_of_anti-tb_medications_in_special_situations_pregnancy_tuberculosis_meningitis_and_renal_failure.html */; };
@@ -220,11 +220,11 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		B40030EF2F17B489008D0868 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				B40030EE2F17B489008D0868 /* RealmSwift in Embed Frameworks */,
+				B493516A2F17D5C800D7D3D2 /* RealmSwift in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -442,7 +442,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B40030ED2F17B447008D0868 /* RealmSwift in Frameworks */,
 				B473888E2D5C991900A4C168 /* FirebaseRemoteConfig in Frameworks */,
 				B47388902D5C991900A4C168 /* FirebaseRemoteConfigSwift-Beta in Frameworks */,
 				B40EA6F42C46B90400C03A12 /* UserNotifications.framework in Frameworks */,
@@ -451,6 +450,7 @@
 				D46BECDB2756E5BB000D8553 /* FirebaseMessaging in Frameworks */,
 				D46BECD92756E5BB000D8553 /* FirebaseCrashlytics in Frameworks */,
 				D46BECD72756E5BB000D8553 /* FirebaseAnalytics in Frameworks */,
+				B49351692F17D51A00D7D3D2 /* RealmSwift in Frameworks */,
 				D46BECDD2756E5BB000D8553 /* FirebaseDynamicLinks in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -846,7 +846,7 @@
 				D4597EA52A701B4E00EF8906 /* Pendo */,
 				B473888D2D5C991900A4C168 /* FirebaseRemoteConfig */,
 				B473888F2D5C991900A4C168 /* FirebaseRemoteConfigSwift-Beta */,
-				B47FDC1E2F17AF9000102D5A /* RealmSwift */,
+				B49351682F17D51A00D7D3D2 /* RealmSwift */,
 			);
 			productName = "GA-TB-Reference-Guide";
 			productReference = D4B0B0A926D01CA6003BD1EA /* GA-TB-Reference-Guide.app */;
@@ -879,7 +879,7 @@
 			packageReferences = (
 				D46BECD52756E5BB000D8553 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				D4597EA42A701B4E00EF8906 /* XCRemoteSwiftPackageReference "pendo-mobile-ios" */,
-				B47FDC1B2F17AF9000102D5A /* XCRemoteSwiftPackageReference "realm-swift" */,
+				B49351672F17D51A00D7D3D2 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = D4B0B0AA26D01CA6003BD1EA /* Products */;
 			projectDirPath = "";
@@ -1055,8 +1055,6 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
-				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
 			);
 			outputFileListPaths = (
 			);
@@ -1340,7 +1338,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		B47FDC1B2F17AF9000102D5A /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+		B49351672F17D51A00D7D3D2 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
 			requirement = {
@@ -1377,9 +1375,9 @@
 			package = D46BECD52756E5BB000D8553 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseRemoteConfigSwift-Beta";
 		};
-		B47FDC1E2F17AF9000102D5A /* RealmSwift */ = {
+		B49351682F17D51A00D7D3D2 /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B47FDC1B2F17AF9000102D5A /* XCRemoteSwiftPackageReference "realm-swift" */;
+			package = B49351672F17D51A00D7D3D2 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
 		};
 		D4597EA52A701B4E00EF8906 /* Pendo */ = {
