@@ -957,7 +957,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             // Configure the presentation style for bottom sheet
         if #available(iOS 15.0, *) {
             if let sheet = notesVC.sheetPresentationController {
-                sheet.detents = [.medium()]
+                sheet.detents = [.medium(), .large()]
                 sheet.prefersGrabberVisible = true
                 sheet.preferredCornerRadius = 16
             }

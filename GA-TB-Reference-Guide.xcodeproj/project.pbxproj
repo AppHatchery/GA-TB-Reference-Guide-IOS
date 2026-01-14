@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8E0132EA2A68FFB0001533AB /* WebView.js in Resources */ = {isa = PBXBuildFile; fileRef = 8E0132E82A68DCAB001533AB /* WebView.js */; };
+		B40030ED2F17B447008D0868 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B47FDC1E2F17AF9000102D5A /* RealmSwift */; };
+		B40030EE2F17B489008D0868 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = B47FDC1E2F17AF9000102D5A /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		B401CE5E2C58D96D00149414 /* SuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B401CE5C2C58D96D00149414 /* SuggestionTableViewCell.swift */; };
 		B401CE5F2C58D96D00149414 /* SuggestionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B401CE5D2C58D96D00149414 /* SuggestionTableViewCell.xib */; };
 		B401CE622C5BD8C300149414 /* RecentSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B401CE602C5BD8C300149414 /* RecentSearchTableViewCell.swift */; };
@@ -37,7 +39,6 @@
 		B47388932D5C997B00A4C168 /* RemoteConfigHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47388922D5C997B00A4C168 /* RemoteConfigHelper.swift */; };
 		B474B07E2C2DA54B0092F4F6 /* FontSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B474B07C2C2DA54B0092F4F6 /* FontSettingsView.swift */; };
 		B474B07F2C2DA54B0092F4F6 /* FontSettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B474B07D2C2DA54B0092F4F6 /* FontSettingsView.xib */; };
-		B474B0832C2DFE230092F4F6 /* Pods_GA_TB_Reference_Guide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF23FEBF71C372B82094033D /* Pods_GA_TB_Reference_Guide.framework */; };
 		B47FDD9E2E95531800CC4C7B /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47FDD9D2E95531800CC4C7B /* ThemeManager.swift */; };
 		B47FDDA42E96429800CC4C7B /* BookmarkSavedPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47FDDA32E96429800CC4C7B /* BookmarkSavedPopUp.swift */; };
 		B47FDDA62E9642B700CC4C7B /* BookmarkSavedPopUp.xib in Resources */ = {isa = PBXBuildFile; fileRef = B47FDDA52E9642B700CC4C7B /* BookmarkSavedPopUp.xib */; };
@@ -216,9 +217,22 @@
 		D4CCBF5A27C032B400E42BC9 /* chart.json in Resources */ = {isa = PBXBuildFile; fileRef = D4CCBF5627C032B400E42BC9 /* chart.json */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		B40030EF2F17B489008D0868 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B40030EE2F17B489008D0868 /* RealmSwift in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		8E0132E82A68DCAB001533AB /* WebView.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = WebView.js; sourceTree = "<group>"; };
-		A4E783F70550BAD2B6B83131 /* Pods-GA-TB-Reference-Guide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GA-TB-Reference-Guide.debug.xcconfig"; path = "Target Support Files/Pods-GA-TB-Reference-Guide/Pods-GA-TB-Reference-Guide.debug.xcconfig"; sourceTree = "<group>"; };
 		B401CE5C2C58D96D00149414 /* SuggestionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionTableViewCell.swift; sourceTree = "<group>"; };
 		B401CE5D2C58D96D00149414 /* SuggestionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SuggestionTableViewCell.xib; sourceTree = "<group>"; };
 		B401CE602C5BD8C300149414 /* RecentSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchTableViewCell.swift; sourceTree = "<group>"; };
@@ -343,7 +357,6 @@
 		B4DC30702C5BF2E90019CCA1 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		B4E88A132E8A83D100396ABB /* BookmarkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTableViewCell.swift; sourceTree = "<group>"; };
 		B4E88A142E8A83D100396ABB /* BookmarkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarkTableViewCell.xib; sourceTree = "<group>"; };
-		BF23FEBF71C372B82094033D /* Pods_GA_TB_Reference_Guide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GA_TB_Reference_Guide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D42F25E626EEFA8F009DC942 /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
 		D42F25E726EEFA8F009DC942 /* NoteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteTableViewCell.xib; sourceTree = "<group>"; };
 		D42F269326F05B64009DC942 /* ChapterNoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterNoteTableViewCell.swift; sourceTree = "<group>"; };
@@ -422,7 +435,6 @@
 		D4CCBF5527C032B400E42BC9 /* chapter.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = chapter.json; sourceTree = "<group>"; };
 		D4CCBF5627C032B400E42BC9 /* chart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = chart.json; sourceTree = "<group>"; };
 		D4CD67B92791BC55006989F3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		E8391612CB15DC8A94977EC3 /* Pods-GA-TB-Reference-Guide.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GA-TB-Reference-Guide.release.xcconfig"; path = "Target Support Files/Pods-GA-TB-Reference-Guide/Pods-GA-TB-Reference-Guide.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -430,11 +442,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B40030ED2F17B447008D0868 /* RealmSwift in Frameworks */,
 				B473888E2D5C991900A4C168 /* FirebaseRemoteConfig in Frameworks */,
 				B47388902D5C991900A4C168 /* FirebaseRemoteConfigSwift-Beta in Frameworks */,
 				B40EA6F42C46B90400C03A12 /* UserNotifications.framework in Frameworks */,
 				D46BECDF2756E5BB000D8553 /* FirebaseDatabase in Frameworks */,
-				B474B0832C2DFE230092F4F6 /* Pods_GA_TB_Reference_Guide.framework in Frameworks */,
 				D4597EA62A701B4E00EF8906 /* Pendo in Frameworks */,
 				D46BECDB2756E5BB000D8553 /* FirebaseMessaging in Frameworks */,
 				D46BECD92756E5BB000D8553 /* FirebaseCrashlytics in Frameworks */,
@@ -450,7 +462,6 @@
 			isa = PBXGroup;
 			children = (
 				B40EA6F32C46B90400C03A12 /* UserNotifications.framework */,
-				BF23FEBF71C372B82094033D /* Pods_GA_TB_Reference_Guide.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -642,7 +653,6 @@
 			children = (
 				D4B0B0AB26D01CA6003BD1EA /* GA-TB-Reference-Guide */,
 				D4B0B0AA26D01CA6003BD1EA /* Products */,
-				EFD2E7F22E60B00C266FFB90 /* Pods */,
 				52FB437B735727E7888CE188 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -809,15 +819,6 @@
 			path = json;
 			sourceTree = "<group>";
 		};
-		EFD2E7F22E60B00C266FFB90 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				A4E783F70550BAD2B6B83131 /* Pods-GA-TB-Reference-Guide.debug.xcconfig */,
-				E8391612CB15DC8A94977EC3 /* Pods-GA-TB-Reference-Guide.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -825,12 +826,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D4B0B0BD26D01CA8003BD1EA /* Build configuration list for PBXNativeTarget "GA-TB-Reference-Guide" */;
 			buildPhases = (
-				351D63AB8FB25B72A6D078EF /* [CP] Check Pods Manifest.lock */,
 				D4B0B0A526D01CA6003BD1EA /* Sources */,
 				D4B0B0A626D01CA6003BD1EA /* Frameworks */,
 				D4B0B0A726D01CA6003BD1EA /* Resources */,
 				D46BECBD2756DDF2000D8553 /* ShellScript */,
-				EA32FCB783C04425433F5933 /* [CP] Embed Pods Frameworks */,
+				B40030EF2F17B489008D0868 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -846,6 +846,7 @@
 				D4597EA52A701B4E00EF8906 /* Pendo */,
 				B473888D2D5C991900A4C168 /* FirebaseRemoteConfig */,
 				B473888F2D5C991900A4C168 /* FirebaseRemoteConfigSwift-Beta */,
+				B47FDC1E2F17AF9000102D5A /* RealmSwift */,
 			);
 			productName = "GA-TB-Reference-Guide";
 			productReference = D4B0B0A926D01CA6003BD1EA /* GA-TB-Reference-Guide.app */;
@@ -878,6 +879,7 @@
 			packageReferences = (
 				D46BECD52756E5BB000D8553 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				D4597EA42A701B4E00EF8906 /* XCRemoteSwiftPackageReference "pendo-mobile-ios" */,
+				B47FDC1B2F17AF9000102D5A /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = D4B0B0AA26D01CA6003BD1EA /* Products */;
 			projectDirPath = "";
@@ -1045,28 +1047,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		351D63AB8FB25B72A6D078EF /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-GA-TB-Reference-Guide-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		D46BECBD2756DDF2000D8553 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1085,27 +1065,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n# WORK AROUND FOR FIREBASE STATIC LIBRARIES\nAPP_PATH=\"${TARGET_BUILD_DIR}/${WRAPPER_NAME}\"\necho \"App Path ${APP_PATH}\"\nrm -rf \"${APP_PATH}/Frameworks/FirebaseAnalytics.framework\"\nrm -rf \"${APP_PATH}/Frameworks/GoogleAppMeasurement.framework\"\nrm -rf \"${APP_PATH}/Frameworks/FIRAnalyticsConnector.framework\"\n";
-		};
-		EA32FCB783C04425433F5933 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GA-TB-Reference-Guide/Pods-GA-TB-Reference-Guide-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GA-TB-Reference-Guide/Pods-GA-TB-Reference-Guide-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GA-TB-Reference-Guide/Pods-GA-TB-Reference-Guide-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1308,7 +1267,6 @@
 		};
 		D4B0B0BE26D01CA8003BD1EA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A4E783F70550BAD2B6B83131 /* Pods-GA-TB-Reference-Guide.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1335,7 +1293,6 @@
 		};
 		D4B0B0BF26D01CA8003BD1EA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E8391612CB15DC8A94977EC3 /* Pods-GA-TB-Reference-Guide.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1383,6 +1340,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B47FDC1B2F17AF9000102D5A /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 20.0.3;
+			};
+		};
 		D4597EA42A701B4E00EF8906 /* XCRemoteSwiftPackageReference "pendo-mobile-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pendo-io/pendo-mobile-ios";
@@ -1411,6 +1376,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D46BECD52756E5BB000D8553 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseRemoteConfigSwift-Beta";
+		};
+		B47FDC1E2F17AF9000102D5A /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B47FDC1B2F17AF9000102D5A /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 		D4597EA52A701B4E00EF8906 /* Pendo */ = {
 			isa = XCSwiftPackageProductDependency;
