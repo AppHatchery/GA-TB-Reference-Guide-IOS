@@ -121,19 +121,6 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             metadataView.frame.size.height = 0
         }
 
-        let navbarTitle = UILabel()
-        navbarTitle.text = navTitle
-        navbarTitle.textColor = UIColor.white
-        navbarTitle.font = UIFont.boldSystemFont(ofSize: 16.0)
-        navbarTitle.numberOfLines = 3
-        navbarTitle.textAlignment = .center
-        navbarTitle.minimumScaleFactor = 0.7
-        navbarTitle.adjustsFontSizeToFitWidth = true
-        navigationItem.titleView = navbarTitle
-        navigationItem.backButtonDisplayMode = .minimal
-        
-        let navBarWidth = navigationController?.navigationBar.bounds.width ?? UIScreen.main.bounds.width
-        navbarTitle.frame = CGRect(x: 0, y: 0, width: navBarWidth - 100, height: 44)
 //         The -100 accounts for back button and any right bar button items
 
 //        self.title = navTitle
@@ -241,6 +228,28 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         
         NotificationCenter.default.addObserver(self, selector: #selector(fontSizeChanged(_:)), name: NSNotification.Name("FontSizeChanged"), object: nil)
         webView.load( URLRequest( url: url ))
+    }
+    
+    func setupNavBar() {
+        navigationController?.navigationBar.tintColor = .white
+        navigationItem.backButtonDisplayMode = .minimal
+        
+        let titleLabel = UILabel()
+        titleLabel.text = navTitle
+        titleLabel.textColor = .white
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        titleLabel.textAlignment = .center
+        titleLabel.numberOfLines = 2
+        
+        if #available(iOS 26.0, *) {
+            titleLabel.sizeToFit()
+        } else {
+            let maxWidth = UIScreen.main.bounds.width - 120
+            let size = titleLabel.sizeThatFits(CGSize(width: maxWidth, height: .greatestFiniteMagnitude))
+            titleLabel.frame = CGRect(origin: .zero, size: size)
+        }
+        
+        navigationItem.titleView = titleLabel
     }
     
     func configureSearchBar() {
@@ -450,6 +459,8 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        
+        setupNavBar()
         
         if let currentContent = realm!.object(ofType:ContentPage.self, forPrimaryKey: uniqueAddress){
             RealmHelper.sharedInstance.update(currentContent, properties: [

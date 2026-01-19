@@ -19,24 +19,6 @@ class SubChapterViewController: UIViewController, UITableViewDelegate, UITableVi
             
     let chapterIndex = ChapterIndex()
     
-    override func viewIsAppearing(_ animated: Bool) {
-        super.viewIsAppearing(true)
-        
-        let navbarTitle = UILabel()
-        navbarTitle.text = navTitle
-        navbarTitle.textColor = UIColor.white
-        navbarTitle.font = UIFont.boldSystemFont(ofSize: 16.0)
-        navbarTitle.numberOfLines = 2
-        navbarTitle.textAlignment = .center
-        navbarTitle.minimumScaleFactor = 0.7
-        navbarTitle.adjustsFontSizeToFitWidth = true
-        navigationItem.titleView = navbarTitle
-        navigationItem.backButtonDisplayMode = .minimal
-        
-        let navBarWidth = navigationController?.navigationBar.bounds.width ?? UIScreen.main.bounds.width
-        navbarTitle.frame = CGRect(x: 0, y: 0, width: navBarWidth - 100, height: 44)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,6 +32,33 @@ class SubChapterViewController: UIViewController, UITableViewDelegate, UITableVi
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        setupNavBar()
+    }
+    
+    func setupNavBar() {
+        navigationController?.navigationBar.tintColor = .white
+        navigationItem.backButtonDisplayMode = .minimal
+        
+        let titleLabel = UILabel()
+        titleLabel.text = navTitle
+        titleLabel.textColor = .white
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        titleLabel.textAlignment = .center
+        titleLabel.numberOfLines = 2
+        
+        if #available(iOS 26.0, *) {
+            titleLabel.sizeToFit()
+        } else {
+            let maxWidth = UIScreen.main.bounds.width - 120
+            let size = titleLabel.sizeThatFits(CGSize(width: maxWidth, height: .greatestFiniteMagnitude))
+            titleLabel.frame = CGRect(origin: .zero, size: size)
+        }
+        
+        navigationItem.titleView = titleLabel
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return chapterIndex.chapterNested[arrayPointer].count
@@ -122,3 +131,4 @@ class SubChapterViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
 }
+
