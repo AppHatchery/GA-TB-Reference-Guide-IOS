@@ -125,7 +125,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         navbarTitle.text = navTitle
         navbarTitle.textColor = UIColor.white
         navbarTitle.font = UIFont.boldSystemFont(ofSize: 16.0)
-        navbarTitle.numberOfLines = 0
+        navbarTitle.numberOfLines = 3
         navbarTitle.textAlignment = .center
         navbarTitle.minimumScaleFactor = 0.7
         navbarTitle.adjustsFontSizeToFitWidth = true
@@ -943,7 +943,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     
     
     @IBAction func viewNotesTapped(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        _ = UIStoryboard(name: "Main", bundle: nil)
             
             // If you're using storyboard, create the identifier in storyboard and uncomment this:
             // let notesVC = storyboard.instantiateViewController(withIdentifier: "NotesBottomSheetViewController") as! NotesBottomSheetViewController

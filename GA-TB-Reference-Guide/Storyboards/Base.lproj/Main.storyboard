@@ -489,88 +489,6 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6UX-BR-9Qy">
                                         <rect key="frame" x="0.0" y="94" width="375" height="416"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MgI-bg-uE3" userLabel="Suggestions View">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="311"/>
-                                                <subviews>
-                                                    <stackView opaque="NO" contentMode="redraw" axis="vertical" distribution="fillProportionally" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="b4P-hq-EDo">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="316"/>
-                                                        <subviews>
-                                                            <view contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="yWq-tM-Ijb" userLabel="Recent Searches View">
-                                                                <rect key="frame" x="0.0" y="0.0" width="375" height="180"/>
-                                                                <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recent" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="taI-Xk-9i9">
-                                                                        <rect key="frame" x="20" y="0.0" width="335" height="22"/>
-                                                                        <color key="backgroundColor" name="backgroundColor"/>
-                                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                                                        <nil key="textColor"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
-                                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="ljZ-HX-HJp" userLabel="Recent Searches Table View">
-                                                                        <rect key="frame" x="0.0" y="42" width="375" height="138"/>
-                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" id="SoI-sN-JSt"/>
-                                                                        </constraints>
-                                                                        <color key="sectionIndexBackgroundColor" name="backgroundColor"/>
-                                                                    </tableView>
-                                                                </subviews>
-                                                                <color key="backgroundColor" name="backgroundColor"/>
-                                                                <constraints>
-                                                                    <constraint firstItem="taI-Xk-9i9" firstAttribute="leading" secondItem="yWq-tM-Ijb" secondAttribute="leading" constant="20" id="GeK-fK-e6i"/>
-                                                                    <constraint firstAttribute="trailing" secondItem="taI-Xk-9i9" secondAttribute="trailing" constant="20" id="Gy3-4h-zy2"/>
-                                                                    <constraint firstAttribute="trailing" secondItem="ljZ-HX-HJp" secondAttribute="trailing" id="Y1A-6o-7N7"/>
-                                                                    <constraint firstItem="taI-Xk-9i9" firstAttribute="top" secondItem="yWq-tM-Ijb" secondAttribute="top" id="arg-fe-c6G"/>
-                                                                    <constraint firstItem="ljZ-HX-HJp" firstAttribute="leading" secondItem="yWq-tM-Ijb" secondAttribute="leading" id="htz-iD-wdT"/>
-                                                                    <constraint firstAttribute="height" relation="lessThanOrEqual" priority="999" constant="180" id="ooq-wi-uXt"/>
-                                                                    <constraint firstAttribute="bottom" secondItem="ljZ-HX-HJp" secondAttribute="bottom" id="rJZ-8W-sLa"/>
-                                                                    <constraint firstItem="ljZ-HX-HJp" firstAttribute="top" secondItem="taI-Xk-9i9" secondAttribute="bottom" constant="20" id="wAb-oB-VK9"/>
-                                                                </constraints>
-                                                            </view>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ibA-1N-v94" userLabel="Search Suggestions View">
-                                                                <rect key="frame" x="0.0" y="200" width="375" height="116"/>
-                                                                <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You may want to search for" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kc6-cH-4BJ">
-                                                                        <rect key="frame" x="20" y="0.0" width="335" height="21.5"/>
-                                                                        <color key="backgroundColor" name="backgroundColor"/>
-                                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                                                        <nil key="textColor"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
-                                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="NuX-uE-T7Q" userLabel="Search Suggestions Table View">
-                                                                        <rect key="frame" x="0.0" y="41.5" width="375" height="74.5"/>
-                                                                        <color key="backgroundColor" name="backgroundColor"/>
-                                                                        <color key="sectionIndexBackgroundColor" name="backgroundColor"/>
-                                                                    </tableView>
-                                                                </subviews>
-                                                                <color key="backgroundColor" name="backgroundColor"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="trailing" secondItem="NuX-uE-T7Q" secondAttribute="trailing" id="1nG-W4-7re"/>
-                                                                    <constraint firstAttribute="bottom" secondItem="NuX-uE-T7Q" secondAttribute="bottom" id="3s4-U0-L5x"/>
-                                                                    <constraint firstItem="kc6-cH-4BJ" firstAttribute="leading" secondItem="ibA-1N-v94" secondAttribute="leading" constant="20" id="9zC-NY-YSF"/>
-                                                                    <constraint firstItem="kc6-cH-4BJ" firstAttribute="top" secondItem="ibA-1N-v94" secondAttribute="top" id="FMP-oY-JTx"/>
-                                                                    <constraint firstItem="NuX-uE-T7Q" firstAttribute="top" secondItem="kc6-cH-4BJ" secondAttribute="bottom" constant="20" id="JwN-CG-et7"/>
-                                                                    <constraint firstItem="NuX-uE-T7Q" firstAttribute="leading" secondItem="ibA-1N-v94" secondAttribute="leading" id="Ss8-hr-RnK"/>
-                                                                    <constraint firstAttribute="trailing" secondItem="kc6-cH-4BJ" secondAttribute="trailing" constant="20" id="sqH-9h-w5c"/>
-                                                                </constraints>
-                                                            </view>
-                                                        </subviews>
-                                                        <color key="backgroundColor" name="backgroundColor"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="trailing" secondItem="yWq-tM-Ijb" secondAttribute="trailing" id="VTr-NK-sOi"/>
-                                                            <constraint firstItem="ibA-1N-v94" firstAttribute="top" relation="lessThanOrEqual" secondItem="b4P-hq-EDo" secondAttribute="top" priority="999" constant="230" id="oyk-xs-kgb"/>
-                                                            <constraint firstItem="yWq-tM-Ijb" firstAttribute="trailing" secondItem="ibA-1N-v94" secondAttribute="trailing" id="uRR-n4-4rr"/>
-                                                        </constraints>
-                                                    </stackView>
-                                                </subviews>
-                                                <color key="backgroundColor" name="backgroundColor"/>
-                                                <constraints>
-                                                    <constraint firstItem="b4P-hq-EDo" firstAttribute="leading" secondItem="MgI-bg-uE3" secondAttribute="leading" id="0xc-ni-mEi"/>
-                                                    <constraint firstAttribute="bottom" secondItem="b4P-hq-EDo" secondAttribute="bottom" constant="-5" id="RtT-Zr-A97"/>
-                                                    <constraint firstItem="b4P-hq-EDo" firstAttribute="top" secondItem="MgI-bg-uE3" secondAttribute="top" id="ifq-ii-qOZ"/>
-                                                    <constraint firstAttribute="trailing" secondItem="b4P-hq-EDo" secondAttribute="trailing" id="o5f-Da-X9g"/>
-                                                </constraints>
-                                            </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wca-LO-pnd" userLabel="Main Table View">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="416"/>
                                                 <subviews>
@@ -691,6 +609,88 @@
                                                     <constraint firstAttribute="trailing" secondItem="as6-9A-oex" secondAttribute="trailing" id="sr1-ln-mwL"/>
                                                     <constraint firstItem="ezG-ZA-9lG" firstAttribute="leading" secondItem="Wca-LO-pnd" secondAttribute="leading" id="w7H-ad-vug"/>
                                                     <constraint firstItem="ezG-ZA-9lG" firstAttribute="top" secondItem="Crt-b8-bIC" secondAttribute="bottom" constant="20" id="zo7-20-x6F"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MgI-bg-uE3" userLabel="Suggestions View">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="311"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="redraw" axis="vertical" distribution="fillProportionally" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="b4P-hq-EDo">
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="316"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="yWq-tM-Ijb" userLabel="Recent Searches View">
+                                                                <rect key="frame" x="0.0" y="0.0" width="375" height="180"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recent" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="taI-Xk-9i9">
+                                                                        <rect key="frame" x="20" y="0.0" width="335" height="22"/>
+                                                                        <color key="backgroundColor" name="backgroundColor"/>
+                                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="ljZ-HX-HJp" userLabel="Recent Searches Table View">
+                                                                        <rect key="frame" x="0.0" y="42" width="375" height="138"/>
+                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" id="SoI-sN-JSt"/>
+                                                                        </constraints>
+                                                                        <color key="sectionIndexBackgroundColor" name="backgroundColor"/>
+                                                                    </tableView>
+                                                                </subviews>
+                                                                <color key="backgroundColor" name="backgroundColor"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="taI-Xk-9i9" firstAttribute="leading" secondItem="yWq-tM-Ijb" secondAttribute="leading" constant="20" id="GeK-fK-e6i"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="taI-Xk-9i9" secondAttribute="trailing" constant="20" id="Gy3-4h-zy2"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="ljZ-HX-HJp" secondAttribute="trailing" id="Y1A-6o-7N7"/>
+                                                                    <constraint firstItem="taI-Xk-9i9" firstAttribute="top" secondItem="yWq-tM-Ijb" secondAttribute="top" id="arg-fe-c6G"/>
+                                                                    <constraint firstItem="ljZ-HX-HJp" firstAttribute="leading" secondItem="yWq-tM-Ijb" secondAttribute="leading" id="htz-iD-wdT"/>
+                                                                    <constraint firstAttribute="height" relation="lessThanOrEqual" priority="999" constant="180" id="ooq-wi-uXt"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="ljZ-HX-HJp" secondAttribute="bottom" id="rJZ-8W-sLa"/>
+                                                                    <constraint firstItem="ljZ-HX-HJp" firstAttribute="top" secondItem="taI-Xk-9i9" secondAttribute="bottom" constant="20" id="wAb-oB-VK9"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ibA-1N-v94" userLabel="Search Suggestions View">
+                                                                <rect key="frame" x="0.0" y="200" width="375" height="116"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You may want to search for" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kc6-cH-4BJ">
+                                                                        <rect key="frame" x="20" y="0.0" width="335" height="21.5"/>
+                                                                        <color key="backgroundColor" name="backgroundColor"/>
+                                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="NuX-uE-T7Q" userLabel="Search Suggestions Table View">
+                                                                        <rect key="frame" x="0.0" y="41.5" width="375" height="74.5"/>
+                                                                        <color key="backgroundColor" name="backgroundColor"/>
+                                                                        <color key="sectionIndexBackgroundColor" name="backgroundColor"/>
+                                                                    </tableView>
+                                                                </subviews>
+                                                                <color key="backgroundColor" name="backgroundColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="trailing" secondItem="NuX-uE-T7Q" secondAttribute="trailing" id="1nG-W4-7re"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="NuX-uE-T7Q" secondAttribute="bottom" id="3s4-U0-L5x"/>
+                                                                    <constraint firstItem="kc6-cH-4BJ" firstAttribute="leading" secondItem="ibA-1N-v94" secondAttribute="leading" constant="20" id="9zC-NY-YSF"/>
+                                                                    <constraint firstItem="kc6-cH-4BJ" firstAttribute="top" secondItem="ibA-1N-v94" secondAttribute="top" id="FMP-oY-JTx"/>
+                                                                    <constraint firstItem="NuX-uE-T7Q" firstAttribute="top" secondItem="kc6-cH-4BJ" secondAttribute="bottom" constant="20" id="JwN-CG-et7"/>
+                                                                    <constraint firstItem="NuX-uE-T7Q" firstAttribute="leading" secondItem="ibA-1N-v94" secondAttribute="leading" id="Ss8-hr-RnK"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="kc6-cH-4BJ" secondAttribute="trailing" constant="20" id="sqH-9h-w5c"/>
+                                                                </constraints>
+                                                            </view>
+                                                        </subviews>
+                                                        <color key="backgroundColor" name="backgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="trailing" secondItem="yWq-tM-Ijb" secondAttribute="trailing" id="VTr-NK-sOi"/>
+                                                            <constraint firstItem="ibA-1N-v94" firstAttribute="top" relation="lessThanOrEqual" secondItem="b4P-hq-EDo" secondAttribute="top" priority="999" constant="230" id="oyk-xs-kgb"/>
+                                                            <constraint firstItem="yWq-tM-Ijb" firstAttribute="trailing" secondItem="ibA-1N-v94" secondAttribute="trailing" id="uRR-n4-4rr"/>
+                                                        </constraints>
+                                                    </stackView>
+                                                </subviews>
+                                                <color key="backgroundColor" name="backgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="b4P-hq-EDo" firstAttribute="leading" secondItem="MgI-bg-uE3" secondAttribute="leading" id="0xc-ni-mEi"/>
+                                                    <constraint firstAttribute="bottom" secondItem="b4P-hq-EDo" secondAttribute="bottom" constant="-5" id="RtT-Zr-A97"/>
+                                                    <constraint firstItem="b4P-hq-EDo" firstAttribute="top" secondItem="MgI-bg-uE3" secondAttribute="top" id="ifq-ii-qOZ"/>
+                                                    <constraint firstAttribute="trailing" secondItem="b4P-hq-EDo" secondAttribute="trailing" id="o5f-Da-X9g"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N4l-wc-fVG" userLabel="Main Loader View">
@@ -1182,11 +1182,11 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="DAg-07-fMt"/>
-        <segue reference="WRJ-HX-g6R"/>
+        <segue reference="sNt-ij-jaz"/>
+        <segue reference="QdM-r2-YsT"/>
         <segue reference="c87-MO-uwg"/>
         <segue reference="1nj-Ud-1Tt"/>
-        <segue reference="v9M-jo-0Ac"/>
+        <segue reference="Lwd-pG-On7"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="icArrowLeft" width="25" height="24"/>
