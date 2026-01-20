@@ -289,7 +289,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     private func applyIconAndParagraphScaling(fontSize: Int) {
         // Compute scale factor relative to 125% baseline (matching Android)
         let scaleFactor = Double(fontSize) / 125.0
-        let iconPx = 16.0 * scaleFactor
+        let iconPx = 24.0 * scaleFactor
         let iconPxStr = String(format: "%.2f", iconPx)
         
         // Compute scaled metrics for the decorative line used by `.uk-paragraph`

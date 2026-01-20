@@ -96,14 +96,9 @@ class SaveNote: UIView {
         
         noteField.layer.cornerRadius = 4
         noteField.layer.masksToBounds = true
-                
-        cancelButton.layer.borderWidth = 0
-        cancelButton.layer.cornerRadius = 0
-        cancelButton.layer.masksToBounds = true
-
-        saveButton.layer.borderWidth = 0
-        saveButton.layer.cornerRadius = 0
-        saveButton.layer.masksToBounds = true
+        
+        configureCancelButton()
+        configureSaveButton()
         
         closeButton.addTarget(self, action: #selector(self.cancelButtonPressed), for: .touchUpInside)
         
@@ -141,6 +136,50 @@ class SaveNote: UIView {
         }
     }
     
+    private func configureCancelButton() {
+        if #available(iOS 15.0, *) {
+            var config = UIButton.Configuration.plain()
+            config.title = "Cancel"
+            config.cornerStyle = .fixed
+            config.baseForegroundColor = .label
+            config.background.cornerRadius = 0
+            
+            cancelButton.configuration = config
+            cancelButton.configurationUpdateHandler = { button in
+                var updatedConfig = button.configuration
+                switch button.state {
+                case .highlighted:
+                    updatedConfig?.background.backgroundColor = .systemGray5
+                default:
+                    updatedConfig?.background.backgroundColor = .clear
+                }
+                button.configuration = updatedConfig
+            }
+        } else {
+            cancelButton.layer.borderWidth = 0
+            cancelButton.layer.cornerRadius = 0
+            cancelButton.layer.masksToBounds = true
+        }
+    }
+    
+    private func configureSaveButton() {
+        if #available(iOS 15.0, *) {
+            var config = UIButton.Configuration.filled()
+            
+            config.title = "Save"
+            config.cornerStyle = .fixed
+            config.baseBackgroundColor = .colorPrimary
+            config.baseForegroundColor = .white
+            config.background.cornerRadius = 0
+            
+            saveButton.configuration = config
+        } else {
+            saveButton.layer.borderWidth = 0
+            saveButton.layer.cornerRadius = 0
+            saveButton.layer.masksToBounds = true
+        }
+    }
+    
     //------------------------------------------------------------------------------
     @objc func pickColor(_ sender: UIButton){
         // Remove the current highlighted button by removing all
@@ -152,7 +191,6 @@ class SaveNote: UIView {
         sender.addSubview(highlightedColor)
         
         // Assign color to tag
-//        note.colorTag = sender.tag
         colorTagChosen = sender.tag
     }
     
@@ -179,11 +217,6 @@ class SaveNote: UIView {
             ]) { updated in
                 //
             }
-//            try! self.realm!.write
-//            {
-//                self.note.content = self.noteField.text
-//                self.note.colorTag = self.colorTagChosen
-//            }
             
             if !self.note.savedToRealm {
                 self.delegate.didSaveNote(self.note, shouldSubmitAsFeedback: self.submitAsFeedbackSwitch.isOn)
