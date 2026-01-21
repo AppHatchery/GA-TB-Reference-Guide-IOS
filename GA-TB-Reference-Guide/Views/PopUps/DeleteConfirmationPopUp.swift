@@ -61,10 +61,7 @@ class DeleteConfirmationPopUp: UIView {
         mainView.layer.cornerRadius = 4
         mainView.layer.masksToBounds = true
         
-        contentLabel.setText(
-            "Delete Bookmark \(bookmarkName)?",
-            highlightedStrings: ["\(bookmarkName)"]
-        )
+        contentLabel.text = bookmarkName
         
         configureCancelButton()
         configureDeleteButton()
@@ -113,7 +110,7 @@ class DeleteConfirmationPopUp: UIView {
         if #available(iOS 15.0, *) {
             var config = UIButton.Configuration.filled()
 
-            config.title = "Delete"
+            config.title = "Yes"
             config.cornerStyle = .fixed
             config.baseBackgroundColor = .colorPrimary
             config.baseForegroundColor = .white
