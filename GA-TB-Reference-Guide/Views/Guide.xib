@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -42,54 +42,43 @@
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="3KZ-Yh-gnJ" userLabel="Chapters Stack View">
                                     <rect key="frame" x="0.0" y="0.0" width="335" height="243.5"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cwg-JR-Ybh">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chapters" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XkQ-l0-h3a">
                                             <rect key="frame" x="0.0" y="0.0" width="335" height="24"/>
-                                            <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icLungs" translatesAutoresizingMaskIntoConstraints="NO" id="rD3-tq-yGs">
-                                                    <rect key="frame" x="0.0" y="0.0" width="28" height="24"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Chapters" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XkQ-l0-h3a">
-                                                    <rect key="frame" x="36" y="0.0" width="299" height="24"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
-                                                    <color key="textColor" name="colorTextDarker"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" name="colorBackground"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="24" id="dhE-SX-uRO"/>
+                                                <constraint firstAttribute="height" constant="24" id="WjN-hc-7eB"/>
                                             </constraints>
-                                        </view>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="UXl-1A-Dtn">
                                             <rect key="frame" x="0.0" y="38" width="335" height="205.5"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="vp9-Ne-PFj">
                                                     <rect key="frame" x="0.0" y="0.0" width="335" height="54"/>
                                                     <subviews>
-                                                        <button opaque="NO" tag="5" contentMode="scaleAspectFill" horizontalHuggingPriority="249" verticalCompressionResistancePriority="755" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="mMN-Je-xwe">
+                                                        <button opaque="NO" tag="5" contentMode="scaleAspectFill" horizontalHuggingPriority="249" verticalCompressionResistancePriority="755" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="mMN-Je-xwe">
                                                             <rect key="frame" x="0.0" y="0.0" width="156.5" height="54"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="mMN-Je-xwe" secondAttribute="height" multiplier="180:62" id="cmI-9Y-C3k"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                            <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
-                                                            <inset key="titleEdgeInsets" minX="6" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                            <state key="normal" title="All Chapters &gt;" image="icFile" backgroundImage="bgAllTopCard">
-                                                                <color key="titleColor" name="colorTextSecondary"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
+                                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                            <state key="normal" title="All Chapters &gt;" backgroundImage="topCard">
+                                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
-                                                            <state key="highlighted" backgroundImage="bgAllTopCardPressed"/>
+                                                            <state key="highlighted" backgroundImage="topCardPressed"/>
                                                         </button>
-                                                        <button opaque="NO" tag="4" contentMode="scaleAspectFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="E9d-Xf-hkA">
+                                                        <button opaque="NO" tag="4" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="E9d-Xf-hkA">
                                                             <rect key="frame" x="178.5" y="0.0" width="156.5" height="54"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                            <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
-                                                            <inset key="titleEdgeInsets" minX="6" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                            <state key="normal" title="Diagnosis of Active TB" image="icChapter" backgroundImage="bgTopCard">
-                                                                <color key="titleColor" name="colorTextSecondary"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
+                                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                            <state key="normal" title="Diagnosis of Active TB" backgroundImage="topCard">
+                                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
-                                                            <state key="highlighted" backgroundImage="bgTopCardPressed"/>
+                                                            <state key="highlighted" backgroundImage="topCardPressed"/>
                                                             <connections>
                                                                 <action selector="tapTopButton:" destination="-2" eventType="touchUpInside" id="XRZ-36-VXH"/>
                                                             </connections>
@@ -99,33 +88,31 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="TlQ-qL-WN0">
                                                     <rect key="frame" x="0.0" y="76" width="335" height="54"/>
                                                     <subviews>
-                                                        <button opaque="NO" tag="5" contentMode="scaleAspectFill" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="755" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="uiS-cD-LIK">
+                                                        <button opaque="NO" tag="5" contentMode="scaleAspectFill" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="755" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="uiS-cD-LIK">
                                                             <rect key="frame" x="0.0" y="0.0" width="156.5" height="54"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="uiS-cD-LIK" secondAttribute="height" multiplier="180:62" id="uh3-Cv-EA5"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                            <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
-                                                            <inset key="titleEdgeInsets" minX="6" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
                                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                            <state key="normal" title="Treatment for Active TB" image="icChapter" backgroundImage="bgTopCard">
-                                                                <color key="titleColor" name="colorTextSecondary"/>
+                                                            <state key="normal" title="Treatment for Active TB" backgroundImage="topCard">
+                                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
-                                                            <state key="highlighted" backgroundImage="bgTopCardPressed"/>
+                                                            <state key="highlighted" backgroundImage="topCardPressed"/>
                                                             <connections>
                                                                 <action selector="tapTopButton:" destination="-2" eventType="touchUpInside" id="UUg-H2-P46"/>
                                                             </connections>
                                                         </button>
-                                                        <button opaque="NO" tag="2" contentMode="scaleAspectFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="S5J-ng-iwP">
+                                                        <button opaque="NO" tag="2" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="S5J-ng-iwP">
                                                             <rect key="frame" x="178.5" y="0.0" width="156.5" height="54"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                            <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
-                                                            <inset key="titleEdgeInsets" minX="6" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
                                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                            <state key="normal" title="Diagnosis of LTBI" image="icChapter" backgroundImage="bgTopCard">
-                                                                <color key="titleColor" name="colorTextSecondary"/>
+                                                            <state key="normal" title="Diagnosis of LTBI" backgroundImage="topCard">
+                                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
-                                                            <state key="highlighted" backgroundImage="bgTopCardPressed"/>
+                                                            <state key="highlighted" backgroundImage="topCardPressed"/>
                                                             <connections>
                                                                 <action selector="tapTopButton:" destination="-2" eventType="touchUpInside" id="emM-q8-I3H"/>
                                                             </connections>
@@ -135,33 +122,31 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="BMw-Iz-z7d">
                                                     <rect key="frame" x="0.0" y="152" width="335" height="53.5"/>
                                                     <subviews>
-                                                        <button opaque="NO" tag="3" contentMode="scaleAspectFill" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="0fq-fU-pZf">
+                                                        <button opaque="NO" tag="3" contentMode="scaleAspectFill" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="0fq-fU-pZf">
                                                             <rect key="frame" x="0.0" y="0.0" width="156.5" height="53.5"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="0fq-fU-pZf" secondAttribute="height" multiplier="180:62" id="FE7-Vb-qAp"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                            <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
-                                                            <inset key="titleEdgeInsets" minX="6" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
                                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                            <state key="normal" title="Treatment for LTBI" image="icChapter" backgroundImage="bgTopCard">
-                                                                <color key="titleColor" name="colorTextSecondary"/>
+                                                            <state key="normal" title="Treatment for LTBI" backgroundImage="topCard">
+                                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
-                                                            <state key="highlighted" title="Treatment for LTBI" backgroundImage="bgTopCardPressed"/>
+                                                            <state key="highlighted" title="Treatment for LTBI" backgroundImage="topCardPressed"/>
                                                             <connections>
                                                                 <action selector="tapTopButton:" destination="-2" eventType="touchUpInside" id="1mE-Qv-DYk"/>
                                                             </connections>
                                                         </button>
-                                                        <button opaque="NO" tag="15" contentMode="scaleAspectFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="I49-0P-LNJ">
+                                                        <button opaque="NO" tag="15" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="I49-0P-LNJ">
                                                             <rect key="frame" x="178.5" y="0.0" width="156.5" height="53.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                            <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
-                                                            <inset key="titleEdgeInsets" minX="6" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
                                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                            <state key="normal" title="District TB Coordinators" image="icChapter" backgroundImage="bgTopCard">
-                                                                <color key="titleColor" name="colorTextSecondary"/>
+                                                            <state key="normal" title="District TB Coordinators" backgroundImage="topCard">
+                                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
-                                                            <state key="highlighted" backgroundImage="bgTopCardPressed"/>
+                                                            <state key="highlighted" backgroundImage="topCardPressed"/>
                                                             <connections>
                                                                 <action selector="tapTopButton:" destination="-2" eventType="touchUpInside" id="h5P-X4-t2s"/>
                                                             </connections>
@@ -175,148 +160,130 @@
                                 <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" axis="vertical" distribution="equalSpacing" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="nxJ-rt-siz" userLabel="Charts Stack View">
                                     <rect key="frame" x="0.0" y="273.5" width="335" height="446"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BM6-fW-fAe">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Charts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="grL-IE-LFK">
                                             <rect key="frame" x="0.0" y="0.0" width="335" height="24"/>
-                                            <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icLungs" translatesAutoresizingMaskIntoConstraints="NO" id="dzh-dH-byR">
-                                                    <rect key="frame" x="0.0" y="0.0" width="28" height="24"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Charts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="grL-IE-LFK">
-                                                    <rect key="frame" x="36" y="0.0" width="299" height="24"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
-                                                    <color key="textColor" name="colorTextDarker"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" name="colorBackground"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="24" id="8hG-sa-3c3"/>
+                                                <constraint firstAttribute="height" constant="24" id="irh-B4-zEO"/>
                                             </constraints>
-                                        </view>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="wP5-Kf-NE5">
                                             <rect key="frame" x="0.0" y="38" width="335" height="408"/>
                                             <subviews>
                                                 <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="NXJ-G6-pKw">
                                                     <rect key="frame" x="0.0" y="0.0" width="335" height="48"/>
-                                                    <color key="backgroundColor" name="colorBackgroundSecondary"/>
+                                                    <color key="backgroundColor" name="bgChartCard"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="48" id="I0I-fp-kT0"/>
                                                     </constraints>
-                                                    <color key="tintColor" name="colorTextSecondary"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="12" maxY="0.0"/>
-                                                    <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal" title="All Tables &gt;" image="icFile"/>
-                                                    <state key="highlighted">
-                                                        <color key="titleColor" name="colorTextSecondary"/>
+                                                    <state key="normal" title="All Charts &gt;">
+                                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
+                                                    <state key="highlighted" backgroundImage="bottomCardPressed"/>
                                                 </button>
                                                 <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="dqr-Px-3li">
                                                     <rect key="frame" x="0.0" y="60" width="335" height="48"/>
-                                                    <color key="backgroundColor" name="colorBackgroundSecondary"/>
+                                                    <color key="backgroundColor" name="bgChartCard"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" priority="999" constant="48" id="mVe-bO-EIq"/>
                                                     </constraints>
-                                                    <color key="tintColor" name="colorTextSecondary"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="12" maxY="0.0"/>
-                                                    <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal" title="First Line TB Drugs for Adults" image="icChart"/>
-                                                    <state key="highlighted">
-                                                        <color key="titleColor" name="colorTextSecondary"/>
+                                                    <state key="normal" title="First Line TB Drugs for Adults">
+                                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
+                                                    <state key="highlighted" backgroundImage="bottomCardPressed"/>
                                                     <connections>
                                                         <action selector="tapBottomButton:" destination="-2" eventType="touchUpInside" id="1tu-QI-hFU"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="iOX-uC-bGp">
+                                                <button opaque="NO" tag="14" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="iOX-uC-bGp">
                                                     <rect key="frame" x="0.0" y="120" width="335" height="48"/>
-                                                    <color key="backgroundColor" name="colorBackgroundSecondary"/>
+                                                    <color key="backgroundColor" name="bgChartCard"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" priority="999" constant="48" id="dUL-Cu-p75"/>
                                                     </constraints>
-                                                    <color key="tintColor" name="colorTextSecondary"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="12" maxY="0.0"/>
-                                                    <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal" title="IV Therapy Drugs" image="icChart"/>
-                                                    <state key="highlighted">
-                                                        <color key="titleColor" name="colorTextSecondary"/>
+                                                    <state key="normal" title="IV Therapy Drugs">
+                                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
+                                                    <state key="highlighted" backgroundImage="bottomCardPressed"/>
                                                     <connections>
                                                         <action selector="tapBottomButton:" destination="-2" eventType="touchUpInside" id="X7Y-xK-Y8z"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Igd-XX-ZEe">
+                                                <button opaque="NO" tag="15" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Igd-XX-ZEe">
                                                     <rect key="frame" x="0.0" y="180" width="335" height="48"/>
-                                                    <color key="backgroundColor" name="colorBackgroundSecondary"/>
+                                                    <color key="backgroundColor" name="bgChartCard"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" priority="999" constant="48" id="Asi-d1-tge"/>
                                                     </constraints>
-                                                    <color key="tintColor" name="colorTextSecondary"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="12" maxY="0.0"/>
-                                                    <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal" title="Alternative Regimens" image="icChart"/>
-                                                    <state key="highlighted">
-                                                        <color key="titleColor" name="colorTextSecondary"/>
+                                                    <state key="normal" title="Alternative Regimens">
+                                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
+                                                    <state key="highlighted" backgroundImage="bottomCardPressed"/>
                                                     <connections>
                                                         <action selector="tapBottomButton:" destination="-2" eventType="touchUpInside" id="Ymg-9U-jww"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="XsG-R7-hzl">
                                                     <rect key="frame" x="0.0" y="240" width="335" height="48"/>
-                                                    <color key="backgroundColor" name="colorBackgroundSecondary"/>
+                                                    <color key="backgroundColor" name="bgChartCard"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" priority="999" constant="48" id="WjS-lK-gX0"/>
                                                     </constraints>
-                                                    <color key="tintColor" name="colorTextSecondary"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="12" maxY="0.0"/>
-                                                    <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal" title="Dosages for LTBI regimens" image="icChart"/>
-                                                    <state key="highlighted">
-                                                        <color key="titleColor" name="colorTextSecondary"/>
+                                                    <state key="normal" title="Dosages for LTBI regimens">
+                                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
+                                                    <state key="highlighted" backgroundImage="bottomCardPressed"/>
                                                     <connections>
                                                         <action selector="tapBottomButton:" destination="-2" eventType="touchUpInside" id="9Uv-y4-nQp"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" tag="17" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="wKn-5L-Uaw">
+                                                <button opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="wKn-5L-Uaw">
                                                     <rect key="frame" x="0.0" y="300" width="335" height="48"/>
-                                                    <color key="backgroundColor" name="colorBackgroundSecondary"/>
+                                                    <color key="backgroundColor" name="bgChartCard"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" priority="999" constant="48" id="aIT-IG-f81"/>
                                                     </constraints>
-                                                    <color key="tintColor" name="colorTextSecondary"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="12" maxY="0.0"/>
-                                                    <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal" title="TB Drugs in Special Situations" image="icChart"/>
-                                                    <state key="highlighted">
-                                                        <color key="titleColor" name="colorTextSecondary"/>
+                                                    <state key="normal" title="TB Drugs in Special Situations">
+                                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
+                                                    <state key="highlighted" backgroundImage="bottomCardPressed"/>
                                                     <connections>
                                                         <action selector="tapBottomButton:" destination="-2" eventType="touchUpInside" id="JCR-Ks-Dey"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" tag="16" contentMode="scaleToFill" verticalHuggingPriority="240" verticalCompressionResistancePriority="754" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Azu-U9-710">
+                                                <button opaque="NO" tag="19" contentMode="scaleToFill" verticalHuggingPriority="240" verticalCompressionResistancePriority="754" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Azu-U9-710">
                                                     <rect key="frame" x="0.0" y="360" width="335" height="48"/>
-                                                    <color key="backgroundColor" name="colorBackgroundSecondary"/>
+                                                    <color key="backgroundColor" name="bgChartCard"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" priority="999" constant="48" id="sXk-9w-BeC"/>
                                                     </constraints>
-                                                    <color key="tintColor" name="colorTextSecondary"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="12" maxY="0.0"/>
-                                                    <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal" title="Treatment of Extrapulmonary TB" image="icChart"/>
-                                                    <state key="highlighted">
-                                                        <color key="titleColor" name="colorTextSecondary"/>
+                                                    <state key="normal" title="Treatment of Extrapulmonary TB">
+                                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
+                                                    <state key="highlighted" backgroundImage="bottomCardPressed"/>
                                                     <connections>
                                                         <action selector="tapBottomButton:" destination="-2" eventType="touchUpInside" id="CXP-Zg-MqP"/>
                                                     </connections>
@@ -348,32 +315,18 @@
                 <constraint firstItem="1ko-iI-XVM" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="rv8-PP-gYG"/>
                 <constraint firstItem="1ko-iI-XVM" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="yqI-eu-Rxo"/>
             </constraints>
-            <point key="canvasLocation" x="82.400000000000006" y="113.79310344827587"/>
+            <point key="canvasLocation" x="82.608695652173921" y="114.50892857142857"/>
         </view>
     </objects>
     <resources>
-        <image name="bgAllTopCard" width="180.66667175292969" height="85.666664123535156"/>
-        <image name="bgAllTopCardPressed" width="180.66667175292969" height="86"/>
-        <image name="bgTopCard" width="180.66667175292969" height="85.666664123535156"/>
-        <image name="bgTopCardPressed" width="180.66667175292969" height="86"/>
-        <image name="icChapter" width="24" height="24"/>
-        <image name="icChart" width="24" height="24"/>
-        <image name="icFile" width="24" height="24"/>
-        <image name="icLungs" width="24" height="22.666666030883789"/>
+        <image name="bottomCardPressed" width="160" height="77"/>
+        <image name="topCard" width="162" height="77"/>
+        <image name="topCardPressed" width="162" height="77"/>
         <namedColor name="backgroundColor">
-            <color red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="colorBackground">
-            <color red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="colorBackgroundSecondary">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="colorTextDarker">
-            <color red="0.32941176470588235" green="0.32941176470588235" blue="0.32941176470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="colorTextSecondary">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="bgChartCard">
+            <color red="0.49411764705882355" green="0.24705882352941178" blue="0.14117647058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

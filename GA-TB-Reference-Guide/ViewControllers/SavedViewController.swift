@@ -8,15 +8,18 @@
 import UIKit
 import RealmSwift
 
-class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, SaveFavoriteDelegate, DeleteConfirmationPopUpDelegate {
+class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
+    @IBOutlet weak var searchView: UIView!
+    @IBOutlet weak var search: UISearchBar!
+    
+    @IBOutlet weak var contentTabs: UISegmentedControl!
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var headertitle: UILabel!
     @IBOutlet weak var emptyView: UIView!
-    @IBOutlet weak var activityIndicatorView: UIView!
-    
     @IBOutlet weak var emptyMessage: UILabel!
-    
+    @IBOutlet weak var editButton: UIButton!
     var isGradientAdded: Bool = false
     
     // Initialize the Realm database
@@ -53,12 +56,13 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor : UIColor.white]
         
-        let navbarTitle = UILabel()
-        navbarTitle.text = "My Bookmarks"
-        navbarTitle.textColor = UIColor.white
-        navbarTitle.font = UIFont.boldSystemFont(ofSize: 16.0)
-        navigationItem.titleView = navbarTitle
-        navigationItem.backButtonDisplayMode = .minimal
+        search.delegate = self
+//        searchReturns.isHidden = true
+
+        let textFieldInsideSearchBar = search.value(forKey: "searchField") as? UITextField
+        textFieldInsideSearchBar?.textColor = UIColor.darkGray
+        textFieldInsideSearchBar?.layer.cornerRadius = 60
+        textFieldInsideSearchBar?.backgroundColor = UIColor.init(white: 255/255, alpha: 1.0)
                 
         navigationController?.navigationBar.setGradientBackground(to: self.navigationController!)
         navigationController?.navigationBar.tintColor = UIColor.white
@@ -69,7 +73,6 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.dataSource = self
         tableView.register( UITableViewCell.self, forCellReuseIdentifier: type(of: self).description())
         tableView.register(UINib(nibName: "NoteTableViewCell", bundle: nil), forCellReuseIdentifier: "noteCell")
-        tableView.register(UINib(nibName: "BookmarkTableViewCell", bundle: nil), forCellReuseIdentifier: "bookmarkCell")
         tableView.estimatedRowHeight = 80
         tableView.estimatedRowHeight = UITableView.automaticDimension
         
@@ -82,20 +85,14 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         doneButton.addTarget( self, action: #selector( self.dismissKeyboard), for: .touchUpInside )
         customView.addSubview( doneButton )
         
-        tableView.separatorColor = .clear
-        tableView.backgroundColor = .clear
+        search.inputAccessoryView = customView
         
-        DispatchQueue.main.async {
-            self.beginLoading()
-            self.tableView.reloadData()
-        }
+        toggleState(contentTabs)
     }
     
-    
+    //--------------------------------------------------------------------------------------------------
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        
-        beginLoading()
         
 //        if !isGradientAdded {
 //            searchView.setGradientBackground(size: searchView.bounds)
@@ -143,46 +140,18 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
             notesLastEdit.append(content.lastEdited)
         }
         
-        // Update empty state immediately after data is ready
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-            self.endLoadingAndUpdateUI()
-        }
-    }
-    
-    private func beginLoading() {
-        activityIndicatorView?.isHidden = false
-        emptyView?.isHidden = true
-        tableView?.isHidden = true
-    }
-
-    private func endLoadingAndUpdateUI() {
-        let count: Int
-        if isFavorite {
-            count = favoriteURLs.count
-        } else if isLastOpened {
-            count = historyURLs.count
-        } else if isNotes {
-            count = notesURLs.count
+        tableView.reloadData()
+        // If number of cells is 0, then
+        if tableView.visibleCells.count == 0 {
+            emptyView.isHidden = false
+            editButton.isHidden = true
         } else {
-            count = 0
-        }
-        activityIndicatorView?.isHidden = true
-        if count == 0 {
-            emptyView?.isHidden = false
-            tableView?.isHidden = true
-        } else {
-            emptyView?.isHidden = true
-            tableView?.isHidden = false
+            emptyView.isHidden = true
+            editButton.isHidden = false
         }
     }
-    
-    private func updateEmptyView() {
-        endLoadingAndUpdateUI()
-    }
-    
         
-    
+    //--------------------------------------------------------------------------------------------------
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Decide what to display according to the corresponding filter
         if isFavorite {
@@ -204,54 +173,13 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         if isNotes {
             let cell = tableView.dequeueReusableCell(withIdentifier: "noteCell", for: indexPath) as! NoteTableViewCell
-            cell.backgroundColor = .clear
+            cell.backgroundColor = UIColor.backgroundColor
             cell.header.text = "In \(notesTitles[indexPath.row])"
             cell.content.text = notesContent[indexPath.row]
             cell.colorTag.backgroundColor = colorTags[notesColors[indexPath.row]]
             tableViewCells[indexPath.row] = cell
             
             return cell
-        } else if isFavorite {
-
-            let cell = tableView.dequeueReusableCell(withIdentifier: "bookmarkCell", for: indexPath) as! BookmarkTableViewCell
-            cell.backgroundColor = .clear
-            cell.selectionStyle = .none
-            
-            cell.chapterTitleLabel.text = favoriteNames[indexPath.row]
-            cell.chapterTitleSmallLabel.text = favoriteNames[indexPath.row]
-            cell.subchapterTitleLabel.text = favoriteChapters[indexPath.row]
-            
-            cell.editBookmarkButton.tag = indexPath.row
-            cell.editBookmarkButton.addTarget(self, action: #selector(editBookmarkTapped(_:)), for: .touchUpInside)
-            
-            cell.contentView.layoutMargins = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
-            cell.preservesSuperviewLayoutMargins = false
-            
-            let chapterName = favoriteNames[indexPath.row]
-            let tablePattern = "^Table\\s+\\d+"
-            let figurePattern = "^Figure\\s+\\d+\\"
-            
-            if let regex = try? NSRegularExpression(pattern: tablePattern, options: []),
-                   regex.firstMatch(in: chapterName, options: [], range: NSRange(location: 0, length: chapterName.utf16.count)) != nil {
-                    // It's a table chapter
-                    cell.sideView.backgroundColor = .colorGreen
-                    cell.chapterIcon.image = UIImage(named: "icChartGreen")
-                } else if let regexFigure = try? NSRegularExpression(pattern: figurePattern, options: []),
-                        regexFigure.firstMatch(in: chapterName, options: [], range: NSRange(location: 0, length: chapterName.utf16.count)) != nil {
-                  // It's a figure chapter
-                    cell.sideView.backgroundColor = .colorGreen
-                  cell.chapterIcon.image = UIImage(named: "icChartGreen")
-              } else {
-                  // It's a regular chapter
-                cell.sideView.backgroundColor = .colorPrimary
-                cell.chapterIcon.image = UIImage(named: "icChapterBlue")
-            }
-            cell.accessoryType = .none
-
-            tableViewCells[indexPath.row] = cell
-            
-            return cell
-            
         } else {
             var cell: UITableViewCell! = tableViewCells[indexPath.row]
             
@@ -358,86 +286,10 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
 //            }
             
             self.tableView.deleteRows(at: [indexPath], with: .fade)
-            self.endLoadingAndUpdateUI()
          }
     }
     
-    func didSaveName(_ name: String) {
-            // Update the bookmark name in Realm
-            guard !name.isEmpty else { return }
-            
-            if let contentDatabase = realm!.object(ofType: ContentPage.self, forPrimaryKey: favoriteURLs[arrayPointer]) {
-                RealmHelper.sharedInstance.update(contentDatabase, properties: [
-                    "favoriteName": name
-                ]) { updated in
-                    self.favoriteNames[self.arrayPointer] = name
-                    self.tableView.reloadRows(at: [IndexPath(row: self.arrayPointer, section: 0)], with: .automatic)
-                }
-            }
-        }
-        
-        func didRemoveFavorite() {
-            
-            let bookmarkName = favoriteNames[arrayPointer]
-
-            let bookmarkURL = favoriteURLs[arrayPointer]
-            
-            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-               let sceneDelegate = windowScene.delegate as? SceneDelegate,
-               let window = sceneDelegate.window {
-                
-                DeleteConfirmationPopUp.show(
-                    in: window,
-                    bookmarkName: bookmarkName,
-                    bookmarkUrl: bookmarkURL,
-                    delegate: self
-                )
-            }
-        }
-    
-    
-    @objc func editBookmarkTapped(_ sender: UIButton) {
-        let index = sender.tag
-        
-        // Get the content page from Realm
-        guard let contentPage = realm!.object(ofType: ContentPage.self, forPrimaryKey: favoriteURLs[index]) else {
-            return
-        }
-        
-        // Create and show the custom SaveFavorite dialog
-        let saveFavoriteDialog = SaveFavorite(
-            frame: self.view.bounds,
-            content: contentPage,
-            title: favoriteNames[index],
-            delegate: self
-        )
-        
-        // Store the current index for use in delegate methods
-        arrayPointer = index
-        
-        let customView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
-            customView.backgroundColor = UIColor(red: 0xd5/255.0, green: 0xd8/255.0, blue: 0xdc/255.0, alpha: 1)
-            
-            let doneButton = UIButton(frame: CGRect(x: view.frame.width - 70 - 10, y: 0, width: 70, height: 44))
-            doneButton.setTitle("Dismiss", for: .normal)
-            doneButton.setTitleColor(UIColor.systemBlue, for: .normal)
-            doneButton.addTarget(self, action: #selector(self.dismissKeyboard), for: .touchUpInside)
-            customView.addSubview(doneButton)
-            
-            // Assign to the text field in the dialog (you'll need to access it)
-        saveFavoriteDialog.nameField?.inputAccessoryView = customView
-        
-        // Add to view with animation
-        self.view.addSubview(saveFavoriteDialog)
-        saveFavoriteDialog.overlayView.alpha = 0
-        saveFavoriteDialog.contentView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
-        
-        UIView.animate(withDuration: 0.25, delay: 0.0, options: UIView.AnimationOptions(), animations: {
-            saveFavoriteDialog.overlayView.alpha = 0.5
-            saveFavoriteDialog.contentView.transform = CGAffineTransform.identity
-        }, completion: nil)
-    }
-    
+    //--------------------------------------------------------------------------------------------------
     @IBAction func showEditing(_ sender: UIButton)
      {
         if(self.tableView.isEditing == true)
@@ -452,10 +304,12 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
     
-    
+    //--------------------------------------------------------------------------------------------------
     @IBAction func toggleState(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
+            headertitle.text = "Your Bookmarks"
+            search.placeholder = "Search Bookmarks"
             isLastOpened = false
             isFavorite = true
             isNotes = false
@@ -472,6 +326,8 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
             emptyMessage.attributedText = attributedString
         case 1:
+            headertitle.text = "Last Opened"
+            search.placeholder = "Search Recents"
             isLastOpened = true
             isFavorite = false
             isNotes = false
@@ -482,6 +338,8 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
             Start by opening any subchapter or chart.
             """
         case 2:
+            headertitle.text = "Your Notes"
+            search.placeholder = "Search Notes"
             isLastOpened = false
             isFavorite = false
             isNotes = true
@@ -499,11 +357,18 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         default:
             print("nothing selected")
         }
+        
         tableView.reloadData()
-        endLoadingAndUpdateUI()
+        if tableView.visibleCells.count == 0 {
+            emptyView.isHidden = false
+            editButton.isHidden = true
+        } else {
+            emptyView.isHidden = true
+            editButton.isHidden = false
+        }
     }
     
-    
+    //--------------------------------------------------------------------------------------------------
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if let webViewViewController = segue.destination as? WebViewViewController
@@ -541,54 +406,16 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
     
-    
+    //--------------------------------------------------------------------------------------------------
     // To hide the keyboard when the user clicks search
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.view.endEditing(true)
     }
     
-    
+    //--------------------------------------------------------------------------------------------------
     @objc func dismissKeyboard() {
         // To hide the keyboard when the user clicks search
         self.view.endEditing(true)
     }
     
-    func didTapDeleteBookmark(for url: String?) {
-        // unwrap the optional URL
-        guard let url = url else { return }
-        
-        // find the index in favoriteURLs
-        guard let index = favoriteURLs.firstIndex(of: url) else { return }
-        
-        if let contentDatabase = realm!.object(ofType: ContentPage.self, forPrimaryKey: url) {
-            RealmHelper.sharedInstance.update(contentDatabase, properties: [
-                "favorite": false,
-                "favoriteName": ""
-            ]) { [weak self] updated in
-                guard let self = self else { return }
-                
-                let deletedBookmarkName = self.favoriteNames[index]
-
-                let indexPath = IndexPath(row: index, section: 0)
-                self.favoriteURLs.remove(at: index)
-                self.favoriteNames.remove(at: index)
-                self.favoriteSubChapters.remove(at: index)
-                self.favoriteChapters.remove(at: index)
-                self.tableView.deleteRows(at: [indexPath], with: .fade)
-                self.endLoadingAndUpdateUI()
-                
-                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                   let window = windowScene.windows.first(where: { $0.isKeyWindow }) {
-                    
-                    CustomPopUp.showTemporary(
-                        in: window,
-                        popupLabelText: "Bookmark \(deletedBookmarkName) deleted!",
-                        isBookmark: true,
-                    bookmarkName: deletedBookmarkName
-                    )
-                }
-            }
-        }
-    }
 }
-

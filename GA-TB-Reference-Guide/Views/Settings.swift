@@ -10,15 +10,12 @@ import RealmSwift
 
 class Settings: UIView {
     
-    @IBOutlet weak var darkModeToggler: UISwitch!
     @IBOutlet weak var contactUs: UIButton!
     @IBOutlet weak var privacyPolicy: UIButton!
     @IBOutlet weak var about: UIButton!
     @IBOutlet weak var resetApp: UIButton!
     @IBOutlet weak var fontSize: UIButton!
     @IBOutlet weak var toggleNotifications: UISwitch!
-    
-    private let darkModeKey = "darkModeEnabled"
     
     var contentViewTopConstraint: NSLayoutConstraint!
     let realm = RealmHelper.sharedInstance.mainRealm()
@@ -55,20 +52,6 @@ class Settings: UIView {
         nibView.rightAnchor.constraint( equalTo: self.rightAnchor ).isActive = true
         nibView.bottomAnchor.constraint( equalTo: self.bottomAnchor ).isActive = true
         
-        if UserDefaults.standard.object(forKey: darkModeKey) == nil {
-            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-               let window = windowScene.windows.first {
-                let systemStyle = window.traitCollection.userInterfaceStyle
-                darkModeToggler.setOn(systemStyle == .dark, animated: false)
-            }
-        } else {
-            let isDarkMode = UserDefaults.standard.bool(forKey: darkModeKey)
-            darkModeToggler.setOn(isDarkMode, animated: false)
-            applyInterfaceStyle(isDarkMode: isDarkMode)
-        }
-            
-        darkModeToggler.addTarget(self, action: #selector(darkModeSwitchChanged(_:)), for: .valueChanged)
-        
         // Realm
         
 //        try! realm!.write
@@ -89,15 +72,5 @@ class Settings: UIView {
             }
 //        }
     }
-    
-    @objc private func darkModeSwitchChanged(_ sender: UISwitch) {
-        ThemeManager.shared.setTheme(isDarkMode: sender.isOn)
-    }
-    
-    private func applyInterfaceStyle(isDarkMode: Bool) {
-        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-           let window = windowScene.windows.first {
-            window.overrideUserInterfaceStyle = isDarkMode ? .dark : .light
-        }
-    }
+
 }

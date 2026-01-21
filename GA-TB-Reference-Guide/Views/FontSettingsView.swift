@@ -58,7 +58,7 @@ class FontSettingsView: UIViewController {
             } else {
                 sliderControl(state: 150)
             }
-        } else if fontSizeLabel == "Extra Large"{
+        } else if fontSizeLabel == "ExtraLarge"{
             if sender.value > 0.95 && sender.value < 1.25 {
                 sliderControl(state: 100)
             } else if sender.value <= 0.95 {
@@ -84,8 +84,6 @@ class FontSettingsView: UIViewController {
         super.viewDidLoad()
 
         configView()
-        setupSliderTapGesture()
-        
         if let currentSettings = realm!.object(ofType: UserSettings.self, forPrimaryKey: "savedSettings"){
             // Assign the older entry to the current variable
             userSettings = currentSettings
@@ -118,7 +116,7 @@ class FontSettingsView: UIViewController {
         case 175:
             fontSlider.setValue(1.75, animated: false)
             fontNumber = 175
-            fontSizeLabel = "Extra Large"
+            fontSizeLabel = "ExtraLarge"
         default:
             fontSlider.setValue(1.1, animated: false)
             fontNumber = 100
@@ -141,7 +139,6 @@ class FontSettingsView: UIViewController {
         self.backView.backgroundColor = .black.withAlphaComponent(0.5)
         self.backView.alpha = 0
         self.contentView.alpha = 0
-        self.contentView.transform = CGAffineTransform( scaleX: 0, y: 0 )
     }
     
     func displayPopUp(sender: UIViewController) {
@@ -154,33 +151,16 @@ class FontSettingsView: UIViewController {
         UIView.animate(withDuration: 0.2, delay: 0.1) {
             self.backView.alpha = 1
             self.contentView.alpha = 1
-            self.contentView.layer.cornerRadius = 4
-            self.contentView.transform = CGAffineTransform( scaleX: 1.0, y: 1.0 )
         }
     }
     
     private func hide() {
         UIView.animate(withDuration: 0.2, delay: 0.1, options: .curveEaseOut) {
             self.backView.alpha = 0
-            self.contentView.transform = CGAffineTransform( scaleX: 0.001, y: 0.001 )
             self.view.alpha = 0
         } completion: { _ in
             self.dismiss(animated: true)
         }
     }
-    
-    private func setupSliderTapGesture() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(sliderTapped(_:)))
-        fontSlider.addGestureRecognizer(tapGesture)
-    }
 
-    @objc private func sliderTapped(_ sender: UITapGestureRecognizer) {
-        let location = sender.location(in: fontSlider)
-        let sliderWidth = fontSlider.bounds.width
-        let percentage = location.x / sliderWidth
-        let newValue = Float(percentage) * (fontSlider.maximumValue - fontSlider.minimumValue) + fontSlider.minimumValue
-
-        fontSlider.setValue(newValue, animated: true)
-        fontSizeChanger(fontSlider) // Call the existing method to handle value change
-    }
 }

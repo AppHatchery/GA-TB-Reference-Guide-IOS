@@ -12,7 +12,6 @@ class SearchCell: UITableViewCell {
     @IBOutlet weak var subchapterLabel: UILabel!
     @IBOutlet weak var chapterLabel: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
-	@IBOutlet var chapterIcon: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24128" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24063"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -28,26 +28,22 @@
                     <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cMP-nW-TaN" userLabel="contentView">
-                            <rect key="frame" x="46" y="352" width="301" height="148"/>
+                            <rect key="frame" x="46" y="340" width="301" height="172"/>
                             <subviews>
                                 <stackView autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="QZW-rT-eOR" userLabel="Vertical Stack View">
-                                    <rect key="frame" x="19" y="16" width="263.66666666666669" height="116"/>
+                                    <rect key="frame" x="19" y="29" width="263.66666666666669" height="112"/>
                                     <subviews>
                                         <stackView autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="cWL-ug-pEm">
                                             <rect key="frame" x="0.0" y="0.0" width="263.66666666666669" height="24"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Font Size Settings" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pve-OY-1MR">
-                                                    <rect key="frame" x="0.0" y="0.0" width="238.66666666666666" height="24"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="218" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V6k-2v-hAl" userLabel="closePopUpButton">
-                                                    <rect key="frame" x="238.66666666666669" y="0.0" width="25" height="24"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="25" id="g8N-8o-bzI"/>
-                                                    </constraints>
-                                                    <color key="tintColor" name="colorPrimary"/>
+                                                    <rect key="frame" x="218" y="0.0" width="45.666666666666686" height="24"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                     <state key="normal" image="icClose">
                                                         <attributedString key="attributedTitle">
@@ -68,15 +64,15 @@
                                             </subviews>
                                         </stackView>
                                         <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1.1000000000000001" minValue="0.75" maxValue="1.75" continuous="NO" minimumValueImage="icFontSmall" maximumValueImage="icFontLarge" translatesAutoresizingMaskIntoConstraints="NO" id="BIX-sI-gyR" userLabel="fontSlider">
-                                            <rect key="frame" x="0.0" y="44" width="263.66666666666669" height="34"/>
-                                            <color key="tintColor" name="colorPrimary"/>
+                                            <rect key="frame" x="-2" y="44" width="267.66666666666669" height="31"/>
+                                            <color key="tintColor" name="dialogColor"/>
                                             <color key="maximumTrackTintColor" systemColor="systemGray5Color"/>
                                             <connections>
                                                 <action selector="fontSizeChanger:" destination="-1" eventType="valueChanged" id="Mqg-bb-xnD"/>
                                             </connections>
                                         </slider>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Font Size: Regular" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hQ7-4Q-c1Y">
-                                            <rect key="frame" x="0.0" y="98" width="263.66666666666669" height="18"/>
+                                            <rect key="frame" x="0.0" y="94" width="263.66666666666669" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -92,8 +88,8 @@
                             </subviews>
                             <color key="backgroundColor" name="backgroundColor"/>
                             <constraints>
-                                <constraint firstItem="QZW-rT-eOR" firstAttribute="top" secondItem="cMP-nW-TaN" secondAttribute="top" constant="16" id="01d-dS-b9x"/>
-                                <constraint firstAttribute="bottom" secondItem="QZW-rT-eOR" secondAttribute="bottom" constant="16" id="A2A-3e-04K"/>
+                                <constraint firstItem="QZW-rT-eOR" firstAttribute="top" secondItem="cMP-nW-TaN" secondAttribute="top" constant="29" id="01d-dS-b9x"/>
+                                <constraint firstAttribute="bottom" secondItem="QZW-rT-eOR" secondAttribute="bottom" constant="30.670000000000002" id="A2A-3e-04K"/>
                                 <constraint firstAttribute="trailing" secondItem="QZW-rT-eOR" secondAttribute="trailing" constant="18.329999999999998" id="Mh8-Z4-PWS"/>
                                 <constraint firstItem="QZW-rT-eOR" firstAttribute="leading" secondItem="cMP-nW-TaN" secondAttribute="leading" constant="19" id="Wi4-be-mxj"/>
                             </constraints>
@@ -123,10 +119,10 @@
         <image name="icFontLarge" width="20" height="23.666666030883789"/>
         <image name="icFontSmall" width="9" height="10.333333015441895"/>
         <namedColor name="backgroundColor">
-            <color red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="colorPrimary">
-            <color red="0.31764705882352939" green="0.50980392156862742" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="dialogColor">
+            <color red="0.78799998760223389" green="0.51800000667572021" blue="0.3880000114440918" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="dialogIcons">
             <color red="0.61176470588235299" green="0.20000000000000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -135,7 +131,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray5Color">
-            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

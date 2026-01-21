@@ -10,27 +10,25 @@ import WebKit
 import RealmSwift
 import FirebaseAnalytics
 import FirebaseDynamicLinks
-import Pendo
 
-class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, SaveFavoriteDelegate, SaveNoteDelegate, WKScriptMessageHandler, NotesBottomSheetDelegate, BookmarkSavedPopUpDelegate, NoteSavedPopUpDelegate,
-    DeleteConfirmationPopUpDelegate {
+class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, SaveFavoriteDelegate, SaveNoteDelegate, UITableViewDataSource, UITableViewDelegate, WKScriptMessageHandler {
 
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var separator: UIView!
+    @IBOutlet weak var pseudoseparator: UIView!
     @IBOutlet weak var favoriteIcon: UIButton!
     
-    @IBOutlet weak var search: UISearchBar!
-    @IBOutlet weak var searchNavStackView: UIStackView!
-    
-    @IBOutlet weak var currentSearchTermIndex: UILabel!
-    @IBOutlet weak var totalSearchTermsFound: UILabel!
-    
+    @IBOutlet weak var searchTermView: UILabel!
+    @IBOutlet weak var searchView: UIView!
 	@IBOutlet var metadataView: UIView!
+	@IBOutlet var metadataViewHeightConstraint: NSLayoutConstraint!
+	@IBOutlet var separatorHeightConstraintToViewTop: NSLayoutConstraint!
+	@IBOutlet var metadataViewTopConstraint: NSLayoutConstraint!
+	@IBOutlet var metadataViewBottomConstraint: NSLayoutConstraint!
 
-    @IBOutlet weak var viewNotesButton: UIButton!
-    
-    var identifier = ""
+	var identifier = ""
     var header = "Placeholder Content"
     var url: URL!
     var uniqueAddress: String!
@@ -90,48 +88,41 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         ]
     )
     
-    private var searchTimer: Timer?
-    
-    var currentSearchResultIndex = 0
-    var totalSearchResults = 0
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if let searchTerm = searchTerm, comingFromSearch, !searchTerm.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty{
-            search.text = searchTerm
-            
-            searchTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { [weak self] _ in
-                self?.performRealTimeSearch(term: searchTerm)
-                self?.searchNavStackView.isHidden = false
-            }
+            searchView.isHidden = searchTerm.isEmpty
+            searchTermView.text = searchTerm
         } else {
-            self.searchNavStackView.isHidden = true
+            searchView.isHidden = true
         }
-        
-        configureSearchBar()
-        
-        metadataView.isHidden = true
 
 		let filename = "15_appendix_district_tb_coordinators_(by_district).html"
 
-        if url.lastPathComponent == filename {
-            metadataView.isHidden = true
-            metadataView.heightAnchor.constraint(equalToConstant: 0).isActive = true
-            metadataView.frame.size.height = 0
-        }
+		if url.lastPathComponent == filename {
+			metadataView.isHidden = true
+			metadataView.heightAnchor.constraint(equalToConstant: 0).isActive = true
+			metadataView.frame.size.height = 0
+			separator.isHidden = true
+			metadataViewTopConstraint.constant = 0
+			metadataViewBottomConstraint.constant = 0
+		}
 
-//         The -100 accounts for back button and any right bar button items
-
+        let navbarTitle = UILabel()
+        navbarTitle.text = navTitle
+        navbarTitle.textColor = UIColor.white
+        navbarTitle.font = UIFont.boldSystemFont(ofSize: 16.0)
+        navbarTitle.numberOfLines = 2
+        navbarTitle.textAlignment = .center
+        navbarTitle.minimumScaleFactor = 0.5
+        navbarTitle.adjustsFontSizeToFitWidth = true
+        navigationItem.titleView = navbarTitle
 //        self.title = navTitle
         self.hidesBottomBarWhenPushed = true
                 
         titleLabel.text = titlelabel
         dateLabel.text = "Updated \( chapterIndex.updateDate)"
-        
-        viewNotesButton.layer.cornerRadius = 15
-        viewNotesButton.adjustsImageWhenHighlighted = false
-        viewNotesButton.dropShadow()
         
 //        contentView.topAnchor.constraint(equalTo: pseudoseparator.bottomAnchor, constant: 5).isActive = true
         
@@ -218,55 +209,8 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             }
         }
         
-        if let notesCount = content?.notes.count {
-            viewNotesButton.isHidden = false
-            viewNotesButton.setTitle("(\(notesCount))", for: .normal)
-        } else {
-            viewNotesButton.isHidden = true
-            viewNotesButton.setTitle("(0)", for: .normal)
-        }
-        
         NotificationCenter.default.addObserver(self, selector: #selector(fontSizeChanged(_:)), name: NSNotification.Name("FontSizeChanged"), object: nil)
         webView.load( URLRequest( url: url ))
-    }
-    
-    func setupNavBar() {
-        navigationController?.navigationBar.tintColor = .white
-        navigationItem.backButtonDisplayMode = .minimal
-        
-        let titleLabel = UILabel()
-        titleLabel.text = navTitle
-        titleLabel.textColor = .white
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        titleLabel.textAlignment = .center
-        titleLabel.numberOfLines = 2
-        
-        if #available(iOS 26.0, *) {
-            titleLabel.sizeToFit()
-        } else {
-            let maxWidth = UIScreen.main.bounds.width - 120
-            let size = titleLabel.sizeThatFits(CGSize(width: maxWidth, height: .greatestFiniteMagnitude))
-            titleLabel.frame = CGRect(origin: .zero, size: size)
-        }
-        
-        navigationItem.titleView = titleLabel
-    }
-    
-    func configureSearchBar() {
-        guard let textField = search.value(forKey: "searchField") as? UITextField else { return }
-
-            // Searchbar configuration
-        textField.textColor = UIColor.searchBarText
-        textField.attributedPlaceholder = NSAttributedString(
-            string: "Enter Keywords to Search",
-            attributes: [.foregroundColor: UIColor.searchBarText]
-        )
-        textField.layer.cornerRadius = 60
-        textField.backgroundColor = UIColor.searchBar
-
-        textField.setSearchIcon(UIImage(named: "magnifyingGlass"), tintColor: UIColor.searchBarText)
-        textField
-            .setClearButton(UIImage(named: "icClear"), tintColor: UIColor.colorPrimary)
     }
     
     @objc func fontSizeChanged(_ notification: Notification) {
@@ -277,165 +221,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             try? realm?.write {
                 userSettings.fontSize = fontNumber
             }
-            
-            UIView.animate(withDuration: 0.20, animations: {
-                self.webView.alpha = 0
-            }) { _ in
-                self.webView.reload()
-            }
-        }
-    }
-    
-    private func applyIconAndParagraphScaling(fontSize: Int) {
-        // Compute scale factor relative to 125% baseline (matching Android)
-        let scaleFactor = Double(fontSize) / 125.0
-        let iconPx = 24.0 * scaleFactor
-        let iconPxStr = String(format: "%.2f", iconPx)
-        
-        // Compute scaled metrics for the decorative line used by `.uk-paragraph`
-        let remBasePx = 16.0 // 1rem baseline
-        let ukHeightPx = 2.0 * remBasePx * scaleFactor      // was 2rem
-        let ukWidthPx = 0.5 * remBasePx * scaleFactor       // was 0.5rem
-        let ukTopPx = -0.25 * remBasePx * scaleFactor       // was -0.25rem
-        let ukRadiusPx = 0.25 * remBasePx * scaleFactor     // was 0.25rem
-        let ukHeightPxStr = String(format: "%.2f", ukHeightPx)
-        let ukWidthPxStr = String(format: "%.2f", ukWidthPx)
-        let ukTopPxStr = String(format: "%.2f", ukTopPx)
-        let ukRadiusPxStr = String(format: "%.2f", ukRadiusPx)
-        
-        // 1) Set CSS variable consumed by .ic_chapter_icon in style.css (which uses !important)
-        let setVar = """
-            (function(){
-                try {
-                    var size='\(iconPxStr)px';
-                    document.documentElement.style.setProperty('--chapter-icon-size', size);
-                } catch(e) { console.log('Error setting CSS var:', e); }
-            })();
-        """
-        
-        // 2) Ensure chapter icon image gets the class so the CSS rule applies, without touching other content images
-        let tagIcons = """
-            (function(){
-                try {
-                    var nodes = document.querySelectorAll('img[src$="ic_chapter.svg"], img[src*="/ic_chapter.svg"], img[src*="ic_chapter.svg"]');
-                    console.log('Found', nodes.length, 'chapter icons');
-                    nodes.forEach(function(n){
-                        if(n.classList && !n.classList.contains('ic_chapter_icon')) n.classList.add('ic_chapter_icon');
-                    });
-                } catch(e) { console.log('Error tagging icons:', e); }
-            })();
-        """
-        
-        // 3) Inject an explicit override rule with !important placed after external CSS
-        let injectOverride = """
-            (function(){
-                 try {
-                     var style = document.getElementById('chapter-icon-override');
-                     if(!style){
-                         style = document.createElement('style');
-                         style.id = 'chapter-icon-override';
-                         document.head.appendChild(style);
-                     }
-                     var size='\(iconPxStr)px';
-                     style.textContent = '.ic_chapter_icon{width:'+size+' !important;height:'+size+' !important;}';
-                     console.log('Injected icon override style:', size);
-                 } catch(e) { console.log('Error injecting override:', e); }
-            })();
-        """
-        
-        // 4) Also apply inline size and attributes so pages missing style.css still resize correctly
-        let sizeIcons = """
-            (function(){
-                 try {
-                     var cssSize='\(iconPxStr)px';
-                     var attrSize='\(iconPxStr)';
-                     var nodes = document.querySelectorAll('img[src$="ic_chapter.svg"], img[src*="/ic_chapter.svg"], img[src*="ic_chapter.svg"]');
-                     console.log('Sizing', nodes.length, 'icons to', cssSize);
-                     nodes.forEach(function(n){
-                         // Ensure the parent wrapper also reserves space for the icon
-                         var p = n.parentElement;
-                         if (p) {
-                             p.style.width = cssSize;
-                             p.style.height = cssSize;
-                             p.style.flex = '0 0 auto';
-                         }
-                         // Apply explicit sizing on the image
-                         n.style.display = 'inline-block';
-                         n.style.width = cssSize;
-                         n.style.height = cssSize;
-                         n.style.maxWidth = cssSize;
-                         n.style.maxHeight = cssSize;
-                         if (n.setAttribute) {
-                             n.setAttribute('width', attrSize);
-                             n.setAttribute('height', attrSize);
-                         }
-                     });
-                 } catch(e) { console.log('Error sizing icons:', e); }
-            })();
-        """
-        
-        // 5) Scale the decorative line for paragraphs `.uk-paragraph::before` to match text zoom
-        let paragraphOverride = """
-            (function(){
-                 try {
-                     var style = document.getElementById('uk-paragraph-override');
-                     if(!style){
-                         style = document.createElement('style');
-                         style.id = 'uk-paragraph-override';
-                         document.head.appendChild(style);
-                     }
-                     var h='\(ukHeightPxStr)px';
-                     var w='\(ukWidthPxStr)px';
-                     var t='\(ukTopPxStr)px';
-                     var r='\(ukRadiusPxStr)px';
-                     style.textContent = ''+
-                       '.uk-paragraph{position: relative;}'+
-                       '.uk-paragraph::before{'+
-                         'content:""; position:absolute; left:0; '+
-                         'top:'+t+' !important; '+
-                         'height:'+h+' !important; '+
-                         'width:'+w+' !important; '+
-                         'background-color: var(--primary-color); '+
-                         'border-radius:'+r+' !important;'+
-                       '}';
-                     console.log('Applied paragraph override');
-                 } catch(e) { console.log('Error with paragraph override:', e); }
-            })();
-        """
-        
-        // Execute all JavaScript on the WebView with a small delay to ensure DOM is ready
-        DispatchQueue.main.asyncAfter(deadline: .now()) { [weak self] in
-            guard let self = self else { return }
-            
-            self.webView.evaluateJavaScript(setVar) { result, error in
-                if let error = error {
-                    print("setVar error: \(error)")
-                }
-            }
-            
-            self.webView.evaluateJavaScript(tagIcons) { result, error in
-                if let error = error {
-                    print("tagIcons error: \(error)")
-                }
-            }
-            
-            self.webView.evaluateJavaScript(injectOverride) { result, error in
-                if let error = error {
-                    print("injectOverride error: \(error)")
-                }
-            }
-            
-            self.webView.evaluateJavaScript(sizeIcons) { result, error in
-                if let error = error {
-                    print("sizeIcons error: \(error)")
-                }
-            }
-            
-            self.webView.evaluateJavaScript(paragraphOverride) { result, error in
-                if let error = error {
-                    print("paragraphOverride error: \(error)")
-                }
-            }
+            webView.reload()
         }
     }
         
@@ -443,24 +229,8 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name("FontSizeChanged"), object: nil)
     }
     
-    // Helper to resolve the parent chapter title from uniqueAddress via ChapterIndex
-    private func resolvedChapterParent(for code: String?) -> String {
-        guard let code = code, !code.isEmpty else { return navTitle }
-        // Strip any anchor
-        let baseCode = code.components(separatedBy: "#").first ?? code
-        let flatCodes = Array(chapterIndex.chapterCode.joined())
-        if let idx = flatCodes.firstIndex(of: baseCode),
-           idx < chapterIndex.chaptermapsubchapter.count {
-            return chapterIndex.chaptermapsubchapter[idx]
-        }
-        // Fallback to navTitle to avoid empty UI if mapping not found
-        return navTitle
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
-        setupNavBar()
         
         if let currentContent = realm!.object(ofType:ContentPage.self, forPrimaryKey: uniqueAddress){
             RealmHelper.sharedInstance.update(currentContent, properties: [
@@ -474,10 +244,14 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             content = ContentPage()
             content.name = titlelabel
             content.url = uniqueAddress
-            // Set chapterParent using ChapterIndex mapping (not navTitle)
-            content.chapterParent = resolvedChapterParent(for: uniqueAddress)
+            content.chapterParent = navTitle
             content.lastOpened = Date()
             content.openedTimes += 1
+            // Add it to Realm
+//            try! realm.write
+//                    {
+//            realm.add(content)
+//                    }
             RealmHelper.sharedInstance.save(content) { saved in
                 //
             }
@@ -499,8 +273,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             let currentAccessedContent = ContentAccess()
             currentAccessedContent.name = titlelabel
             currentAccessedContent.url = uniqueAddress
-            // Set chapterParent using ChapterIndex mapping (not navTitle)
-            currentAccessedContent.chapterParent = resolvedChapterParent(for: uniqueAddress)
+            currentAccessedContent.chapterParent = navTitle
             currentAccessedContent.date = Date()
             RealmHelper.sharedInstance.save(currentAccessedContent) { [weak self] saved in
                 //
@@ -511,6 +284,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
                 }
             }
             
+//            content.isHistory = true // This statement is useless unless I also change the variable when content is history gets refreshed
         } else {
             // Should move entry to the top of the history list...
             let newAccessed = lastAccessed.filter("url == '\(content.url)'")
@@ -583,8 +357,6 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
 //        if content.notes.count > 0 {
 //            loadTable()
 //        }
-        
-        updateNotesButton()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -595,16 +367,16 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             favoriteIcon.setImage(UIImage(named: "icBookmarksFolder"), for: .normal)
             favoriteIcon.setAttributedTitle(bookmarkText, for: .normal)
         }
-//        // Load table if there are notes saved for this chapter
-//        if content.notes.count > 0 {
-//            if tableView.superview == nil {
-//                loadTable()
-//            } else {
-//                tableView.reloadData()
-//            }
-//        } else {
-//            removeTable()
-//        }
+        // Load table if there are notes saved for this chapter
+        if content.notes.count > 0 {
+            if tableView.superview == nil {
+                loadTable()
+            } else {
+                tableView.reloadData()
+            }
+        } else {
+            removeTable()
+        }
         
         // Add observer to the WebView so that when the URL changes it triggers our detection function
         webView.addObserver(self, forKeyPath: "URL", options: [.new, .old], context: nil)
@@ -618,17 +390,6 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
 //            webView.scrollView.zoomScale = rw
 //
 //        }
-        
-        // This removes the favoriting if it gets deleted in the saved page
-            if content.favorite == false {
-                favoriteIcon.setImage(UIImage(named: "icBookmarksFolder"), for: .normal)
-                favoriteIcon.setAttributedTitle(bookmarkText, for: .normal)
-            }
-            
-            // Add observer to the WebView so that when the URL changes it triggers our detection function
-            webView.addObserver(self, forKeyPath: "URL", options: [.new, .old], context: nil)
-        
-        updateNotesButton()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -680,7 +441,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
                     vc.url = Bundle.main.url(forResource: Array(chapterIndex.chapterCode.joined())[urlsarray ?? 0], withExtension: "html")!
                 }
                 vc.titlelabel = Array(chapterIndex.chapterNested.joined())[urlsarray ?? 0]
-                vc.navTitle = chapterIndex.chaptermapsubchapternested[urlsarray ?? 0]
+                vc.navTitle = chapterIndex.chaptermapsubchapter[urlsarray ?? 0]
                 vc.uniqueAddress = Array(chapterIndex.chapterCode.joined())[urlsarray ?? 0]
                 
                 // Remove the observer for the previous screen so that it won't double fire when the URL changes again
@@ -722,271 +483,25 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     
     // This function is just preventing the within the app pages to move to the web links because there is no new page that we need to call the goBack() function from
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        
-        guard let url = navigationAction.request.url else {
-            decisionHandler(.allow)
-            return
-        }
-        
-        let urlString = url.absoluteString
-        
-        // Allow initial page load
-        if navigationAction.navigationType == .other || navigationAction.navigationType == .reload {
-            decisionHandler(.allow)
-            return
-        }
-        
-        // Handle internal app links (file:// URLs)
-        if urlString.hasPrefix("file:///") {
-            // Extract the filename
-            let components = urlString.components(separatedBy: "GA-TB-Reference-Guide.app/")
-            guard components.count > 1 else {
-                decisionHandler(.allow)
-                return
-            }
-            
-            let newURL = components[1]
-            
-            // Check if it's an anchor link within the same page
-            if newURL.contains("#") {
-                let baseFile = newURL.components(separatedBy: "#")[0]
-                let currentFile = self.url.lastPathComponent
-                
-                // If it's the same file, allow navigation (anchor scroll)
-                if baseFile == currentFile || baseFile.isEmpty {
-                    decisionHandler(.allow)
-                    return
-                }
-            }
-            
-            // It's a different page - handle custom navigation
-            // Cancel the WebView's navigation
-            decisionHandler(.cancel)
-            
-            // Find the chapter index
-            let fileName = newURL.components(separatedBy: ".")[0].components(separatedBy: "#")[0]
-            guard let urlsarray = Array(chapterIndex.chapterCode.joined()).firstIndex(of: fileName) else {
-                return
-            }
-            
-            // Create and push new view controller
-            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-            guard let vc = storyBoard.instantiateViewController(withIdentifier: "web") as? WebViewViewController else {
-                return
-            }
-            
-            // Configure the new view controller
-            if newURL.contains("#") {
-                let anchor = "#" + newURL.components(separatedBy: "#")[1].replacingOccurrences(of: ")", with: "")
-                let baseURL = Bundle.main.url(forResource: Array(chapterIndex.chapterCode.joined())[urlsarray], withExtension: "html")!
-                vc.url = URL(string: anchor, relativeTo: baseURL)
-            } else {
-                vc.url = Bundle.main.url(forResource: Array(chapterIndex.chapterCode.joined())[urlsarray], withExtension: "html")!
-            }
-            
-            vc.titlelabel = Array(chapterIndex.chapterNested.joined())[urlsarray]
-            vc.navTitle = chapterIndex.chaptermapsubchapternested[urlsarray]
-            vc.uniqueAddress = Array(chapterIndex.chapterCode.joined())[urlsarray]
-            
-            // Push the view controller
-            navigationController?.pushViewController(vc, animated: true)
-            return
-        }
-        
-        // Handle external links
-        if navigationAction.navigationType == .linkActivated {
-            decisionHandler(.cancel)
-            
-            let alertDelete = UIAlertController(
-                title: "This link will open in your browser, do you want to continue?",
-                message: "",
-                preferredStyle: .alert
-            )
-            
-            alertDelete.addAction(UIAlertAction(title: "OK", style: .default) { _ in
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            })
-            
-            alertDelete.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-            
-            present(alertDelete, animated: true)
-            return
-        }
-        
-        // Default: allow navigation
+        // Comes to this function before knowing what the url is so it's always false")
+//        if comingFromHyperLink == true {
+//            decisionHandler(.cancel)
+//            comingFromHyperLink = false
+//        } else {
+//            decisionHandler(.allow)
+//        }
         decisionHandler(.allow)
     }
     
-    func searchAndCountWords(term: String) {
-        var terms = term.split(separator: " ").map({String($0)})
-        if !terms.contains(term) {terms.append(term)}
-        
-        if let path = Bundle.main.url(forResource: "WebView", withExtension: "js") {
-            do {
-                let data: Data = try Data(contentsOf: path)
-                let jsCode: String = String(decoding: data, as: UTF8.self)
-                
-                // Inject the search code
-                webView.evaluateJavaScript(jsCode, completionHandler: nil)
-                
-                // Count total words found across all search terms
-                var totalWordCount = 0
-                let dispatchGroup = DispatchGroup()
-                
-                for (i, t) in terms.enumerated() {
-                    dispatchGroup.enter()
-                    
-                    // Modified search string to return count
-                    let searchString = "WKWebView_HighlightAllOccurencesOfString('\(t)', \(i == 0))"
-                    
-                    // Perform search and get count
-                    webView.evaluateJavaScript(searchString) { [weak self] (result, error) in
-                        defer { dispatchGroup.leave() }
-                        
-                        if let error = error {
-                            print("Error searching for '\(t)': \(error)")
-                            return
-                        }
-                        
-                        // If your WebView.js returns the count, use it
-                        if let count = result as? Int {
-                            totalWordCount += count
-                        }
-                    }
-                }
-                
-                // When all searches are complete, print the total count
-                dispatchGroup.notify(queue: .main) {
-                    print("Total words found: \(totalWordCount)")
-                }
-                
-            } catch {
-                print("Could not load javascript: \(error)")
-            }
-        }
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
+        preferences.preferredContentMode = .mobile
+        decisionHandler(.allow,preferences)
     }
-    
-    func updateSearchResultsDisplay() {
-        currentSearchTermIndex.text = "\(currentSearchResultIndex)"
-        totalSearchTermsFound.text = "\(totalSearchResults)"
-        
-        // Show/hide navigation if there are results
-//        searchNavStackView.isHidden = totalSearchResults == 0
-    }
-    
-    func highlightSearchWithCount(term: String) {
-        var terms = term.split(separator: " ").map({String($0)})
-        if !terms.contains(term) {terms.append(term)}
-        
-        if let path = Bundle.main.url(forResource: "WebView", withExtension: "js") {
-            do {
-                let data: Data = try Data(contentsOf: path)
-                let jsCode: String = String(decoding: data, as: UTF8.self)
-                
-                // Inject the search code
-                webView.evaluateJavaScript(jsCode, completionHandler: nil)
-                
-                // Use ONLY the new navigation-enabled function for the first term
-                let searchString = "WKWebView_HighlightAllOccurencesOfStringWithNavigation('\(terms[0])', true)"
-                webView.evaluateJavaScript(searchString) { [weak self] (result, error) in
-                    if let error = error {
-                        print("Error highlighting: \(error)")
-                    } else if let count = result as? Int {
-                        self?.totalSearchResults = count
-                        self?.currentSearchResultIndex = count > 0 ? 1 : 0
-                        
-                        DispatchQueue.main.async {
-                            self?.updateSearchResultsDisplay()
-                        }
-                    }
-                }
-                
-                // For additional terms, use the original function to avoid interfering with navigation
-                for i in 1..<terms.count {
-                    let additionalSearchString = "WKWebView_HighlightAllOccurencesOfString('\(terms[i])', false)"
-                    webView.evaluateJavaScript(additionalSearchString) { [weak self] (result, error) in
-                        if let error = error {
-                            print("Error highlighting additional term: \(error)")
-                        }
-                    }
-                }
-                
-            } catch {
-                print("Could not load javascript: \(error)")
-            }
-        }
-    }
-    
-    
-    @IBAction func goToPreviousSearchTerm(_ sender: Any) {
-        webView.evaluateJavaScript("WKWebView_GoToPreviousSearchResult()") { [weak self] (result, error) in
-            if let success = result as? Bool, success {
-                // Get updated search info
-                self?.webView.evaluateJavaScript("WKWebView_GetSearchInfo()") { (infoResult, infoError) in
-                    if let infoDict = infoResult as? [String: Any],
-                       let currentPosition = infoDict["currentPosition"] as? Int {
-                        DispatchQueue.main.async {
-                            self?.currentSearchResultIndex = currentPosition
-                            self?.updateSearchResultsDisplay()
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    @IBAction func goToNextSearchTerm(_ sender: Any) {
-        webView.evaluateJavaScript("WKWebView_GoToNextSearchResult()") { [weak self] (result, error) in
-            if let success = result as? Bool, success {
-                // Get updated search info
-                self?.webView.evaluateJavaScript("WKWebView_GetSearchInfo()") { (infoResult, infoError) in
-                    if let infoDict = infoResult as? [String: Any],
-                       let currentPosition = infoDict["currentPosition"] as? Int {
-                        DispatchQueue.main.async {
-                            self?.currentSearchResultIndex = currentPosition
-                            self?.updateSearchResultsDisplay()
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    
-    @IBAction func viewNotesTapped(_ sender: Any) {
-        _ = UIStoryboard(name: "Main", bundle: nil)
-            
-            // If you're using storyboard, create the identifier in storyboard and uncomment this:
-            // let notesVC = storyboard.instantiateViewController(withIdentifier: "NotesBottomSheetViewController") as! NotesBottomSheetViewController
-            
-            // If creating programmatically, use this:
-            let notesVC = NotesBottomSheetViewController()
-            
-            notesVC.content = self.content
-            notesVC.delegate = self
-            
-            // Configure the presentation style for bottom sheet
-        if #available(iOS 15.0, *) {
-            if let sheet = notesVC.sheetPresentationController {
-                sheet.detents = [.medium(), .large()]
-                sheet.prefersGrabberVisible = true
-                sheet.preferredCornerRadius = 16
-            }
-        } else {
-            // Fallback on earlier versions
-        }
-            
-            present(notesVC, animated: true)
-    }
-    
 
     //--------------------------------------------------------------------------------------------------
     @IBAction func toggleFavorite(_ sender: UIButton){
         let windowScene = UIApplication.shared.connectedScenes.first as! UIWindowScene
         let sceneDelegate = windowScene.delegate as! SceneDelegate
-        
-        print("CONTENT")
-        print(content)
         
         if let window = sceneDelegate.window
         {
@@ -1084,40 +599,40 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         popUpOverlay.displayPopUp(sender:self)
     }
     
-    func highlightSearch(term: String) {
+    @IBAction func closeSearchBar(_ sender: UIButton) {
+        searchView.isHidden = true
+        removeHighlights()
+    }
+    
+    func highlightSearch(term: String)  {
+        
         var terms = term.split(separator: " ").map({String($0)})
         if !terms.contains(term) {terms.append(term)}
         
         if let path = Bundle.main.url(forResource: "WebView", withExtension: "js") {
-            do {
-                let data: Data = try Data(contentsOf: path)
-                let jsCode: String = String(decoding: data, as: UTF8.self)
+            do{
+                let data:Data = try Data(contentsOf: path)
+                let jsCode:String = String(decoding: data, as: UTF8.self)
                 
-                // Inject the search code
+                
+                //print( jsCode)
+                
+                //inject the search code
                 webView.evaluateJavaScript(jsCode, completionHandler: nil)
                 
-                // Use navigation-enabled function for primary term
-                let searchString = "WKWebView_HighlightAllOccurencesOfStringWithNavigation('\(terms[0])', true)"
-                webView.evaluateJavaScript(searchString) { [weak self] (result, error) in
-                    if let count = result as? Int {
-                        self?.totalSearchResults = count
-                        self?.currentSearchResultIndex = count > 0 ? 1 : 0
-                        
-                        DispatchQueue.main.async {
-                            self?.updateSearchResultsDisplay()
-                        }
-                    }
-                }
-                
-                // Highlight additional terms with original function
-                for i in 1..<terms.count {
-                    let additionalSearchString = "WKWebView_HighlightAllOccurencesOfString('\(terms[i])', false)"
-                    webView.evaluateJavaScript(additionalSearchString, completionHandler: nil)
+                //search function
+                for (i, t) in terms.enumerated() {
+                    let searchString = "WKWebView_HighlightAllOccurencesOfString('\(t)', \(i == 0))"
+                    //perform search
+                    webView.evaluateJavaScript(searchString, completionHandler: nil)
                 }
                 
             } catch {
-                print("Could not load javascript: \(error)")
+                print("could not load javascript:\(error)")
+
             }
+        
+            
         }
     }
     
@@ -1150,29 +665,20 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             // Could potentially replace this with just the link to the file rather than having to convert it to string, save some computational power
             let jsString2 = "var style2 = document.createElement('style'); style2.innerHTML = '\(cssString2)'; document.head.appendChild(style2);"
             
+//            webView.evaluateJavaScript(jsString, completionHandler: nil)
             let js3 = "var script2 = document.createElement('script'); script2.src = 'uikit-icons.js'; document.body.appendChild(script2);"
             webView.evaluateJavaScript(jsString2, completionHandler: nil)
             webView.evaluateJavaScript(js3, completionHandler: nil)
-            
-            UIView.animate(withDuration: 0.20) {
-                self.webView.alpha = 1
-            }
-            
-            // Apply font size - this sets the text zoom
             let textSize = fontNumber >= 75 ? fontNumber : 100
             let javascript = "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '\(textSize)%'"
             webView.evaluateJavaScript(javascript) { (response, error) in
                 print()
             }
-            
-            // AUTO-EXPAND TOGGLES WHEN COMING FROM SEARCH
-            expandAllToggles()
-            
             if let searchTerm = searchTerm {
                 highlightSearch(term: searchTerm)
             }
             
-            applyIconAndParagraphScaling(fontSize: fontNumber)
+            
             
         } else {
             print("outside the app, don't apply styling")
@@ -1181,6 +687,173 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         
+    }
+    
+    //--------------------------------------------------------------------------------------------------
+    func loadTable() {
+        if tableView.superview == nil {
+            print("making a new tbale")
+            tableView = ContentSizedTableView(frame: CGRect( x: 20, y: pseudoseparator.frame.origin.y+10, width: view.frame.width-38, height: 95 ))
+            tableView.delegate = self
+            tableView.dataSource = self
+            tableView.register(UINib(nibName: "ChapterNoteTableViewCell", bundle: nil), forCellReuseIdentifier: "chapterNote")
+            tableView.rowHeight = UITableView.automaticDimension
+            tableView.estimatedRowHeight = UITableView.automaticDimension
+            tableView.separatorStyle = .none
+            tableView.backgroundColor = UIColor.backgroundColor
+            tableView.contentInset = UIEdgeInsets(top: 16, left: 0, bottom: 16, right: 0)
+
+    //        tableView.isScrollEnabled = false
+            // the frame trully is not the entire contentsize because you need to scroll down for the table to register the entire size of the content
+            tableFrame = tableView.frame
+            
+//            separatorHeightConstraint.isActive = false
+//            separator.removeConstraint(separatorHeightConstraint)
+
+            view.addSubview(tableView)
+            
+            // Constraint the tableview to fit between the webview and the separators
+            tableView.topAnchor.constraint(equalTo: separator.topAnchor,constant: 0.5).isActive = true
+            
+            tableViewOriginalHeight = Double(tableView.frame.height)
+            
+            UIView.animate(withDuration: 0.25, delay: 0.01, options: .curveLinear, animations: {
+                // Former constraint between separator and pseudoseparator creates an error in the constraint management in the console, to be refactored in future build
+                self.tableView.bottomAnchor.constraint(equalTo: self.pseudoseparator.topAnchor).isActive = true
+//                self.contentView.topAnchor.constraint(equalTo: self.tableView.bottomAnchor).isActive = true
+                self.view.layoutIfNeeded()
+            }, completion: { finished in
+            })
+//            contentView.topAnchor.constraint(equalTo: tableView.bottomAnchor).isActive = true
+            
+            tableSeparator = UIView(frame: CGRect(x: 0, y: 10, width: view.frame.width-40, height: 0.5))
+            tableSeparator.backgroundColor = UIColor.lightGray
+            contentView.addSubview(tableSeparator)
+            
+            tableButton = UIButton(frame: CGRect(x: tableSeparator.frame.width/2 - 18, y: tableSeparator.frame.origin.y-14.25, width: 30, height: 30))
+            tableButton.layer.cornerRadius = 15
+            tableButton.setBackgroundImage(UIImage(named: "downArrow"), for: .normal)
+            tableButton.isUserInteractionEnabled = true
+            tableButton.dropShadow()
+            
+            tableButton.addTarget(self, action: #selector(expandNotes), for: .touchUpInside)
+            tableButton.isHidden = true
+            contentView.addSubview(tableButton)
+            // Update constraint of webview top to make space for the incoming button
+            webViewTopConstraint.constant = 30
+            if content.notes.count > 1 {
+                tableButton.isHidden = false
+                tableSeparator.isHidden = false
+            }
+        }
+    }
+    
+    @objc func expandNotes(_ sender: UIButton, expand: Bool){
+        // Would be nice to make it as big as the amount of rows, rather than a fixed height governed by the view
+        if sender.backgroundImage(for: .normal) == UIImage(named: "downArrow") {
+            tableFrame.size.height = tableView.contentSize.height
+            sender.setBackgroundImage(UIImage(named: "upArrow"), for: .normal)
+        } else {
+            tableFrame.size.height = 65
+            sender.setBackgroundImage(UIImage(named: "downArrow"), for: .normal)
+        }
+        // Condition for only expanding table
+        if expand == true {
+            tableFrame.size.height = tableView.contentSize.height+65
+            sender.setBackgroundImage(UIImage(named: "upArrow"), for: .normal)
+        }
+        
+        print(tableView.contentSize.height)
+        if content.notes.count > 1 {
+            tableButton.isHidden = false
+            tableSeparator.isHidden = false
+        }
+        UIView.animate(withDuration: 0.25, delay: 0.01, options: .curveLinear, animations: {
+            self.tableView.frame = self.tableFrame
+          self.view.layoutIfNeeded()
+        }, completion: { finished in
+            print("table changed height",self.tableView.frame.height)
+            print("size of contentFrame",self.tableView.contentSize)
+        })
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if ( content.notes.count > 1){
+            print("content is more than 1")
+            tableButton.isHidden = false
+            tableSeparator.isHidden = false
+        }
+        return content.notes.count
+    }
+    
+    private func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return tableView.estimatedRowHeight //UITableView.automaticDimension
+    }
+    
+    private func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    
+        let cell = tableView.dequeueReusableCell(withIdentifier: "chapterNote", for: indexPath) as! ChapterNoteTableViewCell
+        cell.backgroundColor = UIColor.backgroundColor
+        cell.header.text = "Note - Last Edited \(content.notes[content.notes.count-1-indexPath.row].lastEdited )"
+        cell.content.text = content.notes[content.notes.count-1-indexPath.row].content
+        cell.colorTag.backgroundColor = colorTags[content.notes[content.notes.count-1-indexPath.row].colorTag]
+        tableViewCells[content.notes.count-1-indexPath.row] = cell
+        // remove the grey background selector for cells after selected a note
+        cell.selectionStyle = .none
+                
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        print(cell.frame.size.height)
+        tableFrame.size.height += cell.frame.size.height
+//        self.tableViewHeight += cell.frame.size.height
+//        tableViewBillsHeight.constant = self.tableViewHeight
+    }
+    
+    // Missing the Edit note function which can come here
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if let pickedNote   = realm!.object(ofType: Notes.self, forPrimaryKey: content.notes[content.notes.count-1-indexPath.row].id){
+            
+            openNoteWindow(noteChosen: pickedNote)
+        }
+    }
+    // Need to populate with content of note coming from the cell selection itself
+    // Potentially will need to attach an observer on that edit button that triggers the view as well
+    
+    private func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool
+    {
+        return true
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == .delete
+         {
+            if let contentDatabase   = realm!.object(ofType: Notes.self, forPrimaryKey: content.notes[content.notes.count-1-indexPath.row].id){
+                RealmHelper.sharedInstance.delete(contentDatabase) { deleted in
+                    //
+                }
+            }
+            
+//            try! realm!.write
+//            {
+//                if let contentDatabase = realm!.object(ofType: Notes.self, forPrimaryKey: content.notes[content.notes.count-1-indexPath.row].id){
+//                    realm!.delete(contentDatabase)
+//                }
+//            }
+            
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+            expandNotes(tableButton,expand: true)
+            if content.notes.count == 0 {
+                removeTable()
+           }
+         }
     }
     
     //--------------------------------------------------------------------------------------------------
@@ -1223,17 +896,6 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             //
             self?.favoriteIcon.setImage(UIImage(named: "icBookmarksFolderColored"), for: .normal)
             self?.favoriteIcon.setAttributedTitle(bookmarkedText, for: .normal)
-            
-            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-               let sceneDelegate = windowScene.delegate as? SceneDelegate,
-               let window = sceneDelegate.window {
-                
-                BookmarkSavedPopUp.show(
-                    in: window,
-                    bookmarkName: name,
-                    delegate: self
-                )
-            }
         }
             
 //        try! realm.write
@@ -1249,23 +911,42 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     }
     
     //--------------------------------------------------------------------------------------------------
-    func didRemoveFavorite() {
-        let windowScene = UIApplication.shared.connectedScenes.first as! UIWindowScene
-        let sceneDelegate = windowScene.delegate as! SceneDelegate
+    func didRemoveFavorite( )
+    {
+        let bookmarkText = NSAttributedString(
+            string: "Bookmark",
+            attributes: [
+                .foregroundColor: UIColor.label,
+                .font: UIFont.systemFont(ofSize: 9.0)
+            ]
+        )
         
-        if let window = sceneDelegate.window {
-            DeleteConfirmationPopUp.show(
-                in: window,
-                bookmarkName: content.favoriteName,
-                delegate: self
-            )
+        // let realm = try! Realm() Realm()
+        
+        RealmHelper.sharedInstance.update(content, properties: [
+            "favoriteName": "",
+            "favorite": false
+        ]) { [weak self] updated in
+            //
+            self?.favoriteIcon.setImage(UIImage(named: "icBookmarksFolder"), for: .normal)
+            self?.favoriteIcon.setAttributedTitle(bookmarkText, for: .normal)
         }
+        
+//        try!  realm!.write
+//        {
+//            content.favoriteName = ""
+//            content.favorite = false
+//            favoriteIcon.setImage(UIImage(systemName: "star"), for: .normal)
+//        }
     }
     
     //--------------------------------------------------------------------------------------------------
-    func didSaveNote(_ note: Notes) {
+    func didSaveNote(_ note: Notes )
+    {
+        
         let formatter = DateFormatter()
-        formatter.dateFormat = "MM/dd/YYYY"
+        formatter.dateFormat = "MM-dd-YYYY"
+        // let realm = try! Realm()
         
         if !note.savedToRealm {
             RealmHelper.sharedInstance.update(note, properties: [
@@ -1276,10 +957,9 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             ]) { updated in
                 //
                 RealmHelper.sharedInstance.appendNote(self.content, property: self.content.notes, itemToAppend: self.note) { appended in
+                        //
                     print("appended the note properly?")
                 }
-                
-                self.updateNotesButton()
             }
         } else {
             RealmHelper.sharedInstance.update(note, properties: [
@@ -1289,76 +969,54 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
                 //
             }
         }
-    }
-    
-    func didSaveNote(_ note: Notes, shouldSubmitAsFeedback: Bool) {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MM/dd/YYYY"
+
+//        content.notes.append(note)
+        expandNotes(self.tableButton,expand: true)
         
-        if !note.savedToRealm {
-            RealmHelper.sharedInstance.update(note, properties: [
-                "subChapterURL": uniqueAddress!,
-                "savedToRealm": true,
-                "lastEdited": formatter.string(from: Date()),
-                "subChapterName": titlelabel
-            ]) { [weak self] updated in
-                guard let self = self else { return }
-                
-                RealmHelper.sharedInstance.appendNote(self.content, property: self.content.notes, itemToAppend: note) { appended in
-                    print("appended the note properly?")
-                }
-                
-                self.updateNotesButton()
-                
-                // Track note save with feedback flag
-                PendoManager.shared().track("user_feedback_submitted", properties: [
-                    "page_url": self.uniqueAddress ?? "",
-                    "page_title": self.titlelabel
-                ])
-                
-                if shouldSubmitAsFeedback {
-                    self.submitNoteAsFeedback(note)
-                }
-            }
+        
+//        try! realm!.write
+//        {
+//            note.lastEdited = formatter.string(from: Date())
+//            note.subChapterName = titlelabel
+//
+//            if !note.savedToRealm
+//            {
+//                note.subChapterURL = uniqueAddress
+//                note.savedToRealm = true
+//                // Add new entry to Realm
+//                realm!.add(note)
+//                // Save to the chapter
+//                content.notes.append(note)
+//                expandNotes(tableButton,expand: true)
+//            }
+//            // Add the content changes necessary to the tableview or refresh it if necessary, though I could maybe do this in another view and just throw it on top of this one, much like the protocols in HomeTown
+//
+//        }
+        if content.notes.count == 1  {
+            loadTable()
+            tableView.reloadData()
         } else {
-            RealmHelper.sharedInstance.update(note, properties: [
-                "lastEdited": formatter.string(from: Date()),
-                "subChapterName": titlelabel
-            ]) { [weak self] updated in
-                guard self != nil else { return }
-                
-            }
+            tableView.reloadData()
         }
-    }
-    
-    private func submitNoteAsFeedback(_ note: Notes) {
-        PendoManager.shared().track("user_feedback_submitted", properties: [
-            "feedback_content": note.content,
-            "page_url": uniqueAddress ?? "",
-            "page_title": titlelabel,
-        ])
-        
-        print("Submitting note as feedback: \(note.content)")
-        
-        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-           let sceneDelegate = windowScene.delegate as? SceneDelegate,
-           let window = sceneDelegate.window {
-            
-            NoteSavedPopUp.show(in: window, delegate: self)
-        }
-        
-        // Track Firebase analytics as well
-        Analytics.logEvent("feedback_submitted", parameters: [
-            "page": uniqueAddress as String,
-            "content_length": note.content.count,
-            "chapter": navTitle
-        ])
     }
     
     //--------------------------------------------------------------------------------------------------
-    func didDeleteNote(_ note: Notes) {
-        RealmHelper.sharedInstance.delete(note) { [weak self] deleted in
-            self?.updateNotesButton()
+    func didDeleteNote(_ note: Notes )
+    {
+//        // let realm = try! Realm() Realm()
+        RealmHelper.sharedInstance.delete(note) { deleted in
+            //
+        }
+        
+//        try!  realm!.write
+//        {
+//            realm!.delete(note)
+//        }
+        if content.notes.count > 0 {
+            tableView.reloadData()
+            expandNotes(tableButton,expand: true)
+        } else {
+            removeTable()
         }
     }
     
@@ -1410,7 +1068,25 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
                 self.addNoteDialogView.overlayView.alpha = 0.5
                 self.addNoteDialogView.contentView.transform = CGAffineTransform( scaleX: 1.0, y: 1.0 )
             }, completion: { (value: Bool) in
-                
+                // Load the correct button sizes and shapes
+                for button in self.addNoteDialogView.colors {
+                    button.layer.cornerRadius = button.frame.width/2
+                }
+
+                self.addNoteDialogView.highlightedColor = UIView(frame: self.addNoteDialogView.colors[0].bounds)
+                self.addNoteDialogView.highlightedColor.frame.origin.x -= 3
+                self.addNoteDialogView.highlightedColor.frame.origin.y -= 3
+                self.addNoteDialogView.highlightedColor.frame.size.width += 6
+                self.addNoteDialogView.highlightedColor.frame.size.height += 6
+
+                self.addNoteDialogView.highlightedColor.layer.cornerRadius = self.addNoteDialogView.highlightedColor.frame.width/2
+            
+                self.addNoteDialogView.highlightedColor.backgroundColor = UIColor.clear
+                self.addNoteDialogView.highlightedColor.layer.borderWidth = 1.5
+                self.addNoteDialogView.highlightedColor.layer.borderColor = UIColor.systemBlue.cgColor
+                self.addNoteDialogView.highlightedColor.layer.cornerRadius = self.addNoteDialogView.highlightedColor.frame.width/2
+                // Defaulting to black color selected
+                self.addNoteDialogView.colors[self.note.colorTag].addSubview(self.addNoteDialogView.highlightedColor)
             })
             
             let customView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
@@ -1450,60 +1126,6 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         }
     }
     
-    func didTapVisitBookmarks() {
-        self.performSegue(withIdentifier: "segueFromWebToBookmarks", sender: nil)
-    }
-    
-    func didTapVisitSettings() {
-        self.performSegue(withIdentifier: "segueFromWebToSettings", sender: nil)
-    }
-    
-    func didTapDeleteBookmark(for url: String?) {
-        let bookmarkText = NSAttributedString(
-            string: "Bookmark",
-            attributes: [
-                .foregroundColor: UIColor.label,
-                .font: UIFont.systemFont(ofSize: 9.0)
-            ]
-        )
-        
-        let deletedBookmarkName = content.favoriteName
-        
-        RealmHelper.sharedInstance.update(content, properties: [
-            "favoriteName": "",
-            "favorite": false
-        ]) { [weak self] _ in
-            guard let self = self else { return }
-            self.favoriteIcon.setImage(UIImage(named: "icBookmarksFolder"), for: .normal)
-            self.favoriteIcon.setAttributedTitle(bookmarkText, for: .normal)
-            
-            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                       let sceneDelegate = windowScene.delegate as? SceneDelegate,
-                       let window = sceneDelegate.window {
-                        
-                        CustomPopUp.showTemporary(
-                            in: window,
-                            popupLabelText: "Bookmark \(deletedBookmarkName) deleted!",
-                            isBookmark: true,
-                            bookmarkName: deletedBookmarkName,
-                            duration: 2.0
-                        )
-                    }
-        }
-    }
-
-    private func expandAllToggles() {
-        let expandTogglesJS = """
-        (function() {
-            const chevrons = document.querySelectorAll('.chevron-up');
-            chevrons.forEach(function(chevron) {
-                chevron.click();  // simulate user clicking the chevron
-            });
-        })();
-        """
-        webView.evaluateJavaScript(expandTogglesJS, completionHandler: nil)
-    }
-    
     
     
     //--------------------------------------------------------------------------------------------------
@@ -1512,189 +1134,3 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         self.addNoteDialogView.endEditing(true)
     }
 }
-
-extension WebViewViewController: UISearchBarDelegate {
-//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-//        guard let searchText = searchBar.text, !searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-//            return
-//        }
-//        
-//        // Use the new method that counts and highlights
-//        highlightSearchWithCount(term: searchText)
-//        
-//        // Hide keyboard
-//        searchBar.resignFirstResponder()
-//    }
-    
-//    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-//        searchBar.text = ""
-//        searchBar.resignFirstResponder()
-//        removeHighlights()
-//    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-            // Cancel any existing timer
-            searchTimer?.invalidate()
-            
-            // Clear highlights if search text is empty
-            if searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                removeHighlights()
-                
-                UIView.animate(withDuration: 0.2, delay: 0) {
-                    self.searchNavStackView.transform = CGAffineTransform(translationX: self.searchNavStackView.frame.width, y: 0)
-                    self.searchNavStackView.alpha = 0
-                } completion: { _ in
-                    self.searchNavStackView.isHidden = true
-                    self.searchNavStackView.transform = .identity
-                    self.searchNavStackView.alpha = 1
-                    
-                    // Animate the parent stack view layout change
-                    UIView.animate(withDuration: 0.2, delay: 0) {
-                        self.view.layoutIfNeeded() // or self.parentStackView.layoutIfNeeded() if you have a reference
-                    }
-                }
-                
-                return
-            }
-
-            // Check if searchNavStackView is already visible - if so, don't animate it in again
-            let shouldAnimateIn = searchNavStackView.isHidden
-            
-            // Set up a new timer to delay the search (debounce)
-            searchTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { [weak self] _ in
-                guard let self = self else { return }
-                
-                self.performRealTimeSearch(term: searchText)
-                
-                // Only animate in if it's currently hidden
-                if shouldAnimateIn {
-                    // Prepare for right-to-left animation
-                    self.searchNavStackView.transform = CGAffineTransform(translationX: self.searchNavStackView.frame.width, y: 0)
-                    self.searchNavStackView.alpha = 0
-                    self.searchNavStackView.isHidden = false
-                    
-                    UIView.animate(withDuration: 0.3) {
-                        self.searchNavStackView.transform = .identity
-                        self.searchNavStackView.alpha = 1
-                        self.view.layoutIfNeeded() // This ensures the parent stack view animates the layout change too
-                    }
-                }
-            }
-        }
-        
-        func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-            guard let searchText = searchBar.text, !searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-                return
-            }
-            
-            // Cancel timer and search immediately
-            searchTimer?.invalidate()
-            highlightSearchWithCount(term: searchText)
-            
-            // Hide keyboard
-            searchBar.resignFirstResponder()
-        }
-        
-        func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-            searchBar.text = ""
-            searchBar.resignFirstResponder()
-            searchTimer?.invalidate()
-            removeHighlights()
-        }
-        
-        // Method for real-time search with lighter operations
-    private func performRealTimeSearch(term: String) {
-        guard !term.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-            removeHighlights()
-            searchNavStackView.isHidden = true
-            return
-        }
-        
-        // For real-time search, use the navigable function for better UX
-        var terms = term.split(separator: " ").map({String($0)})
-        if !terms.contains(term) { terms.append(term) }
-        
-        if let path = Bundle.main.url(forResource: "WebView", withExtension: "js") {
-            do {
-                let data: Data = try Data(contentsOf: path)
-                let jsCode: String = String(decoding: data, as: UTF8.self)
-                
-                // Inject the search code
-                webView.evaluateJavaScript(jsCode, completionHandler: nil)
-                
-                // Use navigation-enabled highlighting for primary term
-                let searchString = "WKWebView_HighlightAllOccurencesOfStringWithNavigation('\(terms[0])', true)"
-                webView.evaluateJavaScript(searchString) { [weak self] (result, error) in
-                    if let count = result as? Int {
-                        self?.totalSearchResults = count
-                        self?.currentSearchResultIndex = count > 0 ? 1 : 0
-                        
-                        DispatchQueue.main.async {
-                            self?.updateSearchResultsDisplay()
-                        }
-                    }
-                }
-                
-                // Highlight additional terms with original function
-                for i in 1..<terms.count {
-                    let additionalSearchString = "WKWebView_HighlightAllOccurencesOfString('\(terms[i])', false)"
-                    webView.evaluateJavaScript(additionalSearchString, completionHandler: nil)
-                }
-                
-            } catch {
-                print("Could not load javascript: \(error)")
-            }
-        }
-    }
-    
-    func didSelectNote(_ note: Notes) {
-        // This will open the note editing window when a note is selected
-        if let selectedNote = realm!.object(ofType: Notes.self, forPrimaryKey: note.id) {
-            openNoteWindow(noteChosen: selectedNote)
-        }
-    }
-    
-    func updateNotesButton() {
-        let count = content?.notes.count ?? 0
-        
-        if count <= 0 {
-            // Animate fade out and scale down
-            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
-                self.viewNotesButton.alpha = 0
-                self.viewNotesButton.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-            }, completion: { _ in
-                self.viewNotesButton.isHidden = true
-                self.viewNotesButton.setTitle("(0)", for: .normal)
-                // Reset transform for next time it appears
-                self.viewNotesButton.transform = .identity
-            })
-        } else {
-            _ = Int(
-                viewNotesButton
-                    .title(for: .normal)?
-                    .replacingOccurrences(of: "(", with: "")
-                    .replacingOccurrences(of: ")", with: "") ?? "0"
-            ) ?? 0
-            
-            // If button is hidden, show it first
-            if viewNotesButton.isHidden {
-                viewNotesButton.isHidden = false
-                viewNotesButton.alpha = 0
-                viewNotesButton.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-            }
-            
-            // Animate the count change with a pop effect
-            UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseOut, animations: {
-                self.viewNotesButton.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
-                self.viewNotesButton.alpha = 1
-            }, completion: { _ in
-                self.viewNotesButton.setTitle("(\(count))", for: .normal)
-                
-                UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseIn, animations: {
-                    self.viewNotesButton.transform = .identity
-                })
-            })
-        }
-    }
-}
-
