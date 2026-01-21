@@ -24,6 +24,8 @@ class SaveFavorite: UIView {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var bookmarkSourceField: UITextField!
+    @IBOutlet weak var bookmarkSourceView: UIView!
+    
     
     // Dialog Constraints
     @IBOutlet weak var dialogLeftConstraint: NSLayoutConstraint!
@@ -77,15 +79,8 @@ class SaveFavorite: UIView {
         contentView.layer.cornerRadius = 4
         contentView.layer.masksToBounds = true
                 
-        cancelButton.layer.borderWidth = 0
-        cancelButton.layer.cornerRadius = 0
-		cancelButton.layer.masksToBounds = true
-        cancelButton.layer.borderColor = UIColor.label.cgColor
-
-        saveButton.layer.borderWidth = 0
-        saveButton.layer.cornerRadius = 0
-        saveButton.layer.masksToBounds = true
-        saveButton.layer.borderColor = UIColor.label.cgColor
+        configureCancelButton()
+        configureSaveButton()
         
         
         let nameFieldPaddingView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: nameField.frame.height))
@@ -113,15 +108,62 @@ class SaveFavorite: UIView {
             nameField.text = subChapter.favoriteName
             bookmarkSourceField.text = subChapter.chapterParent
             
-            cancelButton.setTitle("Delete", for: .normal)
-            saveButton.setTitle("Save", for: .normal)
+            bookmarkSourceView.isHidden = false
+
+            cancelButton.setTitle("Delete Bookmark", for: .normal)
+            saveButton.setTitle("Save Changes", for: .normal)
             cancelButton.addTarget(self, action: #selector(self.deleteButtonPressed), for: .touchUpInside)
         } else {
             nameField.text = currentTitle
             bookmarkSourceField.text = subChapter.chapterParent
             cancelButton.addTarget(self, action: #selector(self.cancelButtonPressed), for: .touchUpInside)
+            bookmarkSourceView.isHidden = true
         }
         closeButton.addTarget(self, action: #selector(self.cancelButtonPressed), for: .touchUpInside)
+    }
+    
+    private func configureCancelButton() {
+        if #available(iOS 15.0, *) {
+            var config = UIButton.Configuration.plain()
+            config.title = "Cancel"
+            config.cornerStyle = .fixed
+            config.baseForegroundColor = .label
+            config.background.cornerRadius = 0
+            
+            cancelButton.configuration = config
+            cancelButton.configurationUpdateHandler = { button in
+                var updatedConfig = button.configuration
+                switch button.state {
+                case .highlighted:
+                    updatedConfig?.background.backgroundColor = .systemGray5
+                default:
+                    updatedConfig?.background.backgroundColor = .clear
+                }
+                button.configuration = updatedConfig
+            }
+        } else {
+            cancelButton.layer.borderWidth = 0
+            cancelButton.layer.cornerRadius = 0
+            cancelButton.layer.masksToBounds = true
+        }
+    }
+    
+    private func configureSaveButton() {
+        if #available(iOS 15.0, *) {
+            var config = UIButton.Configuration.filled()
+            
+            config.title = "Save"
+            config.cornerStyle = .fixed
+            config.baseBackgroundColor = .colorPrimary
+            config.baseForegroundColor = .white
+            config.background.cornerRadius = 0
+            
+            saveButton.configuration = config
+        } else {
+            saveButton.layer.borderWidth = 0
+            saveButton.layer.cornerRadius = 0
+            saveButton.layer.masksToBounds = true
+        }
     }
     
     //------------------------------------------------------------------------------

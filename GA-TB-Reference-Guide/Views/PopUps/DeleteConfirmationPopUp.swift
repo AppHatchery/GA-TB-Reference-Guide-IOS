@@ -65,13 +65,9 @@ class DeleteConfirmationPopUp: UIView {
             "Delete Bookmark \(bookmarkName)?",
             highlightedStrings: ["\(bookmarkName)"]
         )
-
         
-        for button in buttons {
-            button.layer.cornerRadius = 0
-            button.layer.masksToBounds = true
-            button.layer.borderWidth = 0
-        }
+        configureCancelButton()
+        configureDeleteButton()
         
         cancelButton
             .addTarget(
@@ -85,6 +81,50 @@ class DeleteConfirmationPopUp: UIView {
                 action: #selector(deleteButtonPressed),
                 for: .touchUpInside
             )
+    }
+    
+    private func configureCancelButton() {
+        if #available(iOS 15.0, *) {
+            var config = UIButton.Configuration.plain()
+            config.title = "Cancel"
+            config.cornerStyle = .fixed
+            config.baseForegroundColor = .label
+            config.background.cornerRadius = 0
+
+            cancelButton.configuration = config
+            cancelButton.configurationUpdateHandler = { button in
+                var updatedConfig = button.configuration
+                switch button.state {
+                case .highlighted:
+                    updatedConfig?.background.backgroundColor = .systemGray5
+                default:
+                    updatedConfig?.background.backgroundColor = .clear
+                }
+                button.configuration = updatedConfig
+            }
+        } else {
+            cancelButton.layer.borderWidth = 0
+            cancelButton.layer.cornerRadius = 0
+            cancelButton.layer.masksToBounds = true
+        }
+    }
+
+    private func configureDeleteButton() {
+        if #available(iOS 15.0, *) {
+            var config = UIButton.Configuration.filled()
+
+            config.title = "Delete"
+            config.cornerStyle = .fixed
+            config.baseBackgroundColor = .colorPrimary
+            config.baseForegroundColor = .white
+            config.background.cornerRadius = 0
+
+            deleteButton.configuration = config
+        } else {
+            deleteButton.layer.borderWidth = 0
+            deleteButton.layer.cornerRadius = 0
+            deleteButton.layer.masksToBounds = true
+        }
     }
     
     //------------------------------------------------------------------------------
