@@ -17,7 +17,7 @@ class ContentListViewController: UIViewController, UITableViewDelegate, UITableV
     
     var arrayPointer = 0
         
-    var chapters = ["I. Epidemiology","II. Diagnostic Tests for Latent TB Infection (LTBI)","III. Treatment of Latent TB Infection (LTBI)","IV. Laboratory Diagnosis of Active Tuberculosis","V. Treatment of Current (Active) Disease Therapy","VI. Pregnancy and TB","VII. Childhood Tuberculosis","VIII. Tuberculosis and Long-Term Care Facilities","IX. BCG Vaccination","X. TB Infection Control: Hospital Isolation Procedures","XI. Community Tuberculosis Control","XII. Alternative Housing Program for Homeless TB Patients in Georgia","XIII. Georgia Department of Public Health (DPH) Community Guidelines for Respiratory Isolation of Patients with Active TB in the Community","XIV. References","XV. Appendix: District TB Coordinators (by District)","XVI. Abbreviations","XVII. Acknowledgements","XVIII. Hello and Welcome Clinical Statement","XIX. For more information"]
+    var chapters = ["Hello and Welcome Clinical Statement","I. Epidemiology","II. Diagnostic Tests for Latent TB Infection (LTBI)","III. Treatment of Latent TB Infection (LTBI)","IV. Laboratory Diagnosis of Active Tuberculosis","V. Treatment of Current (Active) Disease Therapy","VI. Pregnancy and TB","VII. Childhood Tuberculosis","VIII. Tuberculosis and Long-Term Care Facilities","IX. BCG Vaccination","X. TB Infection Control: Hospital Isolation Procedures","XI. Community Tuberculosis Control","XII. Alternative Housing Program for Homeless TB Patients in Georgia","XIII. Georgia Department of Public Health (DPH) Community Guidelines for Respiratory Isolation of Patients with Active TB in the Community","XIV. References","XV. Appendix: District TB Coordinators (by District)","XVI. Abbreviations","XVII. Acknowledgements","XVIII. For more information"]
         
     let chapterIndex = ChapterIndex()
     
@@ -29,9 +29,9 @@ class ContentListViewController: UIViewController, UITableViewDelegate, UITableV
         navbarTitle.text = "All Chapters"
         navbarTitle.textColor = UIColor.white
         navbarTitle.font = UIFont.boldSystemFont(ofSize: 16.0)
-        navbarTitle.numberOfLines = 2
+        navbarTitle.numberOfLines = 3
         navbarTitle.textAlignment = .center
-        navbarTitle.minimumScaleFactor = 0.5
+        navbarTitle.minimumScaleFactor = 0.7
         navbarTitle.adjustsFontSizeToFitWidth = true
         navigationItem.titleView = navbarTitle
         navigationItem.backButtonDisplayMode = .minimal
@@ -74,6 +74,7 @@ class ContentListViewController: UIViewController, UITableViewDelegate, UITableV
             cell.textLabel?.text = chapters[indexPath.row]
             cell.textLabel?.lineBreakMode = .byWordWrapping
             cell.textLabel?.numberOfLines = 6
+            cell.textLabel?.font = .systemFont(ofSize: 15)
             
             tableViewCells[indexPath.row] = cell
             

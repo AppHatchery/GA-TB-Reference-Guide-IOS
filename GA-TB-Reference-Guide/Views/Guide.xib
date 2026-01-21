@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -208,7 +208,7 @@
                                                     <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="12" maxY="0.0"/>
                                                     <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal" title="All Charts &gt;" image="icFile"/>
+                                                    <state key="normal" title="All Tables &gt;" image="icFile"/>
                                                     <state key="highlighted">
                                                         <color key="titleColor" name="colorTextSecondary"/>
                                                     </state>
@@ -231,7 +231,7 @@
                                                         <action selector="tapBottomButton:" destination="-2" eventType="touchUpInside" id="1tu-QI-hFU"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" tag="14" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="iOX-uC-bGp">
+                                                <button opaque="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="iOX-uC-bGp">
                                                     <rect key="frame" x="0.0" y="120" width="335" height="48"/>
                                                     <color key="backgroundColor" name="colorBackgroundSecondary"/>
                                                     <constraints>
@@ -249,7 +249,7 @@
                                                         <action selector="tapBottomButton:" destination="-2" eventType="touchUpInside" id="X7Y-xK-Y8z"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" tag="15" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Igd-XX-ZEe">
+                                                <button opaque="NO" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Igd-XX-ZEe">
                                                     <rect key="frame" x="0.0" y="180" width="335" height="48"/>
                                                     <color key="backgroundColor" name="colorBackgroundSecondary"/>
                                                     <constraints>
@@ -285,7 +285,7 @@
                                                         <action selector="tapBottomButton:" destination="-2" eventType="touchUpInside" id="9Uv-y4-nQp"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="wKn-5L-Uaw">
+                                                <button opaque="NO" tag="17" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="wKn-5L-Uaw">
                                                     <rect key="frame" x="0.0" y="300" width="335" height="48"/>
                                                     <color key="backgroundColor" name="colorBackgroundSecondary"/>
                                                     <constraints>
@@ -303,7 +303,7 @@
                                                         <action selector="tapBottomButton:" destination="-2" eventType="touchUpInside" id="JCR-Ks-Dey"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" tag="19" contentMode="scaleToFill" verticalHuggingPriority="240" verticalCompressionResistancePriority="754" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Azu-U9-710">
+                                                <button opaque="NO" tag="16" contentMode="scaleToFill" verticalHuggingPriority="240" verticalCompressionResistancePriority="754" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Azu-U9-710">
                                                     <rect key="frame" x="0.0" y="360" width="335" height="48"/>
                                                     <color key="backgroundColor" name="colorBackgroundSecondary"/>
                                                     <constraints>

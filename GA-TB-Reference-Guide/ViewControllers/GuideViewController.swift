@@ -12,11 +12,9 @@ import Network
 
 class GuideViewController: UIViewController, URLSessionDelegate {
 
-    @IBOutlet var topQuickLinks: [UIButton]!
-    @IBOutlet var bottomQuickLinks: [UIButton]!
-    @IBOutlet weak var contentView: UIView!
-
-    var scrollView: UIScrollView!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var contentStackView: UIStackView!
+    
     var guideView: Guide!
     var url: URL!
     var header: String!
@@ -41,6 +39,21 @@ class GuideViewController: UIViewController, URLSessionDelegate {
         navigationController?.hidesBottomBarWhenPushed = false
         self.hidesBottomBarWhenPushed = false
         
+        if #available(iOS 26.0, *) {
+            tabBarController?.tabBar.backgroundColor = .clear
+        } else {
+            let appearance = UITabBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            
+            appearance.backgroundColor = .colorBackgroundSecondary
+            
+            tabBarController?.tabBar.standardAppearance = appearance
+            
+            if #available(iOS 15.0, *) {
+                tabBarController?.tabBar.scrollEdgeAppearance = appearance
+            }
+        }
+        
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor : UIColor.white]
         let navbarTitle = UILabel()
         navbarTitle.text = "Guide"
@@ -53,6 +66,51 @@ class GuideViewController: UIViewController, URLSessionDelegate {
         navigationItem.titleView = navbarTitle
         navigationItem.backButtonDisplayMode = .minimal
         
+        guideView = Guide()
+        
+        guideView.translatesAutoresizingMaskIntoConstraints = false
+        
+        guideView.isUserInteractionEnabled = true
+        scrollView.isUserInteractionEnabled = true
+        contentStackView.isUserInteractionEnabled = true
+        
+        guard let stackView = contentStackView else {
+            print("ERROR: contentStackView is nil")
+            return
+        }
+        
+        guard let guide = guideView else {
+            print("ERROR: guideView is nil")
+            return
+        }
+        
+        stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        stackView.addArrangedSubview(guide)
+        
+        let frameHeight: CGFloat
+
+        frameHeight = view.frame.height
+            
+        NSLayoutConstraint.activate([
+            guideView.heightAnchor.constraint(equalToConstant: frameHeight),
+            guideView.widthAnchor.constraint(equalTo: contentStackView.widthAnchor)
+        ])
+        
+        view.layoutIfNeeded()
+        
+        guard let allChaptersButton = guide.allChapters else {
+            print("ERROR: guideView.allChapters is nil")
+            return
+        }
+        
+        guard let allChartsButton = guide.allCharts else {
+            print("ERROR: guideView.allCharts is nil")
+            return
+        }
+        
+        allChaptersButton.addTarget(self, action: #selector(self.tapAllChapters(_:)), for: .touchUpInside)
+        allChartsButton.addTarget(self, action: #selector(self.tapAllCharts(_:)), for: .touchUpInside)
+        
         // Do any additional setup after loading the view
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
             self?.preloadKeyboard()
@@ -61,57 +119,21 @@ class GuideViewController: UIViewController, URLSessionDelegate {
     
     //--------------------------------------------------------------------------------------------------
     override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(true)
-
-		setupDownloadSession()
-		setupNetworkMonitoring()
-
-		remoteConfig.configureRemoteConfig()
-
-		NotificationCenter.default.addObserver(
-			self,
-			selector: #selector(downloadsCompleted),
-			name: Notification.Name("BatchDownloadCompleted"),
-			object: nil)
-
+        super.viewDidAppear(true)
+        
+        setupDownloadSession()
+        setupNetworkMonitoring()
+        
+        remoteConfig.configureRemoteConfig()
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(downloadsCompleted),
+            name: Notification.Name("BatchDownloadCompleted"),
+            object: nil)
+        
         navigationController?.hidesBottomBarWhenPushed = false
         self.hidesBottomBarWhenPushed = false
-        
-        if scrollView == nil {
-            
-            // contentView -> scrollView -> guideView
-
-            scrollView = UIScrollView(frame: view.frame)
-            scrollView.backgroundColor = UIColor.clear
-            contentView.addSubview(scrollView)
-            scrollView.delaysContentTouches = true
-            scrollView.translatesAutoresizingMaskIntoConstraints = false
-            
-            
-            // Check the view (screen) height to apply appropriate spacing at the bottom to all the guideview to work
-            // If the guideView is too short the bottom chart buttons are not clickable
-            if view.frame.height <= 690 {
-                guideView = Guide(frame: CGRect(x: 0, y: 0, width: contentView.frame.width, height: view.frame.height + 250))
-            } else if view.frame.height >= 691 && view.frame.height <= 768 {
-                guideView = Guide(frame: CGRect(x: 0, y: 0, width: contentView.frame.width, height: view.frame.height + 200))
-            } else if view.frame.height >= 769 {
-                guideView = Guide(frame: CGRect(x: 0, y: 0, width: contentView.frame.width, height: view.frame.height))
-            }
-            
-            scrollView.addSubview(guideView)
-            scrollView.contentSize = CGSize(width: contentView.frame.width, height: guideView.frame.height)
-//         scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 200, right: 0)
-            
-            NSLayoutConstraint.activate([
-                scrollView.topAnchor.constraint(equalTo: contentView.topAnchor),
-                scrollView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-                scrollView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-                scrollView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-            ])
-            
-            guideView.allChapters.addTarget( self, action: #selector( self.tapAllChapters( _:)), for: .touchUpInside)
-            guideView.allCharts.addTarget( self, action: #selector( self.tapAllCharts( _:)), for: .touchUpInside)
-        }
     }
 
 	override func viewDidDisappear(_ animated: Bool) {
@@ -181,13 +203,13 @@ class GuideViewController: UIViewController, URLSessionDelegate {
 
     
     @IBAction func tapTopButton(_ sender: UIButton){
-        quickTitle = bible.chapters[sender.tag-1]
-        quickPointer = sender.tag-1
+        quickTitle = bible.chapters[sender.tag]
+        quickPointer = sender.tag
         performSegue( withIdentifier: "SegueToSubChapterViewController", sender: nil )
     }
     
     @IBAction func tapBottomButton(_ sender: UIButton){
-        quickTitle = bible.charts[sender.tag-1]
+        quickTitle = bible.chartsTrimmed[sender.tag-1]
         quickPointer = sender.tag-1
         performSegue( withIdentifier: "SegueToWebViewViewController", sender: nil )
     }

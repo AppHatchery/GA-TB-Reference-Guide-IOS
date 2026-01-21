@@ -121,23 +121,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             metadataView.frame.size.height = 0
         }
 
-        let navbarTitle = UILabel()
-        navbarTitle.text = navTitle
-        navbarTitle.textColor = UIColor.white
-        navbarTitle.font = UIFont.boldSystemFont(ofSize: 16.0)
-        navbarTitle.numberOfLines = 0
-        navbarTitle.textAlignment = .center
-        navbarTitle.minimumScaleFactor = 0.7
-        navbarTitle.adjustsFontSizeToFitWidth = true
-        navigationItem.titleView = navbarTitle
-        navigationItem.backButtonDisplayMode = .minimal
-        
-        let navBarWidth = navigationController?.navigationBar.bounds.width ?? UIScreen.main.bounds.width
-        navbarTitle.frame = CGRect(x: 0, y: 0, width: navBarWidth - 100, height: 44)
-        // The -100 accounts for back button and any right bar button items
-        
-        navigationItem.titleView = navbarTitle
-        navigationItem.backButtonDisplayMode = .minimal
+//         The -100 accounts for back button and any right bar button items
 
 //        self.title = navTitle
         self.hidesBottomBarWhenPushed = true
@@ -246,6 +230,28 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         webView.load( URLRequest( url: url ))
     }
     
+    func setupNavBar() {
+        navigationController?.navigationBar.tintColor = .white
+        navigationItem.backButtonDisplayMode = .minimal
+        
+        let titleLabel = UILabel()
+        titleLabel.text = navTitle
+        titleLabel.textColor = .white
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        titleLabel.textAlignment = .center
+        titleLabel.numberOfLines = 2
+        
+        if #available(iOS 26.0, *) {
+            titleLabel.sizeToFit()
+        } else {
+            let maxWidth = UIScreen.main.bounds.width - 120
+            let size = titleLabel.sizeThatFits(CGSize(width: maxWidth, height: .greatestFiniteMagnitude))
+            titleLabel.frame = CGRect(origin: .zero, size: size)
+        }
+        
+        navigationItem.titleView = titleLabel
+    }
+    
     func configureSearchBar() {
         guard let textField = search.value(forKey: "searchField") as? UITextField else { return }
 
@@ -283,7 +289,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     private func applyIconAndParagraphScaling(fontSize: Int) {
         // Compute scale factor relative to 125% baseline (matching Android)
         let scaleFactor = Double(fontSize) / 125.0
-        let iconPx = 16.0 * scaleFactor
+        let iconPx = 24.0 * scaleFactor
         let iconPxStr = String(format: "%.2f", iconPx)
         
         // Compute scaled metrics for the decorative line used by `.uk-paragraph`
@@ -453,6 +459,8 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        
+        setupNavBar()
         
         if let currentContent = realm!.object(ofType:ContentPage.self, forPrimaryKey: uniqueAddress){
             RealmHelper.sharedInstance.update(currentContent, properties: [
@@ -946,7 +954,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     
     
     @IBAction func viewNotesTapped(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        _ = UIStoryboard(name: "Main", bundle: nil)
             
             // If you're using storyboard, create the identifier in storyboard and uncomment this:
             // let notesVC = storyboard.instantiateViewController(withIdentifier: "NotesBottomSheetViewController") as! NotesBottomSheetViewController
@@ -960,7 +968,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             // Configure the presentation style for bottom sheet
         if #available(iOS 15.0, *) {
             if let sheet = notesVC.sheetPresentationController {
-                sheet.detents = [.medium()]
+                sheet.detents = [.medium(), .large()]
                 sheet.prefersGrabberVisible = true
                 sheet.preferredCornerRadius = 16
             }
