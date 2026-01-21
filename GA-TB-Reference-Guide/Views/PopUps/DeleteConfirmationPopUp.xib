@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24128" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24063"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -14,7 +14,7 @@
             <connections>
                 <outlet property="backgroundView" destination="OKB-xP-ft2" id="l0x-jV-mOt"/>
                 <outlet property="cancelButton" destination="ffX-A8-hJO" id="mbd-Ij-bAi"/>
-                <outlet property="contentLabel" destination="L6z-mp-MRf" id="y8J-wc-SO5"/>
+                <outlet property="contentLabel" destination="oMf-AI-gYD" id="dAT-ps-35c"/>
                 <outlet property="deleteButton" destination="Nok-6U-7BR" id="o9d-Rn-STx"/>
                 <outlet property="mainView" destination="7II-mY-4hh" id="mNa-yj-mGt"/>
                 <outletCollection property="buttons" destination="ffX-A8-hJO" collectionClass="NSMutableArray" id="x3o-eT-8UP"/>
@@ -31,16 +31,27 @@
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7II-mY-4hh" userLabel="Main View">
-                    <rect key="frame" x="59" y="333.66666666666669" width="275" height="185.00000000000006"/>
+                    <rect key="frame" x="59" y="358.33333333333331" width="275" height="135.66666666666669"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delete Bookmark" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L6z-mp-MRf">
-                            <rect key="frame" x="20" y="20" width="235" height="105"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="F6p-pB-RmY">
+                            <rect key="frame" x="20" y="19.999999999999996" width="235" height="55.666666666666657"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delete Bookmark?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L6z-mp-MRf">
+                                    <rect key="frame" x="51.333333333333343" y="0.0" width="132.33333333333334" height="19.333333333333332"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bookmark to delete" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oMf-AI-gYD">
+                                    <rect key="frame" x="43.333333333333329" y="35.333333333333371" width="148.33333333333337" height="20.333333333333329"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" name="colorPrimary"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3p2-Wy-jnr">
-                            <rect key="frame" x="0.0" y="145" width="275" height="40"/>
+                            <rect key="frame" x="0.0" y="95.666666666666686" width="275" height="40"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ffX-A8-hJO">
                                     <rect key="frame" x="0.0" y="0.0" width="137.66666666666666" height="40"/>
@@ -56,7 +67,7 @@
                                     <color key="backgroundColor" name="colorPrimary"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="plain" title="Delete">
+                                    <buttonConfiguration key="configuration" style="plain" title="Yes">
                                         <fontDescription key="titleFontDescription" type="system" pointSize="16"/>
                                         <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </buttonConfiguration>
@@ -69,15 +80,15 @@
                     </subviews>
                     <color key="backgroundColor" name="colorBackgroundSecondary"/>
                     <constraints>
-                        <constraint firstItem="L6z-mp-MRf" firstAttribute="top" secondItem="7II-mY-4hh" secondAttribute="top" constant="20" id="6lW-Yf-VrS"/>
-                        <constraint firstItem="3p2-Wy-jnr" firstAttribute="top" secondItem="L6z-mp-MRf" secondAttribute="bottom" constant="20" id="N5z-sc-QjS"/>
+                        <constraint firstItem="F6p-pB-RmY" firstAttribute="leading" secondItem="7II-mY-4hh" secondAttribute="leading" constant="20" symbolic="YES" id="14J-5Q-y05"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="131" id="6iM-hK-mba"/>
+                        <constraint firstItem="3p2-Wy-jnr" firstAttribute="top" secondItem="F6p-pB-RmY" secondAttribute="bottom" constant="20" id="Mvx-q5-0HH"/>
                         <constraint firstAttribute="trailing" secondItem="3p2-Wy-jnr" secondAttribute="trailing" id="Q8r-Td-EEe"/>
-                        <constraint firstItem="L6z-mp-MRf" firstAttribute="leading" secondItem="7II-mY-4hh" secondAttribute="leading" constant="20" id="Wmc-Bo-Tmt"/>
                         <constraint firstItem="3p2-Wy-jnr" firstAttribute="leading" secondItem="7II-mY-4hh" secondAttribute="leading" id="Wt8-hd-8mA"/>
-                        <constraint firstAttribute="trailing" secondItem="L6z-mp-MRf" secondAttribute="trailing" constant="20" id="bZd-ty-lRr"/>
+                        <constraint firstAttribute="trailing" secondItem="F6p-pB-RmY" secondAttribute="trailing" constant="20" id="gd5-gw-vaT"/>
                         <constraint firstAttribute="width" constant="275" id="ieO-Oo-Uh4"/>
                         <constraint firstAttribute="bottom" secondItem="3p2-Wy-jnr" secondAttribute="bottom" id="seZ-j0-SVa"/>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="185" id="w9y-5r-gcv"/>
+                        <constraint firstItem="F6p-pB-RmY" firstAttribute="top" secondItem="7II-mY-4hh" secondAttribute="top" constant="20" symbolic="YES" id="zS5-8v-qRn"/>
                     </constraints>
                 </view>
             </subviews>

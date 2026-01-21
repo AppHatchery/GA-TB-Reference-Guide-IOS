@@ -34,8 +34,8 @@ public class ChapterIndex {
       "d. Special Clinical Situations", "e. Drug Resistance",
       "f. Monitoring Patients on Therapy for Response and Adverse Events", "g. TB and HIV",
       "h. Immune Reconstitution Inflammatory Syndrome (IRIS) Associated with Initiation of Antiretroviral Therapy During the Course of TB Therapy",
-      "i. Treatment of Extrapulmonary TB (Table 19)",
-      "j. Adjunctive Use of Corticosteroid Therapy (Table 19)",
+      "i. Treatment of Extrapulmonary TB (Table 16)",
+      "j. Adjunctive Use of Corticosteroid Therapy (Table 16)",
     ],
     [
       "a. Introduction", "b. Treatment for LTBI and Risk Factors",
@@ -155,8 +155,8 @@ public class ChapterIndex {
     "Monitoring Patients on Therapy for Response and Adverse Events",
     "TB and HIV",
     "Immune Reconstitution Inflammatory Syndrome (IRIS) Associated with Initiation of Antiretroviral Therapy During the Course of TB Therapy",
-    "Treatment of Extrapulmonary TB (Table 19)",
-    "Adjunctive Use of Corticosteroid Therapy (Table 19)",
+    "Treatment of Extrapulmonary TB (Table 16)",
+    "Adjunctive Use of Corticosteroid Therapy (Table 16)",
     "Introduction",
     "Treatment for LTBI and Risk Factors",
     "Treatment of Active TB in Pregnancy",
@@ -380,7 +380,6 @@ public class ChapterIndex {
     "Table 16",
     "Table 17",
     "Table 18",
-    "Table 19",
     "Figure 1",
   ]
 
@@ -560,8 +559,8 @@ public class ChapterIndex {
     "f. Monitoring Patients on Therapy for Response and Adverse Events",
     "g. TB and HIV",
     "h. Immune Reconstitution Inflammatory Syndrome (IRIS) Associated with Initiation of Antiretroviral Therapy During the Course of TB Therapy",
-    "i. Treatment of Extrapulmonary TB (Table 19)",
-    "j. Adjunctive Use of Corticosteroid Therapy (Table 19)",
+    "i. Treatment of Extrapulmonary TB (Table 16)",
+    "j. Adjunctive Use of Corticosteroid Therapy (Table 16)",
 
     "a. Introduction",
     "b. Treatment for LTBI and Risk Factors",
@@ -766,12 +765,12 @@ public class ChapterIndex {
         },
         {
           "chapterId": "5",
-          "subChapterTitle": "Treatment of Extrapulmonary TB (Table 19)",
+          "subChapterTitle": "Treatment of Extrapulmonary TB (Table 16)",
           "url": "0"
         },
         {
           "chapterId": "5",
-          "subChapterTitle": "Adjunctive Use of Corticosteroid Therapy (Table 19)",
+          "subChapterTitle": "Adjunctive Use of Corticosteroid Therapy (Table 16)",
           "url": "0"
         },
         {

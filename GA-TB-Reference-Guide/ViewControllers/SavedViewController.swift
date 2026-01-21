@@ -12,8 +12,8 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     
     @IBOutlet weak var tableView: UITableView!
-    
     @IBOutlet weak var emptyView: UIView!
+    @IBOutlet weak var activityIndicatorView: UIView!
     
     @IBOutlet weak var emptyMessage: UILabel!
     
@@ -54,7 +54,7 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor : UIColor.white]
         
         let navbarTitle = UILabel()
-        navbarTitle.text = "Bookmarks"
+        navbarTitle.text = "My Bookmarks"
         navbarTitle.textColor = UIColor.white
         navbarTitle.font = UIFont.boldSystemFont(ofSize: 16.0)
         navigationItem.titleView = navbarTitle
@@ -85,12 +85,17 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.separatorColor = .clear
         tableView.backgroundColor = .clear
         
-        tableView.reloadData()
+        DispatchQueue.main.async {
+            self.beginLoading()
+            self.tableView.reloadData()
+        }
     }
     
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
+        
+        beginLoading()
         
 //        if !isGradientAdded {
 //            searchView.setGradientBackground(size: searchView.bounds)
@@ -138,8 +143,44 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
             notesLastEdit.append(content.lastEdited)
         }
         
-        tableView.reloadData()
+        // Update empty state immediately after data is ready
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.endLoadingAndUpdateUI()
+        }
     }
+    
+    private func beginLoading() {
+        activityIndicatorView?.isHidden = false
+        emptyView?.isHidden = true
+        tableView?.isHidden = true
+    }
+
+    private func endLoadingAndUpdateUI() {
+        let count: Int
+        if isFavorite {
+            count = favoriteURLs.count
+        } else if isLastOpened {
+            count = historyURLs.count
+        } else if isNotes {
+            count = notesURLs.count
+        } else {
+            count = 0
+        }
+        activityIndicatorView?.isHidden = true
+        if count == 0 {
+            emptyView?.isHidden = false
+            tableView?.isHidden = true
+        } else {
+            emptyView?.isHidden = true
+            tableView?.isHidden = false
+        }
+    }
+    
+    private func updateEmptyView() {
+        endLoadingAndUpdateUI()
+    }
+    
         
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -187,8 +228,8 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
             cell.preservesSuperviewLayoutMargins = false
             
             let chapterName = favoriteNames[indexPath.row]
-            let tablePattern = "^Table\\s+\\d+:"
-            let figurePattern = "^Figure\\s+\\d+\\:"
+            let tablePattern = "^Table\\s+\\d+"
+            let figurePattern = "^Figure\\s+\\d+\\"
             
             if let regex = try? NSRegularExpression(pattern: tablePattern, options: []),
                    regex.firstMatch(in: chapterName, options: [], range: NSRange(location: 0, length: chapterName.utf16.count)) != nil {
@@ -317,6 +358,7 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
 //            }
             
             self.tableView.deleteRows(at: [indexPath], with: .fade)
+            self.endLoadingAndUpdateUI()
          }
     }
     
@@ -457,8 +499,8 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         default:
             print("nothing selected")
         }
-        
         tableView.reloadData()
+        endLoadingAndUpdateUI()
     }
     
     
@@ -533,6 +575,7 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 self.favoriteSubChapters.remove(at: index)
                 self.favoriteChapters.remove(at: index)
                 self.tableView.deleteRows(at: [indexPath], with: .fade)
+                self.endLoadingAndUpdateUI()
                 
                 if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
                    let window = windowScene.windows.first(where: { $0.isKeyWindow }) {
@@ -548,3 +591,4 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
 }
+
