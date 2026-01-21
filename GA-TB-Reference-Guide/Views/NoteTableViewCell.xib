@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24128" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24063"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -37,14 +38,22 @@
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Show in chapter &gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3qY-fg-rIA">
-                        <rect key="frame" x="28" y="75" width="308" height="64"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Show in chapter &gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3qY-fg-rIA">
+                        <rect key="frame" x="28" y="59" width="308" height="75"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" name="customDarkGray"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GE7-Tv-xY4">
-                        <rect key="frame" x="28" y="35" width="323" height="40"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icEditNote" translatesAutoresizingMaskIntoConstraints="NO" id="4pE-Jm-zMW">
+                        <rect key="frame" x="316" y="25" width="25" height="25"/>
+                        <color key="tintColor" name="colorPrimary"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="eYW-Qv-PTy"/>
+                            <constraint firstAttribute="width" constant="25" id="fM5-bM-8YV"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GE7-Tv-xY4">
+                        <rect key="frame" x="28" y="35" width="280" height="14"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="12"/>
                         <color key="textColor" name="customDarkGray"/>
                         <nil key="highlightedColor"/>
@@ -56,16 +65,18 @@
                     <constraint firstItem="1iM-qo-BO9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="1vO-PA-4Z8"/>
                     <constraint firstItem="jqP-Rf-dyH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="9Ax-RE-aGA"/>
                     <constraint firstItem="3qY-fg-rIA" firstAttribute="leading" secondItem="1iM-qo-BO9" secondAttribute="trailing" constant="10" id="BPM-BX-IOH"/>
+                    <constraint firstItem="4pE-Jm-zMW" firstAttribute="top" secondItem="jqP-Rf-dyH" secondAttribute="bottom" id="NbX-WO-O8l"/>
                     <constraint firstAttribute="trailingMargin" secondItem="3qY-fg-rIA" secondAttribute="trailing" constant="5" id="Om2-uy-mky"/>
                     <constraint firstAttribute="bottom" secondItem="ESe-rn-oKq" secondAttribute="bottom" constant="5" id="W3s-tS-iIZ"/>
+                    <constraint firstAttribute="trailing" secondItem="4pE-Jm-zMW" secondAttribute="trailing" constant="20" symbolic="YES" id="Xoe-Kd-PZV"/>
                     <constraint firstItem="1iM-qo-BO9" firstAttribute="top" secondItem="jqP-Rf-dyH" secondAttribute="bottom" constant="10" id="bMC-gJ-NPf"/>
                     <constraint firstItem="3qY-fg-rIA" firstAttribute="top" secondItem="GE7-Tv-xY4" secondAttribute="bottom" constant="10" id="d6O-3o-W8c"/>
                     <constraint firstItem="ESe-rn-oKq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="fxI-fY-zSy"/>
                     <constraint firstAttribute="bottom" secondItem="3qY-fg-rIA" secondAttribute="bottom" constant="10" id="gaJ-Kf-xIZ"/>
                     <constraint firstAttribute="bottom" secondItem="1iM-qo-BO9" secondAttribute="bottom" constant="10" id="oYn-N3-YKM"/>
                     <constraint firstItem="jqP-Rf-dyH" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="qBB-Y7-0sc"/>
-                    <constraint firstAttribute="trailing" secondItem="GE7-Tv-xY4" secondAttribute="trailing" constant="10" id="r2F-qJ-ppC"/>
                     <constraint firstItem="ESe-rn-oKq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="rdN-3k-Bhw"/>
+                    <constraint firstItem="4pE-Jm-zMW" firstAttribute="leading" secondItem="GE7-Tv-xY4" secondAttribute="trailing" constant="8" symbolic="YES" id="x5j-6N-Pwv"/>
                     <constraint firstAttribute="trailing" secondItem="ESe-rn-oKq" secondAttribute="trailing" constant="5" id="yHC-F0-a5u"/>
                     <constraint firstItem="GE7-Tv-xY4" firstAttribute="leading" secondItem="1iM-qo-BO9" secondAttribute="trailing" constant="10" id="yXp-Ig-JxS"/>
                 </constraints>
@@ -82,14 +93,18 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="icEditNote" width="24" height="24"/>
         <namedColor name="backgroundColor">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="colorPrimary">
+            <color red="0.31764705882352939" green="0.50980392156862742" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="customDarkGray">
             <color red="0.33300000429153442" green="0.33300000429153442" blue="0.33300000429153442" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemPinkColor">
-            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

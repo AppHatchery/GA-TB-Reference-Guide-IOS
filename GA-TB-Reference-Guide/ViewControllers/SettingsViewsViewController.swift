@@ -47,9 +47,10 @@ class SettingsViewsViewController: UIViewController, WKUIDelegate, WKNavigationD
         navbarTitle.font = UIFont.boldSystemFont(ofSize: 16.0)
         navbarTitle.numberOfLines = 2
         navbarTitle.textAlignment = .center
-        navbarTitle.minimumScaleFactor = 0.5
+        navbarTitle.minimumScaleFactor = 0.7
         navbarTitle.adjustsFontSizeToFitWidth = true
         navigationItem.titleView = navbarTitle
+        navigationItem.backButtonDisplayMode = .minimal
         
         setupUI()
         
@@ -125,7 +126,7 @@ class SettingsViewsViewController: UIViewController, WKUIDelegate, WKNavigationD
             } else {
                 sliderControl(state: 150)
             }
-        } else if fontSizeLabel == "ExtraLarge"{
+        } else if fontSizeLabel == "Extra Large"{
             if sender.value > 0.95 && sender.value < 1.25 {
                 sliderControl(state: 100)
             } else if sender.value <= 0.95 {
@@ -186,7 +187,7 @@ class SettingsViewsViewController: UIViewController, WKUIDelegate, WKNavigationD
         case 175:
             fontSlider.setValue(1.75, animated: false)
             fontNumber = 175
-            fontSizeLabel = "ExtraLarge"
+            fontSizeLabel = "Extra Large"
         default:
             fontSlider.setValue(1.1, animated: false)
             fontNumber = 100

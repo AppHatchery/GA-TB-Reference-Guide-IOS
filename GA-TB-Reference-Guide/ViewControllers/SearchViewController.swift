@@ -72,6 +72,15 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 	var showChapters: Bool = false
 	var showCharts: Bool = false
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        // Focus search bar when returning to this view
+        if !isFiltering || searchTerm.isEmpty {
+            search.becomeFirstResponder()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -82,19 +91,35 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         navbarTitle.font = UIFont.boldSystemFont(ofSize: 16.0)
         navbarTitle.numberOfLines = 2
         navbarTitle.textAlignment = .center
-        navbarTitle.minimumScaleFactor = 0.5
+        navbarTitle.minimumScaleFactor = 0.7
         navbarTitle.adjustsFontSizeToFitWidth = true
         navigationItem.titleView = navbarTitle
+        navigationItem.backButtonDisplayMode = .minimal
         
         search.delegate = self
 
-        let textFieldInsideSearchBar = search.value(forKey: "searchField") as? UITextField
-        textFieldInsideSearchBar?.textColor = UIColor.searchBarText
-        textFieldInsideSearchBar?.attributedPlaceholder = NSAttributedString(string: "Search Guide",attributes: [NSAttributedString.Key.foregroundColor: UIColor.searchBarText])
-        textFieldInsideSearchBar?.layer.cornerRadius = 60
-        textFieldInsideSearchBar?.backgroundColor = UIColor.searchBar
-        searchView.frame = CGRect(x: searchView.frame.origin.x, y: searchView.frame.origin.x, width: searchView.frame.width, height: search.frame.height+10)
-		
+		guard let textField = search.value(forKey: "searchField") as? UITextField else { return }
+
+			// Searchbar configuration
+		textField.textColor = UIColor.searchBarText
+		textField.attributedPlaceholder = NSAttributedString(
+			string: "Enter Keywords to Search",
+			attributes: [.foregroundColor: UIColor.searchBarText]
+		)
+		textField.layer.cornerRadius = 60
+		textField.backgroundColor = UIColor.searchBar
+
+		searchView.frame = CGRect(
+			x: searchView.frame.origin.x,
+			y: searchView.frame.origin.y,
+			width: searchView.frame.width,
+			height: search.frame.height + 10
+		)
+
+		textField.setSearchIcon(UIImage(named: "magnifyingGlass"), tintColor: UIColor.searchBarText)
+		textField
+			.setClearButton(UIImage(named: "icClear"), tintColor: UIColor.colorPrimary)
+
         navigationController?.navigationBar.setGradientBackground(to: self.navigationController!)
         navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -279,19 +304,20 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         self.chartsButton.addTarget(self, action: #selector(showChartsOnly), for: .touchUpInside)
     }
     
-	
+
 	//----------------------------------------------------------------------------------------------
 	// Search Tabs Implementation
 	
-    private func activeTabConfig(_ button: UIButton, isActive: Bool) {
-        UIView.performWithoutAnimation {
-            button.backgroundColor = isActive ? .dialogColor : .backgroundColor
-            button.tintColor = isActive ? .white : .label
-            button.isEnabled = true
-            button.setNeedsDisplay()
-        }
-    }
-	
+	private func activeTabConfig(_ button: UIButton, isActive: Bool) {
+		UIView.performWithoutAnimation {
+			button.backgroundColor = isActive ? .colorPrimary : .colorBackgroundSecondary
+			button.tintColor = isActive ? .colorWhite : .colorText
+			button.setTitleColor(isActive ? .colorWhite : .colorText, for: .normal)
+			button.isEnabled = true
+			button.layoutIfNeeded()
+		}
+	}
+
 	private func updateSearchResults(_ results: [String], description: String) {
 		allSearchResults = results
 		tableView.reloadData()
@@ -461,34 +487,92 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 					let subchapterNameIndex = tempChartsHTML.firstIndex(of: chartResults[indexPath.row]) ?? 0
 					
 					// For Charts, Table Names should appear first
-					cell.subchapterLabel.text = chartNames[subchapterNameIndex]
-					cell.chapterLabel.text = chapterIndex.chartmapsubchapter[subchapterNameIndex]
+					cell.subchapterLabel.text = chartNames.indices.contains(subchapterNameIndex) ? chartNames[subchapterNameIndex] : nil
+					// Use chartmapsubchapter for charts
+					if chapterIndex.chartmapsubchapter.indices.contains(subchapterNameIndex) {
+						cell.chapterLabel.text = chapterIndex.chartmapsubchapter[subchapterNameIndex]
+					} else {
+						cell.chapterLabel.text = ""
+					}
 					
 					let TSTrange = chartResults[indexPath.row].lowercased().range(of: searchTerm.lowercased())
 					let startRange = chartResults[indexPath.row].index(TSTrange?.lowerBound ?? chartResults[indexPath.row].startIndex, offsetBy: -30, limitedBy: chartResults[indexPath.row].startIndex) ?? chartResults[indexPath.row].startIndex
 					let endRange = chartResults[indexPath.row].index(TSTrange?.lowerBound ?? chartResults[indexPath.row].endIndex, offsetBy: 90, limitedBy: chartResults[indexPath.row].endIndex) ?? chartResults[indexPath.row].endIndex
 					cell.contentLabel.text = "..." + String(chartResults[indexPath.row][startRange..<endRange]) + "..."
+
+					if let chartName = cell.subchapterLabel.text,
+                       chartName
+                        .range(
+                            of: #"^Table \d+:"#,
+                            options: .regularExpression
+                        ) != nil || chartName
+                        .range(
+                            of: #"^Figure 1."#,
+                            options: .regularExpression
+                        ) != nil {
+						cell.chapterIcon.image = UIImage(named: "icChartGreen")
+					} else {
+						cell.chapterIcon.image = UIImage(named: "icChapterBlue")
+					}
 				} else if showChapters {
-					let subchapterNameIndex = tempChaptersHTML.firstIndex(of: chapterResults[indexPath.row]) ?? 0
+					// Safely resolve index into tempChaptersHTML, then map to names/labels only if within bounds
+					guard indexPath.row < chapterResults.count else { return cell }
+					guard let subchapterNameIndex = tempChaptersHTML.firstIndex(of: chapterResults[indexPath.row]) else {
+						// If the filtered result cannot be mapped back, clear labels to avoid crash
+						cell.subchapterLabel.text = ""
+						cell.chapterLabel.text = ""
+						cell.contentLabel.text = ""
+						cell.chapterIcon.image = UIImage(named: "icChapterBlue")
+						return cell
+					}
 					
-					cell.subchapterLabel.text = chapterIndex.subChapterNames[subchapterNameIndex]
-					cell.chapterLabel.text = chapterIndex.chaptermapsubchapter[subchapterNameIndex]
+					if chapterIndex.subChapterNames.indices.contains(subchapterNameIndex) {
+						cell.subchapterLabel.text = chapterIndex.subChapterNames[subchapterNameIndex]
+					} else {
+						cell.subchapterLabel.text = ""
+					}
 					
-					let TSTrange = chapterResults[indexPath.row].lowercased().range(of: searchTerm.lowercased())
-					let startRange = chapterResults[indexPath.row].index(TSTrange?.lowerBound ?? chapterResults[indexPath.row].startIndex, offsetBy: -30, limitedBy: chapterResults[indexPath.row].startIndex) ?? chapterResults[indexPath.row].startIndex
-					let endRange = chapterResults[indexPath.row].index(TSTrange?.lowerBound ?? chapterResults[indexPath.row].endIndex, offsetBy: 90, limitedBy: chapterResults[indexPath.row].endIndex) ?? chapterResults[indexPath.row].endIndex
-					cell.contentLabel.text = "..." + String(chapterResults[indexPath.row][startRange..<endRange]) + "..."
+					if chapterIndex.chaptermapsubchapter.indices.contains(subchapterNameIndex) {
+						cell.chapterLabel.text = chapterIndex.chaptermapsubchapter[subchapterNameIndex]
+					} else {
+						cell.chapterLabel.text = ""
+					}
+					
+					let text = chapterResults[indexPath.row]
+					let TSTrange = text.lowercased().range(of: searchTerm.lowercased())
+					let startRange = text.index(TSTrange?.lowerBound ?? text.startIndex, offsetBy: -30, limitedBy: text.startIndex) ?? text.startIndex
+					let endRange = text.index(TSTrange?.lowerBound ?? text.endIndex, offsetBy: 90, limitedBy: text.endIndex) ?? text.endIndex
+					cell.contentLabel.text = "..." + String(text[startRange..<endRange]) + "..."
+					cell.chapterIcon.image = UIImage(named: "icChapterBlue")
 				} else {
 					let subchapterNameIndex = tempHTML.firstIndex(of: allSearchResults[indexPath.row]) ?? 0
 
 					cell.subchapterLabel.text = chapterIndex.subChapterNames[subchapterNameIndex]
-					cell.chapterLabel.text = chapterIndex.chaptermapsubchapter[subchapterNameIndex]
+					if chapterIndex.chaptermapsubchapter.indices.contains(subchapterNameIndex) {
+						cell.chapterLabel.text = chapterIndex.chaptermapsubchapter[subchapterNameIndex]
+					} else {
+						cell.chapterLabel.text = ""
+					}
 					
 					let TSTrange = allSearchResults[indexPath.row].lowercased().range(of: searchTerm.lowercased())
 					let startRange = allSearchResults[indexPath.row].index(TSTrange?.lowerBound ?? allSearchResults[indexPath.row].startIndex, offsetBy: -30, limitedBy: allSearchResults[indexPath.row].startIndex) ?? allSearchResults[indexPath.row].startIndex
 					let endRange = allSearchResults[indexPath.row].index(TSTrange?.lowerBound ?? allSearchResults[indexPath.row].endIndex, offsetBy: 90, limitedBy: allSearchResults[indexPath.row].endIndex) ?? allSearchResults[indexPath.row].endIndex
 					cell.contentLabel.text = "..." + String(allSearchResults[indexPath.row][startRange..<endRange]) + "..."
+
+						// Check if the chart name starts with "Table X:" where X is an integer
+					if let chartName = cell.subchapterLabel.text,
+						chartName.range(of: #"^Table \d+:"#, options: .regularExpression) != nil || chartName
+                        .range(
+                            of: #"^Figure 1."#,
+                            options: .regularExpression
+                        ) != nil {
+						cell.chapterIcon.image = UIImage(named: "icChartGreen")
+					} else {
+							// Invalid format (does not start with "Table X:")
+						cell.chapterIcon.image = UIImage(named: "icChapterBlue")
+					}
 				}
+
 				let terms = searchTerm.lowercased().split(separator: " ").map({ String($0) as NSString }) + [searchTerm as NSString]
 				cell.contentLabel.attributedText = addBoldText(fullString: cell.contentLabel.text! as NSString, boldPartsOfString: terms)
 				cell.contentLabel.isHidden = false
@@ -522,33 +606,46 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == self.tableView {
-            if isFiltering {
-				switch (showCharts, showChapters) {
-					case (true, _):
-						subArrayPointer = tempChartsHTML.firstIndex(of: chartResults[indexPath.row]) ?? 0
-					case (_, true):
-						subArrayPointer = tempChaptersHTML.firstIndex(of: chapterResults[indexPath.row]) ?? 0
-					default:
-						subArrayPointer = tempHTML.firstIndex(of: allSearchResults[indexPath.row]) ?? 0
-				}
-				
-            } else {
-                subArrayPointer = indexPath.row
-            }
+                if isFiltering {
+                    switch (showCharts, showChapters) {
+                        case (true, _):
+                            subArrayPointer = tempChartsHTML.firstIndex(of: chartResults[indexPath.row]) ?? 0
+                        case (_, true):
+                            // Safely derive pointer for chapters only
+                            if indexPath.row < chapterResults.count,
+                               let idx = tempChaptersHTML.firstIndex(of: chapterResults[indexPath.row]) {
+                                subArrayPointer = idx
+                            } else {
+                                tableView.deselectRow(at: indexPath, animated: true)
+                                return
+                            }
+                        default:
+                            subArrayPointer = tempHTML.firstIndex(of: allSearchResults[indexPath.row]) ?? 0
+                    }
+                    
+                } else {
+                    subArrayPointer = indexPath.row
+                }
+                
+                // FIX: Use charts mapping for charts
+                if showCharts {
+                    navTitle = chapterIndex.chartmapsubchapter.indices.contains(subArrayPointer) ? chapterIndex.chartmapsubchapter[subArrayPointer] : ""
+                } else {
+                    navTitle = chapterIndex.chaptermapsubchapter.indices.contains(subArrayPointer) ? chapterIndex.chaptermapsubchapter[subArrayPointer] : ""
+                }
             
-			navTitle = showCharts ? chapterIndex.chartmapsubchapter[indexPath.row] : chapterIndex.chaptermapsubchapter[indexPath.row]
-		
-            addRecentSearch(searchTerm: searchTerm)
+                addRecentSearch(searchTerm: searchTerm)
 
-            // Analytics and tracking code
-            Analytics.logEvent("search", parameters: [
-                "search": (searchTerm) as String,
-            ])
-            
-            PendoManager.shared().track("search", properties: ["searchTerm": searchTerm, "selectedResult": chapterIndex.subChapterNames[indexPath.row]])
-            
-            performSegue(withIdentifier: "SegueToWebViewViewController", sender: nil)
-        } else if tableView == self.searchSuggestionsTableView {
+                // Analytics and tracking code
+                Analytics.logEvent("search", parameters: [
+                    "search": (searchTerm) as String,
+                ])
+                
+                let safeIndex = min(subArrayPointer, max(0, chapterIndex.subChapterNames.count - 1))
+                PendoManager.shared().track("search", properties: ["searchTerm": searchTerm, "selectedResult": chapterIndex.subChapterNames.indices.contains(safeIndex) ? chapterIndex.subChapterNames[safeIndex] : ""])
+                
+                performSegue(withIdentifier: "SegueToWebViewViewController", sender: nil)
+            } else if tableView == self.searchSuggestionsTableView {
             search.text = suggestionsList[indexPath.row]
             searchTerm = suggestionsList[indexPath.row]
 			
@@ -697,44 +794,60 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     }
     
     //--------------------------------------------------------------------------------------------------
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		if let webViewViewController = segue.destination as? WebViewViewController {
-			let url: URL
-			let titleLabel: String
-			let uniqueAddress: String
-			
-			switch (showCharts, showChapters) {
-				case (true, _):
-					let chartCodes = Array(chapterIndex.chartCode.joined())
-					let chartNested = Array(chapterIndex.chartNested.joined())
-					url = Bundle.main.url(forResource: chartCodes[subArrayPointer], withExtension: "html")!
-					titleLabel = chartNested[subArrayPointer]
-					uniqueAddress = chartCodes[subArrayPointer]
-					
-				case (_, true):
-					let chapterCodes = Array(chaptersOnly.joined())
-					let chapterNested = Array(chapterIndex.chapterNested.joined())
-					url = getFileURL(for: chapterCodes[subArrayPointer])
-					titleLabel = chapterNested[subArrayPointer]
-					uniqueAddress = chapterCodes[subArrayPointer]
-					
-				default:
-					let chapterCodes = Array(chapterIndex.chapterCode.joined())
-					let chapterNested = Array(chapterIndex.chapterNested.joined())
-					url = getFileURL(for: chapterCodes[subArrayPointer])
-					titleLabel = chapterNested[subArrayPointer]
-					uniqueAddress = chapterCodes[subArrayPointer]
-			}
-			
-			webViewViewController.url = url
-			webViewViewController.titlelabel = titleLabel
-			webViewViewController.uniqueAddress = uniqueAddress
-			webViewViewController.navTitle = navTitle
-			webViewViewController.comingFromSearch = true
-			webViewViewController.searchTerm = search.text?.isEmpty == false ? search.text : nil
-			webViewViewController.hidesBottomBarWhenPushed = true
-		}
-	}
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let webViewViewController = segue.destination as? WebViewViewController {
+            let url: URL
+            let titleLabel: String
+            let uniqueAddress: String
+
+            switch (showCharts, showChapters) {
+                case (true, _):
+                    let chartCodes = Array(chapterIndex.chartCode.joined())
+                    let chartNested = Array(chapterIndex.chartNested.joined())
+                    guard subArrayPointer < chartCodes.count,
+                          subArrayPointer < chartNested.count,
+                          subArrayPointer < chapterIndex.chartmapsubchapter.count else {
+                        return
+                    }
+                    url = Bundle.main.url(forResource: chartCodes[subArrayPointer], withExtension: "html")!
+                    titleLabel = chartNested[subArrayPointer]
+                    uniqueAddress = chartCodes[subArrayPointer]
+
+                case (_, true):
+                    let chapterCodes = Array(chaptersOnly.joined())
+                    let chapterNested = Array(chapterIndex.chapterNested.joined())
+                    guard subArrayPointer < chapterCodes.count,
+                          subArrayPointer < chapterNested.count else {
+                        return
+                    }
+                    url = getFileURL(for: chapterCodes[subArrayPointer])
+                    titleLabel = chapterNested[subArrayPointer]
+                    uniqueAddress = chapterCodes[subArrayPointer]
+
+                default:
+                    let chapterCodes = Array(chapterIndex.chapterCode.joined())
+                    let chapterNested = Array(chapterIndex.chapterNested.joined())
+                    guard subArrayPointer < chapterCodes.count,
+                          subArrayPointer < chapterNested.count else {
+                        return
+                    }
+                    url = getFileURL(for: chapterCodes[subArrayPointer])
+                    titleLabel = chapterNested[subArrayPointer]
+                    uniqueAddress = chapterCodes[subArrayPointer]
+            }
+
+            webViewViewController.url = url
+            webViewViewController.titlelabel = titleLabel
+            webViewViewController.uniqueAddress = uniqueAddress
+
+            webViewViewController.navTitle = titleLabel
+
+            webViewViewController.comingFromSearch = true
+            webViewViewController.searchTerm = search.text?.isEmpty == false ? search.text : nil
+            webViewViewController.hidesBottomBarWhenPushed = true
+        }
+    }
+
     
     //--------------------------------------------------------------------------------------------------
     // Bolding function from online - https://exceptionshub.com/making-text-bold-using-attributed-string-in-swift.html
@@ -743,9 +856,17 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         let boldString = NSMutableAttributedString(string: fullString as String, attributes:nonBoldFontAttribute)
         let lowercase = fullString.lowercased as NSString
         for i in 0 ..< boldPartsOfString.count {
-            boldString.addAttribute(.backgroundColor, value: UIColor.yellow, range: lowercase.range(of: boldPartsOfString[i] as String))
-            boldString.addAttribute(.foregroundColor, value: UIColor.black, range: lowercase.range(of: boldPartsOfString[i] as String))
+            //            boldString
+            //                .addAttribute(
+            //                    .backgroundColor,
+            //                    value: UIColor.colorYellow,
+            //                    range: lowercase.range(of: boldPartsOfString[i] as String)
+            //                )
+            let range = lowercase.range(of: boldPartsOfString[i] as String)
+            boldString.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 12), range: range)
+            boldString.addAttribute(.foregroundColor, value: UIColor.colorPrimary, range: lowercase.range(of: boldPartsOfString[i] as String))
         }
         return boldString
     }
 }
+

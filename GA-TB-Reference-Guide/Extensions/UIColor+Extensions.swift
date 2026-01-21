@@ -19,16 +19,6 @@ extension UIColor
         return UIColor( named: "customDarkBrown" )!
     }
     
-    class var dialogColor : UIColor
-    {
-        return UIColor(named: "dialogColor" )!
-    }
-    
-    class var dialogIcons : UIColor
-    {
-        return UIColor(named: "dialogIcons" )!
-    }
-    
     class var custom333: UIColor
     {
         return UIColor(named: "custom333")!
@@ -59,6 +49,16 @@ extension UIColor
         return UIColor(named: "backgroundColor")!
     }
     
+    class var colorBackground: UIColor
+    {
+        return UIColor(named: "colorBackground")!
+    }
+
+	class var colorBackgroundSecondary: UIColor
+	{
+		return UIColor(named: "colorBackgroundSecondary")!
+	}
+
     class var groupBackgroundColor: UIColor
     {
         return UIColor(named: "groupBackgroundColor")!
@@ -68,4 +68,34 @@ extension UIColor
     {
         return UIColor(named: "groupColor")!
     }
+
+	class var colorPrimary: UIColor
+	{
+		return UIColor(named: "colorPrimary")!
+	}
+    
+    class var colorGreen: UIColor
+    {
+        return UIColor(named: "colorGreen")!
+    }
+
+	class var colorWhite: UIColor
+	{
+		return UIColor(named: "colorWhite")!
+	}
+
+	class var colorYellow: UIColor
+	{
+		return UIColor(named: "colorYellow")!
+	}
+
+	class var colorText: UIColor
+	{
+		return UIColor(named: "colorText")!
+	}
+
+	class var colorTextDarker: UIColor
+	{
+		return UIColor(named: "colorTextDarker")!
+	}
 }

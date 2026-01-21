@@ -32,34 +32,45 @@ func isFileDownloaded(for filename: String, withExtension fileExtension: String 
 }
 
 func updateFileIfDownloaded(filename: String, withExtension fileExtension: String = "html") {
-	let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-	let filePath = documentsPath.appendingPathComponent("\(filename).\(fileExtension)")
+    let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    let filePath = documentsPath.appendingPathComponent("\(filename).\(fileExtension)")
 
-	if FileManager.default.fileExists(atPath: filePath.path) {
-		do {
-			var fileContent = try String(contentsOf: filePath, encoding: .utf8)
+    if FileManager.default.fileExists(atPath: filePath.path) {
+        do {
+            var fileContent = try String(contentsOf: filePath, encoding: .utf8)
 
-			if let iconURL = Bundle.main.url(forResource: "ic_title_icon", withExtension: "svg") {
-				let iconPath = iconURL.relativePath
+            // Try different ways to locate the SVG file
+            if let iconURL = Bundle.main.url(forResource: "ic_title_icon", withExtension: "svg") ??
+                              Bundle.main.url(forResource: "ic_title_icon.svg", withExtension: nil) {
+                
+                let iconPath = iconURL.path
+                
+                print("Found icon at: \(iconPath)") // Debug print
+                
+                // More flexible regex that matches the img tag with class="ic_title_icon"
+                let pattern = #"<img[^>]*class="ic_title_icon"[^>]*>"#
+                let updatedImgTag = #"<img alt="aut" src="\#(iconPath)" width="50" height="50" class="ic_title_icon">"#
+                
+                fileContent = fileContent.replacingOccurrences(of: pattern, with: updatedImgTag, options: .regularExpression)
 
-				// Replace replace the existing <img />  tag with new <img /> with relative path
-				// It is this way because the image src will not always be "../assets/ic_title_icon.svg" after the first update/download
-
-				let updatedImgTag = #"<img alt="aut" src="\#(iconPath)" width="50" height="50"/>"#
-				fileContent = fileContent.replacingOccurrences(of: #"<img alt="aut" src=".*?"/>"#, with: updatedImgTag, options: .regularExpression)
-
-				print(fileContent)
-
-					// Optionally, write the updated content back to the file
-					// Failure to update the existing fileContent will not update what the user sees
-				try fileContent.write(to: filePath, atomically: true, encoding: .utf8)
-			} else {
-				print("Icon file not found in the bundle!")
-			}
-		} catch {
-			print("Error reading or writing file: \(error.localizedDescription)")
-		}
-	} else {
-		print("File \(filename).\(fileExtension) not found!")
-	}
+                // Write the updated content back to the file
+                try fileContent.write(to: filePath, atomically: true, encoding: .utf8)
+                print("Successfully updated image source")
+            } else {
+                // List all bundle resources to debug
+//                print("Icon file not found in the bundle!")
+                if let bundlePath = Bundle.main.resourcePath {
+//                    print("Bundle path: \(bundlePath)")
+                    // Check if file exists at bundle path
+                    let potentialIconPath = "\(bundlePath)/ic_title_icon.svg"
+//                    print("Checking: \(potentialIconPath)")
+//                    print("Exists: \(FileManager.default.fileExists(atPath: potentialIconPath))")
+                }
+            }
+        } catch {
+            print("Error reading or writing file: \(error.localizedDescription)")
+        }
+    } else {
+        print("File \(filename).\(fileExtension) not found!")
+    }
 }
