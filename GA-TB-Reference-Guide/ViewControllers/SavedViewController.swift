@@ -68,7 +68,6 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register( UITableViewCell.self, forCellReuseIdentifier: type(of: self).description())
-        tableView.register(UINib(nibName: "NoteTableViewCell", bundle: nil), forCellReuseIdentifier: "noteCell")
         tableView.register(UINib(nibName: "BookmarkTableViewCell", bundle: nil), forCellReuseIdentifier: "bookmarkCell")
         tableView.estimatedRowHeight = 80
         tableView.estimatedRowHeight = UITableView.automaticDimension
@@ -201,17 +200,7 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if isNotes {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "noteCell", for: indexPath) as! NoteTableViewCell
-            cell.backgroundColor = .clear
-            cell.header.text = "In \(notesTitles[indexPath.row])"
-            cell.content.text = notesContent[indexPath.row]
-            cell.colorTag.backgroundColor = colorTags[notesColors[indexPath.row]]
-            tableViewCells[indexPath.row] = cell
-            
-            return cell
-        } else if isFavorite {
+        if isFavorite {
 
             let cell = tableView.dequeueReusableCell(withIdentifier: "bookmarkCell", for: indexPath) as! BookmarkTableViewCell
             cell.backgroundColor = .clear
@@ -272,10 +261,6 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
             
             return cell
         }
-//        tableViewCells[indexPath.row] = cell
-//
-//
-//        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
