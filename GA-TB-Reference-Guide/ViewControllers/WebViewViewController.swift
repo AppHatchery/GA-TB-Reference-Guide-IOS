@@ -98,13 +98,14 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let searchTerm = searchTerm, comingFromSearch, !searchTerm.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty{
+        if let searchTerm = searchTerm, comingFromSearch, !searchTerm.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             search.text = searchTerm
+            let current = self.search.text ?? searchTerm
             
-            searchTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { [weak self] _ in
-                self?.performRealTimeSearch(term: searchTerm)
-                self?.searchNavStackView.isHidden = false
-            }
+            // Show immediately to avoid perceived delay
+            self.searchNavStackView.isHidden = false
+            self.searchNavStackView.alpha = 1
+            self.searchNavStackView.transform = .identity
         } else {
             self.searchNavStackView.isHidden = true
         }
@@ -121,9 +122,6 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             metadataView.frame.size.height = 0
         }
 
-//         The -100 accounts for back button and any right bar button items
-
-//        self.title = navTitle
         self.hidesBottomBarWhenPushed = true
                 
         titleLabel.text = titlelabel
@@ -132,59 +130,6 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         viewNotesButton.layer.cornerRadius = 15
         viewNotesButton.adjustsImageWhenHighlighted = false
         viewNotesButton.dropShadow()
-        
-//        contentView.topAnchor.constraint(equalTo: pseudoseparator.bottomAnchor, constant: 5).isActive = true
-        
-//        setupUI()
-        
-//        // Realm
-//        try! realm!.write
-//        {
-//            // Should only add a new entry if this entry is not already added there
-//            if let currentContent = realm!.object(ofType:ContentPage.self, forPrimaryKey: uniqueAddress){
-//                currentContent.lastOpened = Date()
-//                currentContent.openedTimes += 1
-//                // Assign the older entry to the current variable
-//                content = currentContent
-//            } else {
-//                content = ContentPage()
-//                content.name = titlelabel
-//                content.url = uniqueAddress
-//                content.chapterParent = navTitle
-//                content.lastOpened = Date()
-//                content.openedTimes += 1
-//                // Add it to Realm
-//                realm!.add(content)
-//            }
-//
-//            // Save recently viewed chapters list
-//            let lastAccessed = realm!.objects(ContentAccess.self)
-//            // This determines the buffer that we are allowing
-//            if lastAccessed.count > 7 {
-//                realm!.delete(lastAccessed[0])
-//            }
-//
-//            // Save history
-//            if lastAccessed.filter("url == '\(content.url)'").count == 0 {
-//                print("Thinks history is false")
-//                let currentAccessedContent = ContentAccess()
-//                currentAccessedContent.name = titlelabel
-//                currentAccessedContent.url = uniqueAddress
-//                currentAccessedContent.chapterParent = navTitle
-//                currentAccessedContent.date = Date()
-//                realm!.add(currentAccessedContent)
-//
-//                content.isHistory = true // This statement is useless unless I also change the variable when content is history gets refreshed
-//            } else {
-//                // Should move entry to the top of the history list...
-//                let newAccessed = lastAccessed.filter("url == '\(content.url)'")
-//                newAccessed[0].date = Date()
-//            }
-//        }
-//
-//        if content.favorite == true {
-//            favoriteIcon.setImage(UIImage(systemName: "star.fill"), for: .normal)
-//        }
         
         // Create WebView Content
         let config = WKWebViewConfiguration()
@@ -528,62 +473,6 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             favoriteIcon.setAttributedTitle(bookmarkedText, for: .normal)
         }
         
-        
-       
-        // Realm
-//        try! realm!.write
-//        {
-//            // Should only add a new entry if this entry is not already added there
-//            if let currentContent = RealmHelper.sharedInstance.mainRealm()!.object(ofType:ContentPage.self, forPrimaryKey: uniqueAddress){
-//                currentContent.lastOpened = Date()
-//                currentContent.openedTimes += 1
-//                // Assign the older entry to the current variable
-//                content = currentContent
-//            } else {
-//                content = ContentPage()
-//                content.name = titlelabel
-//                content.url = uniqueAddress
-//                content.chapterParent = navTitle
-//                content.lastOpened = Date()
-//                content.openedTimes += 1
-//                // Add it to Realm
-//                realm!.add(content)
-//            }
-//
-//            // Save recently viewed chapters list
-//            let lastAccessed = realm!.objects(ContentAccess.self)
-//            // This determines the buffer that we are allowing
-//            if lastAccessed.count > 7 {
-//                realm!.delete(lastAccessed[0])
-//            }
-//
-//            // Save history
-//            if lastAccessed.filter("url == '\(content.url)'").count == 0 {
-//                print("Thinks history is false")
-//                let currentAccessedContent = ContentAccess()
-//                currentAccessedContent.name = titlelabel
-//                currentAccessedContent.url = uniqueAddress
-//                currentAccessedContent.chapterParent = navTitle
-//                currentAccessedContent.date = Date()
-//                realm!.add(currentAccessedContent)
-//
-//                content.isHistory = true // This statement is useless unless I also change the variable when content is history gets refreshed
-//            } else {
-//                // Should move entry to the top of the history list...
-//                let newAccessed = lastAccessed.filter("url == '\(content.url)'")
-//                newAccessed[0].date = Date()
-//            }
-//        }
-//
-//        if content.favorite == true {
-//            favoriteIcon.setImage(UIImage(systemName: "star.fill"), for: .normal)
-//        }
-        
-        // Load table if there are notes saved for this chapter
-//        if content.notes.count > 0 {
-//            loadTable()
-//        }
-        
         updateNotesButton()
     }
     
@@ -595,29 +484,9 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             favoriteIcon.setImage(UIImage(named: "icBookmarksFolder"), for: .normal)
             favoriteIcon.setAttributedTitle(bookmarkText, for: .normal)
         }
-//        // Load table if there are notes saved for this chapter
-//        if content.notes.count > 0 {
-//            if tableView.superview == nil {
-//                loadTable()
-//            } else {
-//                tableView.reloadData()
-//            }
-//        } else {
-//            removeTable()
-//        }
         
         // Add observer to the WebView so that when the URL changes it triggers our detection function
         webView.addObserver(self, forKeyPath: "URL", options: [.new, .old], context: nil)
-        // Only automate zoom feature for charts
-//        if content.name.contains("Table"){
-//            // Zoom to maximum capacity
-//            webView.scrollView.setZoomScale(0.1, animated: true)
-//            let rw = webView.scrollView.zoomScale
-//            webView.scrollView.minimumZoomScale = rw
-//            webView.scrollView.maximumZoomScale = rw
-//            webView.scrollView.zoomScale = rw
-//
-//        }
         
         // This removes the favoriting if it gets deleted in the saved page
             if content.favorite == false {
@@ -875,42 +744,33 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     }
     
     func highlightSearchWithCount(term: String) {
-        var terms = term.split(separator: " ").map({String($0)})
-        if !terms.contains(term) {terms.append(term)}
-        
+        let trimmed = term.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else {
+            removeHighlights()
+            searchNavStackView.isHidden = true
+            totalSearchResults = 0
+            currentSearchResultIndex = 0
+            updateSearchResultsDisplay()
+            return
+        }
         if let path = Bundle.main.url(forResource: "WebView", withExtension: "js") {
             do {
                 let data: Data = try Data(contentsOf: path)
                 let jsCode: String = String(decoding: data, as: UTF8.self)
-                
-                // Inject the search code
                 webView.evaluateJavaScript(jsCode, completionHandler: nil)
-                
-                // Use ONLY the new navigation-enabled function for the first term
-                let searchString = "WKWebView_HighlightAllOccurencesOfStringWithNavigation('\(terms[0])', true)"
+
+                let escaped = trimmed.replacingOccurrences(of: "'", with: "\\'")
+                let searchString = "WKWebView_HighlightAllOccurencesOfStringWithNavigation('\(escaped)', true)"
                 webView.evaluateJavaScript(searchString) { [weak self] (result, error) in
-                    if let error = error {
-                        print("Error highlighting: \(error)")
-                    } else if let count = result as? Int {
+                    if let count = result as? Int {
                         self?.totalSearchResults = count
                         self?.currentSearchResultIndex = count > 0 ? 1 : 0
-                        
                         DispatchQueue.main.async {
+                            self?.searchNavStackView.isHidden = count == 0
                             self?.updateSearchResultsDisplay()
                         }
                     }
                 }
-                
-                // For additional terms, use the original function to avoid interfering with navigation
-                for i in 1..<terms.count {
-                    let additionalSearchString = "WKWebView_HighlightAllOccurencesOfString('\(terms[i])', false)"
-                    webView.evaluateJavaScript(additionalSearchString) { [weak self] (result, error) in
-                        if let error = error {
-                            print("Error highlighting additional term: \(error)")
-                        }
-                    }
-                }
-                
             } catch {
                 print("Could not load javascript: \(error)")
             }
@@ -984,9 +844,6 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     @IBAction func toggleFavorite(_ sender: UIButton){
         let windowScene = UIApplication.shared.connectedScenes.first as! UIWindowScene
         let sceneDelegate = windowScene.delegate as! SceneDelegate
-        
-        print("CONTENT")
-        print(content)
         
         if let window = sceneDelegate.window
         {
@@ -1141,7 +998,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         if let urlHeader = webView.url?.absoluteString, urlHeader.hasPrefix("file:///"){
             
             let path = Bundle.main.path(forResource: "uikit", ofType: "css")!
-            // This converts a multiline string into a single file, the .whitespacesandnewlines doesn't work to do that job
+            // This converts a multiline string into a single file, the .whitespacesandNewlines doesn't work to do that job
             let cssString = try! String(contentsOfFile: path).replacingOccurrences(of: "\n", with: "", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
             let jsString = "var style = document.createElement('style'); style.innerHTML = '\(cssString)'; document.head.appendChild(style);"
             
@@ -1168,7 +1025,37 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             // AUTO-EXPAND TOGGLES WHEN COMING FROM SEARCH
             expandAllToggles()
             
-            if let searchTerm = searchTerm {
+            if let searchTerm = searchTerm, comingFromSearch {
+                // Use exact current text if available
+                let term = (self.search.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false) ? (self.search.text ?? searchTerm) : searchTerm
+                self.highlightSearchWithCount(term: term)
+
+                // Direct, immediate call to jump to first result (no delay)
+                self.webView.evaluateJavaScript("WKWebView_GetSearchInfo()") { [weak self] (infoResult, infoError) in
+                    guard let self = self else { return }
+                    if let infoDict = infoResult as? [String: Any], let total = infoDict["totalResults"] as? Int {
+                        self.totalSearchResults = total
+                        if total > 0 {
+                            self.currentSearchResultIndex = 1
+                            self.searchNavStackView.isHidden = false
+                            self.updateSearchResultsDisplay()
+                            self.webView.evaluateJavaScript("WKWebView_GoToNextSearchResult()", completionHandler: nil)
+                        } else {
+                            self.currentSearchResultIndex = 0
+                            self.searchNavStackView.isHidden = true
+                            self.updateSearchResultsDisplay()
+                        }
+                    } else {
+                        // Fallback: still try to move to first result
+                        self.webView.evaluateJavaScript("WKWebView_GoToNextSearchResult()", completionHandler: nil)
+                        self.currentSearchResultIndex = max(1, self.currentSearchResultIndex)
+                        self.searchNavStackView.isHidden = false
+                        self.updateSearchResultsDisplay()
+                    }
+                }
+            }
+            
+            else if let searchTerm = searchTerm {
                 highlightSearch(term: searchTerm)
             }
             
@@ -1564,7 +1451,8 @@ extension WebViewViewController: UISearchBarDelegate {
             searchTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { [weak self] _ in
                 guard let self = self else { return }
                 
-                self.performRealTimeSearch(term: searchText)
+                let current = self.search.text ?? ""
+                self.performRealTimeSearch(term: current)
                 
                 // Only animate in if it's currently hidden
                 if shouldAnimateIn {
@@ -1583,15 +1471,9 @@ extension WebViewViewController: UISearchBarDelegate {
         }
         
         func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-            guard let searchText = searchBar.text, !searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-                return
-            }
-            
-            // Cancel timer and search immediately
+            guard let current = searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines), !current.isEmpty else { return }
             searchTimer?.invalidate()
-            highlightSearchWithCount(term: searchText)
-            
-            // Hide keyboard
+            highlightSearchWithCount(term: current)
             searchBar.resignFirstResponder()
         }
         
@@ -1604,43 +1486,33 @@ extension WebViewViewController: UISearchBarDelegate {
         
         // Method for real-time search with lighter operations
     private func performRealTimeSearch(term: String) {
-        guard !term.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+        let trimmed = term.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else {
             removeHighlights()
             searchNavStackView.isHidden = true
+            totalSearchResults = 0
+            currentSearchResultIndex = 0
+            updateSearchResultsDisplay()
             return
         }
-        
-        // For real-time search, use the navigable function for better UX
-        var terms = term.split(separator: " ").map({String($0)})
-        if !terms.contains(term) { terms.append(term) }
-        
         if let path = Bundle.main.url(forResource: "WebView", withExtension: "js") {
             do {
                 let data: Data = try Data(contentsOf: path)
                 let jsCode: String = String(decoding: data, as: UTF8.self)
-                
-                // Inject the search code
                 webView.evaluateJavaScript(jsCode, completionHandler: nil)
-                
-                // Use navigation-enabled highlighting for primary term
-                let searchString = "WKWebView_HighlightAllOccurencesOfStringWithNavigation('\(terms[0])', true)"
+
+                let escaped = trimmed.replacingOccurrences(of: "'", with: "\\'")
+                let searchString = "WKWebView_HighlightAllOccurencesOfStringWithNavigation('\(escaped)', true)"
                 webView.evaluateJavaScript(searchString) { [weak self] (result, error) in
                     if let count = result as? Int {
                         self?.totalSearchResults = count
                         self?.currentSearchResultIndex = count > 0 ? 1 : 0
-                        
                         DispatchQueue.main.async {
+                            self?.searchNavStackView.isHidden = count == 0
                             self?.updateSearchResultsDisplay()
                         }
                     }
                 }
-                
-                // Highlight additional terms with original function
-                for i in 1..<terms.count {
-                    let additionalSearchString = "WKWebView_HighlightAllOccurencesOfString('\(terms[i])', false)"
-                    webView.evaluateJavaScript(additionalSearchString, completionHandler: nil)
-                }
-                
             } catch {
                 print("Could not load javascript: \(error)")
             }
