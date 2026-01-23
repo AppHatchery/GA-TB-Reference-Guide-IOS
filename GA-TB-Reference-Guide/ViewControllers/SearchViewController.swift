@@ -495,10 +495,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 						cell.chapterLabel.text = ""
 					}
 					
-					let TSTrange = chartResults[indexPath.row].lowercased().range(of: searchTerm.lowercased())
-					let startRange = chartResults[indexPath.row].index(TSTrange?.lowerBound ?? chartResults[indexPath.row].startIndex, offsetBy: -30, limitedBy: chartResults[indexPath.row].startIndex) ?? chartResults[indexPath.row].startIndex
-					let endRange = chartResults[indexPath.row].index(TSTrange?.lowerBound ?? chartResults[indexPath.row].endIndex, offsetBy: 90, limitedBy: chartResults[indexPath.row].endIndex) ?? chartResults[indexPath.row].endIndex
-					cell.contentLabel.text = "..." + String(chartResults[indexPath.row][startRange..<endRange]) + "..."
+					let text = chartResults[indexPath.row]
+					let TSTrange = text.range(of: searchTerm, options: [.caseInsensitive])
+					let startRange = text.index(TSTrange?.lowerBound ?? text.startIndex, offsetBy: -30, limitedBy: text.startIndex) ?? text.startIndex
+					let endRange = text.index(TSTrange?.lowerBound ?? text.endIndex, offsetBy: 90, limitedBy: text.endIndex) ?? text.endIndex
+					cell.contentLabel.text = "..." + String(text[startRange..<endRange]) + "..."
 
 					if let chartName = cell.subchapterLabel.text,
                        chartName
@@ -539,7 +540,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 					}
 					
 					let text = chapterResults[indexPath.row]
-					let TSTrange = text.lowercased().range(of: searchTerm.lowercased())
+					let TSTrange = text.range(of: searchTerm, options: [.caseInsensitive])
 					let startRange = text.index(TSTrange?.lowerBound ?? text.startIndex, offsetBy: -30, limitedBy: text.startIndex) ?? text.startIndex
 					let endRange = text.index(TSTrange?.lowerBound ?? text.endIndex, offsetBy: 90, limitedBy: text.endIndex) ?? text.endIndex
 					cell.contentLabel.text = "..." + String(text[startRange..<endRange]) + "..."
@@ -554,10 +555,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 						cell.chapterLabel.text = ""
 					}
 					
-					let TSTrange = allSearchResults[indexPath.row].lowercased().range(of: searchTerm.lowercased())
-					let startRange = allSearchResults[indexPath.row].index(TSTrange?.lowerBound ?? allSearchResults[indexPath.row].startIndex, offsetBy: -30, limitedBy: allSearchResults[indexPath.row].startIndex) ?? allSearchResults[indexPath.row].startIndex
-					let endRange = allSearchResults[indexPath.row].index(TSTrange?.lowerBound ?? allSearchResults[indexPath.row].endIndex, offsetBy: 90, limitedBy: allSearchResults[indexPath.row].endIndex) ?? allSearchResults[indexPath.row].endIndex
-					cell.contentLabel.text = "..." + String(allSearchResults[indexPath.row][startRange..<endRange]) + "..."
+					let text = allSearchResults[indexPath.row]
+					let TSTrange = text.range(of: searchTerm, options: [.caseInsensitive])
+					let startRange = text.index(TSTrange?.lowerBound ?? text.startIndex, offsetBy: -30, limitedBy: text.startIndex) ?? text.startIndex
+					let endRange = text.index(TSTrange?.lowerBound ?? text.endIndex, offsetBy: 90, limitedBy: text.endIndex) ?? text.endIndex
+					cell.contentLabel.text = "..." + String(text[startRange..<endRange]) + "..."
 
 						// Check if the chart name starts with "Table X:" where X is an integer
 					if let chartName = cell.subchapterLabel.text,
@@ -573,7 +575,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 					}
 				}
 
-				let terms = searchTerm.lowercased().split(separator: " ").map({ String($0) as NSString }) + [searchTerm as NSString]
+				let terms = [searchTerm as NSString]
 				cell.contentLabel.attributedText = addBoldText(fullString: cell.contentLabel.text! as NSString, boldPartsOfString: terms)
 				cell.contentLabel.isHidden = false
 
@@ -701,40 +703,26 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     //--------------------------------------------------------------------------------------------------
     // This method updates filteredData based on the text in the Search Box
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        // When there is no text, filteredData is the same as the original data
-        // When user has entered text into the search box
-        // Use the filter method to iterate over all items in the data array
-        // For each item, return true if the item should be included and false if the
-		if !searchText.isEmpty {
+        if !searchText.isEmpty {
             showTableView()
-            // Could be search always the strings independently or could be to first search strings together and if nothing returns then search the terms separately but giving the user the option to do that
 
-            if searchText.components(separatedBy: " ").count > 1 {
-                let doubleString = searchText.components(separatedBy: " ")
-				
-				allSearchResults = tempHTML
-				chapterResults = tempChaptersHTML
-				chartResults = tempChartsHTML
-				
-                for i in 0...doubleString.count-1 {
-                    // This statement is to prevent a 0 return from the "" generated when a space is introduced
-                    if doubleString[i] != ""{
-						allSearchResults = allSearchResults.filter { $0.lowercased().contains(doubleString[i].lowercased())}
-						chapterResults = chapterResults.filter { $0.lowercased().contains(doubleString[i].lowercased())}
-						chartResults = chartResults.filter { $0.lowercased().contains(doubleString[i].lowercased())}
-                    }
-                }
-				
-                searchTerm = searchText
-            } else {
-				allSearchResults = tempHTML.filter { $0.lowercased().contains(searchText.lowercased())}
-				chapterResults = tempChaptersHTML.filter { $0.lowercased().contains(searchText.lowercased())}
-				chartResults = tempChartsHTML.filter { $0.lowercased().contains(searchText.lowercased())}
-                searchTerm = searchText
+            // Normalize the query: lowercase and remove all whitespace
+            let normalizedQuery = searchText.lowercased().replacingOccurrences(of: "\\s+", with: "", options: .regularExpression)
+
+            // Helper to normalize content strings the same way
+            func normalized(_ s: String) -> String {
+                return s.lowercased().replacingOccurrences(of: "\\s+", with: "", options: .regularExpression)
             }
-			
-			// To store the previous allSearchResults for when showAll results is active
-			allSearchResultsCache = allSearchResults
+
+            // Perform exact phrase contains matching on normalized strings
+            allSearchResults = tempHTML.filter { normalized($0).contains(normalizedQuery) }
+            chapterResults = tempChaptersHTML.filter { normalized($0).contains(normalizedQuery) }
+            chartResults = tempChartsHTML.filter { normalized($0).contains(normalizedQuery) }
+
+            searchTerm = searchText
+
+            // Store for All tab cache
+            allSearchResultsCache = allSearchResults
             isFiltering = true
         } else {
             isFiltering = false
@@ -852,20 +840,64 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     //--------------------------------------------------------------------------------------------------
     // Bolding function from online - https://exceptionshub.com/making-text-bold-using-attributed-string-in-swift.html
     func addBoldText(fullString: NSString, boldPartsOfString: Array<NSString>) -> NSAttributedString {
-        let nonBoldFontAttribute = [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 12)]
-        let boldString = NSMutableAttributedString(string: fullString as String, attributes:nonBoldFontAttribute)
-        let lowercase = fullString.lowercased as NSString
-        for i in 0 ..< boldPartsOfString.count {
-            //            boldString
-            //                .addAttribute(
-            //                    .backgroundColor,
-            //                    value: UIColor.colorYellow,
-            //                    range: lowercase.range(of: boldPartsOfString[i] as String)
-            //                )
-            let range = lowercase.range(of: boldPartsOfString[i] as String)
-            boldString.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 12), range: range)
-            boldString.addAttribute(.foregroundColor, value: UIColor.colorPrimary, range: lowercase.range(of: boldPartsOfString[i] as String))
+        let nonBoldFontAttribute: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 12)
+        ]
+        let boldString = NSMutableAttributedString(string: fullString as String, attributes: nonBoldFontAttribute)
+
+        // Nothing to highlight
+        guard let rawQuery = boldPartsOfString.first as String?, !rawQuery.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            return boldString
         }
+
+        let text = fullString as String
+        let lowerText = text.lowercased()
+        let lowerQuery = rawQuery.lowercased()
+
+        // Helper to apply attributes to a given NSRange if it's valid
+        func applyHighlight(_ range: NSRange) {
+            guard range.location != NSNotFound, NSMaxRange(range) <= boldString.length else { return }
+            boldString.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 12), range: range)
+            boldString.addAttribute(.foregroundColor, value: UIColor.colorPrimary, range: range)
+        }
+
+        // 1) Prefer exact phrase matches (case-insensitive). Highlight all occurrences.
+        var phraseRanges: [NSRange] = []
+        if !lowerQuery.isEmpty {
+            var searchRange = lowerText.startIndex..<lowerText.endIndex
+            while let r = lowerText.range(of: lowerQuery, options: [.caseInsensitive], range: searchRange) {
+                let nsRange = NSRange(r, in: lowerText)
+                phraseRanges.append(nsRange)
+                // advance
+                searchRange = r.upperBound..<lowerText.endIndex
+            }
+        }
+
+        if !phraseRanges.isEmpty {
+            for r in phraseRanges { applyHighlight(r) }
+            return boldString
+        }
+
+        // 2) If no phrase match, fall back to whole-word matches for each token.
+        let tokens = lowerQuery
+            .split(whereSeparator: { $0.isWhitespace })
+            .map(String.init)
+            .filter { !$0.isEmpty }
+
+        guard !tokens.isEmpty else { return boldString }
+
+        // Build a regex that matches any token as a whole word: \b(token1|token2|...)\b
+        // Escape special regex characters in tokens
+        let escapedTokens = tokens.map { NSRegularExpression.escapedPattern(for: $0) }
+        let pattern = "\\b(" + escapedTokens.joined(separator: "|") + ")\\b"
+
+        if let regex = try? NSRegularExpression(pattern: pattern, options: [.caseInsensitive]) {
+            let matches = regex.matches(in: text, options: [], range: NSRange(location: 0, length: boldString.length))
+            for match in matches {
+                applyHighlight(match.range)
+            }
+        }
+
         return boldString
     }
 }

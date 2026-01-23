@@ -25,7 +25,7 @@ class ChartListViewController: UIViewController, UITableViewDelegate, UITableVie
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor : UIColor.white]
         
         let navbarTitle = UILabel()
-        navbarTitle.text = "All Charts"
+        navbarTitle.text = "All Tables"
         navbarTitle.textColor = UIColor.white
         navbarTitle.font = UIFont.boldSystemFont(ofSize: 16.0)
         navbarTitle.numberOfLines = 2

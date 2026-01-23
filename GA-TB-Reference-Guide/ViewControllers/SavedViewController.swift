@@ -68,7 +68,6 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register( UITableViewCell.self, forCellReuseIdentifier: type(of: self).description())
-        tableView.register(UINib(nibName: "NoteTableViewCell", bundle: nil), forCellReuseIdentifier: "noteCell")
         tableView.register(UINib(nibName: "BookmarkTableViewCell", bundle: nil), forCellReuseIdentifier: "bookmarkCell")
         tableView.estimatedRowHeight = 80
         tableView.estimatedRowHeight = UITableView.automaticDimension
@@ -201,17 +200,7 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if isNotes {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "noteCell", for: indexPath) as! NoteTableViewCell
-            cell.backgroundColor = .clear
-            cell.header.text = "In \(notesTitles[indexPath.row])"
-            cell.content.text = notesContent[indexPath.row]
-            cell.colorTag.backgroundColor = colorTags[notesColors[indexPath.row]]
-            tableViewCells[indexPath.row] = cell
-            
-            return cell
-        } else if isFavorite {
+        if isFavorite {
 
             let cell = tableView.dequeueReusableCell(withIdentifier: "bookmarkCell", for: indexPath) as! BookmarkTableViewCell
             cell.backgroundColor = .clear
@@ -272,10 +261,6 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
             
             return cell
         }
-//        tableViewCells[indexPath.row] = cell
-//
-//
-//        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -291,75 +276,66 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete
-         {
-            
+        if editingStyle == .delete {
             if isFavorite {
-                if let contentDatabase =  realm!.object(ofType: ContentPage.self, forPrimaryKey: favoriteURLs[indexPath.row]){
+                if let contentDatabase = realm!.object(ofType: ContentPage.self, forPrimaryKey: favoriteURLs[indexPath.row]) {
+                    // Remove from arrays FIRST
+                    self.favoriteURLs.remove(at: indexPath.row)
+                    self.favoriteNames.remove(at: indexPath.row)
+                    self.favoriteSubChapters.remove(at: indexPath.row)
+                    self.favoriteChapters.remove(at: indexPath.row)
+                    
+                    // Delete the row immediately after updating arrays
+                    self.tableView.deleteRows(at: [indexPath], with: .fade)
+                    self.endLoadingAndUpdateUI()
+                    
+                    // Then update Realm
                     RealmHelper.sharedInstance.update(contentDatabase, properties: [
                         "favorite": false,
                         "favoriteName": ""
                     ]) { updated in
-                        //
-                        self.favoriteURLs.remove(at: indexPath.row)
-                        self.favoriteNames.remove(at: indexPath.row)
-                        self.favoriteSubChapters.remove(at: indexPath.row)
-                        self.favoriteChapters.remove(at: indexPath.row)
+                        // Realm update complete
                     }
                 }
             } else if isLastOpened {
-                let historyDatabase =  realm!.objects(ContentAccess.self).filter("url == '\(historyURLs[indexPath.row])'")
+                // Remove from arrays FIRST
+                self.historyNames.remove(at: indexPath.row)
+                let urlToDelete = self.historyURLs[indexPath.row]
+                self.historyURLs.remove(at: indexPath.row)
+                self.historyChapters.remove(at: indexPath.row)
+                
+                // Delete the row immediately
+                self.tableView.deleteRows(at: [indexPath], with: .fade)
+                self.endLoadingAndUpdateUI()
+                
+                // Then delete from Realm
+                let historyDatabase = realm!.objects(ContentAccess.self).filter("url == '\(urlToDelete)'")
                 for entry in historyDatabase {
                     RealmHelper.sharedInstance.delete(entry) { deleted in
-                        //
+                        // Deletion complete
                     }
                 }
-                historyNames.remove(at: indexPath.row)
-                historyURLs.remove(at: indexPath.row)
-                historyChapters.remove(at: indexPath.row)
             } else if isNotes {
-                let notesDatabase =  realm!.objects(Notes.self)
-                RealmHelper.sharedInstance.delete(notesDatabase[indexPath.row]) { deleted in
-                    //
-                    self.notesContent.remove(at: indexPath.row)
-                    self.notesURLs.remove(at: indexPath.row)
-                    self.notesLastEdit.remove(at: indexPath.row)
-                    self.notesColors.remove(at: indexPath.row)
+                let notesDatabase = realm!.objects(Notes.self)
+                let noteToDelete = notesDatabase[indexPath.row]
+                
+                // Remove from arrays FIRST
+                self.notesContent.remove(at: indexPath.row)
+                self.notesURLs.remove(at: indexPath.row)
+                self.notesTitles.remove(at: indexPath.row)
+                self.notesLastEdit.remove(at: indexPath.row)
+                self.notesColors.remove(at: indexPath.row)
+                
+                // Delete the row immediately
+                self.tableView.deleteRows(at: [indexPath], with: .fade)
+                self.endLoadingAndUpdateUI()
+                
+                // Then delete from Realm
+                RealmHelper.sharedInstance.delete(noteToDelete) { deleted in
+                    // Deletion complete
                 }
             }
-            
-//            try! realm!.write
-//            {
-//                if isFavorite {
-//                    if let contentDatabase = realm!.object(ofType: ContentPage.self, forPrimaryKey: favoriteURLs[indexPath.row]){
-//                        contentDatabase.favorite = false
-//                        contentDatabase.favoriteName = ""
-//                    }
-//                    favoriteURLs.remove(at: indexPath.row)
-//                    favoriteNames.remove(at: indexPath.row)
-//                    favoriteSubChapters.remove(at: indexPath.row)
-//                    favoriteChapters.remove(at: indexPath.row)
-//                } else if isLastOpened {
-//                    let historyDatabase = realm!.objects(ContentAccess.self).filter("url == '\(historyURLs[indexPath.row])'")
-//                    realm!.delete(historyDatabase)
-//
-//                    historyNames.remove(at: indexPath.row)
-//                    historyURLs.remove(at: indexPath.row)
-//                    historyChapters.remove(at: indexPath.row)
-//                } else if isNotes {
-//                    let notesDatabase = realm!.objects(Notes.self)
-//                    realm!.delete(notesDatabase[indexPath.row])
-//
-//                    notesContent.remove(at: indexPath.row)
-//                    notesURLs.remove(at: indexPath.row)
-//                    notesLastEdit.remove(at: indexPath.row)
-//                    notesColors.remove(at: indexPath.row)
-//                }
-//            }
-            
-            self.tableView.deleteRows(at: [indexPath], with: .fade)
-            self.endLoadingAndUpdateUI()
-         }
+        }
     }
     
     func didSaveName(_ name: String) {
@@ -397,9 +373,23 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     
     @objc func editBookmarkTapped(_ sender: UIButton) {
-        let index = sender.tag
-        
-        // Get the content page from Realm
+        // Resolve index path from button position to avoid stale tags
+        let buttonPosition = sender.convert(CGPoint.zero, to: tableView)
+        let resolvedIndexPath = tableView.indexPathForRow(at: buttonPosition)
+
+        // Prefer resolved index path; fall back to sender.tag if valid
+        let index: Int? = {
+            if let ip = resolvedIndexPath?.row { return ip }
+            let tag = sender.tag
+            return (0..<favoriteURLs.count).contains(tag) ? tag : nil
+        }()
+
+        // Ensure we are in Favorites mode and index is valid
+        guard isFavorite, let index = index, index >= 0, index < favoriteURLs.count, index < favoriteNames.count else {
+            return
+        }
+
+        // Get the content page from Realm safely
         guard let contentPage = realm!.object(ofType: ContentPage.self, forPrimaryKey: favoriteURLs[index]) else {
             return
         }
@@ -416,22 +406,21 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         arrayPointer = index
         
         let customView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
-            customView.backgroundColor = UIColor(red: 0xd5/255.0, green: 0xd8/255.0, blue: 0xdc/255.0, alpha: 1)
-            
-            let doneButton = UIButton(frame: CGRect(x: view.frame.width - 70 - 10, y: 0, width: 70, height: 44))
-            doneButton.setTitle("Dismiss", for: .normal)
-            doneButton.setTitleColor(UIColor.systemBlue, for: .normal)
-            doneButton.addTarget(self, action: #selector(self.dismissKeyboard), for: .touchUpInside)
-            customView.addSubview(doneButton)
-            
-            // Assign to the text field in the dialog (you'll need to access it)
+        customView.backgroundColor = UIColor(red: 0xd5/255.0, green: 0xd8/255.0, blue: 0xdc/255.0, alpha: 1)
+
+        let doneButton = UIButton(frame: CGRect(x: view.frame.width - 70 - 10, y: 0, width: 70, height: 44))
+        doneButton.setTitle("Dismiss", for: .normal)
+        doneButton.setTitleColor(UIColor.systemBlue, for: .normal)
+        doneButton.addTarget(self, action: #selector(self.dismissKeyboard), for: .touchUpInside)
+        customView.addSubview(doneButton)
+
         saveFavoriteDialog.nameField?.inputAccessoryView = customView
-        
-        // Add to view with animation
+
+        // Present with animation
         self.view.addSubview(saveFavoriteDialog)
         saveFavoriteDialog.overlayView.alpha = 0
         saveFavoriteDialog.contentView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
-        
+
         UIView.animate(withDuration: 0.25, delay: 0.0, options: UIView.AnimationOptions(), animations: {
             saveFavoriteDialog.overlayView.alpha = 0.5
             saveFavoriteDialog.contentView.transform = CGAffineTransform.identity

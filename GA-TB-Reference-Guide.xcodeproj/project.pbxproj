@@ -136,8 +136,6 @@
 		B4DC30712C5BF2E90019CCA1 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC30702C5BF2E90019CCA1 /* Search.swift */; };
 		B4E88A152E8A83D100396ABB /* BookmarkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B4E88A142E8A83D100396ABB /* BookmarkTableViewCell.xib */; };
 		B4E88A162E8A83D100396ABB /* BookmarkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E88A132E8A83D100396ABB /* BookmarkTableViewCell.swift */; };
-		D42F25E826EEFA8F009DC942 /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42F25E626EEFA8F009DC942 /* NoteTableViewCell.swift */; };
-		D42F25E926EEFA8F009DC942 /* NoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D42F25E726EEFA8F009DC942 /* NoteTableViewCell.xib */; };
 		D42F269526F05B64009DC942 /* ChapterNoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42F269326F05B64009DC942 /* ChapterNoteTableViewCell.swift */; };
 		D42F269626F05B64009DC942 /* ChapterNoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D42F269426F05B64009DC942 /* ChapterNoteTableViewCell.xib */; };
 		D42F269926F1AC31009DC942 /* ContentSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42F269826F1AC31009DC942 /* ContentSizedTableView.swift */; };
@@ -357,8 +355,6 @@
 		B4DC30702C5BF2E90019CCA1 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		B4E88A132E8A83D100396ABB /* BookmarkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTableViewCell.swift; sourceTree = "<group>"; };
 		B4E88A142E8A83D100396ABB /* BookmarkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarkTableViewCell.xib; sourceTree = "<group>"; };
-		D42F25E626EEFA8F009DC942 /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
-		D42F25E726EEFA8F009DC942 /* NoteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteTableViewCell.xib; sourceTree = "<group>"; };
 		D42F269326F05B64009DC942 /* ChapterNoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterNoteTableViewCell.swift; sourceTree = "<group>"; };
 		D42F269426F05B64009DC942 /* ChapterNoteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChapterNoteTableViewCell.xib; sourceTree = "<group>"; };
 		D42F269826F1AC31009DC942 /* ContentSizedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSizedTableView.swift; sourceTree = "<group>"; };
@@ -741,8 +737,6 @@
 				D449FCB726EC5368008C3ACB /* SaveFavorite.xib */,
 				D449FCBA26EC6604008C3ACB /* SaveNote.swift */,
 				D449FCBD26EC660E008C3ACB /* SaveNote.xib */,
-				D42F25E626EEFA8F009DC942 /* NoteTableViewCell.swift */,
-				D42F25E726EEFA8F009DC942 /* NoteTableViewCell.xib */,
 				D42F269326F05B64009DC942 /* ChapterNoteTableViewCell.swift */,
 				D42F269426F05B64009DC942 /* ChapterNoteTableViewCell.xib */,
 				D42F269826F1AC31009DC942 /* ContentSizedTableView.swift */,
@@ -1021,7 +1015,6 @@
 				D4CCBF5827C032B400E42BC9 /* abrreviation.json in Resources */,
 				D4A5D2A22B2C9BA500812C53 /* signature_henry_m_blumberg_m_d.jpg in Resources */,
 				D4A5D2A92B2C9BA500812C53 /* signature_susan_m_ray_m_d.jpg in Resources */,
-				D42F25E926EEFA8F009DC942 /* NoteTableViewCell.xib in Resources */,
 				B40FEE032DF0898700FBEBB7 /* considerations_image_1.png in Resources */,
 				B40FEE042DF0898700FBEBB7 /* chapter_1_image_3.png in Resources */,
 				B40FEE052DF0898700FBEBB7 /* image_3.png in Resources */,
@@ -1098,7 +1091,6 @@
 				D463130B271CD38300C7D9EC /* Guide.swift in Sources */,
 				B47388932D5C997B00A4C168 /* RemoteConfigHelper.swift in Sources */,
 				B47FDD9E2E95531800CC4C7B /* ThemeManager.swift in Sources */,
-				D42F25E826EEFA8F009DC942 /* NoteTableViewCell.swift in Sources */,
 				B47FDDAE2E967E8900CC4C7B /* CustomPopUp.swift in Sources */,
 				D449FCBB26EC6604008C3ACB /* SaveNote.swift in Sources */,
 				D4B0B0CC26D0239C003BD1EA /* UIColor+Extensions.swift in Sources */,
