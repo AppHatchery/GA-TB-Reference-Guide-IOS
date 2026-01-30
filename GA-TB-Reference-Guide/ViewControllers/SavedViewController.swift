@@ -504,7 +504,7 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
 					webViewViewController.url = Bundle.main.url(forResource: favoriteURLs[arrayPointer], withExtension: "html")!
 				}
                 webViewViewController.titlelabel = favoriteSubChapters[arrayPointer]
-                webViewViewController.navTitle = favoriteChapters[arrayPointer]
+                webViewViewController.navTitle = favoriteSubChapters[arrayPointer]
                 webViewViewController.uniqueAddress = favoriteURLs[arrayPointer]
             } else if isLastOpened {
 				if isFileDownloaded(for: historyURLs[arrayPointer]) {
