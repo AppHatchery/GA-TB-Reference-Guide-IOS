@@ -463,7 +463,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 		
         if tableView == self.tableView {
             if isFiltering {
-				return showCharts ? chartResults.count : allSearchResults.count
+				return showCharts ? chartResults.count : (showChapters ? chapterResults.count : allSearchResults.count)
             } else {
                 return chapterIndex.subChapterNames.count
             }
@@ -482,16 +482,31 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             let cell = tableView.dequeueReusableCell(withIdentifier: "searchCell", for: indexPath) as! SearchCell
             cell.backgroundColor = UIColor.backgroundColor
             
-			if isFiltering {
+            if isFiltering {
+                let currentCount: Int = showCharts ? chartResults.count : (showChapters ? chapterResults.count : allSearchResults.count)
+                if indexPath.row >= currentCount || indexPath.row < 0 {
+                    // Return an empty configured cell to avoid index crash due to race conditions
+                    cell.subchapterLabel.text = ""
+                    cell.chapterLabel.text = ""
+                    cell.contentLabel.text = ""
+                    cell.contentLabel.isHidden = true
+                    cell.chapterIcon.image = UIImage(named: "icChapterBlue")
+                    return cell
+                }
+                
 				if showCharts {
-					let subchapterNameIndex = tempChartsHTML.firstIndex(of: chartResults[indexPath.row]) ?? 0
-					
-					// For Charts, Table Names should appear first
-					cell.subchapterLabel.text = chartNames.indices.contains(subchapterNameIndex) ? chartNames[subchapterNameIndex] : nil
-					// Use chartmapsubchapter for charts
-					if chapterIndex.chartmapsubchapter.indices.contains(subchapterNameIndex) {
-						cell.chapterLabel.text = chapterIndex.chartmapsubchapter[subchapterNameIndex]
+					let subchapterNameIndexOpt = tempChartsHTML.firstIndex(of: chartResults[indexPath.row])
+					if let subchapterNameIndex = subchapterNameIndexOpt {
+						// For Charts, Table Names should appear first
+						cell.subchapterLabel.text = chartNames.indices.contains(subchapterNameIndex) ? chartNames[subchapterNameIndex] : nil
+						// Use chartmapsubchapter for charts
+						if chapterIndex.chartmapsubchapter.indices.contains(subchapterNameIndex) {
+							cell.chapterLabel.text = chapterIndex.chartmapsubchapter[subchapterNameIndex]
+						} else {
+							cell.chapterLabel.text = ""
+						}
 					} else {
+						cell.subchapterLabel.text = ""
 						cell.chapterLabel.text = ""
 					}
 					
@@ -546,10 +561,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 					cell.contentLabel.text = "..." + String(text[startRange..<endRange]) + "..."
 					cell.chapterIcon.image = UIImage(named: "icChapterBlue")
 				} else {
-					let subchapterNameIndex = tempHTML.firstIndex(of: allSearchResults[indexPath.row]) ?? 0
+					let subchapterNameIndex = tempHTML.firstIndex(of: allSearchResults[indexPath.row])
+					if let idx = subchapterNameIndex, chapterIndex.subChapterNames.indices.contains(idx) {
+						cell.subchapterLabel.text = chapterIndex.subChapterNames[idx]
+					} else {
+						cell.subchapterLabel.text = ""
+					}
 
-					cell.subchapterLabel.text = chapterIndex.subChapterNames[subchapterNameIndex]
-					if chapterIndex.chaptermapsubchapter.indices.contains(subchapterNameIndex) {
+					if let subchapterNameIndex = subchapterNameIndex, chapterIndex.chaptermapsubchapter.indices.contains(subchapterNameIndex) {
 						cell.chapterLabel.text = chapterIndex.chaptermapsubchapter[subchapterNameIndex]
 					} else {
 						cell.chapterLabel.text = ""
@@ -609,9 +628,20 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == self.tableView {
                 if isFiltering {
+                    let currentCount: Int = showCharts ? chartResults.count : (showChapters ? chapterResults.count : allSearchResults.count)
+                    guard indexPath.row >= 0 && indexPath.row < currentCount else {
+                        tableView.deselectRow(at: indexPath, animated: true)
+                        return
+                    }
+                    
                     switch (showCharts, showChapters) {
                         case (true, _):
-                            subArrayPointer = tempChartsHTML.firstIndex(of: chartResults[indexPath.row]) ?? 0
+                            if let idx = tempChartsHTML.firstIndex(of: chartResults[indexPath.row]) {
+                                subArrayPointer = idx
+                            } else {
+                                tableView.deselectRow(at: indexPath, animated: true)
+                                return
+                            }
                         case (_, true):
                             // Safely derive pointer for chapters only
                             if indexPath.row < chapterResults.count,
@@ -622,7 +652,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                                 return
                             }
                         default:
-                            subArrayPointer = tempHTML.firstIndex(of: allSearchResults[indexPath.row]) ?? 0
+                            if let idx = tempHTML.firstIndex(of: allSearchResults[indexPath.row]) {
+                                subArrayPointer = idx
+                            } else {
+                                tableView.deselectRow(at: indexPath, animated: true)
+                                return
+                            }
                     }
                     
                 } else {
@@ -730,21 +765,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             showSuggestions()
         }
 		
-        if allSearchResults.count == 0 || suggestionsView.isHidden == false {
-			searchReturns.text = "0 results in"
-		} else {
-			func resultText(for count: Int) -> String {
-				return count == 1 ? "\(count) result in" : "\(count) results in"
-			}
-			
-			if showCharts {
-				searchReturns.text = resultText(for: chartResults.count)
-			} else if showChapters {
-				searchReturns.text = resultText(for: chapterResults.count)
-			} else {
-				searchReturns.text = resultText(for: allSearchResults.count)
-			}
-
+        let activeCount: Int = showCharts ? chartResults.count : (showChapters ? chapterResults.count : allSearchResults.count)
+        if activeCount == 0 || suggestionsView.isHidden == false {
+            searchReturns.text = "0 results in"
+        } else {
+            func resultText(for count: Int) -> String {
+                return count == 1 ? "\(count) result in" : "\(count) results in"
+            }
+            searchReturns.text = resultText(for: activeCount)
         }
         
         recentSearchesTableView.reloadData()
