@@ -204,6 +204,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="48" id="I0I-fp-kT0"/>
                                                     </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="tintColor" name="colorTextSecondary"/>
                                                     <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="12" maxY="0.0"/>
                                                     <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -219,6 +220,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" priority="999" constant="48" id="mVe-bO-EIq"/>
                                                     </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="tintColor" name="colorTextSecondary"/>
                                                     <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="12" maxY="0.0"/>
                                                     <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -237,6 +239,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" priority="999" constant="48" id="dUL-Cu-p75"/>
                                                     </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="tintColor" name="colorTextSecondary"/>
                                                     <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="12" maxY="0.0"/>
                                                     <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -255,6 +258,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" priority="999" constant="48" id="Asi-d1-tge"/>
                                                     </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="tintColor" name="colorTextSecondary"/>
                                                     <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="12" maxY="0.0"/>
                                                     <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -273,6 +277,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" priority="999" constant="48" id="WjS-lK-gX0"/>
                                                     </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="tintColor" name="colorTextSecondary"/>
                                                     <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="12" maxY="0.0"/>
                                                     <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -291,6 +296,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" priority="999" constant="48" id="aIT-IG-f81"/>
                                                     </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="tintColor" name="colorTextSecondary"/>
                                                     <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="12" maxY="0.0"/>
                                                     <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -309,6 +315,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" priority="999" constant="48" id="sXk-9w-BeC"/>
                                                     </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="tintColor" name="colorTextSecondary"/>
                                                     <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="12" maxY="0.0"/>
                                                     <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>

@@ -136,10 +136,22 @@ class SettingsViewController: UIViewController {
             // Delete the realm contents
             // Check Android: If a user has a webview opened and favorited the app will crash when they go back to that screen because the realm object has been delete
 //            let realm = try! Realm()
-            try! realm!.write {
-                realm!.deleteAll()
+             try! realm!.write {
+                 realm!.deleteAll()
+                        
+                 let alertSuccess = UIAlertController(
+                    title: "Success",
+                    message: "App reset successfully",
+                    preferredStyle: .alert
+                 )
+                 
+                 alertSuccess
+                     .addAction(UIAlertAction(title: "Ok", style: .cancel))
+                 
+                 self.present(alertSuccess, animated: true, completion: nil)
             }
         }))
+        
         alertDelete.addAction(UIAlertAction(title: "No", style: .cancel, handler: { (action: UIAlertAction!) in
         }))
         self.present(alertDelete, animated: true, completion: nil)

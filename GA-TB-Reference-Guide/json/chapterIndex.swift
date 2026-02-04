@@ -439,8 +439,8 @@ public class ChapterIndex {
     "V. Treatment of Current (Active) Disease Therapy",
     "V. Treatment of Current (Active) Disease Therapy",
     "V. Treatment of Current (Active) Disease Therapy",
-    "V. Treatment of Current (Active) Disease Therapy",
     "VI. Pregnancy and TB",
+    "X. TB Infection Control: Hospital Isolation Procedures",
     "X. TB Infection Control: Hospital Isolation Procedures",
   ]
 
