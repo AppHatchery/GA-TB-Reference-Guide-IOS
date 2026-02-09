@@ -627,21 +627,55 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
     
+    private func mappedTitles(for slug: String) -> (title: String?, navTitle: String?) {
+        let baseSlug = slug.components(separatedBy: "#").first ?? slug
+
+        let chartCodes = Array(chapterIndex.chartCode.joined())
+        if let idx = chartCodes.firstIndex(of: baseSlug) {
+            let chartNested = Array(chapterIndex.chartNested.joined())
+            let title = chartNested.indices.contains(idx) ? chartNested[idx] : nil
+            let navTitle = chapterIndex.chartsTrimmed.indices.contains(idx) ? chapterIndex.chartsTrimmed[idx] : nil
+            return (title, navTitle)
+        }
+
+        let chapterCodes = Array(chapterIndex.chapterCode.joined())
+        if let idx = chapterCodes.firstIndex(of: baseSlug) {
+            let chapterNested = Array(chapterIndex.chapterNested.joined())
+            let title = chapterNested.indices.contains(idx) ? chapterNested[idx] : nil
+            let navTitle = chapterIndex.chaptermapsubchapternested.indices.contains(idx) ? chapterIndex.chaptermapsubchapternested[idx] : nil
+            return (title, navTitle)
+        }
+
+        return (nil, nil)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let webViewViewController = segue.destination as? WebViewViewController {
             if isFavorite {
                 let slug = favoriteURLs[arrayPointer]
+                var resolvedTitle = favoriteSubChapters[arrayPointer]
+                var resolvedNavTitle = favoriteChapters[arrayPointer]
                 
                 if isFileDeleted(for: slug) {
-                    webViewViewController.url = resolvedURL(for: slug)
+                    let resolved = resolvedURL(for: slug)
+                    webViewViewController.url = resolved
+
+                    let resolvedSlug = resolved.deletingPathExtension().lastPathComponent
+                    let mapped = mappedTitles(for: resolvedSlug)
+                    if let title = mapped.title { resolvedTitle = title }
+                    if let navTitle = mapped.navTitle { resolvedNavTitle = navTitle }
                 } else if isFileDownloaded(for: slug) {
                     webViewViewController.url = getFileURL(for: slug)
                 } else {
                     webViewViewController.url = Bundle.main.url(forResource: slug, withExtension: "html")!
                 }
+
+                let mapped = mappedTitles(for: slug)
+                if let title = mapped.title { resolvedTitle = title }
+                if let navTitle = mapped.navTitle { resolvedNavTitle = navTitle }
                 
-                webViewViewController.titlelabel = favoriteSubChapters[arrayPointer]
-                webViewViewController.navTitle = favoriteSubChapters[arrayPointer]
+                webViewViewController.titlelabel = resolvedTitle
+                webViewViewController.navTitle = resolvedNavTitle
                 webViewViewController.uniqueAddress = slug
             } else if isLastOpened {
                 if isFileDownloaded(for: historyURLs[arrayPointer]) {
@@ -650,8 +684,10 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
                     webViewViewController.url = Bundle.main
                         .url(forResource: historyURLs[arrayPointer], withExtension: "html")!
                 }
-                webViewViewController.titlelabel = historyNames[arrayPointer]
-                webViewViewController.navTitle = historyChapters[arrayPointer]
+                let slug = historyURLs[arrayPointer]
+                let mapped = mappedTitles(for: slug)
+                webViewViewController.titlelabel = mapped.title ?? historyNames[arrayPointer]
+                webViewViewController.navTitle = mapped.navTitle ?? historyChapters[arrayPointer]
                 webViewViewController.uniqueAddress = historyURLs[arrayPointer]
             } else if isNotes {
                 if isFileDownloaded(for: notesURLs[arrayPointer]) {
@@ -665,4 +701,3 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
 }
-
