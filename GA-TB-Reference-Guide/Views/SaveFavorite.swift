@@ -35,6 +35,7 @@ class SaveFavorite: UIView {
     var delegate: SaveFavoriteDelegate!
     var subChapter: ContentPage!
     var currentTitle: String!
+    let chapterIndex = ChapterIndex()
 
     //------------------------------------------------------------------------------
     init( frame: CGRect, content: ContentPage, title: String, delegate: SaveFavoriteDelegate )
@@ -119,7 +120,14 @@ class SaveFavorite: UIView {
             cancelButton.addTarget(self, action: #selector(self.cancelButtonPressed), for: .touchUpInside)
             bookmarkSourceView.isHidden = true
         }
+
+        let existingSource = bookmarkSourceField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        if existingSource.isEmpty, let resolved = resolvedBookmarkSource(for: subChapter.url), !resolved.isEmpty {
+            bookmarkSourceField.text = resolved
+        }
         closeButton.addTarget(self, action: #selector(self.cancelButtonPressed), for: .touchUpInside)
+        
+        print(subChapter)
     }
     
     private func configureCancelButton() {
@@ -164,6 +172,26 @@ class SaveFavorite: UIView {
             saveButton.layer.cornerRadius = 0
             saveButton.layer.masksToBounds = true
         }
+    }
+    
+    private func resolvedBookmarkSource(for slug: String) -> String? {
+        let baseSlug = slug.components(separatedBy: "#").first ?? slug
+
+        let chartCodes = Array(chapterIndex.chartCode.joined())
+        if let idx = chartCodes.firstIndex(of: baseSlug) {
+            let chartNested = Array(chapterIndex.chartNested.joined())
+            if chartNested.indices.contains(idx) {
+                return chartNested[idx]
+            }
+        }
+
+        let chapterCodes = Array(chapterIndex.chapterCode.joined())
+        if let idx = chapterCodes.firstIndex(of: baseSlug),
+           chapterIndex.chaptermapsubchapternested.indices.contains(idx) {
+            return chapterIndex.chaptermapsubchapternested[idx]
+        }
+
+        return nil
     }
     
     //------------------------------------------------------------------------------

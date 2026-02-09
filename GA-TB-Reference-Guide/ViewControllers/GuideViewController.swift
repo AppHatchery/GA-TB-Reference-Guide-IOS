@@ -209,7 +209,7 @@ class GuideViewController: UIViewController, URLSessionDelegate {
     }
     
     @IBAction func tapBottomButton(_ sender: UIButton){
-        quickTitle = bible.chartsTrimmed[sender.tag-1]
+        quickTitle = bible.charts[sender.tag-1]
         quickPointer = sender.tag-1
         performSegue( withIdentifier: "SegueToWebViewViewController", sender: nil )
     }
@@ -262,8 +262,8 @@ class GuideViewController: UIViewController, URLSessionDelegate {
         if let webViewViewController = segue.destination as? WebViewViewController
         {
             webViewViewController.url = Bundle.main.url(forResource: bible.chartURLs[quickPointer], withExtension: "html")!
-            webViewViewController.titlelabel = quickTitle
-            webViewViewController.navTitle = quickTitle
+            webViewViewController.titlelabel = bible.charts[quickPointer]
+            webViewViewController.navTitle = bible.chartsTrimmed[quickPointer]
             webViewViewController.uniqueAddress = bible.chartURLs[quickPointer]
             webViewViewController.hidesBottomBarWhenPushed = true
         }

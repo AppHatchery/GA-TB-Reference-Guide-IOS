@@ -1116,10 +1116,16 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         
         // let realm = try! Realm()
         
-        RealmHelper.sharedInstance.update(content, properties: [
+        let trimmedParent = content.chapterParent.trimmingCharacters(in: .whitespacesAndNewlines)
+        var updateProperties: [String: Any] = [
             "favoriteName": name,
             "favorite": true
-        ]) { [weak self] updated in
+        ]
+        if trimmedParent.isEmpty, let resolvedParent = resolvedChapterParentForBookmark(for: uniqueAddress) {
+            updateProperties["chapterParent"] = resolvedParent
+        }
+
+        RealmHelper.sharedInstance.update(content, properties: updateProperties) { [weak self] updated in
             //
             self?.favoriteIcon.setImage(UIImage(named: "icBookmarksFolderColored"), for: .normal)
             self?.favoriteIcon.setAttributedTitle(bookmarkedText, for: .normal)
@@ -1146,6 +1152,27 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         Analytics.logEvent("bookmark", parameters: [
             "bookmark": (uniqueAddress ) as String,
         ])
+    }
+    
+    private func resolvedChapterParentForBookmark(for slug: String?) -> String? {
+        guard let slug = slug, !slug.isEmpty else { return nil }
+        let baseSlug = slug.components(separatedBy: "#").first ?? slug
+
+        let chartCodes = Array(chapterIndex.chartCode.joined())
+        if let idx = chartCodes.firstIndex(of: baseSlug) {
+            let chartNested = Array(chapterIndex.chartNested.joined())
+            if chartNested.indices.contains(idx) {
+                return chartNested[idx]
+            }
+        }
+
+        let chapterCodes = Array(chapterIndex.chapterCode.joined())
+        if let idx = chapterCodes.firstIndex(of: baseSlug),
+           chapterIndex.chaptermapsubchapternested.indices.contains(idx) {
+            return chapterIndex.chaptermapsubchapternested[idx]
+        }
+
+        return nil
     }
     
     //--------------------------------------------------------------------------------------------------
@@ -1583,4 +1610,3 @@ extension WebViewViewController: UISearchBarDelegate {
         }
     }
 }
-
