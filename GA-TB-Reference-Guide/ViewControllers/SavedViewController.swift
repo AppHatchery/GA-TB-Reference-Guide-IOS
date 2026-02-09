@@ -48,6 +48,8 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     var tableViewCells: [Int : UITableViewCell] = [:]
     
+    let chapterIndex = ChapterIndex()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -267,7 +269,81 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         arrayPointer = indexPath.row
         
-        performSegue( withIdentifier: "SegueToWebViewViewController", sender: nil )
+        if isFavorite {
+            let slug = favoriteURLs[arrayPointer]
+            
+            // Check if file was deleted first
+            if isFileDeleted(for: slug) {
+                // Try to get the resolved URL
+                let resolvedFileURL = resolvedURL(for: slug)
+                
+                print(content)
+                print("Favorite URL: \(favoriteURLs[arrayPointer])")
+                
+//                // Verify the resolved file actually exists
+//                if !FileManager.default.fileExists(atPath: resolvedFileURL.path) {
+//                    // Show alert that file does not exist
+//                    let alert = UIAlertController(
+//                        title: "File Not Found",
+//                        message: "The requested file does not exist and no alternative is available.",
+//                        preferredStyle: .alert
+//                    )
+//                    alert.addAction(UIAlertAction(title: "OK", style: .default))
+//                    present(alert, animated: true)
+//                    
+//                    // Deselect the row
+//                    tableView.deselectRow(at: indexPath, animated: true)
+//                    return // Don't proceed with segue
+//                }
+            } else if !isFileDownloaded(for: slug) {
+                // Check if file exists in bundle
+                if Bundle.main.url(forResource: slug, withExtension: "html") == nil {
+                    let alert = UIAlertController(
+                        title: "File Not Found",
+                        message: "The requested file does not exist.",
+                        preferredStyle: .alert
+                    )
+                    alert.addAction(UIAlertAction(title: "OK", style: .default))
+                    present(alert, animated: true)
+                    
+                    tableView.deselectRow(at: indexPath, animated: true)
+                    return
+                }
+            }
+        } else if isLastOpened {
+            let slug = historyURLs[arrayPointer]
+            
+            if !isFileDownloaded(for: slug) && Bundle.main.url(forResource: slug, withExtension: "html") == nil {
+                let alert = UIAlertController(
+                    title: "File Not Found",
+                    message: "The requested file does not exist.",
+                    preferredStyle: .alert
+                )
+                alert.addAction(UIAlertAction(title: "OK", style: .default))
+                present(alert, animated: true)
+                
+                tableView.deselectRow(at: indexPath, animated: true)
+                return
+            }
+        } else if isNotes {
+            let slug = notesURLs[arrayPointer]
+            
+            if !isFileDownloaded(for: slug) && Bundle.main.url(forResource: slug, withExtension: "html") == nil {
+                let alert = UIAlertController(
+                    title: "File Not Found",
+                    message: "The requested file does not exist.",
+                    preferredStyle: .alert
+                )
+                alert.addAction(UIAlertAction(title: "OK", style: .default))
+                present(alert, animated: true)
+                
+                tableView.deselectRow(at: indexPath, animated: true)
+                return
+            }
+        }
+        
+        // Only perform segue if we passed all the checks above
+        performSegue(withIdentifier: "SegueToWebViewViewController", sender: nil)
     }
     
     private func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool
@@ -278,25 +354,36 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             if isFavorite {
-                if let contentDatabase = realm!.object(ofType: ContentPage.self, forPrimaryKey: favoriteURLs[indexPath.row]) {
-                    // Remove from arrays FIRST
-                    self.favoriteURLs.remove(at: indexPath.row)
-                    self.favoriteNames.remove(at: indexPath.row)
-                    self.favoriteSubChapters.remove(at: indexPath.row)
-                    self.favoriteChapters.remove(at: indexPath.row)
-                    
-                    // Delete the row immediately after updating arrays
-                    self.tableView.deleteRows(at: [indexPath], with: .fade)
-                    self.endLoadingAndUpdateUI()
-                    
-                    // Then update Realm
-                    RealmHelper.sharedInstance.update(contentDatabase, properties: [
-                        "favorite": false,
-                        "favoriteName": ""
-                    ]) { updated in
-                        // Realm update complete
-                    }
+                guard indexPath.row >= 0, indexPath.row < favoriteURLs.count,
+                      let contentPage = realm?.object(ofType: ContentPage.self, forPrimaryKey: favoriteURLs[indexPath.row]) else {
+                    return
                 }
+
+                self.arrayPointer = indexPath.row
+
+                guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                      let window = windowScene.windows.first(where: { $0.isKeyWindow }) ?? (windowScene.delegate as? SceneDelegate)?.window else {
+                    return
+                }
+
+                let saveFavoriteDialogView = SaveFavorite(
+                    frame: window.bounds,
+                    content: contentPage,
+                    title: contentPage.favoriteName,
+                    delegate: self
+                )
+                
+                saveFavoriteDialogView.contentView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
+                saveFavoriteDialogView.overlayView.alpha = 0
+                window.addSubview(saveFavoriteDialogView)
+
+                UIView.animate(withDuration: 0.25, delay: 0.0, options: [], animations: {
+                    saveFavoriteDialogView.overlayView.alpha = 0.5
+                    saveFavoriteDialogView.contentView.transform = .identity
+                }, completion: nil)
+
+                // Do not proceed with deletion while showing the popup
+                return
             } else if isLastOpened {
                 // Remove from arrays FIRST
                 self.historyNames.remove(at: indexPath.row)
@@ -339,38 +426,36 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func didSaveName(_ name: String) {
-            // Update the bookmark name in Realm
-            guard !name.isEmpty else { return }
-            
-            if let contentDatabase = realm!.object(ofType: ContentPage.self, forPrimaryKey: favoriteURLs[arrayPointer]) {
-                RealmHelper.sharedInstance.update(contentDatabase, properties: [
-                    "favoriteName": name
-                ]) { updated in
-                    self.favoriteNames[self.arrayPointer] = name
-                    self.tableView.reloadRows(at: [IndexPath(row: self.arrayPointer, section: 0)], with: .automatic)
-                }
-            }
-        }
+        // Update the bookmark name in Realm
+        guard !name.isEmpty else { return }
         
-        func didRemoveFavorite() {
-            
-            let bookmarkName = favoriteNames[arrayPointer]
-
-            let bookmarkURL = favoriteURLs[arrayPointer]
-            
-            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-               let sceneDelegate = windowScene.delegate as? SceneDelegate,
-               let window = sceneDelegate.window {
-                
-                DeleteConfirmationPopUp.show(
-                    in: window,
-                    bookmarkName: bookmarkName,
-                    bookmarkUrl: bookmarkURL,
-                    delegate: self
-                )
+        if let contentDatabase = realm!.object(ofType: ContentPage.self, forPrimaryKey: favoriteURLs[arrayPointer]) {
+            RealmHelper.sharedInstance.update(contentDatabase, properties: [
+                "favoriteName": name
+            ]) { updated in
+                self.favoriteNames[self.arrayPointer] = name
+                self.tableView.reloadRows(at: [IndexPath(row: self.arrayPointer, section: 0)], with: .automatic)
             }
         }
+    }
     
+    func didRemoveFavorite() {
+        let bookmarkName = favoriteNames[arrayPointer]
+
+        let bookmarkURL = favoriteURLs[arrayPointer]
+        
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let sceneDelegate = windowScene.delegate as? SceneDelegate,
+           let window = sceneDelegate.window {
+            
+            DeleteConfirmationPopUp.show(
+                in: window,
+                bookmarkName: bookmarkName,
+                bookmarkUrl: bookmarkURL,
+                delegate: self
+            )
+        }
+    }
     
     @objc func editBookmarkTapped(_ sender: UIButton) {
         // Resolve index path from button position to avoid stale tags
@@ -493,44 +578,6 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        if let webViewViewController = segue.destination as? WebViewViewController
-        {
-            if isFavorite {
-				if isFileDownloaded(for: favoriteURLs[arrayPointer]) {
-					webViewViewController.url = getFileURL(for: favoriteURLs[arrayPointer])
-				} else {
-					webViewViewController.url = Bundle.main.url(forResource: favoriteURLs[arrayPointer], withExtension: "html")!
-				}
-                webViewViewController.titlelabel = favoriteSubChapters[arrayPointer]
-                webViewViewController.navTitle = favoriteSubChapters[arrayPointer]
-                webViewViewController.uniqueAddress = favoriteURLs[arrayPointer]
-            } else if isLastOpened {
-				if isFileDownloaded(for: historyURLs[arrayPointer]) {
-					webViewViewController.url = getFileURL(for: historyURLs[arrayPointer])
-				} else {
-					webViewViewController.url = Bundle.main
-						.url(forResource: historyURLs[arrayPointer], withExtension: "html")!
-				}
-                webViewViewController.titlelabel = historyNames[arrayPointer]
-                webViewViewController.navTitle = historyChapters[arrayPointer]
-                webViewViewController.uniqueAddress = historyURLs[arrayPointer]
-            } else if isNotes {
-                // Add the transition to the correct viewontroller
-				if isFileDownloaded(for: notesURLs[arrayPointer]) {
-					webViewViewController.url = getFileURL(for: notesURLs[arrayPointer])
-				} else {
-					webViewViewController.url = Bundle.main.url(forResource: notesURLs[arrayPointer], withExtension: "html")!
-				}
-                webViewViewController.titlelabel = notesTitles[arrayPointer]
-//                webViewViewController.navTitle = historyChapters[arrayPointer]
-                webViewViewController.uniqueAddress = notesURLs[arrayPointer]
-            }
-        }
-    }
-    
-    
     // To hide the keyboard when the user clicks search
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.view.endEditing(true)
@@ -576,6 +623,44 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
                     bookmarkName: deletedBookmarkName
                     )
                 }
+            }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let webViewViewController = segue.destination as? WebViewViewController {
+            if isFavorite {
+                let slug = favoriteURLs[arrayPointer]
+                
+                if isFileDeleted(for: slug) {
+                    webViewViewController.url = resolvedURL(for: slug)
+                } else if isFileDownloaded(for: slug) {
+                    webViewViewController.url = getFileURL(for: slug)
+                } else {
+                    webViewViewController.url = Bundle.main.url(forResource: slug, withExtension: "html")!
+                }
+                
+                webViewViewController.titlelabel = favoriteSubChapters[arrayPointer]
+                webViewViewController.navTitle = favoriteSubChapters[arrayPointer]
+                webViewViewController.uniqueAddress = slug
+            } else if isLastOpened {
+                if isFileDownloaded(for: historyURLs[arrayPointer]) {
+                    webViewViewController.url = getFileURL(for: historyURLs[arrayPointer])
+                } else {
+                    webViewViewController.url = Bundle.main
+                        .url(forResource: historyURLs[arrayPointer], withExtension: "html")!
+                }
+                webViewViewController.titlelabel = historyNames[arrayPointer]
+                webViewViewController.navTitle = historyChapters[arrayPointer]
+                webViewViewController.uniqueAddress = historyURLs[arrayPointer]
+            } else if isNotes {
+                if isFileDownloaded(for: notesURLs[arrayPointer]) {
+                    webViewViewController.url = getFileURL(for: notesURLs[arrayPointer])
+                } else {
+                    webViewViewController.url = Bundle.main.url(forResource: notesURLs[arrayPointer], withExtension: "html")!
+                }
+                webViewViewController.titlelabel = notesTitles[arrayPointer]
+                webViewViewController.uniqueAddress = notesURLs[arrayPointer]
             }
         }
     }

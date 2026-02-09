@@ -421,6 +421,25 @@ public class ChapterIndex {
     "xvii_acknowledgements",
     "xviii_for_more_information",
   ]
+    
+  let deletedURLs = [
+    "table_10_pediatric_dosages_rifampin_in_children_(birth_to_15_years)",
+    "table_11_pediatric_dosages_ethambutol_in_children_(birth_to_15_years)",
+    "table_12_pediatric_dosages_pyrazinamide_in_children_(birth_to_15_years)",
+    "table_13_antituberculosis_antibiotics_in_adult_patients_with_renal_impairment",
+    "table_14_antituberculosis_medications_which_may_be_used_for_patients_who_have_contraindications_to_or_intolerance",
+    "table_15_clinical_situations_for_which_standard_therapy_cannot_be_given_or_is_not_well_tolerated",
+    "table_16_when_to_start_hiv_therapy",
+    "table_17_what_to_start_choice_of_tb_therapy_and_antiretroviral_therapy_(art)_when)treating_co-infected_patients",
+    "table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination",
+    "table_19_guidelines_for_treatment_of_extrapulmonary_tuberculosis",
+    "table_20_use_of_anti-tb_medications_in_special_situations_pregnancy_tuberculosis_meningitis_and_renal_failure",
+    "table_21_grady_hospital_tb_isolation_policy",
+    "5_treatment_of_current_(active)_disease_therapy__g__antiretroviral_therapy_(art)_and_treatment_of_persons",
+    "8_tuberculosis_and_long-term_care_facilities",
+    "hello_and_welcome_clinical_statement",
+    "for_more_information"
+  ];
 
   let chartmapsubchapter = [
     "II. Diagnostic Tests for Latent TB Infection (LTBI)",
