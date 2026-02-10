@@ -131,7 +131,7 @@ class SettingsViewController: UIViewController {
 //    }
     
     @IBAction func tapReset(_ sender: UIButton){
-        let alertDelete = UIAlertController(title: "Clear Data?", message: "This will permanently reset the app to factory settings and clear all your bookmarks, favorites, and settings. Are you sure you want to proceed?", preferredStyle: .alert)
+        let alertDelete = UIAlertController(title: "Clear Data?", message: "This will permanently reset the app to factory settings and clear all your bookmarks, notes and settings. Are you sure you want to proceed?", preferredStyle: .alert)
         alertDelete.addAction(UIAlertAction(title: "Yes", style: .default, handler: { [self] (action: UIAlertAction!) in
             // Delete the realm contents
             // Check Android: If a user has a webview opened and favorited the app will crash when they go back to that screen because the realm object has been delete

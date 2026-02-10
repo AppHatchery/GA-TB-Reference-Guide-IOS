@@ -105,6 +105,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //                newrealm?.deleteAll()
 //            })
         }
+
+        if let realm = newrealm, !realm.isEmpty {
+            DispatchQueue.global(qos: .background).async {
+                if let backgroundRealm = RealmHelper.sharedInstance.mainRealm() {
+                    BookmarksMigration.migrateBookmarksForDeletedSlugs(in: backgroundRealm)
+                }
+            }
+        }
         
         
 //        print("Tis is the new realm yo (pages)!",newrealm?.objects(ContentPage.self))

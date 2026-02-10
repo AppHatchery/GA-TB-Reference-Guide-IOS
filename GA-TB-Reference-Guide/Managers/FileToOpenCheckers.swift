@@ -120,6 +120,43 @@ func resolvedURL(for slug: String, withExtension fileExtension: String = "html")
     return availableFileURL(for: slug, withExtension: fileExtension)
 }
 
+func resolvedSlug(for slug: String) -> String {
+    if slug == "table_10_pediatric_dosages_rifampin_in_children_(birth_to_15_years)" || slug == "table_11_pediatric_dosages_ethambutol_in_children_(birth_to_15_years)" || slug == "table_12_pediatric_dosages_pyrazinamide_in_children_(birth_to_15_years)" {
+        
+        return "table_9_pediatric_dosage_isoniazid_in_children_(birth_to_15_years)"
+    } else if slug == "table_13_antituberculosis_antibiotics_in_adult_patients_with_renal_impairment" {
+        return "table_10_antituberculosis_antibiotics_in_adult_patients_with_renal_impairment"
+    } else if slug == "table_14_antituberculosis_medications_which_may_be_used_for_patients_who_have_contraindications_to_or_intolerance" {
+        return "table_11_antituberculosis_medications_which_may_be_used_for_patients_who_have_contraindications_to_or_intolerance"
+    } else if slug == "table_15_clinical_situations_for_which_standard_therapy_cannot_be_given_or_is_not_well_tolerated" {
+        return "table_12_clinical_situations_for_which_standard_therapy_cannot_be_given_or_is_not_well_tolerated"
+    } else if slug == "table_16_when_to_start_hiv_therapy" {
+        return "table_13_when_to_start_hiv_therapy"
+    } else if slug == "table_17_what_to_start_choice_of_tb_therapy_and_antiretroviral_therapy_(art)_when)treating_co-infected_patients" {
+        return "table_14_what_to_start_choice_of_tb_therapy_and_antiretroviral_therapy_(art)_when_treating_co-infected_patients"
+    } else if slug == "table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination" {
+        return "table_15_summary_of_recommendations_for_treatment_of_active_tb_disease_in_persons_with_hiv"
+    } else if slug == "table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination" {
+        return "table_15_summary_of_recommendations_for_treatment_of_active_tb_disease_in_persons_with_hiv"
+    } else if slug == "table_19_guidelines_for_treatment_of_extrapulmonary_tuberculosis" {
+        return "table_16_guidelines_for_treatment_of_extrapulmonary_tuberculosis"
+    } else if slug == "table_20_use_of_anti-tb_medications_in_special_situations_pregnancy_tuberculosis_meningitis_and_renal_failure" {
+        return "table_17_use_of_anti-tb_medications_in_special_situations_pregnancy_tuberculosis_meningitis_and_renal_failure"
+    } else if slug == "table_21_grady_hospital_tb_isolation_policy" {
+        return "table_18_grady_hospital_tb_isolation_policy"
+    } else if slug == "18_hello_and_welcome_clinical_statement" {
+        return "hello_and_welcome_clinical_statement"
+    } else if slug == "19_for_more_information" {
+        return "18_for_more_information"
+    } else if slug == "5_treatment_of_current_(active)_disease_therapy__g__antiretroviral_therapy_(art)_and_treatment_of_persons" {
+        return "5_treatment_of_current_(active)_disease_therapy__f__tb_and_hiv"
+    } else if slug == "8_tuberculosis_and_long-term_care_facilities" {
+        return "8_tuberculosis_and_long_term_care_facilities"
+    }
+    
+    return slug
+}
+
 func updateFileIfDownloaded(filename: String, withExtension fileExtension: String = "html") {
     let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     let filePath = documentsPath.appendingPathComponent("\(filename).\(fileExtension)")
