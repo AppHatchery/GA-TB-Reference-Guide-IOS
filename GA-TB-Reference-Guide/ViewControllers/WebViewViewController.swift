@@ -133,6 +133,27 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         
         // Create WebView Content
         let config = WKWebViewConfiguration()
+        let userContentController = WKUserContentController()
+        let infoIconScript = """
+        (function() {
+            if (window.__infoIconHandlerInstalled) { return; }
+            window.__infoIconHandlerInstalled = true;
+            document.addEventListener('click', function(event) {
+                var el = event.target;
+                if (!el) { return; }
+                var info = el.closest ? el.closest('.info-icon') : null;
+                if (!info) { return; }
+                var tooltip = info.getAttribute('data-tooltip') || '';
+                if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.infoIconTapped) {
+                    window.webkit.messageHandlers.infoIconTapped.postMessage({ tooltip: tooltip });
+                }
+            }, true);
+        })();
+        """
+        let userScript = WKUserScript(source: infoIconScript, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
+        userContentController.addUserScript(userScript)
+        userContentController.add(self, name: "infoIconTapped")
+        config.userContentController = userContentController
         
         webView = WKWebView(frame: .zero, configuration: config)
         webView.uiDelegate = self
@@ -1104,7 +1125,25 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     }
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        guard message.name == "infoIconTapped" else { return }
+        let tooltip: String = {
+            if let dict = message.body as? [String: Any],
+               let value = dict["tooltip"] as? String {
+                return value
+            }
+            return ""
+        }()
         
+        PendoManager.shared().track("infoIconTapped", properties: [
+            "page_url": uniqueAddress ?? "",
+            "page_title": navTitle,
+            "tooltip": tooltip
+        ])
+        print("Pendo infoIconTapped:", [
+            "page_url": uniqueAddress ?? "",
+            "page_title": navTitle,
+            "tooltip": tooltip
+        ])
     }
     
     //--------------------------------------------------------------------------------------------------
