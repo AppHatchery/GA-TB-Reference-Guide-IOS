@@ -245,17 +245,35 @@ class SaveNote: UIView {
             self.overlayView.alpha = 0
             self.contentView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
         }) { _ in
-            self.delegate.didDeleteNote(self.note)
-            self.removeFromSuperview()
             
-            // Show popup safely in iOS 13+
-            if let windowScene = UIApplication.shared.connectedScenes
+            guard let windowScene = UIApplication.shared.connectedScenes
                 .filter({ $0.activationState == .foregroundActive })
                 .first as? UIWindowScene,
-               let window = windowScene.windows.first(where: { $0.isKeyWindow }) {
-                
-                CustomPopUp.showTemporary(in: window, popupLabelText: "Note Deleted")
+                  let window = windowScene.windows.first(where: { $0.isKeyWindow }) else {
+                return
             }
+            
+            TwoOptionsPopUp.show(
+                in: window,
+                label: "Delete Note?",
+                cancelTitle: "Cancel",
+                deleteTitle: "Delete",
+                onCancel: nil,
+                onDelete: { [weak self] in
+                    guard let self = self else { return }
+                    guard let note = self.note else { return }
+                    
+                    self.delegate.didDeleteNote(note)
+                    
+                    if let windowScene = UIApplication.shared.connectedScenes
+                        .filter({ $0.activationState == .foregroundActive })
+                        .first as? UIWindowScene,
+                       let window = windowScene.windows.first(where: { $0.isKeyWindow }) {
+                        
+                        CustomPopUp.showTemporary(in: window, popupLabelText: "Note Deleted!")
+                    }
+                }
+            )
         }
     }
 }

@@ -938,6 +938,31 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         // This is text to accompany the
 //        let promoText = "Check out this subchapter of the TB Reference Guide "
         let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+        
+        activityVC.completionWithItemsHandler = {
+            [weak self] activityType, completed, _, _ in
+            
+            guard completed, activityType == .copyToPasteboard else { return }
+            
+            if let windowScene = UIApplication.shared.connectedScenes
+                .filter({ $0.activationState == .foregroundActive })
+                .first as? UIWindowScene,
+               let window = windowScene.windows.first(
+                where: { $0.isKeyWindow
+                }) {
+                CustomPopUp
+                    .showTemporary(in: window, popupLabelText: "Link Copied")
+            } else {
+                let alert = UIAlertController(
+                    title: "Link Copied",
+                    message: nil,
+                    preferredStyle: .alert
+                )
+                
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self?.present(alert, animated: true)
+            }
+        }
         present(activityVC, animated: true)
     }
     

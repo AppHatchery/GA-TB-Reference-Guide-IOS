@@ -131,30 +131,34 @@ class SettingsViewController: UIViewController {
 //    }
     
     @IBAction func tapReset(_ sender: UIButton){
-        let alertDelete = UIAlertController(title: "Clear Data?", message: "This will permanently reset the app to factory settings and clear all your bookmarks, notes and settings. Are you sure you want to proceed?", preferredStyle: .alert)
-        alertDelete.addAction(UIAlertAction(title: "Yes", style: .default, handler: { [self] (action: UIAlertAction!) in
-            // Delete the realm contents
-            // Check Android: If a user has a webview opened and favorited the app will crash when they go back to that screen because the realm object has been delete
-//            let realm = try! Realm()
-             try! realm!.write {
-                 realm!.deleteAll()
-                        
-                 let alertSuccess = UIAlertController(
-                    title: "Success",
-                    message: "App reset successfully",
-                    preferredStyle: .alert
-                 )
-                 
-                 alertSuccess
-                     .addAction(UIAlertAction(title: "Ok", style: .cancel))
-                 
-                 self.present(alertSuccess, animated: true, completion: nil)
+        guard let windowScene = UIApplication.shared.connectedScenes
+            .filter({ $0.activationState == .foregroundActive })
+            .first as? UIWindowScene,
+              let window = windowScene.windows.first(where: { $0.isKeyWindow }) else {
+            return
+        }
+
+        TwoOptionsPopUp.show(
+            in: window,
+            label: "This will permanently clear all your saved bookmarks, notes and settings. Are you sure you want to proceed?",
+            cancelTitle: "No",
+            deleteTitle: "Yes",
+            onCancel: nil,
+            onDelete: { [weak self] in
+                guard let self = self else { return }
+                // Delete the realm contents
+                try? self.realm?.write {
+                    self.realm?.deleteAll()
+                }
+
+                if let windowScene = UIApplication.shared.connectedScenes
+                    .filter({ $0.activationState == .foregroundActive })
+                    .first as? UIWindowScene,
+                   let window = windowScene.windows.first(where: { $0.isKeyWindow }) {
+                        CustomPopUp.showTemporary(in: window, popupLabelText: "App reset successfully")
+                }
             }
-        }))
-        
-        alertDelete.addAction(UIAlertAction(title: "No", style: .cancel, handler: { (action: UIAlertAction!) in
-        }))
-        self.present(alertDelete, animated: true, completion: nil)
+        )
     }
     
     //--------------------------------------------------------------------------------------------------

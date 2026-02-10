@@ -57,7 +57,7 @@ class CustomPopUp: UIView {
         mainView.layer.masksToBounds = true
         
         if !isBookmark {
-            popupLabel.text = "Note Deleted"
+            popupLabel.text = popupLabelText
         } else {
             if bookmarkName.isEmpty {
                 popupLabel.text = "Bookmark deleted!"

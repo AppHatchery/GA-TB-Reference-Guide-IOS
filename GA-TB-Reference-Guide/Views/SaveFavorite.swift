@@ -127,7 +127,7 @@ class SaveFavorite: UIView {
         }
         closeButton.addTarget(self, action: #selector(self.cancelButtonPressed), for: .touchUpInside)
         
-        print(subChapter)
+//        print(subChapter)
     }
     
     private func configureCancelButton() {

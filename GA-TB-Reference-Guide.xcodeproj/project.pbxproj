@@ -137,6 +137,8 @@
 		B4E88A152E8A83D100396ABB /* BookmarkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B4E88A142E8A83D100396ABB /* BookmarkTableViewCell.xib */; };
 		B4E88A162E8A83D100396ABB /* BookmarkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E88A132E8A83D100396ABB /* BookmarkTableViewCell.swift */; };
 		B4F71BC92F3B3D8100E422AC /* Migrations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F71BC82F3B3D8100E422AC /* Migrations.swift */; };
+		B4F71BCB2F3B5B4F00E422AC /* TwoOptionsPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F71BCA2F3B5B4F00E422AC /* TwoOptionsPopUp.swift */; };
+		B4F71BCF2F3B5B9700E422AC /* TwoOptionsPopUp.xib in Resources */ = {isa = PBXBuildFile; fileRef = B4F71BCE2F3B5B9700E422AC /* TwoOptionsPopUp.xib */; };
 		D42F269526F05B64009DC942 /* ChapterNoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42F269326F05B64009DC942 /* ChapterNoteTableViewCell.swift */; };
 		D42F269626F05B64009DC942 /* ChapterNoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D42F269426F05B64009DC942 /* ChapterNoteTableViewCell.xib */; };
 		D42F269926F1AC31009DC942 /* ContentSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42F269826F1AC31009DC942 /* ContentSizedTableView.swift */; };
@@ -357,6 +359,8 @@
 		B4E88A132E8A83D100396ABB /* BookmarkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTableViewCell.swift; sourceTree = "<group>"; };
 		B4E88A142E8A83D100396ABB /* BookmarkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarkTableViewCell.xib; sourceTree = "<group>"; };
 		B4F71BC82F3B3D8100E422AC /* Migrations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migrations.swift; sourceTree = "<group>"; };
+		B4F71BCA2F3B5B4F00E422AC /* TwoOptionsPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoOptionsPopUp.swift; sourceTree = "<group>"; };
+		B4F71BCE2F3B5B9700E422AC /* TwoOptionsPopUp.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TwoOptionsPopUp.xib; sourceTree = "<group>"; };
 		D42F269326F05B64009DC942 /* ChapterNoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterNoteTableViewCell.swift; sourceTree = "<group>"; };
 		D42F269426F05B64009DC942 /* ChapterNoteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChapterNoteTableViewCell.xib; sourceTree = "<group>"; };
 		D42F269826F1AC31009DC942 /* ContentSizedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSizedTableView.swift; sourceTree = "<group>"; };
@@ -475,6 +479,8 @@
 				B47FDDAF2E967E9800CC4C7B /* CustomPopUp.xib */,
 				B4C6DBC62E97462B006D8D5A /* NoteSavedPopUp.swift */,
 				B4C6DBC82E97462F006D8D5A /* NoteSavedPopUp.xib */,
+				B4F71BCA2F3B5B4F00E422AC /* TwoOptionsPopUp.swift */,
+				B4F71BCE2F3B5B9700E422AC /* TwoOptionsPopUp.xib */,
 			);
 			path = PopUps;
 			sourceTree = "<group>";
@@ -906,6 +912,7 @@
 				B401CE5F2C58D96D00149414 /* SuggestionTableViewCell.xib in Resources */,
 				D42F26B326F94FC5009DC942 /* uikit-copy.js in Resources */,
 				D4CCBF5A27C032B400E42BC9 /* chart.json in Resources */,
+				B4F71BCF2F3B5B9700E422AC /* TwoOptionsPopUp.xib in Resources */,
 				D4710CEC274ABA5700F6EBFF /* FeedbackForm.xib in Resources */,
 				D4A5D2A32B2C9BA500812C53 /* 1_epidemiology_image_2_us_born_and_foreign_born_tb_cases_georgia_2000_2020.png in Resources */,
 				B47FDDAC2E9657AF00CC4C7B /* DeleteConfirmationPopUp.xib in Resources */,
@@ -1077,6 +1084,7 @@
 				D4A06A5826E6D2C10093D144 /* Notes.swift in Sources */,
 				D4B0B0B126D01CA6003BD1EA /* ViewController.swift in Sources */,
 				D4515DE526D9101F00EE6592 /* ChartListViewController.swift in Sources */,
+				B4F71BCB2F3B5B4F00E422AC /* TwoOptionsPopUp.swift in Sources */,
 				B473888A2D5C7D5300A4C168 /* BatchDownloadManager.swift in Sources */,
 				B4C6DBC72E97462B006D8D5A /* NoteSavedPopUp.swift in Sources */,
 				D42F269926F1AC31009DC942 /* ContentSizedTableView.swift in Sources */,

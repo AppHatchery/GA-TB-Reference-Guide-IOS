@@ -193,14 +193,39 @@ extension NotesBottomSheetViewController: UITableViewDelegate {
             
             let note = notes[notes.count - 1 - indexPath.row]
             
-            // Delete from Realm through delegate
-            delegate?.didDeleteNote(note)
-            
-            DispatchQueue.main.async { [weak self] in
-                self?.tableView.reloadData()
-                self?.updateEmptyState()
-                self?.updateNotesCount()
+            guard let windowScene = UIApplication.shared.connectedScenes
+                .filter({ $0.activationState == .foregroundActive })
+                .first as? UIWindowScene,
+                  let window = windowScene.windows.first(where: { $0.isKeyWindow }) else {
+                return
             }
+            
+            TwoOptionsPopUp.show(
+                in: window,
+                label: "Delete Note?",
+                cancelTitle: "Cancel",
+                deleteTitle: "Delete",
+                onCancel: nil,
+                onDelete: { [weak self] in
+                    guard let self = self else { return }
+                    
+                    self.delegate?.didDeleteNote(note)
+                    
+                    if let windowScene = UIApplication.shared.connectedScenes
+                        .filter({ $0.activationState == .foregroundActive })
+                        .first as? UIWindowScene,
+                       let window = windowScene.windows.first(where: { $0.isKeyWindow }) {
+                        
+                        CustomPopUp.showTemporary(in: window, popupLabelText: "Note Deleted!")
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                        self.updateEmptyState()
+                        self.updateNotesCount()
+                    }
+                }
+            )
         }
     }
 }
