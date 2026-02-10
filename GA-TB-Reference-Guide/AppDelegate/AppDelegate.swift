@@ -110,6 +110,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             DispatchQueue.global(qos: .background).async {
                 if let backgroundRealm = RealmHelper.sharedInstance.mainRealm() {
                     BookmarksMigration.migrateBookmarksForDeletedSlugs(in: backgroundRealm)
+                    NotesMigration.migrateNotesForDeletedSlugs(in: backgroundRealm)
                 }
             }
         }
