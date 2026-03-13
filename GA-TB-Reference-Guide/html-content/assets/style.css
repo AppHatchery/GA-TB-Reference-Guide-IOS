@@ -770,16 +770,19 @@ h3.highlight {
 /* Tooltip positioning variants */
 .tooltip-right {
   left: 0px;
+  z-index: 5000 !important;
 }
 
 .tooltip-center {
   left: 50%;
   transform: translateX(-50%);
+  z-index: 5000 !important;
 }
 
 .tooltip-left {
   right: 0px;
   left: auto;
+  z-index: 5000 !important;
 }
 
 .tooltip-bottom-center {
@@ -789,6 +792,7 @@ h3.highlight {
   transform: translateX(-50%);
   margin-bottom: 0;
   margin-top: 10px;
+  z-index: 5000 !important;
 }
 
 .tooltip-center-center {
@@ -796,6 +800,7 @@ h3.highlight {
   left: 30%;
   margin-bottom: 0;
   margin-top: 10px;
+  z-index: 5000 !important;
 }
 
 /* Tooltip arrow */
@@ -815,6 +820,7 @@ h3.highlight {
   visibility: visible;
   opacity: 1;
   overflow: scroll;
+  z-index: 5000 !important;
 }
 
 /* Responsive table
