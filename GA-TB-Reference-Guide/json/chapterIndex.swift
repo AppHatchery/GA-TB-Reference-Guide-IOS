@@ -30,7 +30,7 @@ public class ChapterIndex {
       "f. Rapid Molecular Drug Susceptibility Tests (DST)",
     ],
     [
-      "a. Introduction", "b. Considerations", "c. Standard Therapy for Current (Active) Disease",
+      "a. Introduction", "b. Considerations", "c. Standard Therapy for Current (Active) TB Disease",
       "d. Special Clinical Situations", "e. Drug Resistance",
       "f. Monitoring Patients on Therapy for Response and Adverse Events", "g. TB and HIV",
       "h. Immune Reconstitution Inflammatory Syndrome (IRIS) Associated with Initiation of Antiretroviral Therapy During the Course of TB Therapy",
@@ -55,7 +55,7 @@ public class ChapterIndex {
       "f. Hospital Discharge Planning for Patients with Suspected or Proven TB",
       "g. Interjurisdictional TB Notification (IJN)",
       "h. CureTB Program (International Linkage to TB Care)",
-    ], ["a. Alternative Housing Program for Homeless TB Patients in Georgia"],
+    ], ["a. Alternative Housing Program for Persons with TB Experiencing Homelessness in Georgia"],
     [
       "a. Georgia Department of Public Health (DPH) Community Guidelines for Respiratory Isolation of Patients with Active TB in the Community"
     ],
@@ -149,7 +149,7 @@ public class ChapterIndex {
     "Rapid Molecular Drug Susceptibility Tests (DST)",
     "Introduction",
     "Considerations",
-    "Standard Therapy for Current (Active) Disease",
+    "Standard Therapy for Current (Active) TB Disease",
     "Special Clinical Situations",
     "Drug Resistance",
     "Monitoring Patients on Therapy for Response and Adverse Events",
@@ -177,7 +177,7 @@ public class ChapterIndex {
     "Hospital Discharge Planning for Patients with Suspected or Proven TB",
     "Interjurisdictional TB Notification (IJN)",
     "CureTB Program (International Linkage to TB Care)",
-    "Alternative Housing Program for Homeless TB Patients in Georgia",
+    "Alternative Housing Program for Persons with TB Experiencing Homelessness in Georgia",
     "Georgia Department of Public Health (DPH) Community Guidelines for Respiratory Isolation of Patients with Active TB in the Community",
     "References",
     "Appendix: District TB Coordinators (by District)",
@@ -392,8 +392,8 @@ public class ChapterIndex {
     "V. Treatment of Current (Active) Disease Therapy", "VI. Pregnancy and TB",
     "VII. Childhood Tuberculosis", "VIII. Tuberculosis and Long-Term Care Facilities",
     "IX. BCG Vaccination", "X. TB Infection Control: Hospital Isolation Procedures",
-    "XI. Community Tuberculosis Control",
-    "XII. Alternative Housing Program for Homeless TB Patients in Georgia",
+    "XI. Community Tuberculosis Prevention Control",
+    "XII. Alternative Housing Program for Persons with TB Experiencing Homelessness in Georgia",
     "XIII. Georgia Department of Public Health (DPH) Community Guidelines for Respiratory Isolation of Patients with Active TB in the Community",
     "XIV. References", "XV. Appendix: District TB Coordinators (by District)", "XVI. Abbreviations",
     "XVII. Acknowledgements",
@@ -507,15 +507,15 @@ public class ChapterIndex {
     "X. TB Infection Control: Hospital Isolation Procedures",
     "X. TB Infection Control: Hospital Isolation Procedures",
     "X. TB Infection Control: Hospital Isolation Procedures",
-    "XI. Community Tuberculosis Control",
-    "XI. Community Tuberculosis Control",
-    "XI. Community Tuberculosis Control",
-    "XI. Community Tuberculosis Control",
-    "XI. Community Tuberculosis Control",
-    "XI. Community Tuberculosis Control",
-    "XI. Community Tuberculosis Control",
-    "XI. Community Tuberculosis Control",
-    "XII. Alternative Housing Program for Homeless TB Patients in Georgia",
+    "XI. Community Tuberculosis Prevention Control",
+    "XI. Community Tuberculosis Prevention Control",
+    "XI. Community Tuberculosis Prevention Control",
+    "XI. Community Tuberculosis Prevention Control",
+    "XI. Community Tuberculosis Prevention Control",
+    "XI. Community Tuberculosis Prevention Control",
+    "XI. Community Tuberculosis Prevention Control",
+    "XI. Community Tuberculosis Prevention Control",
+    "XII. Alternative Housing Program for Persons with TB Experiencing Homelessness in Georgia",
     "XIII. Georgia Department of Public Health (DPH) Community Guidelines for Respiratory Isolation of Patients with Active TB in the Community",
     "XIV. References", "XV. Appendix: District TB Coordinators (by District)", "XVI. Abbreviations",
     "XVII. Acknowledgements",
@@ -572,7 +572,7 @@ public class ChapterIndex {
 
     "a. Introduction",
     "b. Considerations",
-    "c. Standard Therapy for Current (Active) Disease",
+    "c. Standard Therapy for Current (Active) TB Disease",
     "d. Special Clinical Situations",
     "e. Drug Resistance",
     "f. Monitoring Patients on Therapy for Response and Adverse Events",
@@ -607,7 +607,7 @@ public class ChapterIndex {
     "g. Interjurisdictional TB Notification (IJN)",
     "h. CureTB Program (International Linkage to TB Care)",
 
-    "a. Alternative Housing Program for Homeless TB Patients in Georgia",
+    "a. Alternative Housing Program for Persons with TB Experiencing Homelessness in Georgia",
 
     "a. Georgia Department of Public Health (DPH) Community Guidelines for Respiratory Isolation of Patients with Active TB in the Community",
 
@@ -754,7 +754,7 @@ public class ChapterIndex {
         },
         {
           "chapterId": "5",
-          "subChapterTitle": "Standard Therapy for Current (Active) Disease",
+          "subChapterTitle": "Standard Therapy for Current (Active) TB Disease",
           "url": "0"
         },
         {
