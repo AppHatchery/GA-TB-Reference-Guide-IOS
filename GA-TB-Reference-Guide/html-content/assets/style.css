@@ -594,7 +594,7 @@ td {
 }
 
 td {
-  animation: slideInBottom var(--transition-duration) ease-in-out forwards;
+  animation: slideInBottom var(--transition-duration) ease-in-out;
 }
 
 td ul {
