@@ -7,6 +7,16 @@
 
 import Foundation
 
+// MARK: - chapterIndex File Overview
+/// This file centralizes the ordering and display metadata for chapters, subchapters, and charts.
+/// It exists as a single source of truth for mapping:
+/// - content slugs/filenames to human-readable titles
+/// - subchapter indices to parent chapter titles
+/// - nested chapter/chart groupings used by the UI and search layers
+/// Throughout the app, controllers and managers use ChapterIndex to build lists,
+/// resolve navigation targets, label search results, and compute analytics metadata.
+/// Master index used to map bundled content files to titles, groupings, and navigation labels.
+
 public class ChapterIndex {
   let chapterNested = [
     ["Hello and Welcome Clinical Statement"],
@@ -391,7 +401,7 @@ public class ChapterIndex {
     "IV. Laboratory Diagnosis of Active Tuberculosis",
     "V. Treatment of Current (Active) Disease Therapy", "VI. Pregnancy and TB",
     "VII. Childhood Tuberculosis", "VIII. Tuberculosis and Long-Term Care Facilities",
-    "IX. BCG Vaccination", "X. TB Infection Control: Hospital Isolation Procedures",
+    "IX. BCG Vaccination", "X. TB Infection Prevention and Control in Healthcare Facilities",
     "XI. Community Tuberculosis Prevention Control",
     "XII. Alternative Housing Program for Persons with TB Experiencing Homelessness in Georgia",
     "XIII. Georgia Department of Public Health (DPH) Community Guidelines for Respiratory Isolation of Patients with Active TB in the Community",
@@ -459,8 +469,8 @@ public class ChapterIndex {
     "V. Treatment of Current (Active) Disease Therapy",
     "V. Treatment of Current (Active) Disease Therapy",
     "VI. Pregnancy and TB",
-    "X. TB Infection Control: Hospital Isolation Procedures",
-    "X. TB Infection Control: Hospital Isolation Procedures",
+    "X. TB Infection Prevention and Control in Healthcare Facilities",
+    "X. TB Infection Prevention and Control in Healthcare Facilities",
   ]
 
   let chaptermapsubchapter = [
@@ -502,11 +512,11 @@ public class ChapterIndex {
     "VII. Childhood Tuberculosis",
     "VIII. Tuberculosis and Long-Term Care Facilities",
     "IX. BCG Vaccination",
-    "X. TB Infection Control: Hospital Isolation Procedures",
-    "X. TB Infection Control: Hospital Isolation Procedures",
-    "X. TB Infection Control: Hospital Isolation Procedures",
-    "X. TB Infection Control: Hospital Isolation Procedures",
-    "X. TB Infection Control: Hospital Isolation Procedures",
+    "X. TB Infection Prevention and Control in Healthcare Facilities",
+    "X. TB Infection Prevention and Control in Healthcare Facilities",
+    "X. TB Infection Prevention and Control in Healthcare Facilities",
+    "X. TB Infection Prevention and Control in Healthcare Facilities",
+    "X. TB Infection Prevention and Control in Healthcare Facilities",
     "XI. Community Tuberculosis Prevention Control",
     "XI. Community Tuberculosis Prevention Control",
     "XI. Community Tuberculosis Prevention Control",
@@ -540,7 +550,7 @@ public class ChapterIndex {
     "V. Treatment of Current (Active) Disease Therapy",
     "V. Treatment of Current (Active) Disease Therapy",
     "VI. Pregnancy and TB",
-    "X. TB Infection Control: Hospital Isolation Procedures",
+    "X. TB Infection Prevention and Control in Healthcare Facilities",
     "V. Treatment of Current (Active) Disease Therapy",
   ]
 
