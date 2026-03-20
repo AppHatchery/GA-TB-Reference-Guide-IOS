@@ -8,6 +8,7 @@
 import UIKit
 import RealmSwift
 
+/// SavedViewController manages the Saved screen UI and interactions.
 class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, SaveFavoriteDelegate, DeleteConfirmationPopUpDelegate {
     
     
@@ -19,8 +20,8 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     var isGradientAdded: Bool = false
     
-    // Initialize the Realm database
-//    let realm = try! Realm()
+    /// Initialize the Realm database
+    //    let realm = try! Realm()
     let realm = RealmHelper.sharedInstance.mainRealm()
     var content : ContentPage!
     
@@ -65,7 +66,7 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         navigationController?.navigationBar.setGradientBackground(to: self.navigationController!)
         navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.shadowImage = UIImage()
-        // Do any additional setup after loading the view.
+        /// Do any additional setup after loading the view.
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -103,7 +104,7 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
 //            isGradientAdded = true
 //        }
         
-        // Refresh the Arrays everytime the view appears, might want to add some sort of observer event to these arrays to not keep loading them everytime on start
+        /// Refresh the Arrays everytime the view appears, might want to add some sort of observer event to these arrays to not keep loading them everytime on start
         favoriteURLs = [String]()
         favoriteNames = [String]()
         favoriteSubChapters = [String]()
@@ -134,7 +135,7 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
             historyChapters.append(content.chapterParent)
         }
         
-        // Should address the order in which the notes load up because it looks like it follows the last note clicked model rather than appending to the database linearly
+        /// Should address the order in which the notes load up because it looks like it follows the last note clicked model rather than appending to the database linearly
         let notesDatabase =  realm!.objects(Notes.self)
         for content in notesDatabase{
             notesURLs.append(content.subChapterURL)
@@ -144,7 +145,7 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
             notesLastEdit.append(content.lastEdited)
         }
         
-        // Update empty state immediately after data is ready
+        /// Update empty state immediately after data is ready
         DispatchQueue.main.async {
             self.tableView.reloadData()
             self.endLoadingAndUpdateUI()
@@ -185,7 +186,7 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // Decide what to display according to the corresponding filter
+        /// Decide what to display according to the corresponding filter
         if isFavorite {
             return favoriteURLs.count
         } else if isLastOpened {
@@ -224,16 +225,16 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
             
             if let regex = try? NSRegularExpression(pattern: tablePattern, options: []),
                    regex.firstMatch(in: chapterName, options: [], range: NSRange(location: 0, length: chapterName.utf16.count)) != nil {
-                    // It's a table chapter
+                    /// It's a table chapter
                     cell.sideView.backgroundColor = .colorGreen
                     cell.chapterIcon.image = UIImage(named: "icChartGreen")
                 } else if let regexFigure = try? NSRegularExpression(pattern: figurePattern, options: []),
                         regexFigure.firstMatch(in: chapterName, options: [], range: NSRange(location: 0, length: chapterName.utf16.count)) != nil {
-                  // It's a figure chapter
+                  /// It's a figure chapter
                     cell.sideView.backgroundColor = .colorGreen
                   cell.chapterIcon.image = UIImage(named: "icChartGreen")
               } else {
-                  // It's a regular chapter
+                  /// It's a regular chapter
                 cell.sideView.backgroundColor = .colorPrimary
                 cell.chapterIcon.image = UIImage(named: "icChapterBlue")
             }
@@ -272,9 +273,9 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         if isFavorite {
             let slug = favoriteURLs[arrayPointer]
             
-            // Check if file was deleted first
+            /// Check if file was deleted first
             if isFileDeleted(for: slug) {
-                // Try to get the resolved URL
+                /// Try to get the resolved URL
                 let resolvedFileURL = resolvedURL(for: slug)
                 
                 print(content)
@@ -296,7 +297,7 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
 //                    return // Don't proceed with segue
 //                }
             } else if !isFileDownloaded(for: slug) {
-                // Check if file exists in bundle
+                /// Check if file exists in bundle
                 if Bundle.main.url(forResource: slug, withExtension: "html") == nil {
                     let alert = UIAlertController(
                         title: "File Not Found",
@@ -342,7 +343,7 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }
         }
         
-        // Only perform segue if we passed all the checks above
+        /// Only perform segue if we passed all the checks above
         performSegue(withIdentifier: "SegueToWebViewViewController", sender: nil)
     }
     
@@ -382,51 +383,51 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
                     saveFavoriteDialogView.contentView.transform = .identity
                 }, completion: nil)
 
-                // Do not proceed with deletion while showing the popup
+                /// Do not proceed with deletion while showing the popup
                 return
             } else if isLastOpened {
-                // Remove from arrays FIRST
+                /// Remove from arrays FIRST
                 self.historyNames.remove(at: indexPath.row)
                 let urlToDelete = self.historyURLs[indexPath.row]
                 self.historyURLs.remove(at: indexPath.row)
                 self.historyChapters.remove(at: indexPath.row)
                 
-                // Delete the row immediately
+                /// Delete the row immediately
                 self.tableView.deleteRows(at: [indexPath], with: .fade)
                 self.endLoadingAndUpdateUI()
                 
-                // Then delete from Realm
+                /// Then delete from Realm
                 let historyDatabase = realm!.objects(ContentAccess.self).filter("url == '\(urlToDelete)'")
                 for entry in historyDatabase {
                     RealmHelper.sharedInstance.delete(entry) { deleted in
-                        // Deletion complete
+                        /// Deletion complete
                     }
                 }
             } else if isNotes {
                 let notesDatabase = realm!.objects(Notes.self)
                 let noteToDelete = notesDatabase[indexPath.row]
                 
-                // Remove from arrays FIRST
+                /// Remove from arrays FIRST
                 self.notesContent.remove(at: indexPath.row)
                 self.notesURLs.remove(at: indexPath.row)
                 self.notesTitles.remove(at: indexPath.row)
                 self.notesLastEdit.remove(at: indexPath.row)
                 self.notesColors.remove(at: indexPath.row)
                 
-                // Delete the row immediately
+                /// Delete the row immediately
                 self.tableView.deleteRows(at: [indexPath], with: .fade)
                 self.endLoadingAndUpdateUI()
                 
-                // Then delete from Realm
+                /// Then delete from Realm
                 RealmHelper.sharedInstance.delete(noteToDelete) { deleted in
-                    // Deletion complete
+                    /// Deletion complete
                 }
             }
         }
     }
     
     func didSaveName(_ name: String) {
-        // Update the bookmark name in Realm
+        /// Update the bookmark name in Realm
         guard !name.isEmpty else { return }
         
         if let contentDatabase = realm!.object(ofType: ContentPage.self, forPrimaryKey: favoriteURLs[arrayPointer]) {
@@ -458,28 +459,28 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     @objc func editBookmarkTapped(_ sender: UIButton) {
-        // Resolve index path from button position to avoid stale tags
+        /// Resolve index path from button position to avoid stale tags
         let buttonPosition = sender.convert(CGPoint.zero, to: tableView)
         let resolvedIndexPath = tableView.indexPathForRow(at: buttonPosition)
 
-        // Prefer resolved index path; fall back to sender.tag if valid
+        /// Prefer resolved index path; fall back to sender.tag if valid
         let index: Int? = {
             if let ip = resolvedIndexPath?.row { return ip }
             let tag = sender.tag
             return (0..<favoriteURLs.count).contains(tag) ? tag : nil
         }()
 
-        // Ensure we are in Favorites mode and index is valid
+        /// Ensure we are in Favorites mode and index is valid
         guard isFavorite, let index = index, index >= 0, index < favoriteURLs.count, index < favoriteNames.count else {
             return
         }
 
-        // Get the content page from Realm safely
+        /// Get the content page from Realm safely
         guard let contentPage = realm!.object(ofType: ContentPage.self, forPrimaryKey: favoriteURLs[index]) else {
             return
         }
         
-        // Create and show the custom SaveFavorite dialog
+        /// Create and show the custom SaveFavorite dialog
         let saveFavoriteDialog = SaveFavorite(
             frame: self.view.bounds,
             content: contentPage,
@@ -487,7 +488,7 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
             delegate: self
         )
         
-        // Store the current index for use in delegate methods
+        /// Store the current index for use in delegate methods
         arrayPointer = index
         
         let customView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
@@ -501,7 +502,7 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
         saveFavoriteDialog.nameField?.inputAccessoryView = customView
 
-        // Present with animation
+        /// Present with animation
         self.view.addSubview(saveFavoriteDialog)
         saveFavoriteDialog.overlayView.alpha = 0
         saveFavoriteDialog.contentView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
@@ -578,22 +579,22 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     
-    // To hide the keyboard when the user clicks search
+    /// To hide the keyboard when the user clicks search
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.view.endEditing(true)
     }
     
     
     @objc func dismissKeyboard() {
-        // To hide the keyboard when the user clicks search
+        /// To hide the keyboard when the user clicks search
         self.view.endEditing(true)
     }
     
     func didTapDeleteBookmark(for url: String?) {
-        // unwrap the optional URL
+        /// unwrap the optional URL
         guard let url = url else { return }
         
-        // find the index in favoriteURLs
+        /// find the index in favoriteURLs
         guard let index = favoriteURLs.firstIndex(of: url) else { return }
         
         if let contentDatabase = realm!.object(ofType: ContentPage.self, forPrimaryKey: url) {

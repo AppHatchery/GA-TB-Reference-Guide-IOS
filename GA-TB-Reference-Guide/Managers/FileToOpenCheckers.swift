@@ -9,7 +9,7 @@ import Foundation
 
 let chapterIndex = ChapterIndex()
 
-// Helper function to check if a file was downloaded or not, if it exists, route to points to downloaded file
+///Helper function to check if a file was downloaded or not, if it exists, route to points to downloaded file
 func getFileURL(for filename: String, withExtension fileExtension: String = "html") -> URL {
 	let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
 	let filePath = documentsPath.appendingPathComponent("\(filename).\(fileExtension)")
@@ -22,6 +22,7 @@ func getFileURL(for filename: String, withExtension fileExtension: String = "htm
 	}
 }
 
+/// is File Downloaded.
 func isFileDownloaded(for filename: String, withExtension fileExtension: String = "html") -> Bool {
 	let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
 	let filePath = documentsPath.appendingPathComponent("\(filename).\(fileExtension)")
@@ -34,22 +35,23 @@ func isFileDownloaded(for filename: String, withExtension fileExtension: String 
 }
 
 @discardableResult
+/// is File Deleted.
 func isFileDeleted(for filename: String, withExtension fileExtension: String = "html") -> Bool {
     let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     let filePath = documentsPath.appendingPathComponent("\(filename).\(fileExtension)")
 
-    // If it exists in Documents, it's not deleted
+    /// If it exists in Documents, it's not deleted
     let existsInDocuments = FileManager.default.fileExists(atPath: filePath.path)
     if existsInDocuments {
         return false
     }
 
-    // If it doesn't exist in Documents but exists in the bundle, treat as deleted (i.e., we will fall back to bundle)
+    /// If it doesn't exist in Documents but exists in the bundle, treat as deleted (i.e., we will fall back to bundle)
     if Bundle.main.url(forResource: filename, withExtension: fileExtension) != nil {
         return true
     }
 
-    // Neither in Documents nor in bundle; consider it deleted/missing
+    /// Neither in Documents nor in bundle; consider it deleted/missing
     return true
 }
 
@@ -63,7 +65,7 @@ func availableFileURL(for filename: String, withExtension fileExtension: String 
         return filePath
     }
     
-    // Keeping this for debugging purposes to LIST all HTML files in bundle
+    /// Keeping this for debugging purposes to LIST all HTML files in bundle
     if let bundleContents = try? FileManager.default.contentsOfDirectory(atPath: Bundle.main.bundlePath) {
         let htmlFiles = bundleContents.filter { $0.hasSuffix(".html") }
         print("HTML files in bundle: \(htmlFiles)")
@@ -74,6 +76,7 @@ func availableFileURL(for filename: String, withExtension fileExtension: String 
     return url! // This will crash if url is nil
 }
 
+/// resolved URL.
 func resolvedURL(for slug: String, withExtension fileExtension: String = "html") -> URL {
     if slug == "table_10_pediatric_dosages_rifampin_in_children_(birth_to_15_years)" || slug == "table_11_pediatric_dosages_ethambutol_in_children_(birth_to_15_years)" || slug == "table_12_pediatric_dosages_pyrazinamide_in_children_(birth_to_15_years)" {
         
@@ -120,6 +123,7 @@ func resolvedURL(for slug: String, withExtension fileExtension: String = "html")
     return availableFileURL(for: slug, withExtension: fileExtension)
 }
 
+/// resolved Slug.
 func resolvedSlug(for slug: String) -> String {
     if slug == "table_10_pediatric_dosages_rifampin_in_children_(birth_to_15_years)" || slug == "table_11_pediatric_dosages_ethambutol_in_children_(birth_to_15_years)" || slug == "table_12_pediatric_dosages_pyrazinamide_in_children_(birth_to_15_years)" {
         
@@ -157,6 +161,7 @@ func resolvedSlug(for slug: String) -> String {
     return slug
 }
 
+/// update File If Downloaded.
 func updateFileIfDownloaded(filename: String, withExtension fileExtension: String = "html") {
     let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     let filePath = documentsPath.appendingPathComponent("\(filename).\(fileExtension)")
@@ -165,7 +170,7 @@ func updateFileIfDownloaded(filename: String, withExtension fileExtension: Strin
         do {
             var fileContent = try String(contentsOf: filePath, encoding: .utf8)
 
-            // Try different ways to locate the SVG file
+            /// Try different ways to locate the SVG file
             if let iconURL = Bundle.main.url(forResource: "ic_title_icon", withExtension: "svg") ??
                               Bundle.main.url(forResource: "ic_title_icon.svg", withExtension: nil) {
                 
@@ -173,13 +178,13 @@ func updateFileIfDownloaded(filename: String, withExtension fileExtension: Strin
                 
                 print("Found icon at: \(iconPath)") // Debug print
                 
-                // More flexible regex that matches the img tag with class="ic_title_icon"
+                /// More flexible regex that matches the img tag with class="ic_title_icon"
                 let pattern = #"<img[^>]*class="ic_title_icon"[^>]*>"#
                 let updatedImgTag = #"<img alt="aut" src="\#(iconPath)" width="50" height="50" class="ic_title_icon">"#
                 
                 fileContent = fileContent.replacingOccurrences(of: pattern, with: updatedImgTag, options: .regularExpression)
 
-                // Write the updated content back to the file
+                /// Write the updated content back to the file
                 try fileContent.write(to: filePath, atomically: true, encoding: .utf8)
                 print("Successfully updated image source")
             } else {

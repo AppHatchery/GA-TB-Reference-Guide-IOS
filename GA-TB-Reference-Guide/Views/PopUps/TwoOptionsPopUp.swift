@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// TwoOptionsPopUp provides related app functionality.
 class TwoOptionsPopUp: UIView {
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var mainView: UIView!
@@ -21,7 +22,7 @@ class TwoOptionsPopUp: UIView {
     var cancelAction: (() -> Void)?
     var deleteAction: (() -> Void)?
 
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     init(frame: CGRect, customLabel: String, cancelAction: (() -> Void)? = nil, deleteAction: (() -> Void)? = nil) {
         self.customLabel = customLabel
         self.cancelAction = cancelAction
@@ -31,7 +32,7 @@ class TwoOptionsPopUp: UIView {
         customInit(label: customLabel)
     }
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     required init?(coder aDecoder: NSCoder) {
         self.customLabel = ""
         self.cancelAction = nil
@@ -41,7 +42,7 @@ class TwoOptionsPopUp: UIView {
         customInit(label: self.customLabel)
     }
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     func customInit(label: String) {
         let nibView = (Bundle.main.loadNibNamed("TwoOptionsPopUp", owner: self, options: nil)!.first as! UIView)
         self.addSubview(nibView)

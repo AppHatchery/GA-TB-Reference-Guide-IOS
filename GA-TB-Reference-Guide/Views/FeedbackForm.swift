@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import WebKit
 
+/// FeedbackForm provides related app functionality.
 class FeedbackForm: UIView {
 
     @IBOutlet weak var closeButton: UIButton!
@@ -17,7 +18,7 @@ class FeedbackForm: UIView {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var webview: WKWebView!
     
-    // Dialog Constraints
+    /// Dialog Constraints
     @IBOutlet weak var dialogLeftConstraint: NSLayoutConstraint!
     @IBOutlet weak var dialogRightConstraint: NSLayoutConstraint!
         
@@ -25,7 +26,7 @@ class FeedbackForm: UIView {
     var parent: String = ""
     var title: String = ""
 
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     init( frame: CGRect, parent: String, title: String )
     {
         super.init( frame : frame )
@@ -36,7 +37,7 @@ class FeedbackForm: UIView {
         customInit()
     }
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     required init?( coder aDecoder: NSCoder )
     {
         super.init( coder : aDecoder )
@@ -44,7 +45,7 @@ class FeedbackForm: UIView {
         customInit()
     }
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     func customInit()
     {
         let nibView = (Bundle.main.loadNibNamed( "FeedbackForm", owner: self, options: nil)!.first as! UIView)
@@ -69,14 +70,14 @@ class FeedbackForm: UIView {
         
         closeButton.addTarget(self, action: #selector(self.cancelButtonPressed), for: .touchUpInside)
         
-        // Load webview
+        /// Load webview
         let parentChapter = parent.replacingOccurrences(of: " ", with: "", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
         let subChapter = title.replacingOccurrences(of: " ", with: "", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: "γ", with: "")
         print("https://emorymedicine.sjc1.qualtrics.com/jfe/form/SV_4NEG4bjuyBGono9?page="+"chapter:\(parentChapter)_subchapter:\(subChapter)")
         webview.load( URLRequest( url: URL(string: "https://emorymedicine.sjc1.qualtrics.com/jfe/form/SV_4NEG4bjuyBGono9?page="+"chapter:\(parentChapter)_subchapter:\(subChapter)")! ))
     }
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     @objc func cancelButtonPressed()
     {
         UIView.animate( withDuration: 0.25, delay: 0.0, options: UIView.AnimationOptions(), animations: {

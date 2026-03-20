@@ -9,26 +9,28 @@
 import UIKit
 import RealmSwift
 
+/// Protocol defining Notes Bottom Sheet Delegate responsibilities.
 protocol NotesBottomSheetDelegate: AnyObject {
     func didSelectNote(_ note: Notes)
     func didDeleteNote(_ note: Notes)
 }
 
+/// NotesBottomSheetViewController manages the Notes Bottom Sheet screen UI and interactions.
 class NotesBottomSheetViewController: UIViewController {
     
-    // MARK: - UI Elements
+    /// MARK: - UI Elements
     private let tableView = UITableView()
     private let headerView = UIView()
     private let titleLabel = UILabel()
     private let dismissButton = UIButton(type: .system)
     private let emptyStateLabel = UILabel()
     
-    // MARK: - Properties
+    /// MARK: - Properties
     weak var delegate: NotesBottomSheetDelegate?
     var content: ContentPage!
     private let colorTags = [UIColor.black, UIColor.systemRed, UIColor.systemOrange, UIColor.systemYellow, UIColor.systemGreen, UIColor.systemTeal, UIColor.systemBlue, UIColor.systemIndigo, UIColor.systemPurple]
     
-    // MARK: - Lifecycle
+    /// MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -36,16 +38,16 @@ class NotesBottomSheetViewController: UIViewController {
         updateEmptyState()
     }
     
-    // MARK: - Setup Methods
+    /// MARK: - Setup Methods
     private func setupUI() {
         view.backgroundColor = .colorBackground
         
-        // Setup header view
+        /// Setup header view
         headerView.backgroundColor = .colorBackground
         headerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(headerView)
         
-        // Setup title label
+        /// Setup title label
         updateNotesCount()
         
         titleLabel.font = UIFont.boldSystemFont(ofSize: 15)
@@ -60,7 +62,7 @@ class NotesBottomSheetViewController: UIViewController {
 //        dismissButton.translatesAutoresizingMaskIntoConstraints = false
 //        headerView.addSubview(dismissButton)
         
-        // Setup empty state label
+        /// Setup empty state label
         emptyStateLabel.text = "No notes saved"
         emptyStateLabel.font = UIFont.systemFont(ofSize: 16)
         emptyStateLabel.textColor = UIColor.secondaryLabel
@@ -69,10 +71,10 @@ class NotesBottomSheetViewController: UIViewController {
         emptyStateLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(emptyStateLabel)
         
-        // Setup constraints
+        /// Setup constraints
         NSLayoutConstraint.activate(
 [
-            // Header view
+            /// Header view
             headerView.topAnchor
                 .constraint(
                     equalTo: view.safeAreaLayoutGuide.topAnchor,
@@ -82,7 +84,7 @@ class NotesBottomSheetViewController: UIViewController {
             headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             headerView.heightAnchor.constraint(equalToConstant: 60),
             
-            // Title label
+            /// Title label
             titleLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 20),
             
@@ -90,7 +92,7 @@ class NotesBottomSheetViewController: UIViewController {
 //            dismissButton.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
 //            dismissButton.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -20),
             
-            // Empty state label
+            /// Empty state label
             emptyStateLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             emptyStateLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             emptyStateLabel.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 20),
@@ -131,12 +133,12 @@ class NotesBottomSheetViewController: UIViewController {
         tableView.isHidden = !hasNotes
     }
     
-    // MARK: - Actions
+    /// MARK: - Actions
     @objc private func dismissTapped() {
         dismiss(animated: true)
     }
     
-    // MARK: - Public Methods
+    /// MARK: - Public Methods
     func reloadData() {
         tableView.reloadData()
         updateEmptyState()
@@ -145,6 +147,7 @@ class NotesBottomSheetViewController: UIViewController {
 }
 
 // MARK: - UITableViewDataSource
+/// Convenience additions for NotesBottomSheetViewController.
 extension NotesBottomSheetViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return content?.notes.count ?? 0
@@ -176,17 +179,9 @@ extension NotesBottomSheetViewController: UITableViewDataSource {
         return cell
     }
 }
-
-// MARK: - UITableViewDelegate
-extension NotesBottomSheetViewController: UITableViewDelegate {
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        guard let notes = content?.notes, indexPath.row < notes.count else { return }
-//        
-//        let note = notes[notes.count - 1 - indexPath.row]
-//        delegate?.didSelectNote(note)
-//        dismiss(animated: true)
-//    }
-    
+        //MARK: - UITableViewDelegate
+/// Convenience additions for NotesBottomSheetViewController.
+extension NotesBottomSheetViewController: UITableViewDelegate {    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             guard let notes = content?.notes, indexPath.row < notes.count else { return }

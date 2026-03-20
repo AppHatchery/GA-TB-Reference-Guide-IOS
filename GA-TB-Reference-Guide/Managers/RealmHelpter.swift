@@ -9,8 +9,10 @@ import Foundation
 import RealmSwift
 import Realm
 
+/// RealmHelper centralizes related app data or service logic.
 class RealmHelper: NSObject {
     
+    /// var centralizes related app data or service logic.
     class var sharedInstance : RealmHelper {
         struct signletone {
             static var instance = RealmHelper()
@@ -18,19 +20,20 @@ class RealmHelper: NSObject {
         return signletone.instance
     }
     
-    // Next step is see if I can migrate data from this database to the other one edu.emory.tb.guide2
+    /// Next step is see if I can migrate data from this database to the other one edu.emory.tb.guide2
     
 //    private var kKeychainIdentifier = "Emory.GA-TB-Reference-Guide.key"
     private var kKeychainIdentifier = "edu.emory.tb.guide"
     
+    /// encryption Key.
     func encryptionKey() -> Data?
     {
-        // Identifier for our keychain entry - should be unique for your application
+        /// Identifier for our keychain entry - should be unique for your application
         
         let keychainIdentifier = kKeychainIdentifier
         let keychainIdentifierData = keychainIdentifier.data(using: String.Encoding.utf8, allowLossyConversion: false)!
         
-        // First check in the keychain for an existing key
+        /// First check in the keychain for an existing key
         
         var query: [NSString: AnyObject] = [
             kSecClass: kSecClassKey,
@@ -39,27 +42,27 @@ class RealmHelper: NSObject {
             kSecReturnData: true as AnyObject
         ]
         
-        // To avoid Swift optimization bug, should use withUnsafeMutablePointer() function to retrieve the keychain item
-        // See also: http://stackoverflow.com/questions/24145838/querying-ios-keychain-using-swift/27721328#27721328
+        /// To avoid Swift optimization bug, should use withUnsafeMutablePointer() function to retrieve the keychain item
+        /// See also: http://stackoverflow.com/questions/24145838/querying-ios-keychain-using-swift/27721328#27721328
         
         var dataTypeRef: AnyObject?
         var status = withUnsafeMutablePointer(to: &dataTypeRef) { SecItemCopyMatching(query as CFDictionary, UnsafeMutablePointer($0)) }
         
         if status == errSecSuccess
         {
-            // swiftlint:disable:next force_cast
+            /// swiftlint:disable:next force_cast
             return dataTypeRef as? Data
         }
         
-        // No pre-existing key from this application, so generate a new one (if previous step doesn't return the key)
-        // Generate a random encryption key
+        /// No pre-existing key from this application, so generate a new one (if previous step doesn't return the key)
+        /// Generate a random encryption key
         
         let keyData = NSMutableData(length: 64)!
         
         let result = SecRandomCopyBytes(kSecRandomDefault, 64, keyData.mutableBytes.bindMemory(to: UInt8.self, capacity: 64))
         assert(result == 0, "Failed to get random bytes")
         
-        // Store the key in the keychain
+        /// Store the key in the keychain
         query = [
             kSecClass: kSecClassKey,
             kSecAttrApplicationTag: keychainIdentifierData as AnyObject,
@@ -82,6 +85,7 @@ class RealmHelper: NSObject {
         return keyData as Data
     }
     
+    /// set Default Realm Configuration.
     func setDefaultRealmConfiguration() -> Realm.Configuration? {
         let schemaVersion: UInt64 = 0 // Resetted to 0 because it's a new database
         
@@ -109,6 +113,7 @@ class RealmHelper: NSObject {
         return config
     }
     
+    /// main Realm.
     func mainRealm() -> Realm? {
         do {
             let realm = try Realm(configuration: setDefaultRealmConfiguration()!)
@@ -119,6 +124,7 @@ class RealmHelper: NSObject {
         }
     }
     
+    /// save.
     func save(_ object: Object?, withCompletion saveBlock: @escaping (_ saved:Bool) -> Void) {
         let realm = mainRealm()
         do {
@@ -132,6 +138,7 @@ class RealmHelper: NSObject {
         }
     }
     
+    /// update.
     func update(_ object: Object?, properties: [AnyHashable:Any], withCompletion updateBlock: @escaping (_ updated:Bool) -> Void) {
         let realm = mainRealm()
         do {
@@ -148,6 +155,7 @@ class RealmHelper: NSObject {
         }
     }
     
+    /// append Note.
     func appendNote(_ object: Object?, property: List<Notes>, itemToAppend: Notes, withCompletion appendBlock:
                 @escaping (_ appended: Bool) -> Void) {
         let realm = mainRealm()
@@ -163,6 +171,7 @@ class RealmHelper: NSObject {
         }
     }
     
+    /// delete.
     func delete(_ object: Object?, withCompletion deleteBlock: @escaping (_ deleted:Bool) -> Void) {
         let realm = mainRealm()
         do {

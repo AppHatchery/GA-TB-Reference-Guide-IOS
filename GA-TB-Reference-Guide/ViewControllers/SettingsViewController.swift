@@ -9,6 +9,7 @@ import UIKit
 import RealmSwift
 import FirebaseDynamicLinks
 
+/// SettingsViewController manages the Settings screen UI and interactions.
 class SettingsViewController: UIViewController {
 
     var scrollView: UIScrollView!
@@ -57,7 +58,7 @@ class SettingsViewController: UIViewController {
                     
             scrollView.contentSize = CGSize(width: contentView.frame.width, height: 700)
             if let currentSettings = realm!.object(ofType: UserSettings.self, forPrimaryKey: "savedSettings"){
-                // Assign the older entry to the current variable
+                /// Assign the older entry to the current variable
                 userSettings = currentSettings
             }
         }
@@ -100,7 +101,7 @@ class SettingsViewController: UIViewController {
         RealmHelper.sharedInstance.update(userSettings, properties:[
             "pushNotifications": sender.isOn
         ]) { updated in
-            //
+            ///
             if sender.isOn {
                 print("notifications are on")
             } else {
@@ -117,7 +118,7 @@ class SettingsViewController: UIViewController {
 //        }
     }
     
-    // Toggle Light/Dark Mode, but need to reset to default state too so probably need to move to the next view controller
+    /// Toggle Light/Dark Mode, but need to reset to default state too so probably need to move to the next view controller
     
     // Unless the toggle can be to manually override to light or dark contrary to the users default mode 
 //    @IBAction func toggleLightMode(_ sender: UISwitch){
@@ -146,7 +147,7 @@ class SettingsViewController: UIViewController {
             onCancel: nil,
             onDelete: { [weak self] in
                 guard let self = self else { return }
-                // Delete the realm contents
+                /// Delete the realm contents
                 try? self.realm?.write {
                     self.realm?.deleteAll()
                 }
@@ -161,7 +162,7 @@ class SettingsViewController: UIViewController {
         )
     }
     
-    //--------------------------------------------------------------------------------------------------
+    ///--------------------------------------------------------------------------------------------------
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if let settingsViewController = segue.destination as? SettingsViewsViewController

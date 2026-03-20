@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// ChartListViewController manages the Chart List screen UI and interactions.
 class ChartListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
@@ -42,7 +43,7 @@ class ChartListViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView.estimatedRowHeight = UITableView.automaticDimension
 		tableView.separatorStyle = .none
 		tableView.backgroundColor = .backgroundColor
-        // Do any additional setup after loading the view.
+        /// Do any additional setup after loading the view.
     }
     
     
@@ -84,7 +85,7 @@ class ChartListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        // Need to add logic to insert table view or html content based on what was clicked
+        /// Need to add logic to insert table view or html content based on what was clicked
         
         
 //        let urlstring = chapterIndex.chapterCode[chapterIndex.chapterTitle.firstIndex(of: tableViewCells[indexPath.row]?.textLabel?.text ?? "") ?? 0]
@@ -95,7 +96,7 @@ class ChartListViewController: UIViewController, UITableViewDelegate, UITableVie
         performSegue( withIdentifier: "SegueToWebViewViewController", sender: nil )
     }
     
-    //--------------------------------------------------------------------------------------------------
+    ///--------------------------------------------------------------------------------------------------
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if let webViewViewController = segue.destination as? WebViewViewController

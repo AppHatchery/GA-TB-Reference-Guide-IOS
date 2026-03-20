@@ -48,6 +48,7 @@ private func mappedTitles(for slug: String, chapterIndex: ChapterIndex) -> (titl
     return (nil, nil)
 }
 
+// BookmarksMigration centralizes related app data or service logic.
 struct BookmarksMigration {
     static func migrateBookmarksForDeletedSlugs(in realm: Realm) {
         let chapterIndex = ChapterIndex()
@@ -103,6 +104,7 @@ struct BookmarksMigration {
     }
 }
 
+// NotesMigration centralizes related app data or service logic.
 struct NotesMigration {
     static func migrateNotesForDeletedSlugs(in realm: Realm) {
         let chapterIndex = ChapterIndex()

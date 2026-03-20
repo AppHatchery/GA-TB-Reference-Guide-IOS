@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// CustomPopUp provides related app functionality.
 class CustomPopUp: UIView {
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var mainView: UIView!
@@ -84,12 +85,12 @@ class CustomPopUp: UIView {
             
             window.addSubview(popup)
             
-            // Animate popup appearance
+            /// Animate popup appearance
             UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseOut, animations: {
                 popup.backgroundView.alpha = 0.5
                 popup.mainView.transform = CGAffineTransform.identity
             }) { _ in
-                // After delay, dismiss popup
+                /// After delay, dismiss popup
                 DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
                     UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseIn, animations: {
                         popup.backgroundView.alpha = 0

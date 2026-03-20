@@ -7,6 +7,7 @@
 
 import UIKit
 
+// Protocol defining Save Favorite Delegate responsibilities.
 protocol SaveFavoriteDelegate
 {
     func didSaveName( _ name: String )
@@ -14,6 +15,7 @@ protocol SaveFavoriteDelegate
     func didRemoveFavorite()
 }
 
+/// SaveFavorite provides related app functionality.
 class SaveFavorite: UIView {
     
     @IBOutlet weak var cancelButton: UIButton!
@@ -27,7 +29,7 @@ class SaveFavorite: UIView {
     @IBOutlet weak var bookmarkSourceView: UIView!
     
     
-    // Dialog Constraints
+    /// Dialog Constraints
     @IBOutlet weak var dialogLeftConstraint: NSLayoutConstraint!
     @IBOutlet weak var dialogRightConstraint: NSLayoutConstraint!
     
@@ -37,7 +39,7 @@ class SaveFavorite: UIView {
     var currentTitle: String!
     let chapterIndex = ChapterIndex()
 
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     init( frame: CGRect, content: ContentPage, title: String, delegate: SaveFavoriteDelegate )
     {
         super.init( frame : frame )
@@ -49,7 +51,7 @@ class SaveFavorite: UIView {
         customInit()
     }
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     required init?( coder aDecoder: NSCoder )
     {
         super.init( coder : aDecoder )
@@ -57,7 +59,7 @@ class SaveFavorite: UIView {
         customInit()
     }
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     func customInit()
     {
         let nibView = (Bundle.main.loadNibNamed( "SaveFavorite", owner: self, options: nil)!.first as! UIView)
@@ -194,7 +196,7 @@ class SaveFavorite: UIView {
         return nil
     }
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     @IBAction func saveButtonPressed(_ sender: Any )
     {
         UIView.animate( withDuration: 0.25, delay: 0.0, options: UIView.AnimationOptions(), animations: {
@@ -207,7 +209,7 @@ class SaveFavorite: UIView {
         })
     }
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     @objc func cancelButtonPressed()
     {
         UIView.animate( withDuration: 0.25, delay: 0.0, options: UIView.AnimationOptions(), animations: {
@@ -218,7 +220,7 @@ class SaveFavorite: UIView {
         })
     }
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     @objc func deleteButtonPressed()
     {
         UIView.animate(withDuration: 0.25, delay: 0.0, options: UIView.AnimationOptions(), animations: {

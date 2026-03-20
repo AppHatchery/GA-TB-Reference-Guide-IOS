@@ -9,8 +9,10 @@ import Foundation
 import RealmSwift
 import Realm
 
+/// OldRealmFile centralizes related app data or service logic.
 class OldRealmFile: NSObject {
     
+    /// var centralizes related app data or service logic.
     class var sharedInstance : OldRealmFile {
         struct signletone {
             static var instance = OldRealmFile()
@@ -21,14 +23,15 @@ class OldRealmFile: NSObject {
     
     private var kKeychainIdentifier = "Emory.GA-TB-Reference-Guide.key"
     
+    /// encryption Key.
     func encryptionKey() -> Data?
     {
-        // Identifier for our keychain entry - should be unique for your application
+        /// Identifier for our keychain entry - should be unique for your application
         
         let keychainIdentifier = kKeychainIdentifier
         let keychainIdentifierData = keychainIdentifier.data(using: String.Encoding.utf8, allowLossyConversion: false)!
         
-        // First check in the keychain for an existing key
+        /// First check in the keychain for an existing key
         
         var query: [NSString: AnyObject] = [
             kSecClass: kSecClassKey,
@@ -37,27 +40,27 @@ class OldRealmFile: NSObject {
             kSecReturnData: true as AnyObject
         ]
         
-        // To avoid Swift optimization bug, should use withUnsafeMutablePointer() function to retrieve the keychain item
-        // See also: http://stackoverflow.com/questions/24145838/querying-ios-keychain-using-swift/27721328#27721328
+        /// To avoid Swift optimization bug, should use withUnsafeMutablePointer() function to retrieve the keychain item
+        /// See also: http://stackoverflow.com/questions/24145838/querying-ios-keychain-using-swift/27721328#27721328
         
         var dataTypeRef: AnyObject?
         var status = withUnsafeMutablePointer(to: &dataTypeRef) { SecItemCopyMatching(query as CFDictionary, UnsafeMutablePointer($0)) }
         
         if status == errSecSuccess
         {
-            // swiftlint:disable:next force_cast
+            /// swiftlint:disable:next force_cast
             return dataTypeRef as? Data
         }
         
-        // No pre-existing key from this application, so generate a new one
-        // Generate a random encryption key
+        /// No pre-existing key from this application, so generate a new one
+        /// Generate a random encryption key
         
         let keyData = NSMutableData(length: 64)!
         
         let result = SecRandomCopyBytes(kSecRandomDefault, 64, keyData.mutableBytes.bindMemory(to: UInt8.self, capacity: 64))
         assert(result == 0, "Failed to get random bytes")
         
-        // Store the key in the keychain
+        /// Store the key in the keychain
         query = [
             kSecClass: kSecClassKey,
             kSecAttrApplicationTag: keychainIdentifierData as AnyObject,
@@ -68,13 +71,14 @@ class OldRealmFile: NSObject {
         status = SecItemAdd(query as CFDictionary, nil)
         if status != errSecSuccess {
             fatalError("The encryption key could not be saved in the keychain") // you should throw an error or return nil so this can fail gracefully
-            // Added here from https://github.com/realm/realm-swift/issues/5615 as a way to test if the encryption fails the first time a user accesses it
+            /// Added here from https://github.com/realm/realm-swift/issues/5615 as a way to test if the encryption fails the first time a user accesses it
         }
         assert(status == errSecSuccess, "Failed to insert the new key in the keychain")
         
         return keyData as Data
     }
     
+    /// set Default Realm Configuration.
     func setDefaultRealmConfiguration() -> Realm.Configuration? {
         let schemaVersion: UInt64 = 2 //1 //0
         
@@ -85,11 +89,11 @@ class OldRealmFile: NSObject {
 //
             if (oldSchemaVersion < schemaVersion)
             {
-                // New props are not initialized with their default values, so we manually init them here, like this:
-                //
-                // migration.enumerateObjects(ofType: FamilyMember.className()) { oldObject, newObject in
-                //    newObject!["aNewProp"] = "aNewProp"
-                // }
+                /// New props are not initialized with their default values, so we manually init them here, like this:
+                ///
+                /// migration.enumerateObjects(ofType: FamilyMember.className()) { oldObject, newObject in
+                ///    newObject!["aNewProp"] = "aNewProp"
+                /// }
 
                 print( "migration complete!" )
             }
@@ -98,6 +102,7 @@ class OldRealmFile: NSObject {
         return config
     }
     
+    /// main Realm.
     func mainRealm() -> Realm? {
         do {
             let realm = try Realm(configuration: setDefaultRealmConfiguration()!)

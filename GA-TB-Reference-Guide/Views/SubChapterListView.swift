@@ -7,11 +7,13 @@
 
 import UIKit
 
+/// Protocol defining Sub Chapter List View Delegate responsibilities.
 protocol SubChapterListViewDelegate
 {
     
 }
 
+/// SubChapterListView defines a reusable view for Sub Chapter List UI.
 class SubChapterListView: UIView, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
@@ -22,9 +24,9 @@ class SubChapterListView: UIView, UITableViewDelegate, UITableViewDataSource {
     var contentViewTopConstraint: NSLayoutConstraint!
     var delegate: SubChapterListViewDelegate!
     
-    var chapters = ["I. Epidemiology","II. Diagnostic Tests for Latent TB Infection (LTBI)","III. Treatment of Latent TB Infection (LTBI)","IV. Laboratory Diagnosis of Active Tuberculosis","V. Treatment of Current (Active) Disease Therapy","VI. Pregnancy and TB","VII. Childhood Tuberculosis","VIII. Tuberculosis and Long-Term Care Facilities","IX. BCG Vaccination","X. TB Infection Control: Hospital Isolation Procedures","XI. Community Tuberculosis Prevention Control","XII. Alternative Housing Program for Persons with TB Experiencing Homelessness in Georgia","XIII. Georgia Department of Public Health (DPH) Community Guidelines for Respiratory Isolation of Patients with Active TB in the Community","XIV. References","XV. Appendix: District TB Coordinators (by District)"]
+    var chapters = ["I. Epidemiology","II. Diagnostic Tests for Latent TB Infection (LTBI)","III. Treatment of Latent TB Infection (LTBI)","IV. Laboratory Diagnosis of Active Tuberculosis","V. Treatment of Current (Active) Disease Therapy","VI. Pregnancy and TB","VII. Childhood Tuberculosis","VIII. Tuberculosis and Long-Term Care Facilities","IX. BCG Vaccination","X. TB Infection Prevention and Control in Healthcare Facilities","XI. Community Tuberculosis Prevention Control","XII. Alternative Housing Program for Persons with TB Experiencing Homelessness in Georgia","XIII. Georgia Department of Public Health (DPH) Community Guidelines for Respiratory Isolation of Patients with Active TB in the Community","XIV. References","XV. Appendix: District TB Coordinators (by District)"]
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     init( frame: CGRect, delegate: SubChapterListViewDelegate )
     {
         super.init( frame : frame )
@@ -34,7 +36,7 @@ class SubChapterListView: UIView, UITableViewDelegate, UITableViewDataSource {
         customInit()
     }
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     required init?( coder aDecoder: NSCoder )
     {
         super.init( coder : aDecoder )
@@ -42,7 +44,7 @@ class SubChapterListView: UIView, UITableViewDelegate, UITableViewDataSource {
         customInit()
     }
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     func customInit()
     {
         contentView = (Bundle.main.loadNibNamed( "SubChapterListView", owner: self, options: nil)!.first as! UIView)
@@ -63,7 +65,7 @@ class SubChapterListView: UIView, UITableViewDelegate, UITableViewDataSource {
         tableView.estimatedRowHeight = 80
         tableView.estimatedRowHeight = UITableView.automaticDimension
     }
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
     }

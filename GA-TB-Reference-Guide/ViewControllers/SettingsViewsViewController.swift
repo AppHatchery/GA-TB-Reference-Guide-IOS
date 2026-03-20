@@ -9,6 +9,7 @@ import UIKit
 import WebKit
 import RealmSwift
 
+/// SettingsViewsViewController manages the Settings Views screen UI and interactions.
 class SettingsViewsViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     @IBOutlet weak var contentView: UIView!
 
@@ -27,7 +28,7 @@ class SettingsViewsViewController: UIViewController, WKUIDelegate, WKNavigationD
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Create WebView Content
+        /// Create WebView Content
         let config = WKWebViewConfiguration()
         
         webView = WKWebView(frame: .zero, configuration: config)
@@ -70,7 +71,7 @@ class SettingsViewsViewController: UIViewController, WKUIDelegate, WKNavigationD
         ])
     }
     
-    //--------------------------------------------------------------------------------------------------
+    ///--------------------------------------------------------------------------------------------------
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
                 
         if let urlHeader = webView.url?.absoluteString, urlHeader.hasPrefix("file:///"){

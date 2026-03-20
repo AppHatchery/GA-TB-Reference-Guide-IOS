@@ -18,8 +18,10 @@ extension UIButton {
     }
 }
 
+/// Common provides related app functionality.
 class Common {
     
+    /// Sets the button text size dynamically based on the content size category.
     class func setButtonTextSizeDynamic(button: UIButton, textStyle: UIFont.TextStyle) {
         button.titleLabel?.font = UIFont.preferredFont(forTextStyle: textStyle)
         button.titleLabel?.adjustsFontForContentSizeCategory = true
