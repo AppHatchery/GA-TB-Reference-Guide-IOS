@@ -92,10 +92,13 @@ class GuideViewController: UIViewController, URLSessionDelegate {
         stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         stackView.addArrangedSubview(guide)
         
-        let frameHeight: CGFloat
-
+        var frameHeight: CGFloat
         frameHeight = view.frame.height
-            
+        
+        if frameHeight < 700 {
+            frameHeight += 120
+        }
+                    
         NSLayoutConstraint.activate([
             guideView.heightAnchor.constraint(equalToConstant: frameHeight),
             guideView.widthAnchor.constraint(equalTo: contentStackView.widthAnchor)
