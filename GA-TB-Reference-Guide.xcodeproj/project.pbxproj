@@ -30,6 +30,8 @@
 		B40FEE182DF0898700FBEBB7 /* Chevron.png in Resources */ = {isa = PBXBuildFile; fileRef = B40FEDF02DF0898700FBEBB7 /* Chevron.png */; };
 		B40FEE1B2DF0898700FBEBB7 /* chapter_1_image_2.png in Resources */ = {isa = PBXBuildFile; fileRef = B40FEDED2DF0898700FBEBB7 /* chapter_1_image_2.png */; };
 		B45C1EF32D65BD3300AF239F /* ic_title_icon.svg in Resources */ = {isa = PBXBuildFile; fileRef = B45C1EF22D65BD3300AF239F /* ic_title_icon.svg */; };
+		B4625A2E2F7B168B008713F2 /* Info.png in Resources */ = {isa = PBXBuildFile; fileRef = B4625A2C2F7B168B008713F2 /* Info.png */; };
+		B4625A2F2F7B168B008713F2 /* Info.svg in Resources */ = {isa = PBXBuildFile; fileRef = B4625A2D2F7B168B008713F2 /* Info.svg */; };
 		B473888A2D5C7D5300A4C168 /* BatchDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47388892D5C7D4400A4C168 /* BatchDownloadManager.swift */; };
 		B473888C2D5C82CE00A4C168 /* FileToOpenCheckers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B473888B2D5C82AB00A4C168 /* FileToOpenCheckers.swift */; };
 		B473888E2D5C991900A4C168 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = B473888D2D5C991900A4C168 /* FirebaseRemoteConfig */; };
@@ -256,6 +258,8 @@
 		B40FEDFC2DF0898700FBEBB7 /* logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = logo.jpg; sourceTree = "<group>"; };
 		B40FEDFE2DF0898700FBEBB7 /* selected_diagnosis_image_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selected_diagnosis_image_1.png; sourceTree = "<group>"; };
 		B45C1EF22D65BD3300AF239F /* ic_title_icon.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = ic_title_icon.svg; sourceTree = "<group>"; };
+		B4625A2C2F7B168B008713F2 /* Info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Info.png; sourceTree = "<group>"; };
+		B4625A2D2F7B168B008713F2 /* Info.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = Info.svg; sourceTree = "<group>"; };
 		B47388892D5C7D4400A4C168 /* BatchDownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchDownloadManager.swift; sourceTree = "<group>"; };
 		B473888B2D5C82AB00A4C168 /* FileToOpenCheckers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileToOpenCheckers.swift; sourceTree = "<group>"; };
 		B47388922D5C997B00A4C168 /* RemoteConfigHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigHelper.swift; sourceTree = "<group>"; };
@@ -500,6 +504,8 @@
 				D4A5D29A2B2C9BA500812C53 /* Emory_university.png */,
 				D4A5D2992B2C9BA500812C53 /* EU_noShield_hz_280.png */,
 				D4A5D2902B2C9BA400812C53 /* figure1.png */,
+				B4625A2C2F7B168B008713F2 /* Info.png */,
+				B4625A2D2F7B168B008713F2 /* Info.svg */,
 				D4A5D2942B2C9BA400812C53 /* signature_henry_m_blumberg_m_d.jpg */,
 				B40FEDEA2DF0898700FBEBB7 /* acknowledge.svg */,
 				B40FEDEB2DF0898700FBEBB7 /* c_lab_diagnosis_image_1.png */,
@@ -946,6 +952,8 @@
 				B4C3484C2EEF2D7000B11877 /* 6_pregnancy_and_tb__a__treatment_for_ltbi_and_risk_factors.html in Resources */,
 				B4C3484D2EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__g__medical_evaluation_after_testing_for_ltbi.html in Resources */,
 				B4C3484E2EEF2D7000B11877 /* 8_tuberculosis_and_long_term_care_facilities.html in Resources */,
+				B4625A2E2F7B168B008713F2 /* Info.png in Resources */,
+				B4625A2F2F7B168B008713F2 /* Info.svg in Resources */,
 				B4C3484F2EEF2D7000B11877 /* table_8_first-line_tb_drugs_dosing_for_adults_(ages_16_and_over)_directly_observed_therapy_(dot)_is_mandatory.html in Resources */,
 				B4C348502EEF2D7000B11877 /* table_1_interpretation_criteria_for_the_quantiferon_tb_gold_plus_test.html in Resources */,
 				B4C348512EEF2D7000B11877 /* 11_community_tuberculosis_control__a__tb_surveillance_in_georgia.html in Resources */,
@@ -1275,7 +1283,7 @@
 				CODE_SIGN_ENTITLEMENTS = "GA-TB-Reference-Guide/GA-TB-Reference-Guide.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 8;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 3RQHVA7936;
 				INFOPLIST_FILE = "GA-TB-Reference-Guide/Info.plist";
@@ -1284,7 +1292,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.13;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.emory.tb.guide;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1301,7 +1309,7 @@
 				CODE_SIGN_ENTITLEMENTS = "GA-TB-Reference-Guide/GA-TB-Reference-Guide.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 3RQHVA7936;
 				INFOPLIST_FILE = "GA-TB-Reference-Guide/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
@@ -1309,7 +1317,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.13;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.emory.tb.guide;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

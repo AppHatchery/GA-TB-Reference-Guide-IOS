@@ -18,13 +18,17 @@ class Settings: UIView {
     @IBOutlet weak var resetApp: UIButton!
     @IBOutlet weak var fontSize: UIButton!
     @IBOutlet weak var toggleNotifications: UISwitch!
+    @IBOutlet weak var appVersionLabel: UILabel!
     
     private let darkModeKey = "darkModeEnabled"
     
     var contentViewTopConstraint: NSLayoutConstraint!
     let realm = RealmHelper.sharedInstance.mainRealm()
     var userSettings: UserSettings!
-
+    
+    let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+    let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
+    
     ///------------------------------------------------------------------------------
     override init( frame: CGRect )
     {
@@ -89,6 +93,10 @@ class Settings: UIView {
 //                realm!.add(userSettings)
             }
 //        }
+        
+        let fullAppVersion: String = "Version \(version ?? "").\(build ?? "")"
+        
+        appVersionLabel.text = fullAppVersion
     }
     
     @objc private func darkModeSwitchChanged(_ sender: UISwitch) {
