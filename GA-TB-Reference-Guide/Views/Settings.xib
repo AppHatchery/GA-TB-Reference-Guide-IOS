@@ -184,16 +184,16 @@
                             <color key="onTintColor" name="colorPrimary"/>
                         </switch>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="8RA-Hv-1Fe">
-                            <rect key="frame" x="20" y="632.5" width="374" height="79.5"/>
+                            <rect key="frame" x="20" y="615.5" width="374" height="96.5"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="apphatchery_logo" translatesAutoresizingMaskIntoConstraints="NO" id="bKE-rK-xX1">
-                                    <rect key="frame" x="75" y="0.0" width="224" height="38"/>
+                                    <rect key="frame" x="75" y="0.0" width="224" height="55"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="38" id="FeR-PZ-dv1"/>
+                                        <constraint firstAttribute="height" constant="55" id="FeR-PZ-dv1"/>
                                     </constraints>
                                 </imageView>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="rgk-2g-Pfq">
-                                    <rect key="frame" x="73.5" y="38" width="227.5" height="41.5"/>
+                                    <rect key="frame" x="73.5" y="55" width="227.5" height="41.5"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Powered by AppHatchery 2026" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OUm-5m-Rdd">
                                             <rect key="frame" x="0.0" y="0.0" width="227.5" height="19.5"/>
