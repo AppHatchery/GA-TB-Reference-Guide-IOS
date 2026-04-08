@@ -76,7 +76,64 @@ func availableFileURL(for filename: String, withExtension fileExtension: String 
     return url! // This will crash if url is nil
 }
 
-/// resolved URL.
+/// Resolves old content slugs to current file URLs for runtime content access
+/// 
+/// This function is the runtime counterpart to `resolvedSlug()`, providing actual file URLs
+/// for content that has been migrated. It handles the same migration mappings but returns
+/// the resolved file URL instead of just the slug.
+/// 
+/// ## Usage Context:
+/// 
+/// This function is primarily used in SavedViewController to handle bookmark access:
+/// - When users tap on bookmarks that point to old/deleted content
+/// - During navigation to ensure content URLs are current
+/// - When displaying saved content that may have been reorganized
+/// 
+/// ## Resolution Process:
+/// 
+/// 1. **Migration Mapping**: Checks if the slug matches any historical migration patterns
+/// 2. **File Location**: Uses `availableFileURL()` to locate the actual file (documents or bundle)
+/// 3. **Fallback**: Returns the original slug's URL if no migration is needed
+/// 
+/// ## SavedViewController Integration:
+/// 
+/// In SavedViewController.swift, this function is called in two key places:
+/// 
+/// **1. Bookmark Access (line 279):**
+/// ```swift
+/// if isFileDeleted(for: slug) {
+///     let resolvedFileURL = resolvedURL(for: slug)
+///     // Use resolved URL for content access
+/// }
+/// ```
+/// 
+/// **2. Navigation Preparation (line 661):**
+/// ```swift
+/// if isFileDeleted(for: slug) {
+///     let resolved = resolvedURL(for: slug)
+///     webViewViewController.url = resolved
+///     
+///     // Extract resolved slug for title mapping
+///     let resolvedSlug = resolved.deletingPathExtension().lastPathComponent
+///     let mapped = mappedTitles(for: resolvedSlug)
+///     // Update display titles with migrated content
+/// }
+/// ```
+/// 
+/// ## Migration Synchronization:
+/// 
+/// This function must be kept in sync with `resolvedSlug()` - both should contain
+/// the same migration mappings to ensure consistency between data migration
+/// (Migrations.swift) and runtime content access (SavedViewController).
+/// 
+/// - Parameters:
+///   - slug: The original content slug that may need migration
+///   - fileExtension: The file extension to use (defaults to "html")
+/// - Returns: The URL of the current content file, either migrated or original
+/// 
+/// - Note: This function handles both bundle and documents directory files
+/// - Note: Always test with both downloaded and bundled content
+/// - Important: Keep migration mappings identical to resolvedSlug() function
 func resolvedURL(for slug: String, withExtension fileExtension: String = "html") -> URL {
     if slug == "table_10_pediatric_dosages_rifampin_in_children_(birth_to_15_years)" || slug == "table_11_pediatric_dosages_ethambutol_in_children_(birth_to_15_years)" || slug == "table_12_pediatric_dosages_pyrazinamide_in_children_(birth_to_15_years)" {
         
@@ -123,7 +180,45 @@ func resolvedURL(for slug: String, withExtension fileExtension: String = "html")
     return availableFileURL(for: slug, withExtension: fileExtension)
 }
 
-/// resolved Slug.
+/// Resolves old content slugs to their current equivalents for migration purposes
+/// 
+/// This function is the core of the migration system, mapping historical URL slugs to their
+/// current counterparts. When content files are renamed, reorganized, or renumbered,
+/// this function ensures that user bookmarks and notes continue to point to the correct content.
+/// 
+/// ## Migration Categories:
+/// 
+/// ### Table Renumbering (2024 Content Reorganization):
+/// - Pediatric dosage tables (10, 11, 12) consolidated into table 9
+/// - All subsequent tables renumbered down by 1 (13 becomes 10, 14 becomes 11, etc.)
+/// 
+/// ### Chapter Reorganization:
+/// - Welcome chapter numbering simplified (18 removed)
+/// - Chapter 5 therapy section reorganized from "__g__" to "__f__" designation
+/// - Chapter 8 underscore hyphenation standardized
+/// 
+/// ## Usage:
+/// 
+/// This function is called by the migration system in Migrations.swift:
+/// - `BookmarksMigration.migrateBookmarksForDeletedSlugs()`
+/// - `NotesMigration.migrateNotesForDeletedSlugs()`
+/// 
+/// ## Adding New Migrations:
+/// 
+/// When adding new content migrations, follow this pattern:
+/// ```swift
+/// } else if slug == "old_slug_name" {
+///     return "new_slug_name"
+/// ```
+/// 
+/// **Important:** Migration paths are cumulative - never remove existing mappings
+/// as they are needed for users who may have old data from previous app versions.
+/// 
+/// - Parameter slug: The original slug that may need migration
+/// - Returns: The current slug if migration is needed, or the original slug if no migration is required
+/// 
+/// - Note: Always test migrations in development before deploying to production
+/// - Note: This function should be kept in sync with ChapterIndex data
 func resolvedSlug(for slug: String) -> String {
     if slug == "table_10_pediatric_dosages_rifampin_in_children_(birth_to_15_years)" || slug == "table_11_pediatric_dosages_ethambutol_in_children_(birth_to_15_years)" || slug == "table_12_pediatric_dosages_pyrazinamide_in_children_(birth_to_15_years)" {
         

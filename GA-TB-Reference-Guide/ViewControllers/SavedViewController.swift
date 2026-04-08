@@ -278,8 +278,8 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 /// Try to get the resolved URL
                 let resolvedFileURL = resolvedURL(for: slug)
                 
-                print(content)
-                print("Favorite URL: \(favoriteURLs[arrayPointer])")
+//                print(content)
+//                print("Favorite URL: \(favoriteURLs[arrayPointer])")
                 
 //                // Verify the resolved file actually exists
 //                if !FileManager.default.fileExists(atPath: resolvedFileURL.path) {
