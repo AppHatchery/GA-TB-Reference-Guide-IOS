@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// SubChapterViewController manages the Sub Chapter screen UI and interactions.
 class SubChapterViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
@@ -22,26 +23,43 @@ class SubChapterViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let navbarTitle = UILabel()
-        navbarTitle.text = navTitle
-        navbarTitle.textColor = UIColor.white
-        navbarTitle.font = UIFont.boldSystemFont(ofSize: 16.0)
-        navbarTitle.numberOfLines = 2
-        navbarTitle.textAlignment = .center
-        navbarTitle.minimumScaleFactor = 0.5
-        navbarTitle.adjustsFontSizeToFitWidth = true
-        navigationItem.titleView = navbarTitle
-//        self.title = navTitle
-        navigationItem.rightBarButtonItem?.isEnabled = true
-        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register( UITableViewCell.self, forCellReuseIdentifier: type(of: self).description())
         tableView.estimatedRowHeight = 80
         tableView.estimatedRowHeight = UITableView.automaticDimension
-        // Do any additional setup after loading the view.
+		tableView.separatorStyle = .none
+		tableView.backgroundColor = .backgroundColor
+        /// Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        setupNavBar()
+    }
+    
+    func setupNavBar() {
+        navigationController?.navigationBar.tintColor = .white
+        navigationItem.backButtonDisplayMode = .minimal
+        
+        let titleLabel = UILabel()
+        titleLabel.text = navTitle
+        titleLabel.textColor = .white
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        titleLabel.textAlignment = .center
+        titleLabel.numberOfLines = 2
+        
+        if #available(iOS 26.0, *) {
+            titleLabel.sizeToFit()
+        } else {
+            let maxWidth = UIScreen.main.bounds.width - 120
+            let size = titleLabel.sizeThatFits(CGSize(width: maxWidth, height: .greatestFiniteMagnitude))
+            titleLabel.frame = CGRect(origin: .zero, size: size)
+        }
+        
+        navigationItem.titleView = titleLabel
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return chapterIndex.chapterNested[arrayPointer].count
@@ -62,13 +80,15 @@ class SubChapterViewController: UIViewController, UITableViewDelegate, UITableVi
         else
         {
             cell = UITableViewCell(frame: CGRect( x: 0, y: 0, width: tableView.frame.width, height: tableView.rowHeight ))
-            cell.backgroundColor = UIColor.backgroundColor
-            
+            cell.backgroundColor = .colorBackgroundSecondary
+			cell.textLabel?.textColor = .colorTextDarker
+
             cell.accessoryType = .disclosureIndicator
             
             cell.textLabel?.text = chapterIndex.chapterNested[arrayPointer][indexPath.row]
             cell.textLabel?.lineBreakMode = .byWordWrapping
             cell.textLabel?.numberOfLines = 6
+            cell.textLabel?.font = .systemFont(ofSize: 15)
             
             tableViewCells[indexPath.row] = cell
             
@@ -79,7 +99,7 @@ class SubChapterViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        // Need to add logic to insert table view or html content based on what was clicked
+        /// Need to add logic to insert table view or html content based on what was clicked
         
         
 //        let urlstring = chapterIndex.chapterCode[chapterIndex.chapterTitle.firstIndex(of: tableViewCells[indexPath.row]?.textLabel?.text ?? "") ?? 0]
@@ -90,14 +110,14 @@ class SubChapterViewController: UIViewController, UITableViewDelegate, UITableVi
         performSegue( withIdentifier: "SegueToWebViewViewController", sender: nil )
     }
     
-    //--------------------------------------------------------------------------------------------------
+    ///--------------------------------------------------------------------------------------------------
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if let webViewViewController = segue.destination as? WebViewViewController
         {
-				// The second condition in the if statement: chapterIndex.chapterCode[arrayPointer][subArrayPointer] ==  "15_appendix_district_tb_coordinators_(by_district)"
-				// is to ensure that the chapterIndex matches the file name that needs rerouting,
-				// if not included, every file url routes to TB Coordinators table
+				/// The second condition in the if statement: chapterIndex.chapterCode[arrayPointer][subArrayPointer] ==  "15_appendix_district_tb_coordinators_(by_district)"
+				/// is to ensure that the chapterIndex matches the file name that needs rerouting,
+				/// if not included, every file url routes to TB Coordinators table
 			if isFileDownloaded(for: chapterIndex
 				.chapterCode[arrayPointer][subArrayPointer]) && chapterIndex
 				.chapterCode[arrayPointer][subArrayPointer] ==  "15_appendix_district_tb_coordinators_(by_district)" {
@@ -107,8 +127,9 @@ class SubChapterViewController: UIViewController, UITableViewDelegate, UITableVi
 			}
 			
             webViewViewController.titlelabel = chapterIndex.chapterNested[arrayPointer][subArrayPointer]
-            webViewViewController.navTitle = navTitle
+            webViewViewController.navTitle = chapterIndex.chapterNested[arrayPointer][subArrayPointer]
             webViewViewController.uniqueAddress = chapterIndex.chapterCode[arrayPointer][subArrayPointer]
         }
     }
 }
+

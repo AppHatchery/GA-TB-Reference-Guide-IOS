@@ -9,6 +9,7 @@ import Foundation
 import RealmSwift
 
 @objcMembers
+/// Search centralizes related app data or service logic.
 class Search: Object {
     dynamic var recentSearch: String = ""
     

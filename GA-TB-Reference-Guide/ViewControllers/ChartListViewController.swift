@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// ChartListViewController manages the Chart List screen UI and interactions.
 class ChartListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
@@ -25,21 +26,24 @@ class ChartListViewController: UIViewController, UITableViewDelegate, UITableVie
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor : UIColor.white]
         
         let navbarTitle = UILabel()
-        navbarTitle.text = "All Charts"
+        navbarTitle.text = "All Tables"
         navbarTitle.textColor = UIColor.white
         navbarTitle.font = UIFont.boldSystemFont(ofSize: 16.0)
         navbarTitle.numberOfLines = 2
         navbarTitle.textAlignment = .center
-        navbarTitle.minimumScaleFactor = 0.5
+        navbarTitle.minimumScaleFactor = 0.7
         navbarTitle.adjustsFontSizeToFitWidth = true
         navigationItem.titleView = navbarTitle
+        navigationItem.backButtonDisplayMode = .minimal
         
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register( UITableViewCell.self, forCellReuseIdentifier: type(of: self).description())
         tableView.estimatedRowHeight = 80
         tableView.estimatedRowHeight = UITableView.automaticDimension
-        // Do any additional setup after loading the view.
+		tableView.separatorStyle = .none
+		tableView.backgroundColor = .backgroundColor
+        /// Do any additional setup after loading the view.
     }
     
     
@@ -62,13 +66,15 @@ class ChartListViewController: UIViewController, UITableViewDelegate, UITableVie
         else
         {
             cell = UITableViewCell(frame: CGRect( x: 0, y: 0, width: tableView.frame.width, height: tableView.rowHeight ))
-            cell.backgroundColor = UIColor.backgroundColor
-            
+			cell.backgroundColor = .colorBackgroundSecondary
+			cell.textLabel?.textColor = .colorTextDarker
+
             cell.accessoryType = .disclosureIndicator
             
             cell.textLabel?.text = chapterIndex.charts[indexPath.row]
             cell.textLabel?.lineBreakMode = .byWordWrapping
             cell.textLabel?.numberOfLines = 6
+            cell.textLabel?.font = .systemFont(ofSize: 15)
             
             tableViewCells[indexPath.row] = cell
             
@@ -79,7 +85,7 @@ class ChartListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        // Need to add logic to insert table view or html content based on what was clicked
+        /// Need to add logic to insert table view or html content based on what was clicked
         
         
 //        let urlstring = chapterIndex.chapterCode[chapterIndex.chapterTitle.firstIndex(of: tableViewCells[indexPath.row]?.textLabel?.text ?? "") ?? 0]
@@ -90,7 +96,7 @@ class ChartListViewController: UIViewController, UITableViewDelegate, UITableVie
         performSegue( withIdentifier: "SegueToWebViewViewController", sender: nil )
     }
     
-    //--------------------------------------------------------------------------------------------------
+    ///--------------------------------------------------------------------------------------------------
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if let webViewViewController = segue.destination as? WebViewViewController
@@ -98,6 +104,7 @@ class ChartListViewController: UIViewController, UITableViewDelegate, UITableVie
             webViewViewController.url = Bundle.main.url(forResource: chapterIndex.chartURLs[arrayPointer], withExtension: "html")!
             print(chapterIndex.chartURLs[arrayPointer])
             webViewViewController.titlelabel = chapterIndex.charts[arrayPointer]
+            webViewViewController.navTitle = chapterIndex.chartsTrimmed[arrayPointer]
             webViewViewController.uniqueAddress = chapterIndex.chartURLs[arrayPointer]
         }
     }

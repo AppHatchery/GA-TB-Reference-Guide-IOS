@@ -12363,12 +12363,6 @@
     each(components, function (component, name) { return UIkit.component(name, component); }
     );
 
-                                
-                                
-    var myelement = document.getElementById("test");
-
-
-    myelement.innerHTML= "New Text";
     return UIkit;
 
 })));

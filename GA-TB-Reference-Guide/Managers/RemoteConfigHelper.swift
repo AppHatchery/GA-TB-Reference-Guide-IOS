@@ -8,22 +8,24 @@
 import FirebaseRemoteConfig
 import FirebaseRemoteConfigSwift
 
+/// RemoteConfigHelper centralizes related app data or service logic.
 class RemoteConfigHelper {
 	let downloadManager = BatchDownloadManager()
 
+	/// configure Remote Config.
 	func configureRemoteConfig() {
 		let remoteConfig = RemoteConfig.remoteConfig()
 		let settings = RemoteConfigSettings()
 		settings.minimumFetchInterval = 1
 		remoteConfig.configSettings = settings
 
-		// Set default values
+		/// Set default values
 		let defaults: [String: NSObject] = [
 			"update_value": 0 as NSObject
 		]
 		remoteConfig.setDefaults(defaults)
 
-		// Fetch and activate the Remote Config values
+		/// Fetch and activate the Remote Config values
 		remoteConfig.fetchAndActivate { status, error in
 			if status == .successFetchedFromRemote || status == .successUsingPreFetchedData {
 				let updateValue = remoteConfig.configValue(forKey: "update_value").numberValue as? Int ?? 0
@@ -34,6 +36,7 @@ class RemoteConfigHelper {
 		}
 	}
 
+	/// handle Update Value Change.
 	func handleUpdateValueChange(_ newValue: Int) {
 		if newValue != UserDefaults.standard.integer(forKey: "last_update_value") {
 			UserDefaults.standard.set(newValue, forKey: "last_update_value")
@@ -42,6 +45,7 @@ class RemoteConfigHelper {
 		}
 	}
 
+	/// download Updated Files.
 	func downloadUpdatedFiles() {
 		let remoteConfig = RemoteConfig.remoteConfig()
 		let updateValue = remoteConfig.configValue(forKey: "update_value").numberValue as? Int ?? 0

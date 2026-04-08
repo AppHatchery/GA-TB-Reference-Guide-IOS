@@ -7,6 +7,7 @@
 
 import UIKit
 
+// Protocol defining Save Favorite Delegate responsibilities.
 protocol SaveFavoriteDelegate
 {
     func didSaveName( _ name: String )
@@ -14,6 +15,7 @@ protocol SaveFavoriteDelegate
     func didRemoveFavorite()
 }
 
+/// SaveFavorite provides related app functionality.
 class SaveFavorite: UIView {
     
     @IBOutlet weak var cancelButton: UIButton!
@@ -23,8 +25,11 @@ class SaveFavorite: UIView {
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var nameField: UITextField!
+    @IBOutlet weak var bookmarkSourceField: UITextField!
+    @IBOutlet weak var bookmarkSourceView: UIView!
     
-    // Dialog Constraints
+    
+    /// Dialog Constraints
     @IBOutlet weak var dialogLeftConstraint: NSLayoutConstraint!
     @IBOutlet weak var dialogRightConstraint: NSLayoutConstraint!
     
@@ -32,8 +37,9 @@ class SaveFavorite: UIView {
     var delegate: SaveFavoriteDelegate!
     var subChapter: ContentPage!
     var currentTitle: String!
+    let chapterIndex = ChapterIndex()
 
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     init( frame: CGRect, content: ContentPage, title: String, delegate: SaveFavoriteDelegate )
     {
         super.init( frame : frame )
@@ -45,7 +51,7 @@ class SaveFavorite: UIView {
         customInit()
     }
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     required init?( coder aDecoder: NSCoder )
     {
         super.init( coder : aDecoder )
@@ -53,7 +59,7 @@ class SaveFavorite: UIView {
         customInit()
     }
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     func customInit()
     {
         let nibView = (Bundle.main.loadNibNamed( "SaveFavorite", owner: self, options: nil)!.first as! UIView)
@@ -76,31 +82,121 @@ class SaveFavorite: UIView {
         contentView.layer.cornerRadius = 4
         contentView.layer.masksToBounds = true
                 
-        cancelButton.layer.borderWidth = 0.5
-        cancelButton.layer.cornerRadius = 4
-        cancelButton.layer.masksToBounds = true
-        cancelButton.layer.borderColor = UIColor.label.cgColor
-
-        saveButton.layer.borderWidth = 0.5
-        saveButton.layer.cornerRadius = 4
-        saveButton.layer.masksToBounds = true
-        saveButton.layer.borderColor = UIColor.label.cgColor
+        configureCancelButton()
+        configureSaveButton()
+        
+        
+        let nameFieldPaddingView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: nameField.frame.height))
+        
+        nameField.layer.cornerRadius = 10
+        nameField.layer.borderWidth = 0
+        nameField.layer.borderColor = UIColor.clear.cgColor
+        nameField.layer.masksToBounds = true
+        nameField.borderStyle = .none
+        nameField.leftView = nameFieldPaddingView
+        nameField.leftViewMode = .always
+        
+        let bookmarkSourceFieldPaddingView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: bookmarkSourceField.frame.height))
+        
+        bookmarkSourceField.layer.cornerRadius = 10
+        bookmarkSourceField.layer.borderWidth = 0
+        bookmarkSourceField.layer.borderColor = UIColor.clear.cgColor
+        bookmarkSourceField.layer.masksToBounds = true
+        bookmarkSourceField.borderStyle = .none
+        bookmarkSourceField.leftView = bookmarkSourceFieldPaddingView
+        bookmarkSourceField.leftViewMode = .always
         
         if subChapter.favorite == true {
             titleLabel.text = "Edit Bookmark Title"
             nameField.text = subChapter.favoriteName
-            cancelButton.setTitle("Remove", for: .normal)
-            saveButton.setTitle("Update", for: .normal)
+            bookmarkSourceField.text = subChapter.chapterParent
+            
+            bookmarkSourceView.isHidden = false
+
+            cancelButton.setTitle("Delete Bookmark", for: .normal)
+            saveButton.setTitle("Save Changes", for: .normal)
             cancelButton.addTarget(self, action: #selector(self.deleteButtonPressed), for: .touchUpInside)
-            cancelButton.setImage(UIImage(systemName: "trash"), for: .normal)
         } else {
             nameField.text = currentTitle
+            bookmarkSourceField.text = subChapter.chapterParent
             cancelButton.addTarget(self, action: #selector(self.cancelButtonPressed), for: .touchUpInside)
+            bookmarkSourceView.isHidden = true
+        }
+
+        let existingSource = bookmarkSourceField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        if existingSource.isEmpty, let resolved = resolvedBookmarkSource(for: subChapter.url), !resolved.isEmpty {
+            bookmarkSourceField.text = resolved
         }
         closeButton.addTarget(self, action: #selector(self.cancelButtonPressed), for: .touchUpInside)
+        
+//        print(subChapter)
     }
     
-    //------------------------------------------------------------------------------
+    private func configureCancelButton() {
+        if #available(iOS 15.0, *) {
+            var config = UIButton.Configuration.plain()
+            config.title = "Cancel"
+            config.cornerStyle = .fixed
+            config.baseForegroundColor = .label
+            config.background.cornerRadius = 0
+            
+            cancelButton.configuration = config
+            cancelButton.configurationUpdateHandler = { button in
+                var updatedConfig = button.configuration
+                switch button.state {
+                case .highlighted:
+                    updatedConfig?.background.backgroundColor = .systemGray5
+                default:
+                    updatedConfig?.background.backgroundColor = .clear
+                }
+                button.configuration = updatedConfig
+            }
+        } else {
+            cancelButton.layer.borderWidth = 0
+            cancelButton.layer.cornerRadius = 0
+            cancelButton.layer.masksToBounds = true
+        }
+    }
+    
+    private func configureSaveButton() {
+        if #available(iOS 15.0, *) {
+            var config = UIButton.Configuration.filled()
+            
+            config.title = "Save"
+            config.cornerStyle = .fixed
+            config.baseBackgroundColor = .colorPrimary
+            config.baseForegroundColor = .white
+            config.background.cornerRadius = 0
+            
+            saveButton.configuration = config
+        } else {
+            saveButton.layer.borderWidth = 0
+            saveButton.layer.cornerRadius = 0
+            saveButton.layer.masksToBounds = true
+        }
+    }
+    
+    private func resolvedBookmarkSource(for slug: String) -> String? {
+        let baseSlug = slug.components(separatedBy: "#").first ?? slug
+
+        let chartCodes = Array(chapterIndex.chartCode.joined())
+        if let idx = chartCodes.firstIndex(of: baseSlug) {
+            let chartNested = Array(chapterIndex.chartNested.joined())
+            if chartNested.indices.contains(idx) {
+                return chartNested[idx]
+            }
+        }
+
+        let chapterCodes = Array(chapterIndex.chapterCode.joined())
+        if let idx = chapterCodes.firstIndex(of: baseSlug),
+           chapterIndex.chaptermapsubchapternested.indices.contains(idx) {
+            return chapterIndex.chaptermapsubchapternested[idx]
+        }
+
+        return nil
+    }
+    
+    ///------------------------------------------------------------------------------
     @IBAction func saveButtonPressed(_ sender: Any )
     {
         UIView.animate( withDuration: 0.25, delay: 0.0, options: UIView.AnimationOptions(), animations: {
@@ -113,7 +209,7 @@ class SaveFavorite: UIView {
         })
     }
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     @objc func cancelButtonPressed()
     {
         UIView.animate( withDuration: 0.25, delay: 0.0, options: UIView.AnimationOptions(), animations: {
@@ -124,17 +220,15 @@ class SaveFavorite: UIView {
         })
     }
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     @objc func deleteButtonPressed()
     {
-        UIView.animate( withDuration: 0.25, delay: 0.0, options: UIView.AnimationOptions(), animations: {
+        UIView.animate(withDuration: 0.25, delay: 0.0, options: UIView.AnimationOptions(), animations: {
             self.overlayView.alpha = 0
             self.contentView.transform = CGAffineTransform( scaleX: 0.001, y: 0.001 )
         }, completion: { (value: Bool) in
-            
             self.delegate.didRemoveFavorite()
             self.removeFromSuperview()
         })
     }
-    
 }

@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// ContentListViewController manages the Content List screen UI and interactions.
 class ContentListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
@@ -17,7 +18,7 @@ class ContentListViewController: UIViewController, UITableViewDelegate, UITableV
     
     var arrayPointer = 0
         
-    var chapters = ["I. Epidemiology","II. Diagnostic Tests for Latent TB Infection (LTBI)","III. Treatment of Latent TB Infection (LTBI)","IV. Laboratory Diagnosis of Active Tuberculosis","V. Treatment of Current (Active) Disease Therapy","VI. Pregnancy and TB","VII. Childhood Tuberculosis","VIII. Tuberculosis and Long-Term Care Facilities","IX. BCG Vaccination","X. TB Infection Control: Hospital Isolation Procedures","XI. Community Tuberculosis Control","XII. Alternative Housing Program for Homeless TB Patients in Georgia","XIII. Georgia Department of Public Health (DPH) Community Guidelines for Respiratory Isolation of Patients with Active TB in the Community","XIV. References","XV. Appendix: District TB Coordinators (by District)","XVI. Abbreviations","XVII. Acknowledgements","XVIII.Hello and Welcome Clinical Statement","XIX. For more information"]
+    var chapters = ["Hello and Welcome Clinical Statement","I. Epidemiology","II. Diagnostic Tests for Latent TB Infection (LTBI)","III. Treatment of Latent TB Infection (LTBI)","IV. Laboratory Diagnosis of Active Tuberculosis","V. Treatment of Current (Active) Disease Therapy","VI. Pregnancy and TB","VII. Childhood Tuberculosis","VIII. Tuberculosis and Long-Term Care Facilities","IX. BCG Vaccination","X. TB Infection Prevention and Control in Healthcare Facilities","XI. Community Tuberculosis Prevention Control","XII. Alternative Housing Program for Persons with TB Experiencing Homelessness in Georgia","XIII. Georgia Department of Public Health (DPH) Community Guidelines for Respiratory Isolation of Patients with Active TB in the Community","XIV. References","XV. Appendix: District TB Coordinators (by District)","XVI. Abbreviations","XVII. Acknowledgements","XVIII. For more information"]
         
     let chapterIndex = ChapterIndex()
     
@@ -29,18 +30,21 @@ class ContentListViewController: UIViewController, UITableViewDelegate, UITableV
         navbarTitle.text = "All Chapters"
         navbarTitle.textColor = UIColor.white
         navbarTitle.font = UIFont.boldSystemFont(ofSize: 16.0)
-        navbarTitle.numberOfLines = 2
+        navbarTitle.numberOfLines = 3
         navbarTitle.textAlignment = .center
-        navbarTitle.minimumScaleFactor = 0.5
+        navbarTitle.minimumScaleFactor = 0.7
         navbarTitle.adjustsFontSizeToFitWidth = true
         navigationItem.titleView = navbarTitle
+        navigationItem.backButtonDisplayMode = .minimal
         
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register( UITableViewCell.self, forCellReuseIdentifier: type(of: self).description())
         tableView.estimatedRowHeight = 80
         tableView.estimatedRowHeight = UITableView.automaticDimension
-        // Do any additional setup after loading the view.
+		tableView.separatorStyle = .none
+		tableView.backgroundColor = .backgroundColor
+        /// Do any additional setup after loading the view.
     }
     
     
@@ -63,13 +67,15 @@ class ContentListViewController: UIViewController, UITableViewDelegate, UITableV
         else
         {
             cell = UITableViewCell(frame: CGRect( x: 0, y: 0, width: tableView.frame.width, height: tableView.rowHeight ))
-            cell.backgroundColor = UIColor.backgroundColor
-            
+			cell.backgroundColor = .colorBackgroundSecondary
+			cell.textLabel?.textColor = .colorTextDarker
+
             cell.accessoryType = .disclosureIndicator
             
             cell.textLabel?.text = chapters[indexPath.row]
             cell.textLabel?.lineBreakMode = .byWordWrapping
             cell.textLabel?.numberOfLines = 6
+            cell.textLabel?.font = .systemFont(ofSize: 15)
             
             tableViewCells[indexPath.row] = cell
             
@@ -80,7 +86,7 @@ class ContentListViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        // Need to add logic to insert table view or html content based on what was clicked
+        /// Need to add logic to insert table view or html content based on what was clicked
         
         
 //        let urlstring = chapterIndex.chapterCode[chapterIndex.chapterTitle.firstIndex(of: tableViewCells[indexPath.row]?.textLabel?.text ?? "") ?? 0]
@@ -91,7 +97,7 @@ class ContentListViewController: UIViewController, UITableViewDelegate, UITableV
         performSegue( withIdentifier: "SegueToSubChapterViewController", sender: nil )
     }
     
-    //--------------------------------------------------------------------------------------------------
+    ///--------------------------------------------------------------------------------------------------
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if let subChapterViewController = segue.destination as? SubChapterViewController

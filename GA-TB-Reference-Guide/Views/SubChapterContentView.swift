@@ -8,11 +8,13 @@
 import UIKit
 import WebKit
 
+/// Protocol defining Sub Chapter Content View Delegate responsibilities.
 protocol SubChapterContentViewDelegate
 {
     
 }
 
+/// SubChapterContentView defines a reusable view for Sub Chapter Content UI.
 class SubChapterContentView: UIView {
 
     @IBOutlet weak var webView: WKWebView!
@@ -24,7 +26,7 @@ class SubChapterContentView: UIView {
     var url: URL!
     
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     init( frame: CGRect, delegate: SubChapterContentViewDelegate )
     {
         super.init( frame : frame )
@@ -34,7 +36,7 @@ class SubChapterContentView: UIView {
         customInit()
     }
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     required init?( coder aDecoder: NSCoder )
     {
         super.init( coder : aDecoder )
@@ -42,7 +44,7 @@ class SubChapterContentView: UIView {
         customInit()
     }
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     func customInit()
     {
         contentView = (Bundle.main.loadNibNamed( "SubChapterContentView", owner: self, options: nil)!.first as! UIView)

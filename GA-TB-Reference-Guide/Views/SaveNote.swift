@@ -7,14 +7,19 @@
 
 import UIKit
 import RealmSwift
+import Pendo
 
+/// Protocol defining Save Note Delegate responsibilities.
 protocol SaveNoteDelegate
 {
+    func didSaveNote(_ note: Notes, shouldSubmitAsFeedback: Bool)
+
     func didSaveNote( _ note: Notes )
     
     func didDeleteNote( _ note: Notes)
 }
 
+/// SaveNote provides related app functionality.
 class SaveNote: UIView {
 
     @IBOutlet weak var cancelButton: UIButton!
@@ -26,11 +31,17 @@ class SaveNote: UIView {
     @IBOutlet weak var noteField: UITextView!
     @IBOutlet weak var tagLabel: UILabel!
     
-    // Dialog Constraints
+    /// Dialog Constraints
     @IBOutlet weak var dialogLeftConstraint: NSLayoutConstraint!
     @IBOutlet weak var dialogRightConstraint: NSLayoutConstraint!
     
     @IBOutlet var colors: [UIButton]!
+
+    @IBOutlet weak var submitAsFeedbackSwitch: UISwitch!
+    @IBOutlet weak var submitAsFeedbackLabel: UILabel!
+    
+    @IBOutlet weak var feedbackStackView: UIStackView!
+    
     
     var contentViewTopConstraint: NSLayoutConstraint!
     var delegate: SaveNoteDelegate!
@@ -41,7 +52,7 @@ class SaveNote: UIView {
     var colorTagChosen = 0
     let realm = RealmHelper.sharedInstance.mainRealm()
 
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     init( frame: CGRect, content: ContentPage, oldNote: Notes, delegate: SaveNoteDelegate )
     {
         super.init( frame : frame )
@@ -53,7 +64,7 @@ class SaveNote: UIView {
         customInit()
     }
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     required init?( coder aDecoder: NSCoder )
     {
         super.init( coder : aDecoder )
@@ -61,7 +72,7 @@ class SaveNote: UIView {
         customInit()
     }
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     func customInit()
     {
         let nibView = (Bundle.main.loadNibNamed( "SaveNote", owner: self, options: nil)!.first as! UIView)
@@ -87,79 +98,139 @@ class SaveNote: UIView {
         
         noteField.layer.cornerRadius = 4
         noteField.layer.masksToBounds = true
-                
-        cancelButton.layer.borderWidth = 0.5
-        cancelButton.layer.cornerRadius = 4
-        cancelButton.layer.masksToBounds = true
-        cancelButton.layer.borderColor = UIColor.label.cgColor
-
-        saveButton.layer.borderWidth = 0.5
-        saveButton.layer.cornerRadius = 4
-        saveButton.layer.masksToBounds = true
-        saveButton.layer.borderColor = UIColor.label.cgColor
+        
+        configureCancelButton()
+        configureSaveButton()
         
         closeButton.addTarget(self, action: #selector(self.cancelButtonPressed), for: .touchUpInside)
         
         cancelButton.addTarget(self, action: #selector(self.cancelButtonPressed), for: .touchUpInside)
         
         for button in colors {
+            button.layer.cornerRadius = button.frame.width/2
             button.addTarget(self, action: #selector(self.pickColor), for: .touchDown)
         }
+        
         highlightedColor = UIView(frame: colors[0].bounds)
+        highlightedColor.frame.origin.x -= 3
+        highlightedColor.frame.origin.y -= 3
+        highlightedColor.frame.size.width += 6
+        highlightedColor.frame.size.height += 6
+        highlightedColor.layer.cornerRadius = highlightedColor.frame.width/2
+        highlightedColor.backgroundColor = UIColor.clear
+        highlightedColor.layer.borderWidth = 1.5
+        highlightedColor.layer.borderColor = UIColor.systemBlue.cgColor
+        highlightedColor.isUserInteractionEnabled = false
         
         if note.savedToRealm == true {
             titleLabel.text = "Edit Note"
             noteField.text = note.content
             colors[note.colorTag].addSubview(highlightedColor)
-            highlightedColor.isUserInteractionEnabled = false
             colorTagChosen = note.colorTag
             cancelButton.setTitle("Delete", for: .normal)
             saveButton.setTitle("Update", for: .normal)
             cancelButton.addTarget(self, action: #selector(self.deleteButtonPressed), for: .touchUpInside)
-            cancelButton.setImage(UIImage(systemName: "trash"), for: .normal)
+            submitAsFeedbackSwitch.isOn = false
+            feedbackStackView.isHidden = true
+        } else {
+            colors[0].addSubview(highlightedColor)
+            colorTagChosen = 0
         }
     }
     
-    //------------------------------------------------------------------------------
+    private func configureCancelButton() {
+        if #available(iOS 15.0, *) {
+            var config = UIButton.Configuration.plain()
+            config.title = "Cancel"
+            config.cornerStyle = .fixed
+            config.baseForegroundColor = .label
+            config.background.cornerRadius = 0
+            
+            cancelButton.configuration = config
+            cancelButton.configurationUpdateHandler = { button in
+                var updatedConfig = button.configuration
+                switch button.state {
+                case .highlighted:
+                    updatedConfig?.background.backgroundColor = .systemGray5
+                default:
+                    updatedConfig?.background.backgroundColor = .clear
+                }
+                button.configuration = updatedConfig
+            }
+        } else {
+            cancelButton.layer.borderWidth = 0
+            cancelButton.layer.cornerRadius = 0
+            cancelButton.layer.masksToBounds = true
+        }
+    }
+    
+    private func configureSaveButton() {
+        if #available(iOS 15.0, *) {
+            var config = UIButton.Configuration.filled()
+            
+            config.title = "Save"
+            config.cornerStyle = .fixed
+            config.baseBackgroundColor = .colorPrimary
+            config.baseForegroundColor = .white
+            config.background.cornerRadius = 0
+            
+            saveButton.configuration = config
+        } else {
+            saveButton.layer.borderWidth = 0
+            saveButton.layer.cornerRadius = 0
+            saveButton.layer.masksToBounds = true
+        }
+    }
+    
+    ///------------------------------------------------------------------------------
     @objc func pickColor(_ sender: UIButton){
-        // Remove the current highlighted button by removing all
-        // NOT VERY EFFICIENT, SHOULD OPTIMIZE THIS BY KNOWING BEFOREHAND WHICH ONE IS TURNED ON
+        /// Remove the current highlighted button by removing all
+        /// NOT VERY EFFICIENT, SHOULD OPTIMIZE THIS BY KNOWING BEFOREHAND WHICH ONE IS TURNED ON
         for button in colors {
             button.willRemoveSubview(highlightedColor)
         }
 
         sender.addSubview(highlightedColor)
         
-        // Assign color to tag
-//        note.colorTag = sender.tag
+        /// Assign color to tag
         colorTagChosen = sender.tag
     }
     
-    //------------------------------------------------------------------------------
-    @IBAction func saveButtonPressed(_ sender: Any )
-    {
+    ///------------------------------------------------------------------------------
+    @IBAction func saveButtonPressed(_ sender: Any ) {
+        guard let noteText = noteField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
+              !noteText.isEmpty else {
+            
+            noteField.layer.borderColor = UIColor.red.cgColor
+            noteField.layer.borderWidth = 1.0
+            return
+        }
+        
+        noteField.layer.borderWidth = 0
+        
         UIView.animate( withDuration: 0.25, delay: 0.0, options: UIView.AnimationOptions(), animations: {
             self.overlayView.alpha = 0
             self.contentView.transform = CGAffineTransform( scaleX: 0.001, y: 0.001 )
         }, completion: { (value: Bool) in
-            // Realm
+            /// Realm
             RealmHelper.sharedInstance.update(self.note, properties: [
-                "content":self.noteField.text!,
+                "content":noteText,
                 "colorTag":self.colorTagChosen
             ]) { updated in
-                //
+                ///
             }
-//            try! self.realm!.write
-//            {
-//                self.note.content = self.noteField.text
-//                self.note.colorTag = self.colorTagChosen
-//            }
-            self.delegate.didSaveNote(self.note)
+            
+            if !self.note.savedToRealm {
+                self.delegate.didSaveNote(self.note, shouldSubmitAsFeedback: self.submitAsFeedbackSwitch.isOn)
+            } else {
+                self.delegate.didSaveNote(self.note)
+            }
+            
             self.removeFromSuperview()
         })
     }
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     @objc func cancelButtonPressed()
     {
         UIView.animate( withDuration: 0.25, delay: 0.0, options: UIView.AnimationOptions(), animations: {
@@ -170,16 +241,41 @@ class SaveNote: UIView {
         })
     }
     
-    //------------------------------------------------------------------------------
-    @objc func deleteButtonPressed(_ sender: Any)
-    {
-        UIView.animate( withDuration: 0.25, delay: 0.0, options: UIView.AnimationOptions(), animations: {
+    ///------------------------------------------------------------------------------
+    @objc func deleteButtonPressed(_ sender: Any) {
+        UIView.animate(withDuration: 0.25, delay: 0.0, options: [], animations: {
             self.overlayView.alpha = 0
-            self.contentView.transform = CGAffineTransform( scaleX: 0.001, y: 0.001 )
-        }, completion: { (value: Bool) in
+            self.contentView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
+        }) { _ in
             
-            self.delegate.didDeleteNote(self.note)
-            self.removeFromSuperview()
-        })
+            guard let windowScene = UIApplication.shared.connectedScenes
+                .filter({ $0.activationState == .foregroundActive })
+                .first as? UIWindowScene,
+                  let window = windowScene.windows.first(where: { $0.isKeyWindow }) else {
+                return
+            }
+            
+            TwoOptionsPopUp.show(
+                in: window,
+                label: "Delete Note?",
+                cancelTitle: "Cancel",
+                deleteTitle: "Delete",
+                onCancel: nil,
+                onDelete: { [weak self] in
+                    guard let self = self else { return }
+                    guard let note = self.note else { return }
+                    
+                    self.delegate.didDeleteNote(note)
+                    
+                    if let windowScene = UIApplication.shared.connectedScenes
+                        .filter({ $0.activationState == .foregroundActive })
+                        .first as? UIWindowScene,
+                       let window = windowScene.windows.first(where: { $0.isKeyWindow }) {
+                        
+                        CustomPopUp.showTemporary(in: window, popupLabelText: "Note Deleted!")
+                    }
+                }
+            )
+        }
     }
 }

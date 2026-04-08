@@ -31,7 +31,7 @@
     "id": "table_5_dosages_for_recommended_lbti_treatment_regimens",
     "subChapterTitle": "Treatment Regimens",
     "subChapterId": 12,
-    "chartTitle": "Dosages for recommended LBTI treatment regimens ",
+    "chartTitle": "Dosages for recommended LTBI treatment regimens ",
     "chartHomePosition": 0
   },
   {
@@ -45,7 +45,7 @@
     "id": "table_7_recommended_regimens_for_treatment_of_adults_and_children_with_drug_susceptible_tb_pulmonary_tb",
     "subChapterTitle": "Special Clinical Situations",
     "subChapterId": 24,
-    "chartTitle": "Recommended Regimens for Treatment of Adults and Children with Drug-Susceptible TB Pulmonary TB",
+    "chartTitle": "Recommended Regimens for Treatment of Adults and Children with Drug Susceptible Pulmonary TB",
     "chartHomePosition": 0
   },
   {
@@ -112,22 +112,15 @@
     "chartHomePosition": 0
   },
   {
-    "id": "table_17_what_to_start_choice_of_tb_therapy_and_antiretroviral_therapy_(art)_when)treating_co-infected_patients",
+    "id": "table_17_what_to_start_choice_of_tb_therapy_and_antiretroviral_therapy_(art)_when_treating_co-infected_patients",
     "subChapterTitle": "Antiretroviral Therapy (ART) and Treatment of HIV Seropositive Patients with Active Tuberculosis Disease",
     "subChapterId": 28,
     "chartTitle": "What to start: Choice of TB therapy and Antiretroviral Therapy (ART) when treating co-infected patients",
     "chartHomePosition": 0
   },
   {
-    "id": "table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination",
-    "subChapterTitle": "Antiretroviral Therapy (ART) and Treatment of HIV Seropositive Patients with Active Tuberculosis Disease",
-    "subChapterId": 28,
-    "chartTitle": "Dosage Adjustments for ART and Rifamycins when used in Combination",
-    "chartHomePosition": 0
-  },
-  {
     "id": "table_19_guidelines_for_treatment_of_extrapulmonary_tuberculosis",
-    "subChapterTitle": "Adjunctive Use of Corticosteroid Therapy (Table 19)",
+    "subChapterTitle": "Adjunctive Use of Corticosteroid Therapy (Table 16)",
     "subChapterId": 31,
     "chartTitle": "Guidelines for Treatment of Extrapulmonary* Tuberculosis: Length of therapy and Adjunctive Use of Corticosteroids",
     "chartHomePosition": 0

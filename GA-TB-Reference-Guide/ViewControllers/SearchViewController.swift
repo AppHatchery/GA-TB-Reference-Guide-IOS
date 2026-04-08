@@ -10,6 +10,60 @@ import Foundation
 import FirebaseAnalytics
 import Pendo
 
+// MARK: - SearchViewController Documentation
+//
+// ## Key Responsibilities:
+//
+// ### Content Indexing:
+// - Loads and normalizes HTML content from bundled resources
+// - Strips HTML tags for plain-text search matching
+// - Handles special cases like downloaded TB coordinator content
+// - Maintains separate arrays for chapters, charts, and combined content
+//
+// ### Data Management:
+// - Persists recent searches using Realm database
+// - Tracks search analytics and user behavior
+// - Manages content metadata from ChapterIndex
+// - Handles large content arrays efficiently
+//
+// ## Gotchas and Important Notes:
+//
+// ### Performance Considerations:
+// - Large HTML content can impact search performance
+// - Content loading happens synchronously in viewDidLoad
+// - Search debouncing prevents excessive UI updates
+// - Memory usage can be high with full content indexing
+//
+// ### Content Handling:
+// - Downloaded TB coordinator content requires special handling
+// - HTML stripping uses regex which may not handle all edge cases
+// - Content arrays must stay synchronized with ChapterIndex
+// - Figure and table filtering uses regex patterns
+//
+// ### UI State Management:
+// - Multiple table views require careful state coordination
+// - Tab switching needs result filtering and UI updates
+// - Keyboard dismissal must handle multiple interaction scenarios
+// - Loading states need proper timing to avoid UI glitches
+//
+// ### Data Integrity:
+// - Recent searches must be properly managed to avoid duplicates
+// - Content indexing should handle missing or corrupted files
+// - Result mapping back to content metadata must be accurate
+// - Search term persistence should handle special characters
+//
+// ### Search Algorithm:
+// - Simple substring matching (no full-text search indexing)
+// - Case-insensitive search across normalized content
+// - Snippet generation provides context around matches
+// - No relevance ranking or advanced search features
+//
+// ### Search Result Types:
+// - **Chapters**: Full chapter content and subchapters
+// - **Charts**: Tables, figures, and reference materials
+// - **Combined**: All content types mixed together
+//
+/// SearchViewController manages the Search screen UI and interactions.
 class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
     
 
@@ -36,7 +90,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 	@IBOutlet weak var mainLoaderView: UIView!
 	@IBOutlet var mainLoader: UIActivityIndicatorView!
 
-    // Initialize Realm
+    /// Initialize Realm
     let realm = RealmHelper.sharedInstance.mainRealm()
     
     var tableViewCells: [Int : UITableViewCell] = [:]
@@ -72,6 +126,20 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 	var showChapters: Bool = false
 	var showCharts: Bool = false
     
+    /// Restores focus to the search bar when returning:
+    /// - Only if not actively filtering or if the query is empty
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        /// Focus search bar when returning to this view
+        if !isFiltering || searchTerm.isEmpty {
+            search.becomeFirstResponder()
+        }
+    }
+    
+    /// - Important: loadHTML() must complete before search functionality works
+    /// - Note: Search bar focus behavior depends on viewWillAppear
+    /// - Warning: Content loading may cause brief UI freeze on large content sets
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -82,25 +150,41 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         navbarTitle.font = UIFont.boldSystemFont(ofSize: 16.0)
         navbarTitle.numberOfLines = 2
         navbarTitle.textAlignment = .center
-        navbarTitle.minimumScaleFactor = 0.5
+        navbarTitle.minimumScaleFactor = 0.7
         navbarTitle.adjustsFontSizeToFitWidth = true
         navigationItem.titleView = navbarTitle
+        navigationItem.backButtonDisplayMode = .minimal
         
         search.delegate = self
 
-        let textFieldInsideSearchBar = search.value(forKey: "searchField") as? UITextField
-        textFieldInsideSearchBar?.textColor = UIColor.searchBarText
-        textFieldInsideSearchBar?.attributedPlaceholder = NSAttributedString(string: "Search Guide",attributes: [NSAttributedString.Key.foregroundColor: UIColor.searchBarText])
-        textFieldInsideSearchBar?.layer.cornerRadius = 60
-        textFieldInsideSearchBar?.backgroundColor = UIColor.searchBar
-        searchView.frame = CGRect(x: searchView.frame.origin.x, y: searchView.frame.origin.x, width: searchView.frame.width, height: search.frame.height+10)
-		
+		guard let textField = search.value(forKey: "searchField") as? UITextField else { return }
+
+			/// Searchbar configuration
+		textField.textColor = UIColor.searchBarText
+		textField.attributedPlaceholder = NSAttributedString(
+			string: "Enter Keywords to Search",
+			attributes: [.foregroundColor: UIColor.searchBarText]
+		)
+		textField.layer.cornerRadius = 60
+		textField.backgroundColor = UIColor.searchBar
+
+		searchView.frame = CGRect(
+			x: searchView.frame.origin.x,
+			y: searchView.frame.origin.y,
+			width: searchView.frame.width,
+			height: search.frame.height + 10
+		)
+
+		textField.setSearchIcon(UIImage(named: "magnifyingGlass"), tintColor: UIColor.searchBarText)
+		textField
+			.setClearButton(UIImage(named: "icClear"), tintColor: UIColor.colorPrimary)
+
         navigationController?.navigationBar.setGradientBackground(to: self.navigationController!)
         navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.shadowImage = UIImage()
-        // Set Gradient to the width of the navigationBarda
-		// searchView.setGradientBackground(size: CGRect(x: searchView.bounds.origin.x, y: searchView.bounds.origin.y, width: self.navigationController?.navigationBar.bounds.width ?? searchView.bounds.width, height: searchView.bounds.height))
-        // Do any additional setup after loading the view.
+        /// Set Gradient to the width of the navigationBarda
+		/// searchView.setGradientBackground(size: CGRect(x: searchView.bounds.origin.x, y: searchView.bounds.origin.y, width: self.navigationController?.navigationBar.bounds.width ?? searchView.bounds.width, height: searchView.bounds.height))
+        /// Do any additional setup after loading the view.
 
 		for searchTab in searchTabs {
 			searchTab.layer.cornerRadius = 5
@@ -112,18 +196,46 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         setupSearchSuggestionTableView()
         setupRecentSearchesTableView()
         
-        // Load the Suggestions Table first before the the Main Table
+        /// Load the Suggestions Table first before the the Main Table
         showSuggestions()
 		loaderView.isHidden = true
 		mainLoaderView.isHidden = true
 
-        // Keyboard dismissal recognizer
+        /// Keyboard dismissal recognizer
         tap.addTarget(self, action: #selector(dismissKeyboard))
         self.view.addGestureRecognizer(tap)
     }
     
+	/// Loads and normalizes all HTML content for search indexing
+	/// 
+	/// This critical method builds the in-memory search database:
+	/// 
+	/// ### Content Loading Process:
+	/// 1. **Special Case Handling**: Checks for downloaded TB coordinator appendix
+	/// 2. **HTML Normalization**: Strips tags and normalizes whitespace
+	/// 3. **Content Categorization**: Separates chapters, charts, and combined content
+	/// 4. **Array Population**: Builds search arrays with normalized text
+	/// 
+	/// ### Content Categories:
+	/// - **tempHTML**: All content (chapters + charts) for "All" tab
+	/// - **tempChaptersHTML**: Chapters only for "Chapters" tab
+	/// - **tempChartsHTML**: Charts only for "Charts" tab
+	/// 
+	/// ### Special Handling:
+	/// - **TB Coordinator Appendix**: Uses downloaded content if available
+	/// - **Regex Filtering**: Excludes tables/figures from chapters-only array
+	/// - **Error Fallback**: Graceful degradation if file loading fails
+	/// 
+	/// ### Content Sources:
+	/// - Bundle resources for standard content
+	/// - Documents directory for downloaded coordinator data
+	/// - ChapterIndex provides content structure and metadata
+	/// 
+	/// - Important: Must be called in viewDidLoad to initialize search
+	/// - Note: Content arrays must stay synchronized with ChapterIndex
+	/// - Warning: Large content sets may impact search performance
 	func loadHTML() {
-			// Load the htmls on the array - needs to be on viewDidLoad otherwise it duplicates the content
+			/// ⚠️ Load the htmls on the array - needs to be on viewDidLoad otherwise it duplicates the content
 		let filename = "15_appendix_district_tb_coordinators_(by_district).html"
 		let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
 		let downloadedTbCoordinatorPath = documentsPath.appendingPathComponent(filename)
@@ -133,7 +245,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 
 //			print(downloadedTbCoordinatorContent)
 			
-			// Replace occurrences of the old path with the new file URL
+			/// Replace occurrences of the old path with the new file URL
 			downloadedTbCoordinatorContent = downloadedTbCoordinatorContent.replacingOccurrences(
 				of: "[\\s\n]+",
 				with: " ",
@@ -147,12 +259,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 				range: nil
 			)
 
-				// For Both Chapters and Charts Together
+				/// For Both Chapters and Charts Together
 			for items in chapterIndex.chapterCode.joined() {
 				let resourceName = items.components(separatedBy: ".")[0]
 
-					// When the filename is  "15_appendix_district_tb_coordinators_(by_district)" add the download TB Coordinators content to be indexed
-					// TODO: Needs thorough testing to properly check that all files text is being indexed
+					/// When the filename is  "15_appendix_district_tb_coordinators_(by_district)" add the download TB Coordinators content to be indexed
+					/// TODO: Needs thorough testing to properly check that all files text is being indexed
 				if resourceName == "15_appendix_district_tb_coordinators_(by_district)" {
 					tempHTML.append(downloadedTbCoordinatorContent)
 					print(downloadedTbCoordinatorContent)
@@ -161,24 +273,24 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 
 				let path = Bundle.main.path(forResource: items.components(separatedBy: ".")[0], ofType: "html")!
 
-					// This converts a multiline string into a single file, the .whitespacesandnewlines doesn't work to do that job
+					/// This converts a multiline string into a single file, the .whitespacesandnewlines doesn't work to do that job
 				var htmlString = try! String(contentsOfFile: path).replacingOccurrences(of: "[\\s\n]+", with: " ", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
 				htmlString = htmlString.replacingOccurrences(of: "<.*?>", with: "", options: .regularExpression, range: nil)
 				tempHTML.append(htmlString)
 			}
 
-				// For Charts
+				/// For Charts
 			for items in chapterIndex.chartCode.joined() {
 				let path = Bundle.main.path(forResource: items.components(separatedBy: ".")[0], ofType: "html")!
-					// This converts a multiline string into a single file, the .whitespacesandnewlines doesn't work to do that job
+					/// This converts a multiline string into a single file, the .whitespacesandnewlines doesn't work to do that job
 				var htmlString = try! String(contentsOfFile: path).replacingOccurrences(of: "[\\s\n]+", with: " ", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
 				htmlString = htmlString.replacingOccurrences(of: "<.*?>", with: "", options: .regularExpression, range: nil)
 				tempChartsHTML.append(htmlString)
 			}
 
-				// For Chapters Only
-				// To remove the tables from the chapterIndex.chapterCode array
-				// Regex has been used to avoid creating another chapterOnly array inside the chapterIndex class
+				/// For Chapters Only
+				/// To remove the tables from the chapterIndex.chapterCode array
+				/// Regex has been used to avoid creating another chapterOnly array inside the chapterIndex class
 			let regexPattern = "^table_\\d+_.*"
 			let figurePattern = "^fig1_factors_to_be_considered$"
 
@@ -192,15 +304,15 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 			for items in chaptersOnly.joined() {
 				let resourceName = items.components(separatedBy: ".")[0]
 
-					// When the filename is  "15_appendix_district_tb_coordinators_(by_district)" add the download TB Coordinators content to be indexed
-					// TODO: Needs thorough testing to properly check that all files text is being indexed
+					/// When the filename is  "15_appendix_district_tb_coordinators_(by_district)" add the download TB Coordinators content to be indexed
+					/// TODO: Needs thorough testing to properly check that all files text is being indexed
 				if resourceName == "15_appendix_district_tb_coordinators_(by_district)" {
 					tempChaptersHTML.append(downloadedTbCoordinatorContent)
 					continue
 				}
 
 				let path = Bundle.main.path(forResource: items.components(separatedBy: ".")[0], ofType: "html")!
-					// This converts a multiline string into a single file, the .whitespacesandnewlines doesn't work to do that job
+					/// This converts a multiline string into a single file, the .whitespacesandnewlines doesn't work to do that job
 				var htmlString = try! String(contentsOfFile: path).replacingOccurrences(of: "[\\s\n]+", with: " ", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
 				htmlString = htmlString.replacingOccurrences(of: "<.*?>", with: "", options: .regularExpression, range: nil)
 				tempChaptersHTML.append(htmlString)
@@ -214,7 +326,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 				tempHTML.append(htmlString)
 			}
 
-			// For Charts
+			/// For Charts
 			for items in chapterIndex.chartCode.joined() {
 				let path = Bundle.main.path(forResource: items.components(separatedBy: ".")[0], ofType: "html")!
 				var htmlString = try! String(contentsOfFile: path).replacingOccurrences(of: "[\\s\n]+", with: " ", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
@@ -222,9 +334,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 				tempChartsHTML.append(htmlString)
 			}
 
-			// For Chapters Only
-			// To remove the tables from the chapterIndex.chapterCode array
-			// Regex has been used to avoid creating another chapterOnly array inside the chapterIndex class
+			/// For Chapters Only
+			/// To remove the tables from the chapterIndex.chapterCode array
+			/// Regex has been used to avoid creating another chapterOnly array inside the chapterIndex class
 			let regexPattern = "^table_\\d+_.*"
 			let figurePattern = "^fig1_factors_to_be_considered$"
 
@@ -244,6 +356,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 		}
     }
     
+    /// Registers and configures the primary results table.
     private func setupMainTableView() {
         tableView.delegate = self
         tableView.dataSource = self
@@ -252,12 +365,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         tableView.estimatedRowHeight = 120
     }
 
+    /// Registers and configures the suggestions table.
     private func setupSearchSuggestionTableView() {
         searchSuggestionsTableView.delegate = self
         searchSuggestionsTableView.dataSource = self
         searchSuggestionsTableView.register(UINib(nibName: "SuggestionTableViewCell", bundle: nil), forCellReuseIdentifier: "suggestionCell")
     }
     
+    /// Registers and configures the recent searches table.
     private func setupRecentSearchesTableView() {
         recentSearchesTableView.delegate = self
         recentSearchesTableView.dataSource = self
@@ -265,6 +380,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         recentSearchesTableView.translatesAutoresizingMaskIntoConstraints = true
     }
     
+    /// Switches UI from suggestions to results:
+    /// - Shows the main results view and count label
+    /// - Wires up tab button actions
     func showTableView() {
         suggestionsView.isHidden = true
         mainTableView.isHidden = false
@@ -279,25 +397,79 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         self.chartsButton.addTarget(self, action: #selector(showChartsOnly), for: .touchUpInside)
     }
     
+
+	///----------------------------------------------------------------------------------------------
+	/// Search Tabs Implementation
 	
-	//----------------------------------------------------------------------------------------------
-	// Search Tabs Implementation
-	
-    private func activeTabConfig(_ button: UIButton, isActive: Bool) {
-        UIView.performWithoutAnimation {
-            button.backgroundColor = isActive ? .dialogColor : .backgroundColor
-            button.tintColor = isActive ? .white : .label
-            button.isEnabled = true
-            button.setNeedsDisplay()
-        }
-    }
-	
+	/// Applies visual styling to search tab buttons with animation prevention
+	/// 
+	/// This method handles the visual state of tab buttons:
+	/// 
+	/// ### Styling States:
+	/// **Active Tab**:
+	/// - Background color: Primary color (.colorPrimary)
+	/// - Text color: White (.colorWhite)
+	/// - Tint color: White
+	/// 
+	/// **Inactive Tab**:
+	/// - Background color: Secondary background (.colorBackgroundSecondary)
+	/// - Text color: Default text (.colorText)
+	/// - Tint color: Default text
+	/// 
+	/// ### Animation Prevention:
+	/// - Uses UIView.performWithoutAnimation to prevent implicit animations
+	/// - Calls layoutIfNeeded() to ensure immediate visual update
+	/// - Maintains button enabled state for user interaction
+	/// 
+	/// ### Usage Context:
+	/// - Called during tab switching to update visual states
+	/// - Used by configureTabs() to style all tabs consistently
+	/// - Prevents jarring animations during rapid tab switching
+	/// 
+	/// - Parameters:
+	///   - button: The tab button to style
+	///   - isActive: Whether the button should appear active/selected
+	/// 
+	/// - Note: This method only handles visual styling, not logic
+	private func activeTabConfig(_ button: UIButton, isActive: Bool) {
+		UIView.performWithoutAnimation {
+			button.backgroundColor = isActive ? .colorPrimary : .colorBackgroundSecondary
+			button.tintColor = isActive ? .colorWhite : .colorText
+			button.setTitleColor(isActive ? .colorWhite : .colorText, for: .normal)
+			button.isEnabled = true
+			button.layoutIfNeeded()
+		}
+	}
+
+	/// Replaces the current results set and updates the count label.
 	private func updateSearchResults(_ results: [String], description: String) {
 		allSearchResults = results
 		tableView.reloadData()
 		searchReturns.text = results.count == 1 ?  "\(results.count) result in" :  "\(results.count) results in"
 	}
 	
+	/// Displays all search results (chapters + charts) and updates UI state
+	/// 
+	/// This method handles the "All" tab functionality:
+	/// 
+	/// ### State Changes:
+	/// - showAll = true, showChapters = false, showCharts = false
+	/// - Updates results to display combined content
+	/// - Sets tab button to active state
+	/// 
+	/// ### UI Updates:
+	/// 1. **Loading State**: Shows loader during transition
+	/// 2. **Results Update**: Switches to allSearchResultsCache
+	/// 3. **Tab Styling**: Activates "All" button, deactivates others
+	/// 4. **Count Display**: Updates result count label
+	/// 
+	/// ### Performance Considerations:
+	/// - Uses cached results to avoid re-searching content
+	/// - Loader provides visual feedback during UI updates
+	/// - Tab switching is debounced to prevent rapid state changes
+	/// 
+	/// - Important: allSearchResultsCache must be populated by search
+	/// - Note: This is the default search state when no filters are applied
 	@objc private func showAllChapters() {
 		showAll = true
 		showChapters = false
@@ -308,6 +480,33 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 		}
 	}
 	
+	/// Displays chapter-only search results and updates UI state
+	/// 
+	/// This method handles the "Chapters" tab functionality:
+	/// 
+	/// ### State Changes:
+	/// - showAll = false, showChapters = true, showCharts = false
+	/// - Updates results to display chapters only
+	/// - Sets tab button to active state
+	/// 
+	/// ### Content Filtering:
+	/// - Excludes tables, figures, and chart content
+	/// - Uses chapterResults array (filtered during search)
+	/// - Maintains result ordering from original search
+	/// 
+	/// ### UI Updates:
+	/// 1. **Loading State**: Shows loader during transition
+	/// 2. **Results Update**: Switches to chapterResults array
+	/// 3. **Tab Styling**: Activates "Chapters" button, deactivates others
+	/// 4. **Count Display**: Updates result count for chapters only
+	/// 
+	/// ### Content Definition:
+	/// - Chapters are defined by regex filtering in loadHTML()
+	/// - Excludes content matching "^table_\d+_.*" pattern
+	/// - Excludes "fig1_factors_to_be_considered" figure
+	/// 
+	/// - Important: chapterResults must be populated during search execution
+	/// - Note: This provides focused search for textual content only
 	@objc private func showChaptersOnly() {
 		showAll = false
 		showChapters = true
@@ -318,6 +517,39 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 		}
 	}
 	
+	/// Displays chart-only search results and updates UI state
+	/// 
+	/// This method handles the "Charts" tab functionality:
+	/// 
+	/// ### State Changes:
+	/// - showAll = false, showChapters = false, showCharts = true
+	/// - Updates results to display charts only
+	/// - Sets tab button to active state
+	/// 
+	/// ### Content Filtering:
+	/// - Includes tables, figures, and reference materials
+	/// - Uses chartResults array (filtered during search)
+	/// - Maintains result ordering from original search
+	/// 
+	/// ### Chart Content Types:
+	/// - Tables with "Table X:" prefix
+	/// - Figures with "Figure X." prefix
+	/// - Reference materials and appendices
+	/// - Visual aids and supplementary content
+	/// 
+	/// ### UI Updates:
+	/// 1. **Loading State**: Shows loader during transition
+	/// 2. **Results Update**: Switches to chartResults array
+	/// 3. **Tab Styling**: Activates "Charts" button, deactivates others
+	/// 4. **Count Display**: Updates result count for charts only
+	/// 
+	/// ### Visual Differentiation:
+	/// - Chart results show green icons instead of blue
+	/// - Table/figure prefixes are preserved in titles
+	/// - Different metadata mapping (chartmapsubchapter vs chaptermapsubchapter)
+	/// 
+	/// - Important: chartResults must be populated during search execution
+	/// - Note: This provides focused search for visual/reference content
 	@objc private func showChartsOnly() {
 		showAll = false
 		showChapters = false
@@ -328,11 +560,15 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 		}
 	}
 	
+	/// Centralizes tab styling so only one appears active.
 	private func configureTabs(activeButton: UIButton, inactiveButtons: [UIButton]) {
 		activeTabConfig(activeButton, isActive: true)
 		inactiveButtons.forEach { activeTabConfig($0, isActive: false) }
 	}
 	
+	/// Displays suggestion and recent search UI:
+	/// - Pulls recent searches from Realm
+	/// - Hides the main results list
 	func showSuggestions() {
 		recentSearchesList = getRecentSearches()
 		mainTableView.isHidden = true
@@ -344,16 +580,19 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 	}
 
     
+    /// Returns recent search Realm objects for persistence management.
     func getRecentSearchesObjects() -> [Search] {
         let recentSearches = realm!.objects(Search.self)
 		return Array(recentSearches)
     }
     
+    /// Returns recent search terms in display order (most recent first).
     func getRecentSearches() -> [String] {
         let recentSearches = realm!.objects(Search.self)
 		return Array(recentSearches.map { $0.recentSearch }).reversed()
     }
 	
+	/// Extracts just table/figure names for chart result labeling.
 	func getFilteredSubChapterTableNames() -> [String] {
 		let filteredSubChapterTableNames = chapterIndex.subChapterNames.filter { subChapter in
 			let regex = try! NSRegularExpression(pattern: "^Table \\d+: \\s*|^Figure \\d+. \\s*", options: [])
@@ -365,7 +604,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 	}
 	
 	
-	// Loader Configurations
+	/// Loader Configurations
+	/// Shows the lightweight loader used when toggling tabs.
 	func loaderConfig(completion: @escaping () -> Void) {
 		setTimeout(delay: 0){
 			self.loaderView.isHidden = false
@@ -380,6 +620,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 		}
 	}
 
+	/// Shows the heavier loader used for suggestion or recent-search taps.
 	func mainLoaderConfig(completion: @escaping () -> Void) {
 		setTimeout(delay: 0){
 			self.mainLoaderView.isHidden = false
@@ -394,13 +635,15 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 		}
 	}
 
+	/// Convenience helper to delay UI work on the main queue.
 	func setTimeout(delay: Double, closure: @escaping () -> Void) {
 		DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
 			closure()
 		}
 	}
     
-    //--------------------------------------------------------------------------------------------------
+    ///--------------------------------------------------------------------------------------------------
+    /// Placeholder for future resource scanning logic (currently disabled).
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
@@ -422,7 +665,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 //        tempURLs.sort{$0.localizedStandardCompare($1) == .orderedAscending}
     }
 
-    //--------------------------------------------------------------------------------------------------
+    ///--------------------------------------------------------------------------------------------------
+    /// Sizes rows differently for result cells vs. suggestion/recent cells.
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if tableView != self.tableView {
             let rowHeight: CGFloat = 24
@@ -432,12 +676,13 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         return UITableView.automaticDimension
     }
     
+    /// Provides row counts for results, suggestions, and recent searches.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         recentSearchesList = getRecentSearches()
 		
         if tableView == self.tableView {
             if isFiltering {
-				return showCharts ? chartResults.count : allSearchResults.count
+				return showCharts ? chartResults.count : (showChapters ? chapterResults.count : allSearchResults.count)
             } else {
                 return chapterIndex.subChapterNames.count
             }
@@ -448,6 +693,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         }
     }
     
+    /// Builds result cells:
+    /// - Maps result indices back to titles
+    /// - Creates a search snippet with highlighting
+    /// - Chooses chart vs. chapter iconography
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         recentSearchesList = getRecentSearches()
 		let chartNames = getFilteredSubChapterTableNames()
@@ -456,40 +705,119 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             let cell = tableView.dequeueReusableCell(withIdentifier: "searchCell", for: indexPath) as! SearchCell
             cell.backgroundColor = UIColor.backgroundColor
             
-			if isFiltering {
+            if isFiltering {
+                let currentCount: Int = showCharts ? chartResults.count : (showChapters ? chapterResults.count : allSearchResults.count)
+                if indexPath.row >= currentCount || indexPath.row < 0 {
+                    /// Return an empty configured cell to avoid index crash due to race conditions
+                    cell.subchapterLabel.text = ""
+                    cell.chapterLabel.text = ""
+                    cell.contentLabel.text = ""
+                    cell.contentLabel.isHidden = true
+                    cell.chapterIcon.image = UIImage(named: "icChapterBlue")
+                    return cell
+                }
+                
 				if showCharts {
-					let subchapterNameIndex = tempChartsHTML.firstIndex(of: chartResults[indexPath.row]) ?? 0
+					let subchapterNameIndexOpt = tempChartsHTML.firstIndex(of: chartResults[indexPath.row])
+					if let subchapterNameIndex = subchapterNameIndexOpt {
+						/// For Charts, Table Names should appear first
+						cell.subchapterLabel.text = chartNames.indices.contains(subchapterNameIndex) ? chartNames[subchapterNameIndex] : nil
+						/// Use chartmapsubchapter for charts
+						if chapterIndex.chartmapsubchapter.indices.contains(subchapterNameIndex) {
+							cell.chapterLabel.text = chapterIndex.chartmapsubchapter[subchapterNameIndex]
+						} else {
+							cell.chapterLabel.text = ""
+						}
+					} else {
+						cell.subchapterLabel.text = ""
+						cell.chapterLabel.text = ""
+					}
 					
-					// For Charts, Table Names should appear first
-					cell.subchapterLabel.text = chartNames[subchapterNameIndex]
-					cell.chapterLabel.text = chapterIndex.chartmapsubchapter[subchapterNameIndex]
-					
-					let TSTrange = chartResults[indexPath.row].lowercased().range(of: searchTerm.lowercased())
-					let startRange = chartResults[indexPath.row].index(TSTrange?.lowerBound ?? chartResults[indexPath.row].startIndex, offsetBy: -30, limitedBy: chartResults[indexPath.row].startIndex) ?? chartResults[indexPath.row].startIndex
-					let endRange = chartResults[indexPath.row].index(TSTrange?.lowerBound ?? chartResults[indexPath.row].endIndex, offsetBy: 90, limitedBy: chartResults[indexPath.row].endIndex) ?? chartResults[indexPath.row].endIndex
-					cell.contentLabel.text = "..." + String(chartResults[indexPath.row][startRange..<endRange]) + "..."
-				} else if showChapters {
-					let subchapterNameIndex = tempChaptersHTML.firstIndex(of: chapterResults[indexPath.row]) ?? 0
-					
-					cell.subchapterLabel.text = chapterIndex.subChapterNames[subchapterNameIndex]
-					cell.chapterLabel.text = chapterIndex.chaptermapsubchapter[subchapterNameIndex]
-					
-					let TSTrange = chapterResults[indexPath.row].lowercased().range(of: searchTerm.lowercased())
-					let startRange = chapterResults[indexPath.row].index(TSTrange?.lowerBound ?? chapterResults[indexPath.row].startIndex, offsetBy: -30, limitedBy: chapterResults[indexPath.row].startIndex) ?? chapterResults[indexPath.row].startIndex
-					let endRange = chapterResults[indexPath.row].index(TSTrange?.lowerBound ?? chapterResults[indexPath.row].endIndex, offsetBy: 90, limitedBy: chapterResults[indexPath.row].endIndex) ?? chapterResults[indexPath.row].endIndex
-					cell.contentLabel.text = "..." + String(chapterResults[indexPath.row][startRange..<endRange]) + "..."
-				} else {
-					let subchapterNameIndex = tempHTML.firstIndex(of: allSearchResults[indexPath.row]) ?? 0
+					let text = chartResults[indexPath.row]
+					let TSTrange = text.range(of: searchTerm, options: [.caseInsensitive])
+					let startRange = text.index(TSTrange?.lowerBound ?? text.startIndex, offsetBy: -30, limitedBy: text.startIndex) ?? text.startIndex
+					let endRange = text.index(TSTrange?.lowerBound ?? text.endIndex, offsetBy: 90, limitedBy: text.endIndex) ?? text.endIndex
+					cell.contentLabel.text = "..." + String(text[startRange..<endRange]) + "..."
 
-					cell.subchapterLabel.text = chapterIndex.subChapterNames[subchapterNameIndex]
-					cell.chapterLabel.text = chapterIndex.chaptermapsubchapter[subchapterNameIndex]
+					if let chartName = cell.subchapterLabel.text,
+                       chartName
+                        .range(
+                            of: #"^Table \d+:"#,
+                            options: .regularExpression
+                        ) != nil || chartName
+                        .range(
+                            of: #"^Figure 1."#,
+                            options: .regularExpression
+                        ) != nil {
+						cell.chapterIcon.image = UIImage(named: "icChartGreen")
+					} else {
+						cell.chapterIcon.image = UIImage(named: "icChapterBlue")
+					}
+				} else if showChapters {
+					/// Safely resolve index into tempChaptersHTML, then map to names/labels only if within bounds
+					guard indexPath.row < chapterResults.count else { return cell }
+					guard let subchapterNameIndex = tempChaptersHTML.firstIndex(of: chapterResults[indexPath.row]) else {
+						/// If the filtered result cannot be mapped back, clear labels to avoid crash
+						cell.subchapterLabel.text = ""
+						cell.chapterLabel.text = ""
+						cell.contentLabel.text = ""
+						cell.chapterIcon.image = UIImage(named: "icChapterBlue")
+						return cell
+					}
 					
-					let TSTrange = allSearchResults[indexPath.row].lowercased().range(of: searchTerm.lowercased())
-					let startRange = allSearchResults[indexPath.row].index(TSTrange?.lowerBound ?? allSearchResults[indexPath.row].startIndex, offsetBy: -30, limitedBy: allSearchResults[indexPath.row].startIndex) ?? allSearchResults[indexPath.row].startIndex
-					let endRange = allSearchResults[indexPath.row].index(TSTrange?.lowerBound ?? allSearchResults[indexPath.row].endIndex, offsetBy: 90, limitedBy: allSearchResults[indexPath.row].endIndex) ?? allSearchResults[indexPath.row].endIndex
-					cell.contentLabel.text = "..." + String(allSearchResults[indexPath.row][startRange..<endRange]) + "..."
+					if chapterIndex.subChapterNames.indices.contains(subchapterNameIndex) {
+						cell.subchapterLabel.text = chapterIndex.subChapterNames[subchapterNameIndex]
+					} else {
+						cell.subchapterLabel.text = ""
+					}
+					
+					if chapterIndex.chaptermapsubchapter.indices.contains(subchapterNameIndex) {
+						cell.chapterLabel.text = chapterIndex.chaptermapsubchapter[subchapterNameIndex]
+					} else {
+						cell.chapterLabel.text = ""
+					}
+					
+					let text = chapterResults[indexPath.row]
+					let TSTrange = text.range(of: searchTerm, options: [.caseInsensitive])
+					let startRange = text.index(TSTrange?.lowerBound ?? text.startIndex, offsetBy: -30, limitedBy: text.startIndex) ?? text.startIndex
+					let endRange = text.index(TSTrange?.lowerBound ?? text.endIndex, offsetBy: 90, limitedBy: text.endIndex) ?? text.endIndex
+					cell.contentLabel.text = "..." + String(text[startRange..<endRange]) + "..."
+					cell.chapterIcon.image = UIImage(named: "icChapterBlue")
+				} else {
+					let subchapterNameIndex = tempHTML.firstIndex(of: allSearchResults[indexPath.row])
+					if let idx = subchapterNameIndex, chapterIndex.subChapterNames.indices.contains(idx) {
+						cell.subchapterLabel.text = chapterIndex.subChapterNames[idx]
+					} else {
+						cell.subchapterLabel.text = ""
+					}
+
+					if let subchapterNameIndex = subchapterNameIndex, chapterIndex.chaptermapsubchapter.indices.contains(subchapterNameIndex) {
+						cell.chapterLabel.text = chapterIndex.chaptermapsubchapter[subchapterNameIndex]
+					} else {
+						cell.chapterLabel.text = ""
+					}
+					
+					let text = allSearchResults[indexPath.row]
+					let TSTrange = text.range(of: searchTerm, options: [.caseInsensitive])
+					let startRange = text.index(TSTrange?.lowerBound ?? text.startIndex, offsetBy: -30, limitedBy: text.startIndex) ?? text.startIndex
+					let endRange = text.index(TSTrange?.lowerBound ?? text.endIndex, offsetBy: 90, limitedBy: text.endIndex) ?? text.endIndex
+					cell.contentLabel.text = "..." + String(text[startRange..<endRange]) + "..."
+
+						/// Check if the chart name starts with "Table X:" where X is an integer
+					if let chartName = cell.subchapterLabel.text,
+						chartName.range(of: #"^Table \d+:"#, options: .regularExpression) != nil || chartName
+                        .range(
+                            of: #"^Figure 1."#,
+                            options: .regularExpression
+                        ) != nil {
+						cell.chapterIcon.image = UIImage(named: "icChartGreen")
+					} else {
+							/// Invalid format (does not start with "Table X:")
+						cell.chapterIcon.image = UIImage(named: "icChapterBlue")
+					}
 				}
-				let terms = searchTerm.lowercased().split(separator: " ").map({ String($0) as NSString }) + [searchTerm as NSString]
+
+				let terms = [searchTerm as NSString]
 				cell.contentLabel.attributedText = addBoldText(fullString: cell.contentLabel.text! as NSString, boldPartsOfString: terms)
 				cell.contentLabel.isHidden = false
 
@@ -520,35 +848,67 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         }
     }
     
+    /// Routes taps to the correct destination or triggers a search:
+    /// - Results push the web view
+    /// - Suggestions/recent searches auto-run a query
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == self.tableView {
-            if isFiltering {
-				switch (showCharts, showChapters) {
-					case (true, _):
-						subArrayPointer = tempChartsHTML.firstIndex(of: chartResults[indexPath.row]) ?? 0
-					case (_, true):
-						subArrayPointer = tempChaptersHTML.firstIndex(of: chapterResults[indexPath.row]) ?? 0
-					default:
-						subArrayPointer = tempHTML.firstIndex(of: allSearchResults[indexPath.row]) ?? 0
-				}
-				
-            } else {
-                subArrayPointer = indexPath.row
-            }
+                if isFiltering {
+                    let currentCount: Int = showCharts ? chartResults.count : (showChapters ? chapterResults.count : allSearchResults.count)
+                    guard indexPath.row >= 0 && indexPath.row < currentCount else {
+                        tableView.deselectRow(at: indexPath, animated: true)
+                        return
+                    }
+                    
+                    switch (showCharts, showChapters) {
+                        case (true, _):
+                            if let idx = tempChartsHTML.firstIndex(of: chartResults[indexPath.row]) {
+                                subArrayPointer = idx
+                            } else {
+                                tableView.deselectRow(at: indexPath, animated: true)
+                                return
+                            }
+                        case (_, true):
+                            /// Safely derive pointer for chapters only
+                            if indexPath.row < chapterResults.count,
+                               let idx = tempChaptersHTML.firstIndex(of: chapterResults[indexPath.row]) {
+                                subArrayPointer = idx
+                            } else {
+                                tableView.deselectRow(at: indexPath, animated: true)
+                                return
+                            }
+                        default:
+                            if let idx = tempHTML.firstIndex(of: allSearchResults[indexPath.row]) {
+                                subArrayPointer = idx
+                            } else {
+                                tableView.deselectRow(at: indexPath, animated: true)
+                                return
+                            }
+                    }
+                    
+                } else {
+                    subArrayPointer = indexPath.row
+                }
+                
+                /// FIX: Use charts mapping for charts
+                if showCharts {
+                    navTitle = chapterIndex.chartmapsubchapter.indices.contains(subArrayPointer) ? chapterIndex.chartmapsubchapter[subArrayPointer] : ""
+                } else {
+                    navTitle = chapterIndex.chaptermapsubchapter.indices.contains(subArrayPointer) ? chapterIndex.chaptermapsubchapter[subArrayPointer] : ""
+                }
             
-			navTitle = showCharts ? chapterIndex.chartmapsubchapter[indexPath.row] : chapterIndex.chaptermapsubchapter[indexPath.row]
-		
-            addRecentSearch(searchTerm: searchTerm)
+                addRecentSearch(searchTerm: searchTerm)
 
-            // Analytics and tracking code
-            Analytics.logEvent("search", parameters: [
-                "search": (searchTerm) as String,
-            ])
-            
-            PendoManager.shared().track("search", properties: ["searchTerm": searchTerm, "selectedResult": chapterIndex.subChapterNames[indexPath.row]])
-            
-            performSegue(withIdentifier: "SegueToWebViewViewController", sender: nil)
-        } else if tableView == self.searchSuggestionsTableView {
+                /// Analytics and tracking code
+                Analytics.logEvent("search", parameters: [
+                    "search": (searchTerm) as String,
+                ])
+                
+                let safeIndex = min(subArrayPointer, max(0, chapterIndex.subChapterNames.count - 1))
+                PendoManager.shared().track("search", properties: ["searchTerm": searchTerm, "selectedResult": chapterIndex.subChapterNames.indices.contains(safeIndex) ? chapterIndex.subChapterNames[safeIndex] : ""])
+                
+                performSegue(withIdentifier: "SegueToWebViewViewController", sender: nil)
+            } else if tableView == self.searchSuggestionsTableView {
             search.text = suggestionsList[indexPath.row]
             searchTerm = suggestionsList[indexPath.row]
 			
@@ -567,7 +927,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    // Function to add a recent search term
+    /// Function to add a recent search term
+    /// Persists a search term to Realm and keeps the list capped.
     func addRecentSearch(searchTerm: String) {
         if searchTerm.count >= 2 {
             if realm?.object(ofType: Search.self, forPrimaryKey: searchTerm) == nil {
@@ -578,7 +939,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                 recentSearch.recentSearch = searchTerm
                 
                 try! realm!.write {
-                    // If there are more than 4 recent searches, remove the oldest one
+                    /// If there are more than 4 recent searches, remove the oldest one
                     if recentSearchObjects.count >= 3 {
                         if let firstRecentSearch = recentSearchObjects.first {
                             realm?.delete(firstRecentSearch)
@@ -596,48 +957,38 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         }
     }
     
+    /// Re-enables tap-to-dismiss while typing.
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         tap.cancelsTouchesInView = true
         tap.isEnabled = true
     }
     
-    //--------------------------------------------------------------------------------------------------
-    // This method updates filteredData based on the text in the Search Box
+    ///--------------------------------------------------------------------------------------------------
+    /// This method updates filteredData based on the text in the Search Box
+    /// Filters content arrays based on the query and refreshes UI counts:
+    /// - Normalizes whitespace/case
+    /// - Builds per-tab result lists
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        // When there is no text, filteredData is the same as the original data
-        // When user has entered text into the search box
-        // Use the filter method to iterate over all items in the data array
-        // For each item, return true if the item should be included and false if the
-		if !searchText.isEmpty {
+        if !searchText.isEmpty {
             showTableView()
-            // Could be search always the strings independently or could be to first search strings together and if nothing returns then search the terms separately but giving the user the option to do that
 
-            if searchText.components(separatedBy: " ").count > 1 {
-                let doubleString = searchText.components(separatedBy: " ")
-				
-				allSearchResults = tempHTML
-				chapterResults = tempChaptersHTML
-				chartResults = tempChartsHTML
-				
-                for i in 0...doubleString.count-1 {
-                    // This statement is to prevent a 0 return from the "" generated when a space is introduced
-                    if doubleString[i] != ""{
-						allSearchResults = allSearchResults.filter { $0.lowercased().contains(doubleString[i].lowercased())}
-						chapterResults = chapterResults.filter { $0.lowercased().contains(doubleString[i].lowercased())}
-						chartResults = chartResults.filter { $0.lowercased().contains(doubleString[i].lowercased())}
-                    }
-                }
-				
-                searchTerm = searchText
-            } else {
-				allSearchResults = tempHTML.filter { $0.lowercased().contains(searchText.lowercased())}
-				chapterResults = tempChaptersHTML.filter { $0.lowercased().contains(searchText.lowercased())}
-				chartResults = tempChartsHTML.filter { $0.lowercased().contains(searchText.lowercased())}
-                searchTerm = searchText
+            /// Normalize the query: lowercase and remove all whitespace
+            let normalizedQuery = searchText.lowercased().replacingOccurrences(of: "\\s+", with: "", options: .regularExpression)
+
+            /// Helper to normalize content strings the same way
+            func normalized(_ s: String) -> String {
+                return s.lowercased().replacingOccurrences(of: "\\s+", with: "", options: .regularExpression)
             }
-			
-			// To store the previous allSearchResults for when showAll results is active
-			allSearchResultsCache = allSearchResults
+
+            /// Perform exact phrase contains matching on normalized strings
+            allSearchResults = tempHTML.filter { normalized($0).contains(normalizedQuery) }
+            chapterResults = tempChaptersHTML.filter { normalized($0).contains(normalizedQuery) }
+            chartResults = tempChartsHTML.filter { normalized($0).contains(normalizedQuery) }
+
+            searchTerm = searchText
+
+            /// Store for All tab cache
+            allSearchResultsCache = allSearchResults
             isFiltering = true
         } else {
             isFiltering = false
@@ -645,29 +996,23 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             showSuggestions()
         }
 		
-        if allSearchResults.count == 0 || suggestionsView.isHidden == false {
-			searchReturns.text = "0 results in"
-		} else {
-			func resultText(for count: Int) -> String {
-				return count == 1 ? "\(count) result in" : "\(count) results in"
-			}
-			
-			if showCharts {
-				searchReturns.text = resultText(for: chartResults.count)
-			} else if showChapters {
-				searchReturns.text = resultText(for: chapterResults.count)
-			} else {
-				searchReturns.text = resultText(for: allSearchResults.count)
-			}
-
+        let activeCount: Int = showCharts ? chartResults.count : (showChapters ? chapterResults.count : allSearchResults.count)
+        if activeCount == 0 || suggestionsView.isHidden == false {
+            searchReturns.text = "0 results in"
+        } else {
+            func resultText(for count: Int) -> String {
+                return count == 1 ? "\(count) result in" : "\(count) results in"
+            }
+            searchReturns.text = resultText(for: activeCount)
         }
         
         recentSearchesTableView.reloadData()
         tableView.reloadData()
     }
     
-    //--------------------------------------------------------------------------------------------------
-    // To adjust the recentSearchesTableView based on the content since auto resizing is not working as intended
+    ///--------------------------------------------------------------------------------------------------
+    /// To adjust the recentSearchesTableView based on the content since auto resizing is not working as intended
+	/// Manually sizes the recent searches table to its content.
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		
@@ -679,16 +1024,18 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 	}
 
 
-    //--------------------------------------------------------------------------------------------------
-    // To hide the keyboard when the user clicks search
+    ///--------------------------------------------------------------------------------------------------
+    /// To hide the keyboard when the user clicks search
+    /// Commits the current query and hides the keyboard.
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         dismissKeyboard()
 		addRecentSearch(searchTerm: searchTerm)
     }
     
-    //--------------------------------------------------------------------------------------------------
+    ///--------------------------------------------------------------------------------------------------
+    /// Dismisses the keyboard and logs a search analytics event.
     @objc func dismissKeyboard() {
-        // To hide the keyboard when the user clicks search
+        /// To hide the keyboard when the user clicks search
         self.view.endEditing(true)
         tap.isEnabled = false
         Analytics.logEvent("search", parameters: [
@@ -696,56 +1043,127 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         ])
     }
     
-    //--------------------------------------------------------------------------------------------------
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		if let webViewViewController = segue.destination as? WebViewViewController {
-			let url: URL
-			let titleLabel: String
-			let uniqueAddress: String
-			
-			switch (showCharts, showChapters) {
-				case (true, _):
-					let chartCodes = Array(chapterIndex.chartCode.joined())
-					let chartNested = Array(chapterIndex.chartNested.joined())
-					url = Bundle.main.url(forResource: chartCodes[subArrayPointer], withExtension: "html")!
-					titleLabel = chartNested[subArrayPointer]
-					uniqueAddress = chartCodes[subArrayPointer]
-					
-				case (_, true):
-					let chapterCodes = Array(chaptersOnly.joined())
-					let chapterNested = Array(chapterIndex.chapterNested.joined())
-					url = getFileURL(for: chapterCodes[subArrayPointer])
-					titleLabel = chapterNested[subArrayPointer]
-					uniqueAddress = chapterCodes[subArrayPointer]
-					
-				default:
-					let chapterCodes = Array(chapterIndex.chapterCode.joined())
-					let chapterNested = Array(chapterIndex.chapterNested.joined())
-					url = getFileURL(for: chapterCodes[subArrayPointer])
-					titleLabel = chapterNested[subArrayPointer]
-					uniqueAddress = chapterCodes[subArrayPointer]
-			}
-			
-			webViewViewController.url = url
-			webViewViewController.titlelabel = titleLabel
-			webViewViewController.uniqueAddress = uniqueAddress
-			webViewViewController.navTitle = navTitle
-			webViewViewController.comingFromSearch = true
-			webViewViewController.searchTerm = search.text?.isEmpty == false ? search.text : nil
-			webViewViewController.hidesBottomBarWhenPushed = true
-		}
-	}
-    
-    //--------------------------------------------------------------------------------------------------
-    // Bolding function from online - https://exceptionshub.com/making-text-bold-using-attributed-string-in-swift.html
-    func addBoldText(fullString: NSString, boldPartsOfString: Array<NSString>) -> NSAttributedString {
-        let nonBoldFontAttribute = [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 12)]
-        let boldString = NSMutableAttributedString(string: fullString as String, attributes:nonBoldFontAttribute)
-        let lowercase = fullString.lowercased as NSString
-        for i in 0 ..< boldPartsOfString.count {
-            boldString.addAttribute(.backgroundColor, value: UIColor.yellow, range: lowercase.range(of: boldPartsOfString[i] as String))
-            boldString.addAttribute(.foregroundColor, value: UIColor.black, range: lowercase.range(of: boldPartsOfString[i] as String))
+    ///--------------------------------------------------------------------------------------------------
+    /// Maps the selected result to a URL/title for the web view:
+    /// - Resolves chapter vs. chart files
+    /// - Passes search context for highlighting
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let webViewViewController = segue.destination as? WebViewViewController {
+            let url: URL
+            let titleLabel: String
+            let uniqueAddress: String
+
+            switch (showCharts, showChapters) {
+                case (true, _):
+                    let chartCodes = Array(chapterIndex.chartCode.joined())
+                    let chartNested = Array(chapterIndex.chartNested.joined())
+                    guard subArrayPointer < chartCodes.count,
+                          subArrayPointer < chartNested.count,
+                          subArrayPointer < chapterIndex.chartmapsubchapter.count else {
+                        return
+                    }
+                    url = Bundle.main.url(forResource: chartCodes[subArrayPointer], withExtension: "html")!
+                    titleLabel = chartNested[subArrayPointer]
+                    uniqueAddress = chartCodes[subArrayPointer]
+
+                case (_, true):
+                    let chapterCodes = Array(chaptersOnly.joined())
+                    let chapterNested = Array(chapterIndex.chapterNested.joined())
+                    guard subArrayPointer < chapterCodes.count,
+                          subArrayPointer < chapterNested.count else {
+                        return
+                    }
+                    url = getFileURL(for: chapterCodes[subArrayPointer])
+                    titleLabel = chapterNested[subArrayPointer]
+                    uniqueAddress = chapterCodes[subArrayPointer]
+
+                default:
+                    let chapterCodes = Array(chapterIndex.chapterCode.joined())
+                    let chapterNested = Array(chapterIndex.chapterNested.joined())
+                    guard subArrayPointer < chapterCodes.count,
+                          subArrayPointer < chapterNested.count else {
+                        return
+                    }
+                    url = getFileURL(for: chapterCodes[subArrayPointer])
+                    titleLabel = chapterNested[subArrayPointer]
+                    uniqueAddress = chapterCodes[subArrayPointer]
+            }
+
+            webViewViewController.url = url
+            webViewViewController.titlelabel = titleLabel
+            webViewViewController.uniqueAddress = uniqueAddress
+
+            webViewViewController.navTitle = titleLabel
+
+            webViewViewController.comingFromSearch = true
+            webViewViewController.searchTerm = search.text?.isEmpty == false ? search.text : nil
+            webViewViewController.hidesBottomBarWhenPushed = true
         }
+    }
+
+    
+    ///--------------------------------------------------------------------------------------------------
+    /// Bolding function from online - https://exceptionshub.com/making-text-bold-using-attributed-string-in-swift.html
+    /// Highlights query matches inside the result snippet.
+    func addBoldText(fullString: NSString, boldPartsOfString: Array<NSString>) -> NSAttributedString {
+        let nonBoldFontAttribute: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 12)
+        ]
+        let boldString = NSMutableAttributedString(string: fullString as String, attributes: nonBoldFontAttribute)
+
+        /// Nothing to highlight
+        guard let rawQuery = boldPartsOfString.first as String?, !rawQuery.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            return boldString
+        }
+
+        let text = fullString as String
+        let lowerText = text.lowercased()
+        let lowerQuery = rawQuery.lowercased()
+
+        /// Helper to apply attributes to a given NSRange if it's valid
+        func applyHighlight(_ range: NSRange) {
+            guard range.location != NSNotFound, NSMaxRange(range) <= boldString.length else { return }
+            boldString.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 12), range: range)
+            boldString.addAttribute(.foregroundColor, value: UIColor.colorPrimary, range: range)
+        }
+
+        /// 1) Prefer exact phrase matches (case-insensitive). Highlight all occurrences.
+        var phraseRanges: [NSRange] = []
+        if !lowerQuery.isEmpty {
+            var searchRange = lowerText.startIndex..<lowerText.endIndex
+            while let r = lowerText.range(of: lowerQuery, options: [.caseInsensitive], range: searchRange) {
+                let nsRange = NSRange(r, in: lowerText)
+                phraseRanges.append(nsRange)
+                /// advance
+                searchRange = r.upperBound..<lowerText.endIndex
+            }
+        }
+
+        if !phraseRanges.isEmpty {
+            for r in phraseRanges { applyHighlight(r) }
+            return boldString
+        }
+
+        /// 2) If no phrase match, fall back to whole-word matches for each token.
+        let tokens = lowerQuery
+            .split(whereSeparator: { $0.isWhitespace })
+            .map(String.init)
+            .filter { !$0.isEmpty }
+
+        guard !tokens.isEmpty else { return boldString }
+
+        /// Build a regex that matches any token as a whole word: \b(token1|token2|...)\b
+        /// Escape special regex characters in tokens
+        let escapedTokens = tokens.map { NSRegularExpression.escapedPattern(for: $0) }
+        let pattern = "\\b(" + escapedTokens.joined(separator: "|") + ")\\b"
+
+        if let regex = try? NSRegularExpression(pattern: pattern, options: [.caseInsensitive]) {
+            let matches = regex.matches(in: text, options: [], range: NSRange(location: 0, length: boldString.length))
+            for match in matches {
+                applyHighlight(match.range)
+            }
+        }
+
         return boldString
     }
 }

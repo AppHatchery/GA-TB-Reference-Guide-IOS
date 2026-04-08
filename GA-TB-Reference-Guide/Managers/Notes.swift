@@ -9,6 +9,7 @@ import Foundation
 import RealmSwift
 
 @objcMembers
+/// Notes centralizes related app data or service logic.
 class Notes : Object
 {
     dynamic var content : String = ""
@@ -22,7 +23,7 @@ class Notes : Object
     
     dynamic var id: Int = UUID().hashValue
     
-    //--------------------------------------------------------------------------------------------------
+    ///--------------------------------------------------------------------------------------------------
     override static func primaryKey() -> String?
     {
         return "id"

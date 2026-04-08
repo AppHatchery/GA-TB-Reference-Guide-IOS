@@ -8,6 +8,7 @@
 import Foundation
 import RealmSwift
 
+/// UserSettings centralizes related app data or service logic.
 @objcMembers
 class UserSettings : Object
 {
@@ -16,7 +17,7 @@ class UserSettings : Object
     
     dynamic var id: String = "savedSettings"
     
-    //--------------------------------------------------------------------------------------------------
+    ///--------------------------------------------------------------------------------------------------
     override static func primaryKey() -> String?
     {
         return "id"
