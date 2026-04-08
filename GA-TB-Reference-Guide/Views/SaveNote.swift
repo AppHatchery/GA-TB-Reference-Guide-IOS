@@ -9,6 +9,7 @@ import UIKit
 import RealmSwift
 import Pendo
 
+/// Protocol defining Save Note Delegate responsibilities.
 protocol SaveNoteDelegate
 {
     func didSaveNote(_ note: Notes, shouldSubmitAsFeedback: Bool)
@@ -18,6 +19,7 @@ protocol SaveNoteDelegate
     func didDeleteNote( _ note: Notes)
 }
 
+/// SaveNote provides related app functionality.
 class SaveNote: UIView {
 
     @IBOutlet weak var cancelButton: UIButton!
@@ -29,7 +31,7 @@ class SaveNote: UIView {
     @IBOutlet weak var noteField: UITextView!
     @IBOutlet weak var tagLabel: UILabel!
     
-    // Dialog Constraints
+    /// Dialog Constraints
     @IBOutlet weak var dialogLeftConstraint: NSLayoutConstraint!
     @IBOutlet weak var dialogRightConstraint: NSLayoutConstraint!
     
@@ -50,7 +52,7 @@ class SaveNote: UIView {
     var colorTagChosen = 0
     let realm = RealmHelper.sharedInstance.mainRealm()
 
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     init( frame: CGRect, content: ContentPage, oldNote: Notes, delegate: SaveNoteDelegate )
     {
         super.init( frame : frame )
@@ -62,7 +64,7 @@ class SaveNote: UIView {
         customInit()
     }
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     required init?( coder aDecoder: NSCoder )
     {
         super.init( coder : aDecoder )
@@ -70,7 +72,7 @@ class SaveNote: UIView {
         customInit()
     }
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     func customInit()
     {
         let nibView = (Bundle.main.loadNibNamed( "SaveNote", owner: self, options: nil)!.first as! UIView)
@@ -180,21 +182,21 @@ class SaveNote: UIView {
         }
     }
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     @objc func pickColor(_ sender: UIButton){
-        // Remove the current highlighted button by removing all
-        // NOT VERY EFFICIENT, SHOULD OPTIMIZE THIS BY KNOWING BEFOREHAND WHICH ONE IS TURNED ON
+        /// Remove the current highlighted button by removing all
+        /// NOT VERY EFFICIENT, SHOULD OPTIMIZE THIS BY KNOWING BEFOREHAND WHICH ONE IS TURNED ON
         for button in colors {
             button.willRemoveSubview(highlightedColor)
         }
 
         sender.addSubview(highlightedColor)
         
-        // Assign color to tag
+        /// Assign color to tag
         colorTagChosen = sender.tag
     }
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     @IBAction func saveButtonPressed(_ sender: Any ) {
         guard let noteText = noteField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
               !noteText.isEmpty else {
@@ -210,12 +212,12 @@ class SaveNote: UIView {
             self.overlayView.alpha = 0
             self.contentView.transform = CGAffineTransform( scaleX: 0.001, y: 0.001 )
         }, completion: { (value: Bool) in
-            // Realm
+            /// Realm
             RealmHelper.sharedInstance.update(self.note, properties: [
                 "content":noteText,
                 "colorTag":self.colorTagChosen
             ]) { updated in
-                //
+                ///
             }
             
             if !self.note.savedToRealm {
@@ -228,7 +230,7 @@ class SaveNote: UIView {
         })
     }
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     @objc func cancelButtonPressed()
     {
         UIView.animate( withDuration: 0.25, delay: 0.0, options: UIView.AnimationOptions(), animations: {
@@ -239,23 +241,41 @@ class SaveNote: UIView {
         })
     }
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     @objc func deleteButtonPressed(_ sender: Any) {
         UIView.animate(withDuration: 0.25, delay: 0.0, options: [], animations: {
             self.overlayView.alpha = 0
             self.contentView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
         }) { _ in
-            self.delegate.didDeleteNote(self.note)
-            self.removeFromSuperview()
             
-            // Show popup safely in iOS 13+
-            if let windowScene = UIApplication.shared.connectedScenes
+            guard let windowScene = UIApplication.shared.connectedScenes
                 .filter({ $0.activationState == .foregroundActive })
                 .first as? UIWindowScene,
-               let window = windowScene.windows.first(where: { $0.isKeyWindow }) {
-                
-                CustomPopUp.showTemporary(in: window, popupLabelText: "Note Deleted")
+                  let window = windowScene.windows.first(where: { $0.isKeyWindow }) else {
+                return
             }
+            
+            TwoOptionsPopUp.show(
+                in: window,
+                label: "Delete Note?",
+                cancelTitle: "Cancel",
+                deleteTitle: "Delete",
+                onCancel: nil,
+                onDelete: { [weak self] in
+                    guard let self = self else { return }
+                    guard let note = self.note else { return }
+                    
+                    self.delegate.didDeleteNote(note)
+                    
+                    if let windowScene = UIApplication.shared.connectedScenes
+                        .filter({ $0.activationState == .foregroundActive })
+                        .first as? UIWindowScene,
+                       let window = windowScene.windows.first(where: { $0.isKeyWindow }) {
+                        
+                        CustomPopUp.showTemporary(in: window, popupLabelText: "Note Deleted!")
+                    }
+                }
+            )
         }
     }
 }

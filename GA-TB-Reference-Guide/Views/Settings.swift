@@ -8,6 +8,7 @@
 import UIKit
 import RealmSwift
 
+/// Settings provides related app functionality.
 class Settings: UIView {
     
     @IBOutlet weak var darkModeToggler: UISwitch!
@@ -17,14 +18,18 @@ class Settings: UIView {
     @IBOutlet weak var resetApp: UIButton!
     @IBOutlet weak var fontSize: UIButton!
     @IBOutlet weak var toggleNotifications: UISwitch!
+    @IBOutlet weak var appVersionLabel: UILabel!
     
     private let darkModeKey = "darkModeEnabled"
     
     var contentViewTopConstraint: NSLayoutConstraint!
     let realm = RealmHelper.sharedInstance.mainRealm()
     var userSettings: UserSettings!
-
-    //------------------------------------------------------------------------------
+    
+    let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+    let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
+    
+    ///------------------------------------------------------------------------------
     override init( frame: CGRect )
     {
         super.init( frame : frame )
@@ -32,7 +37,7 @@ class Settings: UIView {
         customInit()
     }
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     required init?( coder aDecoder: NSCoder )
     {
         super.init( coder : aDecoder )
@@ -40,7 +45,7 @@ class Settings: UIView {
         customInit()
     }
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     func customInit()
     {
         let nibView = (Bundle.main.loadNibNamed( "Settings", owner: self, options: nil)!.first as! UIView)
@@ -69,25 +74,29 @@ class Settings: UIView {
             
         darkModeToggler.addTarget(self, action: #selector(darkModeSwitchChanged(_:)), for: .valueChanged)
         
-        // Realm
+        /// Realm
         
 //        try! realm!.write
 //        {
-            // Should only add a new entry if this entry is not already added there
+            /// Should only add a new entry if this entry is not already added there
             if let currentSettings = realm!.object(ofType: UserSettings.self, forPrimaryKey: "savedSettings"){
                 toggleNotifications.setOn(currentSettings.pushNotifications, animated: false)
-                // Assign the older entry to the current variable
+                /// Assign the older entry to the current variable
                 userSettings = currentSettings
                 
             } else {
                 userSettings = UserSettings()
-                // Add it to Realm
+                /// Add it to Realm
                 RealmHelper.sharedInstance.save(userSettings) { saved in
-                    //
+                    ///
                 }
 //                realm!.add(userSettings)
             }
 //        }
+        
+        let fullAppVersion: String = "Version \(version ?? "").\(build ?? "")"
+        
+        appVersionLabel.text = fullAppVersion
     }
     
     @objc private func darkModeSwitchChanged(_ sender: UISwitch) {

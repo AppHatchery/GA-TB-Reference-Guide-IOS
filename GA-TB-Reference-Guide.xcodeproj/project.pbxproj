@@ -30,6 +30,8 @@
 		B40FEE182DF0898700FBEBB7 /* Chevron.png in Resources */ = {isa = PBXBuildFile; fileRef = B40FEDF02DF0898700FBEBB7 /* Chevron.png */; };
 		B40FEE1B2DF0898700FBEBB7 /* chapter_1_image_2.png in Resources */ = {isa = PBXBuildFile; fileRef = B40FEDED2DF0898700FBEBB7 /* chapter_1_image_2.png */; };
 		B45C1EF32D65BD3300AF239F /* ic_title_icon.svg in Resources */ = {isa = PBXBuildFile; fileRef = B45C1EF22D65BD3300AF239F /* ic_title_icon.svg */; };
+		B4625A2E2F7B168B008713F2 /* Info.png in Resources */ = {isa = PBXBuildFile; fileRef = B4625A2C2F7B168B008713F2 /* Info.png */; };
+		B4625A2F2F7B168B008713F2 /* Info.svg in Resources */ = {isa = PBXBuildFile; fileRef = B4625A2D2F7B168B008713F2 /* Info.svg */; };
 		B473888A2D5C7D5300A4C168 /* BatchDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47388892D5C7D4400A4C168 /* BatchDownloadManager.swift */; };
 		B473888C2D5C82CE00A4C168 /* FileToOpenCheckers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B473888B2D5C82AB00A4C168 /* FileToOpenCheckers.swift */; };
 		B473888E2D5C991900A4C168 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = B473888D2D5C991900A4C168 /* FirebaseRemoteConfig */; };
@@ -136,6 +138,9 @@
 		B4DC30712C5BF2E90019CCA1 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC30702C5BF2E90019CCA1 /* Search.swift */; };
 		B4E88A152E8A83D100396ABB /* BookmarkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B4E88A142E8A83D100396ABB /* BookmarkTableViewCell.xib */; };
 		B4E88A162E8A83D100396ABB /* BookmarkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E88A132E8A83D100396ABB /* BookmarkTableViewCell.swift */; };
+		B4F71BC92F3B3D8100E422AC /* Migrations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F71BC82F3B3D8100E422AC /* Migrations.swift */; };
+		B4F71BCB2F3B5B4F00E422AC /* TwoOptionsPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F71BCA2F3B5B4F00E422AC /* TwoOptionsPopUp.swift */; };
+		B4F71BCF2F3B5B9700E422AC /* TwoOptionsPopUp.xib in Resources */ = {isa = PBXBuildFile; fileRef = B4F71BCE2F3B5B9700E422AC /* TwoOptionsPopUp.xib */; };
 		D42F269526F05B64009DC942 /* ChapterNoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42F269326F05B64009DC942 /* ChapterNoteTableViewCell.swift */; };
 		D42F269626F05B64009DC942 /* ChapterNoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D42F269426F05B64009DC942 /* ChapterNoteTableViewCell.xib */; };
 		D42F269926F1AC31009DC942 /* ContentSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42F269826F1AC31009DC942 /* ContentSizedTableView.swift */; };
@@ -253,6 +258,8 @@
 		B40FEDFC2DF0898700FBEBB7 /* logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = logo.jpg; sourceTree = "<group>"; };
 		B40FEDFE2DF0898700FBEBB7 /* selected_diagnosis_image_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selected_diagnosis_image_1.png; sourceTree = "<group>"; };
 		B45C1EF22D65BD3300AF239F /* ic_title_icon.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = ic_title_icon.svg; sourceTree = "<group>"; };
+		B4625A2C2F7B168B008713F2 /* Info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Info.png; sourceTree = "<group>"; };
+		B4625A2D2F7B168B008713F2 /* Info.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = Info.svg; sourceTree = "<group>"; };
 		B47388892D5C7D4400A4C168 /* BatchDownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchDownloadManager.swift; sourceTree = "<group>"; };
 		B473888B2D5C82AB00A4C168 /* FileToOpenCheckers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileToOpenCheckers.swift; sourceTree = "<group>"; };
 		B47388922D5C997B00A4C168 /* RemoteConfigHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigHelper.swift; sourceTree = "<group>"; };
@@ -355,6 +362,9 @@
 		B4DC30702C5BF2E90019CCA1 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		B4E88A132E8A83D100396ABB /* BookmarkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTableViewCell.swift; sourceTree = "<group>"; };
 		B4E88A142E8A83D100396ABB /* BookmarkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarkTableViewCell.xib; sourceTree = "<group>"; };
+		B4F71BC82F3B3D8100E422AC /* Migrations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migrations.swift; sourceTree = "<group>"; };
+		B4F71BCA2F3B5B4F00E422AC /* TwoOptionsPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoOptionsPopUp.swift; sourceTree = "<group>"; };
+		B4F71BCE2F3B5B9700E422AC /* TwoOptionsPopUp.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TwoOptionsPopUp.xib; sourceTree = "<group>"; };
 		D42F269326F05B64009DC942 /* ChapterNoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterNoteTableViewCell.swift; sourceTree = "<group>"; };
 		D42F269426F05B64009DC942 /* ChapterNoteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChapterNoteTableViewCell.xib; sourceTree = "<group>"; };
 		D42F269826F1AC31009DC942 /* ContentSizedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSizedTableView.swift; sourceTree = "<group>"; };
@@ -473,6 +483,8 @@
 				B47FDDAF2E967E9800CC4C7B /* CustomPopUp.xib */,
 				B4C6DBC62E97462B006D8D5A /* NoteSavedPopUp.swift */,
 				B4C6DBC82E97462F006D8D5A /* NoteSavedPopUp.xib */,
+				B4F71BCA2F3B5B4F00E422AC /* TwoOptionsPopUp.swift */,
+				B4F71BCE2F3B5B9700E422AC /* TwoOptionsPopUp.xib */,
 			);
 			path = PopUps;
 			sourceTree = "<group>";
@@ -492,6 +504,8 @@
 				D4A5D29A2B2C9BA500812C53 /* Emory_university.png */,
 				D4A5D2992B2C9BA500812C53 /* EU_noShield_hz_280.png */,
 				D4A5D2902B2C9BA400812C53 /* figure1.png */,
+				B4625A2C2F7B168B008713F2 /* Info.png */,
+				B4625A2D2F7B168B008713F2 /* Info.svg */,
 				D4A5D2942B2C9BA400812C53 /* signature_henry_m_blumberg_m_d.jpg */,
 				B40FEDEA2DF0898700FBEBB7 /* acknowledge.svg */,
 				B40FEDEB2DF0898700FBEBB7 /* c_lab_diagnosis_image_1.png */,
@@ -708,6 +722,7 @@
 		D4B0B0C426D01DB3003BD1EA /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				B4F71BC82F3B3D8100E422AC /* Migrations.swift */,
 				B47FDD9D2E95531800CC4C7B /* ThemeManager.swift */,
 				B47388922D5C997B00A4C168 /* RemoteConfigHelper.swift */,
 				B473888B2D5C82AB00A4C168 /* FileToOpenCheckers.swift */,
@@ -903,6 +918,7 @@
 				B401CE5F2C58D96D00149414 /* SuggestionTableViewCell.xib in Resources */,
 				D42F26B326F94FC5009DC942 /* uikit-copy.js in Resources */,
 				D4CCBF5A27C032B400E42BC9 /* chart.json in Resources */,
+				B4F71BCF2F3B5B9700E422AC /* TwoOptionsPopUp.xib in Resources */,
 				D4710CEC274ABA5700F6EBFF /* FeedbackForm.xib in Resources */,
 				D4A5D2A32B2C9BA500812C53 /* 1_epidemiology_image_2_us_born_and_foreign_born_tb_cases_georgia_2000_2020.png in Resources */,
 				B47FDDAC2E9657AF00CC4C7B /* DeleteConfirmationPopUp.xib in Resources */,
@@ -936,6 +952,8 @@
 				B4C3484C2EEF2D7000B11877 /* 6_pregnancy_and_tb__a__treatment_for_ltbi_and_risk_factors.html in Resources */,
 				B4C3484D2EEF2D7000B11877 /* 2_diagnostic_tests_for_latent_tb_infection_(ltbi)__g__medical_evaluation_after_testing_for_ltbi.html in Resources */,
 				B4C3484E2EEF2D7000B11877 /* 8_tuberculosis_and_long_term_care_facilities.html in Resources */,
+				B4625A2E2F7B168B008713F2 /* Info.png in Resources */,
+				B4625A2F2F7B168B008713F2 /* Info.svg in Resources */,
 				B4C3484F2EEF2D7000B11877 /* table_8_first-line_tb_drugs_dosing_for_adults_(ages_16_and_over)_directly_observed_therapy_(dot)_is_mandatory.html in Resources */,
 				B4C348502EEF2D7000B11877 /* table_1_interpretation_criteria_for_the_quantiferon_tb_gold_plus_test.html in Resources */,
 				B4C348512EEF2D7000B11877 /* 11_community_tuberculosis_control__a__tb_surveillance_in_georgia.html in Resources */,
@@ -1074,6 +1092,7 @@
 				D4A06A5826E6D2C10093D144 /* Notes.swift in Sources */,
 				D4B0B0B126D01CA6003BD1EA /* ViewController.swift in Sources */,
 				D4515DE526D9101F00EE6592 /* ChartListViewController.swift in Sources */,
+				B4F71BCB2F3B5B4F00E422AC /* TwoOptionsPopUp.swift in Sources */,
 				B473888A2D5C7D5300A4C168 /* BatchDownloadManager.swift in Sources */,
 				B4C6DBC72E97462B006D8D5A /* NoteSavedPopUp.swift in Sources */,
 				D42F269926F1AC31009DC942 /* ContentSizedTableView.swift in Sources */,
@@ -1082,6 +1101,7 @@
 				D42F269526F05B64009DC942 /* ChapterNoteTableViewCell.swift in Sources */,
 				D4A06A5526E6D2330093D144 /* ContentPage.swift in Sources */,
 				D4B0B0AD26D01CA6003BD1EA /* AppDelegate.swift in Sources */,
+				B4F71BC92F3B3D8100E422AC /* Migrations.swift in Sources */,
 				B40EA6862DF2F13E00B72567 /* UITextField+Extensions.swift in Sources */,
 				D4B0B0AF26D01CA6003BD1EA /* SceneDelegate.swift in Sources */,
 				D4A06A5E26E6F59C0093D144 /* ContentAccess.swift in Sources */,
@@ -1263,7 +1283,7 @@
 				CODE_SIGN_ENTITLEMENTS = "GA-TB-Reference-Guide/GA-TB-Reference-Guide.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 8;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 3RQHVA7936;
 				INFOPLIST_FILE = "GA-TB-Reference-Guide/Info.plist";
@@ -1272,7 +1292,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.13;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.emory.tb.guide;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1289,7 +1309,7 @@
 				CODE_SIGN_ENTITLEMENTS = "GA-TB-Reference-Guide/GA-TB-Reference-Guide.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 3RQHVA7936;
 				INFOPLIST_FILE = "GA-TB-Reference-Guide/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
@@ -1297,7 +1317,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.13;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.emory.tb.guide;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1335,7 +1355,7 @@
 			repositoryURL = "https://github.com/realm/realm-swift.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 20.0.3;
+				minimumVersion = 20.0.4;
 			};
 		};
 		D4597EA42A701B4E00EF8906 /* XCRemoteSwiftPackageReference "pendo-mobile-ios" */ = {

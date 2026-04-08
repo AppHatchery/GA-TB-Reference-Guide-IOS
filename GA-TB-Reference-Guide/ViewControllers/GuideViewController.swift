@@ -10,6 +10,7 @@ import RealmSwift
 import FirebaseDynamicLinks
 import Network
 
+/// GuideViewController manages the Guide screen UI and interactions.
 class GuideViewController: UIViewController, URLSessionDelegate {
 
     @IBOutlet weak var scrollView: UIScrollView!
@@ -33,6 +34,10 @@ class GuideViewController: UIViewController, URLSessionDelegate {
 
 	let remoteConfig = RemoteConfigHelper()
         
+    /// Configures the Guide home screen UI:
+    /// - Sets up tab bar appearance and navigation title
+    /// - Embeds the Guide view into the stack
+    /// - Wires primary CTA buttons (chapters/charts)
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -87,10 +92,13 @@ class GuideViewController: UIViewController, URLSessionDelegate {
         stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         stackView.addArrangedSubview(guide)
         
-        let frameHeight: CGFloat
-
+        var frameHeight: CGFloat
         frameHeight = view.frame.height
-            
+        
+        if frameHeight < 700 {
+            frameHeight += 120
+        }
+                    
         NSLayoutConstraint.activate([
             guideView.heightAnchor.constraint(equalToConstant: frameHeight),
             guideView.widthAnchor.constraint(equalTo: contentStackView.widthAnchor)
@@ -111,13 +119,16 @@ class GuideViewController: UIViewController, URLSessionDelegate {
         allChaptersButton.addTarget(self, action: #selector(self.tapAllChapters(_:)), for: .touchUpInside)
         allChartsButton.addTarget(self, action: #selector(self.tapAllCharts(_:)), for: .touchUpInside)
         
-        // Do any additional setup after loading the view
+        /// Do any additional setup after loading the view
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
             self?.preloadKeyboard()
         }
     }
     
-    //--------------------------------------------------------------------------------------------------
+    ///--------------------------------------------------------------------------------------------------
+    /// Starts network monitoring and download session:
+    /// - Enables Remote Config refresh
+    /// - Listens for batch download completion notifications
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
@@ -136,26 +147,31 @@ class GuideViewController: UIViewController, URLSessionDelegate {
         self.hidesBottomBarWhenPushed = false
     }
 
+	/// Cleans up observers when leaving the screen to prevent duplicate handlers.
 	override func viewDidDisappear(_ animated: Bool) {
 		super.viewDidDisappear(true)
 		print("NOTIFICATIONCENTER DISAPPEARED")
 		NotificationCenter.default.removeObserver(self, name: Notification.Name("BatchDownloadCompleted"), object: nil)
 	}
 
+	/// Tracks reachability so downloads can react to connectivity changes.
+	/// Keeps a simple isConnected flag updated on the main queue.
 	private func setupNetworkMonitoring() {
 		networkMonitor = NWPathMonitor()
 		networkMonitor?.pathUpdateHandler = { [unowned self] path in
 			self.isConnected = path.status == .satisfied
 			DispatchQueue.main.async {
-				// Access button directly through the outlet
+				/// Access button directly through the outlet
 				self.isConnected = path.status == .satisfied
 			}
 		}
 		networkMonitor?.start(queue: DispatchQueue.global())
 	}
 
+	/// Initializes the URL session used by batch downloads (once per lifetime).
+	/// Uses waitsForConnectivity so background downloads can resume when online.
 	private func setupDownloadSession() {
-		// Check if downloadSession is already initialized
+		/// Check if downloadSession is already initialized
 		if downloadSession != nil {
 			print("Download session already initialized: \(String(describing: downloadSession))")
 			return
@@ -168,6 +184,9 @@ class GuideViewController: UIViewController, URLSessionDelegate {
 		downloadSession = URLSession(configuration: configuration, delegate: self, delegateQueue: .main)
 	}
 
+	/// Responds to batch download completion:
+	/// - Logs updated files if provided
+	/// - Shows a consistent "New Content Available" alert
 	@objc func downloadsCompleted(_ notification: Notification) {
 		let alertTitle: String = "New Content Available"
 		let alertMessage: String = "Fresh updates are ready for you to continue enjoying the app."
@@ -186,13 +205,15 @@ class GuideViewController: UIViewController, URLSessionDelegate {
 	}
 
 
+	/// Presents a basic alert for download updates.
 	private func showAlert(title: String, message: String) {
 		let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
 		alert.addAction(UIAlertAction(title: "OK", style: .default))
 		present(alert, animated: true)
 	}
     
-    // This is to remove the keyboard lag/delay when the app has just been launched for the first time
+    /// This is to remove the keyboard lag/delay when the app has just been launched for the first time
+    /// Warms up the keyboard to reduce first-use lag by briefly focusing a temp field.
     private func preloadKeyboard() {
         let tempTextField = UITextField()
         view.addSubview(tempTextField)
@@ -202,31 +223,43 @@ class GuideViewController: UIViewController, URLSessionDelegate {
     }
 
     
+    /// Handles quick-access chapter buttons:
+    /// - Records the selected chapter title and index
+    /// - Segues to the subchapter list for that chapter
     @IBAction func tapTopButton(_ sender: UIButton){
         quickTitle = bible.chapters[sender.tag]
         quickPointer = sender.tag
         performSegue( withIdentifier: "SegueToSubChapterViewController", sender: nil )
     }
     
+    /// Handles quick-access chart buttons:
+    /// - Records the selected chart title and index
+    /// - Segues directly to the chart web view
     @IBAction func tapBottomButton(_ sender: UIButton){
-        quickTitle = bible.chartsTrimmed[sender.tag-1]
+        quickTitle = bible.charts[sender.tag-1]
         quickPointer = sender.tag-1
         performSegue( withIdentifier: "SegueToWebViewViewController", sender: nil )
     }
     
+    /// Navigates to the full chapter list.
     @IBAction func tapAllChapters(_ sender: UIButton){
         performSegue(withIdentifier: "SegueToAllChaptersViewController", sender: nil)
     }
     
+    /// Navigates to the full charts list.
     @IBAction func tapAllCharts(_ sender: UIButton){
         performSegue(withIdentifier: "SegueToAllChartsViewController", sender: nil)
     }
     
+    /// Navigates to the saved/bookmarks screen.
     @IBAction func tapBookmarks(_ sender: UIButton){
         performSegue(withIdentifier: "SegueToSavedViewController", sender: nil)
     }
     
-    //--------------------------------------------------------------------------------------------------
+    ///--------------------------------------------------------------------------------------------------
+    /// Passes selection context into destination screens:
+    /// - Sets array pointers and titles on target controllers
+    /// - Ensures bottom bar visibility behaves per destination
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         navigationController?.hidesBottomBarWhenPushed = false
@@ -262,8 +295,8 @@ class GuideViewController: UIViewController, URLSessionDelegate {
         if let webViewViewController = segue.destination as? WebViewViewController
         {
             webViewViewController.url = Bundle.main.url(forResource: bible.chartURLs[quickPointer], withExtension: "html")!
-            webViewViewController.titlelabel = quickTitle
-            webViewViewController.navTitle = quickTitle
+            webViewViewController.titlelabel = bible.charts[quickPointer]
+            webViewViewController.navTitle = bible.chartsTrimmed[quickPointer]
             webViewViewController.uniqueAddress = bible.chartURLs[quickPointer]
             webViewViewController.hidesBottomBarWhenPushed = true
         }

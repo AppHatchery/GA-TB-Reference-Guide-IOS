@@ -9,6 +9,7 @@ import UIKit
 import RealmSwift
 import FirebaseDynamicLinks
 
+/// SettingsViewController manages the Settings screen UI and interactions.
 class SettingsViewController: UIViewController {
 
     var scrollView: UIScrollView!
@@ -57,7 +58,7 @@ class SettingsViewController: UIViewController {
                     
             scrollView.contentSize = CGSize(width: contentView.frame.width, height: 700)
             if let currentSettings = realm!.object(ofType: UserSettings.self, forPrimaryKey: "savedSettings"){
-                // Assign the older entry to the current variable
+                /// Assign the older entry to the current variable
                 userSettings = currentSettings
             }
         }
@@ -100,7 +101,7 @@ class SettingsViewController: UIViewController {
         RealmHelper.sharedInstance.update(userSettings, properties:[
             "pushNotifications": sender.isOn
         ]) { updated in
-            //
+            ///
             if sender.isOn {
                 print("notifications are on")
             } else {
@@ -117,7 +118,7 @@ class SettingsViewController: UIViewController {
 //        }
     }
     
-    // Toggle Light/Dark Mode, but need to reset to default state too so probably need to move to the next view controller
+    /// Toggle Light/Dark Mode, but need to reset to default state too so probably need to move to the next view controller
     
     // Unless the toggle can be to manually override to light or dark contrary to the users default mode 
 //    @IBAction func toggleLightMode(_ sender: UISwitch){
@@ -131,33 +132,37 @@ class SettingsViewController: UIViewController {
 //    }
     
     @IBAction func tapReset(_ sender: UIButton){
-        let alertDelete = UIAlertController(title: "Attention", message: "This will permanently reset the app to factory settings. Are you sure you want to proceed?", preferredStyle: .alert)
-        alertDelete.addAction(UIAlertAction(title: "Yes", style: .default, handler: { [self] (action: UIAlertAction!) in
-            // Delete the realm contents
-            // Check Android: If a user has a webview opened and favorited the app will crash when they go back to that screen because the realm object has been delete
-//            let realm = try! Realm()
-             try! realm!.write {
-                 realm!.deleteAll()
-                        
-                 let alertSuccess = UIAlertController(
-                    title: "Success",
-                    message: "App reset successfully",
-                    preferredStyle: .alert
-                 )
-                 
-                 alertSuccess
-                     .addAction(UIAlertAction(title: "Ok", style: .cancel))
-                 
-                 self.present(alertSuccess, animated: true, completion: nil)
+        guard let windowScene = UIApplication.shared.connectedScenes
+            .filter({ $0.activationState == .foregroundActive })
+            .first as? UIWindowScene,
+              let window = windowScene.windows.first(where: { $0.isKeyWindow }) else {
+            return
+        }
+
+        TwoOptionsPopUp.show(
+            in: window,
+            label: "This will permanently clear all your saved bookmarks, notes and settings. Are you sure you want to proceed?",
+            cancelTitle: "No",
+            deleteTitle: "Yes",
+            onCancel: nil,
+            onDelete: { [weak self] in
+                guard let self = self else { return }
+                /// Delete the realm contents
+                try? self.realm?.write {
+                    self.realm?.deleteAll()
+                }
+
+                if let windowScene = UIApplication.shared.connectedScenes
+                    .filter({ $0.activationState == .foregroundActive })
+                    .first as? UIWindowScene,
+                   let window = windowScene.windows.first(where: { $0.isKeyWindow }) {
+                        CustomPopUp.showTemporary(in: window, popupLabelText: "App reset successfully")
+                }
             }
-        }))
-        
-        alertDelete.addAction(UIAlertAction(title: "No", style: .cancel, handler: { (action: UIAlertAction!) in
-        }))
-        self.present(alertDelete, animated: true, completion: nil)
+        )
     }
     
-    //--------------------------------------------------------------------------------------------------
+    ///--------------------------------------------------------------------------------------------------
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if let settingsViewController = segue.destination as? SettingsViewsViewController

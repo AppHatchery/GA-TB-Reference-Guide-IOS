@@ -7,12 +7,14 @@
 
 import UIKit
 
+/// ThemeManager centralizes related app data or service logic.
 class ThemeManager {
     static let shared = ThemeManager()
     private let darkModeKey = "darkModeEnabled"
     
     private init() {}
     
+    /// apply Stored Theme.
     func applyStoredTheme() {
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
            let window = windowScene.windows.first {
@@ -24,6 +26,7 @@ class ThemeManager {
         }
     }
     
+    /// set Theme.
     func setTheme(isDarkMode: Bool) {
         UserDefaults.standard.set(isDarkMode, forKey: darkModeKey)
         applyInterfaceStyle(isDarkMode: isDarkMode)

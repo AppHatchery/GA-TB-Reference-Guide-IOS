@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Guide provides related app functionality.
 class Guide: UIView {
     
     var contentViewTopConstraint: NSLayoutConstraint!
@@ -19,7 +20,7 @@ class Guide: UIView {
     @IBOutlet weak var testbttn: UIButton!
     @IBOutlet weak var lateralConstraint: NSLayoutConstraint!
 
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     override init( frame: CGRect )
     {
         super.init( frame : frame )
@@ -27,7 +28,7 @@ class Guide: UIView {
         customInit()
     }
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     required init?( coder aDecoder: NSCoder )
     {
         super.init( coder : aDecoder )
@@ -35,7 +36,7 @@ class Guide: UIView {
         customInit()
     }
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     func customInit()
     {
         let nibView = (Bundle.main.loadNibNamed( "Guide", owner: self, options: nil)!.first as! UIView)
@@ -43,7 +44,7 @@ class Guide: UIView {
         
         nibView.translatesAutoresizingMaskIntoConstraints = false
         
-        // For iPads
+        /// For iPads
         if UIDevice.current.userInterfaceIdiom == .pad {
             nibView.leftAnchor.constraint( equalTo: self.leftAnchor,constant: 100 ).isActive = true
             nibView.rightAnchor.constraint( equalTo: self.rightAnchor,constant: -100 ).isActive = true

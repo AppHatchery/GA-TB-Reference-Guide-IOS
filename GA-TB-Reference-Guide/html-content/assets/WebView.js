@@ -124,6 +124,27 @@ function WKWebView_HighlightAllOccurencesOfStringForElementWithNavigation(elemen
     }
 }
 
+// Helper function to sort search results by their position on the page (top to bottom)
+function WKWebView_SortSearchResultsByPosition() {
+    WKWebView_SearchResults.sort(function(a, b) {
+        var rectA = a.getBoundingClientRect();
+        var rectB = b.getBoundingClientRect();
+        
+        // First compare vertical position (top)
+        if (rectA.top !== rectB.top) {
+            return rectA.top - rectB.top;
+        }
+        
+        // If on same line, compare horizontal position (left)
+        return rectA.left - rectB.left;
+    });
+    
+    // Update data-search-index attributes to reflect new order
+    for (var i = 0; i < WKWebView_SearchResults.length; i++) {
+        WKWebView_SearchResults[i].setAttribute("data-search-index", i);
+    }
+}
+
 // New function for navigable search highlighting
 function WKWebView_HighlightAllOccurencesOfStringWithNavigation(keyword, first) {
     if (first) {
@@ -132,6 +153,9 @@ function WKWebView_HighlightAllOccurencesOfStringWithNavigation(keyword, first) 
     
     WKWebView_CurrentKeyword = keyword.toLowerCase();
     WKWebView_HighlightAllOccurencesOfStringForElementWithNavigation(document.body, WKWebView_CurrentKeyword, false);
+    
+    // Sort results by their position on the page (top to bottom, left to right)
+    WKWebView_SortSearchResultsByPosition();
     
     // If we have results and no current selection, select the first one
     if (WKWebView_SearchResults.length > 0 && WKWebView_CurrentIndex === -1) {

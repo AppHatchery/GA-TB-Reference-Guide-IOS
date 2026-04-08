@@ -37,12 +37,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         else {
             // Generate Visitor ID Upon Initial Launch
             if UserDefaults.standard.string(forKey: "visitorId") == nil {
-                let visitorId = "Oct-25-\(UUID())"
+                let visitorId = "Apr-26-\(UUID())"
                 UserDefaults.standard.set(visitorId, forKey: "visitorId")
             }
         }
         
-        let accountId = "Test"
+//        let accountId = "Test"
+        let accountId = "GTRG"
         
         if let visitorId = UserDefaults.standard.string(forKey: "visitorId") {
             // Use visitorID in your Pendo initialization code here
@@ -104,6 +105,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            try! newrealm?.write({
 //                newrealm?.deleteAll()
 //            })
+        }
+
+        if let realm = newrealm, !realm.isEmpty {
+            DispatchQueue.global(qos: .background).async {
+                if let backgroundRealm = RealmHelper.sharedInstance.mainRealm() {
+                    BookmarksMigration.migrateBookmarksForDeletedSlugs(in: backgroundRealm)
+                    NotesMigration.migrateNotesForDeletedSlugs(in: backgroundRealm)
+                }
+            }
         }
         
         

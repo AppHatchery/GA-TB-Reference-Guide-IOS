@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+/// BatchDownloadManager centralizes related app data or service logic.
 class BatchDownloadManager: NSObject, URLSessionDownloadDelegate {
 	private var urlSession: URLSession!
 	private var downloads: [(url: URL, filename: String)] = []
@@ -19,6 +20,7 @@ class BatchDownloadManager: NSObject, URLSessionDownloadDelegate {
 		urlSession = URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
 	}
 
+	/// start Batch Download.
 	func startBatchDownload(files: [(url: String, filename: String)]) {
 		completedDownloads = 0
 		downloads.removeAll()
@@ -34,7 +36,7 @@ class BatchDownloadManager: NSObject, URLSessionDownloadDelegate {
 		}
 	}
 
-		// URLSessionDownloadDelegate methods
+		/// URLSessionDownloadDelegate methods
 	func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
 		guard let url = downloadTask.originalRequest?.url,
 			  let index = downloads.firstIndex(where: { $0.url == url }),
@@ -52,13 +54,13 @@ class BatchDownloadManager: NSObject, URLSessionDownloadDelegate {
 				try FileManager.default.removeItem(at: destinationURL)
 			}
 
-				// Move the downloaded file
+				/// Move the downloaded file
 			try FileManager.default.moveItem(at: location, to: destinationURL)
 
 			completedDownloads += 1
 			print("✅ Download completed: \(filename) (\(completedDownloads)/\(downloads.count))")
 
-				// Post notification when all downloads complete
+				/// Post notification when all downloads complete
 			if completedDownloads == downloads.count {
 				DispatchQueue.main.async {
 					print("📢 Posting BatchDownloadCompleted notification...")
@@ -74,7 +76,7 @@ class BatchDownloadManager: NSObject, URLSessionDownloadDelegate {
 		}
 	}
 
-		// Track progress
+		/// Track progress
 	func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask,
 					didWriteData bytesWritten: Int64, totalBytesWritten: Int64,
 					totalBytesExpectedToWrite: Int64)

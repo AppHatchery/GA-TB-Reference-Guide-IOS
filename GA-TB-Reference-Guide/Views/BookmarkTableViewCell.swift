@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// BookmarkTableViewCell defines a reusable table view cell UI.
 class BookmarkTableViewCell: UITableViewCell {
 
     @IBOutlet weak var mainView: UIView!
@@ -23,7 +24,7 @@ class BookmarkTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        /// Initialization code
         
         mainView.layer.cornerRadius = 4
         sideView.layer.cornerRadius = 4
@@ -33,7 +34,7 @@ class BookmarkTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
+        /// Configure the view for the selected state
     }
     
 }

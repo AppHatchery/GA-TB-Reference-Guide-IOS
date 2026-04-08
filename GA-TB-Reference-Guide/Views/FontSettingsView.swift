@@ -8,6 +8,7 @@
 import UIKit
 import WebKit
 
+/// FontSettingsView defines a reusable view for Font Settings UI.
 class FontSettingsView: UIViewController {
     var webView: WKWebView!
     var webViewTopConstraint: NSLayoutConstraint!
@@ -73,10 +74,10 @@ class FontSettingsView: UIViewController {
         RealmHelper.sharedInstance.update(userSettings, properties: [
             "fontSize":fontNumber
         ]) { updated in
-            //
+            ///
         }
         
-        // Post or Send to the NotificationCenter so that the WebViewViewController can observe (listen to) the font changes
+        /// Post or Send to the NotificationCenter so that the WebViewViewController can observe (listen to) the font changes
         NotificationCenter.default.post(name: NSNotification.Name("FontSizeChanged"), object: nil, userInfo: ["fontSize": fontNumber])
     }
     
@@ -87,15 +88,15 @@ class FontSettingsView: UIViewController {
         setupSliderTapGesture()
         
         if let currentSettings = realm!.object(ofType: UserSettings.self, forPrimaryKey: "savedSettings"){
-            // Assign the older entry to the current variable
+            /// Assign the older entry to the current variable
             userSettings = currentSettings
             sliderControl(state: userSettings.fontSize)
         } else {
-            // Remake the font size if it doesn't exist: This is exclusively for instances where the user deletes it
+            /// Remake the font size if it doesn't exist: This is exclusively for instances where the user deletes it
             userSettings = UserSettings()
 
             RealmHelper.sharedInstance.save(userSettings) { saved in
-                //
+                ///
             }
             sliderControl(state: 100)
         }

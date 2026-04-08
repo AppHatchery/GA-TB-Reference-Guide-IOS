@@ -7,10 +7,12 @@
 
 import UIKit
 
+// Protocol defining Delete Confirmation Pop Up Delegate responsibilities.
 protocol DeleteConfirmationPopUpDelegate: AnyObject {
     func didTapDeleteBookmark(for url: String?)
 }
 
+/// DeleteConfirmationPopUp provides related app functionality.
 class DeleteConfirmationPopUp: UIView {
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var mainView: UIView!
@@ -26,7 +28,7 @@ class DeleteConfirmationPopUp: UIView {
     var bookmarkName: String = ""
     var bookmarkUrl: String?
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     init(frame: CGRect, bookmarkName: String, bookmarkUrl: String? = nil, delegate: DeleteConfirmationPopUpDelegate? = nil) {
         super.init(frame: frame)
         
@@ -37,14 +39,14 @@ class DeleteConfirmationPopUp: UIView {
         customInit()
     }
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
         customInit()
     }
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     func customInit() {
         let nibView = (Bundle.main.loadNibNamed("DeleteConfirmationPopUp", owner: self, options: nil)!.first as! UIView)
         self.addSubview(nibView)
@@ -124,7 +126,7 @@ class DeleteConfirmationPopUp: UIView {
         }
     }
     
-    //------------------------------------------------------------------------------
+    ///------------------------------------------------------------------------------
     @objc func cancelButtonPressed() {
         UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseInOut, animations: {
             self.backgroundView.alpha = 0
@@ -144,8 +146,8 @@ class DeleteConfirmationPopUp: UIView {
         })
     }
     
-    //------------------------------------------------------------------------------
-    // Convenience method to show the popup
+    ///------------------------------------------------------------------------------
+    /// Convenience method to show the popup
     static func show(in window: UIWindow, bookmarkName: String, bookmarkUrl: String? = nil, delegate: DeleteConfirmationPopUpDelegate? = nil) {
         let popup = DeleteConfirmationPopUp(
             frame: window.bounds,

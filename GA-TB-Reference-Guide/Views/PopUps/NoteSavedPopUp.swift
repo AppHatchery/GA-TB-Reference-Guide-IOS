@@ -7,10 +7,12 @@
 
 import UIKit
 
+// Protocol defining Note Saved Pop Up Delegate responsibilities.
 protocol NoteSavedPopUpDelegate {
     func didTapVisitSettings()
 }
 
+/// NoteSavedPopUp provides related app functionality.
 class NoteSavedPopUp: UIView {
 
     @IBOutlet weak var backgroundView: UIView!
@@ -93,7 +95,7 @@ class NoteSavedPopUp: UIView {
     }
     
     
-    // Convenience method to show the popup
+    /// Convenience method to show the popup
     static func show(in window: UIWindow, delegate: NoteSavedPopUpDelegate? = nil) {
         let popup = NoteSavedPopUp(frame: window.bounds, delegate: delegate)
         popup.mainView.transform = CGAffineTransform(scaleX: 0, y: 0)

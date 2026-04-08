@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// ChapterNoteTableViewCell defines a reusable table view cell UI.
 class ChapterNoteTableViewCell: UITableViewCell {
 
     @IBOutlet weak var parentView: UIView!
@@ -36,7 +37,7 @@ class ChapterNoteTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
+        /// Configure the view for the selected state
     }
     
     @objc private func editButtonTapped() {

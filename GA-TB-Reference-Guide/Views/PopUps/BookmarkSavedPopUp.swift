@@ -7,10 +7,12 @@
 
 import UIKit
 
+// Protocol defining Bookmark Saved Pop Up Delegate responsibilities.
 protocol BookmarkSavedPopUpDelegate {
     func didTapVisitBookmarks()
 }
 
+/// BookmarkSavedPopUp provides related app functionality.
 class BookmarkSavedPopUp: UIView {
 
     @IBOutlet weak var backgroundView: UIView!
@@ -170,7 +172,7 @@ class BookmarkSavedPopUp: UIView {
         )
     }
 
-    // Convenience method to show the popup
+    /// Convenience method to show the popup
     static func show(
         in window: UIWindow,
         bookmarkName: String,

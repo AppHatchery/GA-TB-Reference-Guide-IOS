@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// SearchCell defines a reusable table view cell UI.
 class SearchCell: UITableViewCell {
     
     @IBOutlet weak var subchapterLabel: UILabel!
@@ -16,13 +17,13 @@ class SearchCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        /// Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
+        /// Configure the view for the selected state
     }
     
 }

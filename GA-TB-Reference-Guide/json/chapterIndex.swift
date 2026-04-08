@@ -7,6 +7,16 @@
 
 import Foundation
 
+// MARK: - chapterIndex File Overview
+/// This file centralizes the ordering and display metadata for chapters, subchapters, and charts.
+/// It exists as a single source of truth for mapping:
+/// - content slugs/filenames to human-readable titles
+/// - subchapter indices to parent chapter titles
+/// - nested chapter/chart groupings used by the UI and search layers
+/// Throughout the app, controllers and managers use ChapterIndex to build lists,
+/// resolve navigation targets, label search results, and compute analytics metadata.
+/// Master index used to map bundled content files to titles, groupings, and navigation labels.
+
 public class ChapterIndex {
   let chapterNested = [
     ["Hello and Welcome Clinical Statement"],
@@ -30,7 +40,7 @@ public class ChapterIndex {
       "f. Rapid Molecular Drug Susceptibility Tests (DST)",
     ],
     [
-      "a. Introduction", "b. Considerations", "c. Standard Therapy for Current (Active) Disease",
+      "a. Introduction", "b. Considerations", "c. Standard Therapy for Current (Active) TB Disease",
       "d. Special Clinical Situations", "e. Drug Resistance",
       "f. Monitoring Patients on Therapy for Response and Adverse Events", "g. TB and HIV",
       "h. Immune Reconstitution Inflammatory Syndrome (IRIS) Associated with Initiation of Antiretroviral Therapy During the Course of TB Therapy",
@@ -55,7 +65,7 @@ public class ChapterIndex {
       "f. Hospital Discharge Planning for Patients with Suspected or Proven TB",
       "g. Interjurisdictional TB Notification (IJN)",
       "h. CureTB Program (International Linkage to TB Care)",
-    ], ["a. Alternative Housing Program for Homeless TB Patients in Georgia"],
+    ], ["a. Alternative Housing Program for Persons with TB Experiencing Homelessness in Georgia"],
     [
       "a. Georgia Department of Public Health (DPH) Community Guidelines for Respiratory Isolation of Patients with Active TB in the Community"
     ],
@@ -149,7 +159,7 @@ public class ChapterIndex {
     "Rapid Molecular Drug Susceptibility Tests (DST)",
     "Introduction",
     "Considerations",
-    "Standard Therapy for Current (Active) Disease",
+    "Standard Therapy for Current (Active) TB Disease",
     "Special Clinical Situations",
     "Drug Resistance",
     "Monitoring Patients on Therapy for Response and Adverse Events",
@@ -177,7 +187,7 @@ public class ChapterIndex {
     "Hospital Discharge Planning for Patients with Suspected or Proven TB",
     "Interjurisdictional TB Notification (IJN)",
     "CureTB Program (International Linkage to TB Care)",
-    "Alternative Housing Program for Homeless TB Patients in Georgia",
+    "Alternative Housing Program for Persons with TB Experiencing Homelessness in Georgia",
     "Georgia Department of Public Health (DPH) Community Guidelines for Respiratory Isolation of Patients with Active TB in the Community",
     "References",
     "Appendix: District TB Coordinators (by District)",
@@ -391,9 +401,9 @@ public class ChapterIndex {
     "IV. Laboratory Diagnosis of Active Tuberculosis",
     "V. Treatment of Current (Active) Disease Therapy", "VI. Pregnancy and TB",
     "VII. Childhood Tuberculosis", "VIII. Tuberculosis and Long-Term Care Facilities",
-    "IX. BCG Vaccination", "X. TB Infection Control: Hospital Isolation Procedures",
-    "XI. Community Tuberculosis Control",
-    "XII. Alternative Housing Program for Homeless TB Patients in Georgia",
+    "IX. BCG Vaccination", "X. TB Infection Prevention and Control in Healthcare Facilities",
+    "XI. Community Tuberculosis Prevention Control",
+    "XII. Alternative Housing Program for Persons with TB Experiencing Homelessness in Georgia",
     "XIII. Georgia Department of Public Health (DPH) Community Guidelines for Respiratory Isolation of Patients with Active TB in the Community",
     "XIV. References", "XV. Appendix: District TB Coordinators (by District)", "XVI. Abbreviations",
     "XVII. Acknowledgements",
@@ -421,6 +431,25 @@ public class ChapterIndex {
     "xvii_acknowledgements",
     "xviii_for_more_information",
   ]
+    
+  let deletedURLs = [
+    "table_10_pediatric_dosages_rifampin_in_children_(birth_to_15_years)",
+    "table_11_pediatric_dosages_ethambutol_in_children_(birth_to_15_years)",
+    "table_12_pediatric_dosages_pyrazinamide_in_children_(birth_to_15_years)",
+    "table_13_antituberculosis_antibiotics_in_adult_patients_with_renal_impairment",
+    "table_14_antituberculosis_medications_which_may_be_used_for_patients_who_have_contraindications_to_or_intolerance",
+    "table_15_clinical_situations_for_which_standard_therapy_cannot_be_given_or_is_not_well_tolerated",
+    "table_16_when_to_start_hiv_therapy",
+    "table_17_what_to_start_choice_of_tb_therapy_and_antiretroviral_therapy_(art)_when)treating_co-infected_patients",
+    "table_18_dosage_adjustments_for_art_and_rifamycins_when_used_in_combination",
+    "table_19_guidelines_for_treatment_of_extrapulmonary_tuberculosis",
+    "table_20_use_of_anti-tb_medications_in_special_situations_pregnancy_tuberculosis_meningitis_and_renal_failure",
+    "table_21_grady_hospital_tb_isolation_policy",
+    "5_treatment_of_current_(active)_disease_therapy__g__antiretroviral_therapy_(art)_and_treatment_of_persons",
+    "8_tuberculosis_and_long-term_care_facilities",
+    "hello_and_welcome_clinical_statement",
+    "for_more_information"
+  ];
 
   let chartmapsubchapter = [
     "II. Diagnostic Tests for Latent TB Infection (LTBI)",
@@ -440,8 +469,8 @@ public class ChapterIndex {
     "V. Treatment of Current (Active) Disease Therapy",
     "V. Treatment of Current (Active) Disease Therapy",
     "VI. Pregnancy and TB",
-    "X. TB Infection Control: Hospital Isolation Procedures",
-    "X. TB Infection Control: Hospital Isolation Procedures",
+    "X. TB Infection Prevention and Control in Healthcare Facilities",
+    "X. TB Infection Prevention and Control in Healthcare Facilities",
   ]
 
   let chaptermapsubchapter = [
@@ -483,20 +512,20 @@ public class ChapterIndex {
     "VII. Childhood Tuberculosis",
     "VIII. Tuberculosis and Long-Term Care Facilities",
     "IX. BCG Vaccination",
-    "X. TB Infection Control: Hospital Isolation Procedures",
-    "X. TB Infection Control: Hospital Isolation Procedures",
-    "X. TB Infection Control: Hospital Isolation Procedures",
-    "X. TB Infection Control: Hospital Isolation Procedures",
-    "X. TB Infection Control: Hospital Isolation Procedures",
-    "XI. Community Tuberculosis Control",
-    "XI. Community Tuberculosis Control",
-    "XI. Community Tuberculosis Control",
-    "XI. Community Tuberculosis Control",
-    "XI. Community Tuberculosis Control",
-    "XI. Community Tuberculosis Control",
-    "XI. Community Tuberculosis Control",
-    "XI. Community Tuberculosis Control",
-    "XII. Alternative Housing Program for Homeless TB Patients in Georgia",
+    "X. TB Infection Prevention and Control in Healthcare Facilities",
+    "X. TB Infection Prevention and Control in Healthcare Facilities",
+    "X. TB Infection Prevention and Control in Healthcare Facilities",
+    "X. TB Infection Prevention and Control in Healthcare Facilities",
+    "X. TB Infection Prevention and Control in Healthcare Facilities",
+    "XI. Community Tuberculosis Prevention Control",
+    "XI. Community Tuberculosis Prevention Control",
+    "XI. Community Tuberculosis Prevention Control",
+    "XI. Community Tuberculosis Prevention Control",
+    "XI. Community Tuberculosis Prevention Control",
+    "XI. Community Tuberculosis Prevention Control",
+    "XI. Community Tuberculosis Prevention Control",
+    "XI. Community Tuberculosis Prevention Control",
+    "XII. Alternative Housing Program for Persons with TB Experiencing Homelessness in Georgia",
     "XIII. Georgia Department of Public Health (DPH) Community Guidelines for Respiratory Isolation of Patients with Active TB in the Community",
     "XIV. References", "XV. Appendix: District TB Coordinators (by District)", "XVI. Abbreviations",
     "XVII. Acknowledgements",
@@ -521,7 +550,7 @@ public class ChapterIndex {
     "V. Treatment of Current (Active) Disease Therapy",
     "V. Treatment of Current (Active) Disease Therapy",
     "VI. Pregnancy and TB",
-    "X. TB Infection Control: Hospital Isolation Procedures",
+    "X. TB Infection Prevention and Control in Healthcare Facilities",
     "V. Treatment of Current (Active) Disease Therapy",
   ]
 
@@ -553,7 +582,7 @@ public class ChapterIndex {
 
     "a. Introduction",
     "b. Considerations",
-    "c. Standard Therapy for Current (Active) Disease",
+    "c. Standard Therapy for Current (Active) TB Disease",
     "d. Special Clinical Situations",
     "e. Drug Resistance",
     "f. Monitoring Patients on Therapy for Response and Adverse Events",
@@ -588,7 +617,7 @@ public class ChapterIndex {
     "g. Interjurisdictional TB Notification (IJN)",
     "h. CureTB Program (International Linkage to TB Care)",
 
-    "a. Alternative Housing Program for Homeless TB Patients in Georgia",
+    "a. Alternative Housing Program for Persons with TB Experiencing Homelessness in Georgia",
 
     "a. Georgia Department of Public Health (DPH) Community Guidelines for Respiratory Isolation of Patients with Active TB in the Community",
 
@@ -735,7 +764,7 @@ public class ChapterIndex {
         },
         {
           "chapterId": "5",
-          "subChapterTitle": "Standard Therapy for Current (Active) Disease",
+          "subChapterTitle": "Standard Therapy for Current (Active) TB Disease",
           "url": "0"
         },
         {

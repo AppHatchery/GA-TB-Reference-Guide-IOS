@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// SubChapterViewController manages the Sub Chapter screen UI and interactions.
 class SubChapterViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
@@ -29,7 +30,7 @@ class SubChapterViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.estimatedRowHeight = UITableView.automaticDimension
 		tableView.separatorStyle = .none
 		tableView.backgroundColor = .backgroundColor
-        // Do any additional setup after loading the view.
+        /// Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -98,7 +99,7 @@ class SubChapterViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        // Need to add logic to insert table view or html content based on what was clicked
+        /// Need to add logic to insert table view or html content based on what was clicked
         
         
 //        let urlstring = chapterIndex.chapterCode[chapterIndex.chapterTitle.firstIndex(of: tableViewCells[indexPath.row]?.textLabel?.text ?? "") ?? 0]
@@ -109,14 +110,14 @@ class SubChapterViewController: UIViewController, UITableViewDelegate, UITableVi
         performSegue( withIdentifier: "SegueToWebViewViewController", sender: nil )
     }
     
-    //--------------------------------------------------------------------------------------------------
+    ///--------------------------------------------------------------------------------------------------
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if let webViewViewController = segue.destination as? WebViewViewController
         {
-				// The second condition in the if statement: chapterIndex.chapterCode[arrayPointer][subArrayPointer] ==  "15_appendix_district_tb_coordinators_(by_district)"
-				// is to ensure that the chapterIndex matches the file name that needs rerouting,
-				// if not included, every file url routes to TB Coordinators table
+				/// The second condition in the if statement: chapterIndex.chapterCode[arrayPointer][subArrayPointer] ==  "15_appendix_district_tb_coordinators_(by_district)"
+				/// is to ensure that the chapterIndex matches the file name that needs rerouting,
+				/// if not included, every file url routes to TB Coordinators table
 			if isFileDownloaded(for: chapterIndex
 				.chapterCode[arrayPointer][subArrayPointer]) && chapterIndex
 				.chapterCode[arrayPointer][subArrayPointer] ==  "15_appendix_district_tb_coordinators_(by_district)" {

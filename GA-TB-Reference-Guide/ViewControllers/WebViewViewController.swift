@@ -12,6 +12,7 @@ import FirebaseAnalytics
 import FirebaseDynamicLinks
 import Pendo
 
+/// WebViewViewController manages the Web View screen UI and interactions.
 class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, SaveFavoriteDelegate, SaveNoteDelegate, WKScriptMessageHandler, NotesBottomSheetDelegate, BookmarkSavedPopUpDelegate, NoteSavedPopUpDelegate,
     DeleteConfirmationPopUpDelegate {
 
@@ -43,9 +44,9 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     var userSettings: UserSettings?
     var fontNumber = 100
     
-    // Initialize the Realm database
+    /// Initialize the Realm database
     let realm = RealmHelper.sharedInstance.mainRealm()
-//    let realm = try! Realm()
+//   let realm = try! Realm()
     var content : ContentPage!
     var note : Notes!
     var chapterIndex = ChapterIndex()
@@ -95,6 +96,10 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     var currentSearchResultIndex = 0
     var totalSearchResults = 0
     
+    /// Builds the web view experience:
+    /// - Configures search UI visibility
+    /// - Creates a WKWebView with JS hooks for info icons
+    /// - Loads content and sets up analytics/user settings
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -102,7 +107,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             search.text = searchTerm
             let current = self.search.text ?? searchTerm
             
-            // Show immediately to avoid perceived delay
+            /// Show immediately to avoid perceived delay
             self.searchNavStackView.isHidden = false
             self.searchNavStackView.alpha = 1
             self.searchNavStackView.transform = .identity
@@ -131,8 +136,29 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         viewNotesButton.adjustsImageWhenHighlighted = false
         viewNotesButton.dropShadow()
         
-        // Create WebView Content
+        /// Create WebView Content
         let config = WKWebViewConfiguration()
+        let userContentController = WKUserContentController()
+        let infoIconScript = """
+        (function() {
+            if (window.__infoIconHandlerInstalled) { return; }
+            window.__infoIconHandlerInstalled = true;
+            document.addEventListener('click', function(event) {
+                var el = event.target;
+                if (!el) { return; }
+                var info = el.closest ? el.closest('.info-icon') : null;
+                if (!info) { return; }
+                var tooltip = info.getAttribute('data-tooltip') || '';
+                if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.infoIconTapped) {
+                    window.webkit.messageHandlers.infoIconTapped.postMessage({ tooltip: tooltip });
+                }
+            }, true);
+        })();
+        """
+        let userScript = WKUserScript(source: infoIconScript, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
+        userContentController.addUserScript(userScript)
+        userContentController.add(self, name: "infoIconTapped")
+        config.userContentController = userContentController
         
         webView = WKWebView(frame: .zero, configuration: config)
         webView.uiDelegate = self
@@ -144,7 +170,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         
         setupUI()
         
-        // Log the page load
+        /// Log the page load
         Analytics.logEvent("page", parameters: [
             "page": (uniqueAddress ) as String,
         ])
@@ -169,7 +195,10 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         webView.load( URLRequest( url: url ))
     }
     
-    // Added private helper to safely fetch or create UserSettings
+    /// Added private helper to safely fetch or create UserSettings
+    /// Fetches UserSettings from Realm or creates a default record:
+    /// - Optionally writes the provided font size
+    /// - Always returns a persisted settings object when possible
     private func getOrCreateUserSettings(with fontSize: Int? = nil) -> UserSettings? {
         guard let realm = realm else { return nil }
         if let existing = realm.object(ofType: UserSettings.self, forPrimaryKey: "savedSettings") {
@@ -184,6 +213,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         return realm.object(ofType: UserSettings.self, forPrimaryKey: "savedSettings")
     }
     
+    /// Sets the navigation bar title and styling for content pages.
     func setupNavBar() {
         navigationController?.navigationBar.tintColor = .white
         navigationItem.backButtonDisplayMode = .minimal
@@ -206,10 +236,11 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         navigationItem.titleView = titleLabel
     }
     
+    /// Styles the in-page search bar to match app theme.
     func configureSearchBar() {
         guard let search = self.search, let textField = search.value(forKey: "searchField") as? UITextField else { return }
 
-            // Searchbar configuration
+            /// Searchbar configuration
         textField.textColor = UIColor.searchBarText
         textField.attributedPlaceholder = NSAttributedString(
             string: "Enter Keywords to Search",
@@ -223,12 +254,15 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             .setClearButton(UIImage(named: "icClear"), tintColor: UIColor.colorPrimary)
     }
     
+    /// Responds to font size changes:
+    /// - Persists the new value
+    /// - Reloads the web view so CSS/JS scaling can be reapplied
     @objc func fontSizeChanged(_ notification: Notification) {
         if let userInfo = notification.userInfo, let newFontSize = userInfo["fontSize"] as? Int {
             fontNumber = newFontSize
             print("Changed the font size to \(fontNumber)")
 
-            // Always refetch to avoid creating duplicates
+            /// Always refetch to avoid creating duplicates
             if let settings = getOrCreateUserSettings(with: fontNumber) {
                 userSettings = settings
             } else {
@@ -244,13 +278,16 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         }
     }
     
+    /// Scales chapter icons and decorative paragraph lines to match text zoom:
+    /// - Injects CSS variables and override rules
+    /// - Tags relevant SVGs so only chapter icons are resized
     private func applyIconAndParagraphScaling(fontSize: Int) {
-        // Compute scale factor relative to 125% baseline (matching Android)
+        /// Compute scale factor relative to 125% baseline (matching Android)
         let scaleFactor = Double(fontSize) / 125.0
         let iconPx = 24.0 * scaleFactor
         let iconPxStr = String(format: "%.2f", iconPx)
         
-        // Compute scaled metrics for the decorative line used by `.uk-paragraph`
+        /// Compute scaled metrics for the decorative line used by `.uk-paragraph`
         let remBasePx = 16.0 // 1rem baseline
         let ukHeightPx = 2.0 * remBasePx * scaleFactor      // was 2rem
         let ukWidthPx = 0.5 * remBasePx * scaleFactor       // was 0.5rem
@@ -263,7 +300,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         
         guard webView != nil else { return }
         
-        // 1) Set CSS variable consumed by .ic_chapter_icon in style.css (which uses !important)
+        /// 1) Set CSS variable consumed by .ic_chapter_icon in style.css (which uses !important)
         let setVar = """
             (function(){
                 try {
@@ -273,7 +310,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             })();
         """
         
-        // 2) Ensure chapter icon image gets the class so the CSS rule applies, without touching other content images
+        /// 2) Ensure chapter icon image gets the class so the CSS rule applies, without touching other content images
         let tagIcons = """
             (function(){
                 try {
@@ -286,7 +323,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             })();
         """
         
-        // 3) Inject an explicit override rule with !important placed after external CSS
+        /// 3) Inject an explicit override rule with !important placed after external CSS
         let injectOverride = """
             (function(){
                  try {
@@ -303,7 +340,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             })();
         """
         
-        // 4) Also apply inline size and attributes so pages missing style.css still resize correctly
+        /// 4) Also apply inline size and attributes so pages missing style.css still resize correctly
         let sizeIcons = """
             (function(){
                  try {
@@ -312,14 +349,14 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
                      var nodes = document.querySelectorAll('img[src$="ic_chapter.svg"], img[src*="/ic_chapter.svg"], img[src*="ic_chapter.svg"]');
                      console.log('Sizing', nodes.length, 'icons to', cssSize);
                      nodes.forEach(function(n){
-                         // Ensure the parent wrapper also reserves space for the icon
+                         /// Ensure the parent wrapper also reserves space for the icon
                          var p = n.parentElement;
                          if (p) {
                              p.style.width = cssSize;
                              p.style.height = cssSize;
                              p.style.flex = '0 0 auto';
                          }
-                         // Apply explicit sizing on the image
+                         /// Apply explicit sizing on the image
                          n.style.display = 'inline-block';
                          n.style.width = cssSize;
                          n.style.height = cssSize;
@@ -334,7 +371,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             })();
         """
         
-        // 5) Scale the decorative line for paragraphs `.uk-paragraph::before` to match text zoom
+        /// 5) Scale the decorative line for paragraphs `.uk-paragraph::before` to match text zoom
         let paragraphOverride = """
             (function(){
                  try {
@@ -363,7 +400,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             })();
         """
         
-        // Execute all JavaScript on the WebView with a small delay to ensure DOM is ready
+        /// Execute all JavaScript on the WebView with a small delay to ensure DOM is ready
         DispatchQueue.main.asyncAfter(deadline: .now()) { [weak self] in
             guard let self = self else { return }
             
@@ -399,25 +436,30 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         }
     }
         
+    /// Removes observers to avoid leaks.
     deinit {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name("FontSizeChanged"), object: nil)
         try? webView?.removeObserver(self, forKeyPath: "URL")
     }
     
-    // Helper to resolve the parent chapter title from uniqueAddress via ChapterIndex
+    /// Helper to resolve the parent chapter title from uniqueAddress via ChapterIndex
+    /// Maps a content slug to its parent chapter title using ChapterIndex.
     private func resolvedChapterParent(for code: String?) -> String {
         guard let code = code, !code.isEmpty else { return navTitle }
-        // Strip any anchor
+        /// Strip any anchor
         let baseCode = code.components(separatedBy: "#").first ?? code
         let flatCodes = Array(chapterIndex.chapterCode.joined())
         if let idx = flatCodes.firstIndex(of: baseCode),
            idx < chapterIndex.chaptermapsubchapter.count {
             return chapterIndex.chaptermapsubchapter[idx]
         }
-        // Fallback to navTitle to avoid empty UI if mapping not found
+        /// Fallback to navTitle to avoid empty UI if mapping not found
         return navTitle
     }
     
+    /// Ensures content history, favorites, and notes are up to date:
+    /// - Creates/updates ContentPage and ContentAccess entries
+    /// - Updates bookmark/notes UI state
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
@@ -435,50 +477,50 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             content = ContentPage()
             content.name = titlelabel
             content.url = uniqueAddress
-            // Set chapterParent using ChapterIndex mapping (not navTitle)
+            /// Set chapterParent using ChapterIndex mapping (not navTitle)
             content.chapterParent = resolvedChapterParent(for: uniqueAddress)
             content.lastOpened = Date()
             content.openedTimes += 1
             RealmHelper.sharedInstance.save(content) { saved in
-                //
+                ///
             }
         }
         
-        // Save recently viewed chapters list
+        /// Save recently viewed chapters list
         let lastAccessed  = realm!.objects(ContentAccess.self)
-        // This determines the buffer that we are allowing
+        /// This determines the buffer that we are allowing
         if lastAccessed.count > 7 {
             RealmHelper.sharedInstance.delete(lastAccessed[0]) { deleted in
-                //
+                ///
             }
         }
         
         
-        // Save history
+        /// Save history
         if lastAccessed.filter("url == '\(content.url)'").count == 0 {
             print("Thinks history is false")
             let currentAccessedContent = ContentAccess()
             currentAccessedContent.name = titlelabel
             currentAccessedContent.url = uniqueAddress
-            // Set chapterParent using ChapterIndex mapping (not navTitle)
+            /// Set chapterParent using ChapterIndex mapping (not navTitle)
             currentAccessedContent.chapterParent = resolvedChapterParent(for: uniqueAddress)
             currentAccessedContent.date = Date()
             RealmHelper.sharedInstance.save(currentAccessedContent) { [weak self] saved in
-                //
+                ///
                 RealmHelper.sharedInstance.update(self!.content, properties: [
                     "isHistory": true
                 ]) { [weak self] updated in
-                    //
+                    ///
                 }
             }
             
         } else {
-            // Should move entry to the top of the history list...
+            /// Should move entry to the top of the history list...
             let newAccessed = lastAccessed.filter("url == '\(content.url)'")
             RealmHelper.sharedInstance.update(newAccessed[0], properties: [
                 "date": Date()
             ]) { [weak self] updated in
-                //
+                ///
             }
             
         }
@@ -492,46 +534,51 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         updateNotesButton()
     }
     
+    /// Hooks URL observation and refreshes bookmark/notes UI state.
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
-        // This removes the favoriting if it gets deleted in the saved page
+        /// This removes the favoriting if it gets deleted in the saved page
         if content.favorite == false {
             favoriteIcon.setImage(UIImage(named: "icBookmarksFolder"), for: .normal)
             favoriteIcon.setAttributedTitle(bookmarkText, for: .normal)
         }
         
-        // Add observer to the WebView so that when the URL changes it triggers our detection function
+        /// Add observer to the WebView so that when the URL changes it triggers our detection function
         webView.addObserver(self, forKeyPath: "URL", options: [.new, .old], context: nil)
         
         updateNotesButton()
     }
     
+    /// Resets the web view when leaving the screen.
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(false)
         
         webView?.goBack()
     }
     
-    //--------------------------------------------------------------------------------------------------
+    ///--------------------------------------------------------------------------------------------------
+    /// Intercepts in-app link navigation:
+    /// - Pushes internal pages into a new WebViewViewController
+    /// - Confirms external links before opening Safari
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
         if let newValue = change?[.newKey] as? Int, let oldValue = change?[.oldKey] as? Int, newValue != oldValue {
-            // Value Changed
-            // .components(separatorBy: ".app/")
+            /// Value Changed
+            /// .components(separatorBy: ".app/")
             print("new key is ",change?[.newKey] ?? "Couldn't print the new key")
         }else{
-            //Value not Changed
+            ///Value not Changed
             print("old key is ",change?[.oldKey] ?? "Couldn't print the old key")
         }
 
-        // Find the actual string
-        // When you click a link that becomes the new key
-        // Even if the page doesn't change because you had it blocked, the new link becomes the old link, so I want to put a checker condition that only when both links come from within the app you should go through this function
+        /// Find the actual string
+        /// When you click a link that becomes the new key
+        /// Even if the page doesn't change because you had it blocked, the new link becomes the old link, so I want to put a checker condition that only when both links come from within the app you should go through this function
         if let newValue = change?[.newKey], (newValue as AnyObject).debugDescription.hasPrefix("file:///"), let oldValue = change?[.oldKey], (oldValue as AnyObject).debugDescription.hasPrefix("file:///"){
             let newURL = change?[.newKey].debugDescription.components(separatedBy: "GA-TB-Reference-Guide.app/")[1] ?? "Couldn't print the new key"
             print("Loading within the app content", newURL)
-            // Check if we are not going into a within page anchor link or we came from an anchor link and it's resetting the view regardless
+            /// Check if we are not going into a within page anchor link or we came from an anchor link and it's resetting the view regardless
             let oldURL = change?[.oldKey].debugDescription.components(separatedBy: "GA-TB-Reference-Guide.app/")[1] ?? "Couldn't print the old key"
             print(newURL)
             print(oldURL)
@@ -539,13 +586,13 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
                 
                 let urlsarray = Array(chapterIndex.chapterCode.joined()).firstIndex(of: newURL.components(separatedBy: ".")[0])
                 
-                // push view controller but animate modally
+                /// push view controller but animate modally
                 let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 let vc = storyBoard.instantiateViewController(withIdentifier: "web") as! WebViewViewController
 
                 let navigationController = self.navigationController
                 
-                // If there is an anchor present we want to take the user to that position on the file
+                /// If there is an anchor present we want to take the user to that position on the file
                 if newURL.contains("#"){
                     let anchor = "#"+newURL.components(separatedBy: "#")[1].replacingOccurrences(of: ")", with: "")
                     print("this is the anchor", anchor)
@@ -558,20 +605,20 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
                 vc.navTitle = chapterIndex.chaptermapsubchapternested[urlsarray ?? 0]
                 vc.uniqueAddress = Array(chapterIndex.chapterCode.joined())[urlsarray ?? 0]
                 
-                // Remove the observer for the previous screen so that it won't double fire when the URL changes again
+                /// Remove the observer for the previous screen so that it won't double fire when the URL changes again
                 try? webView?.removeObserver(self, forKeyPath: "URL")
 
                 navigationController?.pushViewController(vc, animated: true)
             }
         } else {
             print("Loading outside of the app content")
-            // newURL stays as the chapter because the webview stopsloading
+            /// newURL stays as the chapter because the webview stopsloading
             
-            // This has been added to optionally cast to a URL in the event that the devices observer was obsolete from a previous load
+            /// This has been added to optionally cast to a URL in the event that the devices observer was obsolete from a previous load
             if let oldURL = change?[.oldKey] as? URL {
                 
-                //            let newURL = change?[.newKey] as! URL
-                //            let oldURL = change?[.oldKey] as! URL
+                ///            let newURL = change?[.newKey] as! URL
+                ///            let oldURL = change?[.oldKey] as! URL
                 comingFromHyperLink = true
                 webView.stopLoading()
                 
@@ -587,15 +634,19 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
                 }))
                 self.present(alertDelete, animated: true, completion: nil)
                 
-                // Remove the observer for the previous screen so that it won't double fire when the URL changes again
-                //            webView.removeObserver(self, forKeyPath: "URL")
-                //            UIApplication.shared.open(newURL, options: Any, completionHandler: true)
-                //            webView.goBack()
+                /// Remove the observer for the previous screen so that it won't double fire when the URL changes again
+                ///            webView.removeObserver(self, forKeyPath: "URL")
+                ///            UIApplication.shared.open(newURL, options: Any, completionHandler: true)
+                ///            webView.goBack()
             }
         }
     }
     
-    // This function is just preventing the within the app pages to move to the web links because there is no new page that we need to call the goBack() function from
+    /// This function is just preventing the within the app pages to move to the web links because there is no new page that we need to call the goBack() function from
+    /// Routes web navigation for internal files vs. external links:
+    /// - Allows anchor jumps within the same file
+    /// - Cancels and pushes for new in-app pages
+    /// - Prompts before opening external URLs
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         
         guard let url = navigationAction.request.url else {
@@ -605,15 +656,15 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         
         let urlString = url.absoluteString
         
-        // Allow initial page load
+        /// Allow initial page load
         if navigationAction.navigationType == .other || navigationAction.navigationType == .reload {
             decisionHandler(.allow)
             return
         }
         
-        // Handle internal app links (file:// URLs)
+        /// Handle internal app links (file:// URLs)
         if urlString.hasPrefix("file:///") {
-            // Extract the filename
+            /// Extract the filename
             let components = urlString.components(separatedBy: "GA-TB-Reference-Guide.app/")
             guard components.count > 1 else {
                 decisionHandler(.allow)
@@ -622,35 +673,35 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             
             let newURL = components[1]
             
-            // Check if it's an anchor link within the same page
+            /// Check if it's an anchor link within the same page
             if newURL.contains("#") {
                 let baseFile = newURL.components(separatedBy: "#")[0]
                 let currentFile = self.url.lastPathComponent
                 
-                // If it's the same file, allow navigation (anchor scroll)
+                /// If it's the same file, allow navigation (anchor scroll)
                 if baseFile == currentFile || baseFile.isEmpty {
                     decisionHandler(.allow)
                     return
                 }
             }
             
-            // It's a different page - handle custom navigation
-            // Cancel the WebView's navigation
+            /// It's a different page - handle custom navigation
+            /// Cancel the WebView's navigation
             decisionHandler(.cancel)
             
-            // Find the chapter index
+            /// Find the chapter index
             let fileName = newURL.components(separatedBy: ".")[0].components(separatedBy: "#")[0]
             guard let urlsarray = Array(chapterIndex.chapterCode.joined()).firstIndex(of: fileName) else {
                 return
             }
             
-            // Create and push new view controller
+            /// Create and push new view controller
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
             guard let vc = storyBoard.instantiateViewController(withIdentifier: "web") as? WebViewViewController else {
                 return
             }
             
-            // Configure the new view controller
+            /// Configure the new view controller
             if newURL.contains("#") {
                 let anchor = "#" + newURL.components(separatedBy: "#")[1].replacingOccurrences(of: ")", with: "")
                 let baseURL = Bundle.main.url(forResource: Array(chapterIndex.chapterCode.joined())[urlsarray], withExtension: "html")!
@@ -663,12 +714,12 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             vc.navTitle = chapterIndex.chaptermapsubchapternested[urlsarray]
             vc.uniqueAddress = Array(chapterIndex.chapterCode.joined())[urlsarray]
             
-            // Push the view controller
+            /// Push the view controller
             navigationController?.pushViewController(vc, animated: true)
             return
         }
         
-        // Handle external links
+        /// Handle external links
         if navigationAction.navigationType == .linkActivated {
             decisionHandler(.cancel)
             
@@ -688,10 +739,11 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             return
         }
         
-        // Default: allow navigation
+        /// Default: allow navigation
         decisionHandler(.allow)
     }
     
+    /// Runs JS search logic and aggregates hit counts across terms.
     func searchAndCountWords(term: String) {
         var terms = term.split(separator: " ").map({String($0)})
         if !terms.contains(term) {terms.append(term)}
@@ -701,20 +753,20 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
                 let data: Data = try Data(contentsOf: path)
                 let jsCode: String = String(decoding: data, as: UTF8.self)
                 
-                // Inject the search code
+                /// Inject the search code
                 webView.evaluateJavaScript(jsCode, completionHandler: nil)
                 
-                // Count total words found across all search terms
+                /// Count total words found across all search terms
                 var totalWordCount = 0
                 let dispatchGroup = DispatchGroup()
                 
                 for (i, t) in terms.enumerated() {
                     dispatchGroup.enter()
                     
-                    // Modified search string to return count
+                    /// Modified search string to return count
                     let searchString = "WKWebView_HighlightAllOccurencesOfString('\(t)', \(i == 0))"
                     
-                    // Perform search and get count
+                    /// Perform search and get count
                     webView.evaluateJavaScript(searchString) { [weak self] (result, error) in
                         defer { dispatchGroup.leave() }
                         
@@ -723,14 +775,14 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
                             return
                         }
                         
-                        // If your WebView.js returns the count, use it
+                        /// If your WebView.js returns the count, use it
                         if let count = result as? Int {
                             totalWordCount += count
                         }
                     }
                 }
                 
-                // When all searches are complete, print the total count
+                /// When all searches are complete, print the total count
                 dispatchGroup.notify(queue: .main) {
                     print("Total words found: \(totalWordCount)")
                 }
@@ -741,6 +793,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         }
     }
     
+    /// Updates the UI counters for in-page search navigation.
     func updateSearchResultsDisplay() {
         currentSearchTermIndex.text = "\(currentSearchResultIndex)"
         totalSearchTermsFound.text = "\(totalSearchResults)"
@@ -749,6 +802,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
 //        searchNavStackView.isHidden = totalSearchResults == 0
     }
     
+    /// Highlights matches and updates the total hit count.
     func highlightSearchWithCount(term: String) {
         let trimmed = term.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else {
@@ -784,10 +838,11 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     }
     
     
+    /// Moves the web view to the previous highlighted match.
     @IBAction func goToPreviousSearchTerm(_ sender: Any) {
         webView.evaluateJavaScript("WKWebView_GoToPreviousSearchResult()") { [weak self] (result, error) in
             if let success = result as? Bool, success {
-                // Get updated search info
+                /// Get updated search info
                 self?.webView.evaluateJavaScript("WKWebView_GetSearchInfo()") { (infoResult, infoError) in
                     if let infoDict = infoResult as? [String: Any],
                        let currentPosition = infoDict["currentPosition"] as? Int {
@@ -801,10 +856,11 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         }
     }
     
+    /// Moves the web view to the next highlighted match.
     @IBAction func goToNextSearchTerm(_ sender: Any) {
         webView.evaluateJavaScript("WKWebView_GoToNextSearchResult()") { [weak self] (result, error) in
             if let success = result as? Bool, success {
-                // Get updated search info
+                /// Get updated search info
                 self?.webView.evaluateJavaScript("WKWebView_GetSearchInfo()") { (infoResult, infoError) in
                     if let infoDict = infoResult as? [String: Any],
                        let currentPosition = infoDict["currentPosition"] as? Int {
@@ -819,19 +875,20 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     }
     
     
+    /// Presents the notes bottom sheet for the current page.
     @IBAction func viewNotesTapped(_ sender: Any) {
         _ = UIStoryboard(name: "Main", bundle: nil)
             
-            // If you're using storyboard, create the identifier in storyboard and uncomment this:
-            // let notesVC = storyboard.instantiateViewController(withIdentifier: "NotesBottomSheetViewController") as! NotesBottomSheetViewController
+            /// If you're using storyboard, create the identifier in storyboard and uncomment this:
+            /// let notesVC = storyboard.instantiateViewController(withIdentifier: "NotesBottomSheetViewController") as! NotesBottomSheetViewController
             
-            // If creating programmatically, use this:
+            /// If creating programmatically, use this:
             let notesVC = NotesBottomSheetViewController()
             
             notesVC.content = self.content
             notesVC.delegate = self
             
-            // Configure the presentation style for bottom sheet
+            /// Configure the presentation style for bottom sheet
         if #available(iOS 15.0, *) {
             if let sheet = notesVC.sheetPresentationController {
                 sheet.detents = [.medium(), .large()]
@@ -839,14 +896,15 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
                 sheet.preferredCornerRadius = 16
             }
         } else {
-            // Fallback on earlier versions
+            /// Fallback on earlier versions
         }
             
             present(notesVC, animated: true)
     }
     
 
-    //--------------------------------------------------------------------------------------------------
+    ///--------------------------------------------------------------------------------------------------
+    /// Opens the bookmark dialog to save or update a favorite.
     @IBAction func toggleFavorite(_ sender: UIButton){
         let windowScene = UIApplication.shared.connectedScenes.first as! UIWindowScene
         let sceneDelegate = windowScene.delegate as! SceneDelegate
@@ -866,19 +924,22 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         }
     }
     
-    //--------------------------------------------------------------------------------------------------
+    ///--------------------------------------------------------------------------------------------------
+    /// Creates a new note for this page.
     @IBAction func addNote(_ sender: UIButton){
         openNoteWindow(noteChosen: Notes())
     }
     
-    //--------------------------------------------------------------------------------------------------
+    ///--------------------------------------------------------------------------------------------------
+    /// Returns to the root screen.
     @IBAction func backToHomepage(_ sender: UIButton){
         navigationController?.popToRootViewController(animated: true)
     }
     
-    //--------------------------------------------------------------------------------------------------
+    ///--------------------------------------------------------------------------------------------------
+    /// Builds a Firebase Dynamic Link and presents the share sheet.
     @IBAction func shareContent(_ sender: UIButton){
-        // Add activity indicator if using short link
+        /// Add activity indicator if using short link
         
         var components = URLComponents()
         components.scheme = "https"
@@ -892,7 +953,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         guard let linkParameter = components.url else { return }
         print("I am sharing \(linkParameter.absoluteString)")
         
-        // Dynamic Link
+        /// Dynamic Link
         guard let shareLink = DynamicLinkComponents.init(link: linkParameter, domainURIPrefix: "https://apphatcherygatbreferenceguide.page.link") else {
             print("Couldn't create Dynamic Link Component")
             return
@@ -913,11 +974,11 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         print("The long dynamic link is \(longURL.absoluteString)")
 //        shareChapter(url: longURL)
         
-        // Sets a drawback because it's slow, so we might make it long and that's it
+        /// Sets a drawback because it's slow, so we might make it long and that's it
         shareLink.shorten { [weak self] url, warnings, error in
             if let error = error {
                 print("Got an error shortening the dynamic link \(error)")
-                // If for any reason the link shortening doesn't work, then send the long link URL
+                /// If for any reason the link shortening doesn't work, then send the long link URL
                 self?.shareChapter(url: longURL)
                 return
             }
@@ -934,19 +995,47 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         }
     }
     
+    /// Presents the share sheet and handles "copy link" feedback UI.
     func shareChapter(url: URL){
         // This is text to accompany the
 //        let promoText = "Check out this subchapter of the TB Reference Guide "
         let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+        
+        activityVC.completionWithItemsHandler = {
+            [weak self] activityType, completed, _, _ in
+            
+            guard completed, activityType == .copyToPasteboard else { return }
+            
+            if let windowScene = UIApplication.shared.connectedScenes
+                .filter({ $0.activationState == .foregroundActive })
+                .first as? UIWindowScene,
+               let window = windowScene.windows.first(
+                where: { $0.isKeyWindow
+                }) {
+                CustomPopUp
+                    .showTemporary(in: window, popupLabelText: "Link Copied")
+            } else {
+                let alert = UIAlertController(
+                    title: "Link Copied",
+                    message: nil,
+                    preferredStyle: .alert
+                )
+                
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self?.present(alert, animated: true)
+            }
+        }
         present(activityVC, animated: true)
     }
     
-    //--------------------------------------------------------------------------------------------------
+    ///--------------------------------------------------------------------------------------------------
+    /// Opens the font settings popover.
     @IBAction func fontSettings(_ sender: UIButton) {
         let popUpOverlay = FontSettingsView()
         popUpOverlay.displayPopUp(sender:self)
     }
     
+    /// Highlights terms in the web view without updating navigation counters.
     func highlightSearch(term: String) {
         var terms = term.split(separator: " ").map({String($0)})
         if !terms.contains(term) {terms.append(term)}
@@ -956,10 +1045,10 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
                 let data: Data = try Data(contentsOf: path)
                 let jsCode: String = String(decoding: data, as: UTF8.self)
                 
-                // Inject the search code
+                /// Inject the search code
                 webView.evaluateJavaScript(jsCode, completionHandler: nil)
                 
-                // Use navigation-enabled function for primary term
+                /// Use navigation-enabled function for primary term
                 let searchString = "WKWebView_HighlightAllOccurencesOfStringWithNavigation('\(terms[0])', true)"
                 webView.evaluateJavaScript(searchString) { [weak self] (result, error) in
                     if let count = result as? Int {
@@ -972,7 +1061,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
                     }
                 }
                 
-                // Highlight additional terms with original function
+                /// Highlight additional terms with original function
                 for i in 1..<terms.count {
                     let additionalSearchString = "WKWebView_HighlightAllOccurencesOfString('\(terms[i])', false)"
                     webView.evaluateJavaScript(additionalSearchString, completionHandler: nil)
@@ -984,6 +1073,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         }
     }
     
+    /// Clears all in-page highlight markers.
     func removeHighlights() {
         
         if let path = Bundle.main.url(forResource: "WebView", withExtension: "js") {
@@ -999,18 +1089,19 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         }
     }
     
-    //--------------------------------------------------------------------------------------------------
+    ///--------------------------------------------------------------------------------------------------
+    /// Injects CSS/JS, applies font scaling, and syncs search highlights after load.
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         if let urlHeader = webView.url?.absoluteString, urlHeader.hasPrefix("file:///"){
             
             let path = Bundle.main.path(forResource: "uikit", ofType: "css")!
-            // This converts a multiline string into a single file, the .whitespacesandNewlines doesn't work to do that job
+            /// This converts a multiline string into a single file, the .whitespacesandNewlines doesn't work to do that job
             let cssString = try! String(contentsOfFile: path).replacingOccurrences(of: "\n", with: "", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
             let jsString = "var style = document.createElement('style'); style.innerHTML = '\(cssString)'; document.head.appendChild(style);"
             
             let path2 = Bundle.main.path(forResource: "style", ofType: "css")!
             let cssString2 = try! String(contentsOfFile: path2).replacingOccurrences(of: "\n", with: "", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
-            // Could potentially replace this with just the link to the file rather than having to convert it to string, save some computational power
+            /// Could potentially replace this with just the link to the file rather than having to convert it to string, save some computational power
             let jsString2 = "var style2 = document.createElement('style'); style2.innerHTML = '\(cssString2)'; document.head.appendChild(style2);"
             
             let js3 = "var script2 = document.createElement('script'); script2.src = 'uikit-icons.js'; document.body.appendChild(script2);"
@@ -1021,28 +1112,28 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
                 self.webView.alpha = 1
             }
             
-            // Sync fontNumber from latest UserSettings before applying CSS
+            /// Sync fontNumber from latest UserSettings before applying CSS
             if let settings = realm?.object(ofType: UserSettings.self, forPrimaryKey: "savedSettings") {
                 userSettings = settings
                 fontNumber = settings.fontSize
             }
 
-            // Apply font size - this sets the text zoom
+            /// Apply font size - this sets the text zoom
             let textSize = fontNumber >= 75 ? fontNumber : 100
             let javascript = "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '\(textSize)%'"
             webView.evaluateJavaScript(javascript) { (response, error) in
                 print()
             }
             
-            // AUTO-EXPAND TOGGLES WHEN COMING FROM SEARCH
+            /// AUTO-EXPAND TOGGLES WHEN COMING FROM SEARCH
             expandAllToggles()
             
             if let searchTerm = searchTerm, comingFromSearch {
-                // Use exact current text if available
+                /// Use exact current text if available
                 let term = (self.search.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false) ? (self.search.text ?? searchTerm) : searchTerm
                 self.highlightSearchWithCount(term: term)
 
-                // Direct, immediate call to jump to first result (no delay)
+                /// Direct, immediate call to jump to first result (no delay)
                 self.webView.evaluateJavaScript("WKWebView_GetSearchInfo()") { [weak self] (infoResult, infoError) in
                     guard let self = self else { return }
                     if let infoDict = infoResult as? [String: Any], let total = infoDict["totalResults"] as? Int {
@@ -1058,7 +1149,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
                             self.updateSearchResultsDisplay()
                         }
                     } else {
-                        // Fallback: still try to move to first result
+                        /// Fallback: still try to move to first result
                         self.webView.evaluateJavaScript("WKWebView_GoToNextSearchResult()", completionHandler: nil)
                         self.currentSearchResultIndex = max(1, self.currentSearchResultIndex)
                         self.searchNavStackView.isHidden = false
@@ -1078,11 +1169,31 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         }
     }
     
+    /// Receives JS events (e.g., info icon taps) for analytics tracking.
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        guard message.name == "infoIconTapped" else { return }
+        let tooltip: String = {
+            if let dict = message.body as? [String: Any],
+               let value = dict["tooltip"] as? String {
+                return value
+            }
+            return ""
+        }()
         
+        PendoManager.shared().track("infoIconTapped", properties: [
+            "page_url": uniqueAddress ?? "",
+            "page_title": navTitle,
+            "tooltip": tooltip
+        ])
+        print("Pendo infoIconTapped:", [
+            "page_url": uniqueAddress ?? "",
+            "page_title": navTitle,
+            "tooltip": tooltip
+        ])
     }
     
-    //--------------------------------------------------------------------------------------------------
+    ///--------------------------------------------------------------------------------------------------
+    /// Lays out the web view inside the content container.
     func setupUI() {
         guard contentView != nil, webView != nil else { return }
 //        self.view.backgroundColor = .white
@@ -1103,7 +1214,8 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
          
     }
     
-    //--------------------------------------------------------------------------------------------------
+    ///--------------------------------------------------------------------------------------------------
+    /// Persists a bookmark name and updates UI/analytics.
     func didSaveName( _ name: String)
     {
         let bookmarkedText = NSAttributedString(
@@ -1114,13 +1226,19 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             ]
         )
         
-        // let realm = try! Realm()
+        /// let realm = try! Realm()
         
-        RealmHelper.sharedInstance.update(content, properties: [
+        let trimmedParent = content.chapterParent.trimmingCharacters(in: .whitespacesAndNewlines)
+        var updateProperties: [String: Any] = [
             "favoriteName": name,
             "favorite": true
-        ]) { [weak self] updated in
-            //
+        ]
+        if trimmedParent.isEmpty, let resolvedParent = resolvedChapterParentForBookmark(for: uniqueAddress) {
+            updateProperties["chapterParent"] = resolvedParent
+        }
+
+        RealmHelper.sharedInstance.update(content, properties: updateProperties) { [weak self] updated in
+            ///
             self?.favoriteIcon.setImage(UIImage(named: "icBookmarksFolderColored"), for: .normal)
             self?.favoriteIcon.setAttributedTitle(bookmarkedText, for: .normal)
             
@@ -1148,7 +1266,30 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         ])
     }
     
-    //--------------------------------------------------------------------------------------------------
+    /// Resolves the parent chapter title for a bookmark (charts and chapters).
+    private func resolvedChapterParentForBookmark(for slug: String?) -> String? {
+        guard let slug = slug, !slug.isEmpty else { return nil }
+        let baseSlug = slug.components(separatedBy: "#").first ?? slug
+
+        let chartCodes = Array(chapterIndex.chartCode.joined())
+        if let idx = chartCodes.firstIndex(of: baseSlug) {
+            let chartNested = Array(chapterIndex.chartNested.joined())
+            if chartNested.indices.contains(idx) {
+                return chartNested[idx]
+            }
+        }
+
+        let chapterCodes = Array(chapterIndex.chapterCode.joined())
+        if let idx = chapterCodes.firstIndex(of: baseSlug),
+           chapterIndex.chaptermapsubchapternested.indices.contains(idx) {
+            return chapterIndex.chaptermapsubchapternested[idx]
+        }
+
+        return nil
+    }
+    
+    ///--------------------------------------------------------------------------------------------------
+    /// Confirms and deletes an existing favorite.
     func didRemoveFavorite() {
         let windowScene = UIApplication.shared.connectedScenes.first as! UIWindowScene
         let sceneDelegate = windowScene.delegate as! SceneDelegate
@@ -1162,7 +1303,8 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         }
     }
     
-    //--------------------------------------------------------------------------------------------------
+    ///--------------------------------------------------------------------------------------------------
+    /// Saves or updates a note tied to the current page.
     func didSaveNote(_ note: Notes) {
         let formatter = DateFormatter()
         formatter.dateFormat = "MM/dd/YYYY"
@@ -1174,7 +1316,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
                 "lastEdited": formatter.string(from: Date()),
                 "subChapterName": titlelabel
             ]) { updated in
-                //
+                ///
                 RealmHelper.sharedInstance.appendNote(self.content, property: self.content.notes, itemToAppend: self.note) { appended in
                     print("appended the note properly?")
                 }
@@ -1186,11 +1328,12 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
                 "lastEdited": formatter.string(from: Date()),
                 "subChapterName": titlelabel
             ]) { updated in
-                //
+                ///
             }
         }
     }
     
+    /// Saves a note and optionally submits it as feedback.
     func didSaveNote(_ note: Notes, shouldSubmitAsFeedback: Bool) {
         let formatter = DateFormatter()
         formatter.dateFormat = "MM/dd/YYYY"
@@ -1210,7 +1353,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
                 
                 self.updateNotesButton()
                 
-                // Track note save with feedback flag
+                /// Track note save with feedback flag
                 PendoManager.shared().track("user_feedback_submitted", properties: [
                     "page_url": self.uniqueAddress ?? "",
                     "page_title": self.titlelabel
@@ -1231,6 +1374,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         }
     }
     
+    /// Tracks feedback submission and shows confirmation UI.
     private func submitNoteAsFeedback(_ note: Notes) {
         PendoManager.shared().track("user_feedback_submitted", properties: [
             "feedback_content": note.content,
@@ -1247,7 +1391,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             NoteSavedPopUp.show(in: window, delegate: self)
         }
         
-        // Track Firebase analytics as well
+        /// Track Firebase analytics as well
         Analytics.logEvent("feedback_submitted", parameters: [
             "page": uniqueAddress as String,
             "content_length": note.content.count,
@@ -1255,7 +1399,8 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         ])
     }
     
-    //--------------------------------------------------------------------------------------------------
+    ///--------------------------------------------------------------------------------------------------
+    /// Deletes a note and updates the notes badge UI.
     func didDeleteNote(_ note: Notes) {
         RealmHelper.sharedInstance.delete(note) { [weak self] deleted in
             self?.updateNotesButton()
@@ -1263,7 +1408,8 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     }
     
     
-    //--------------------------------------------------------------------------------------------------
+    ///--------------------------------------------------------------------------------------------------
+    /// Passes sizing info when navigating to search.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if let searchViewController = segue.destination as? SearchViewController
@@ -1272,7 +1418,8 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         }
     }
     
-    //--------------------------------------------------------------------------------------------------
+    ///--------------------------------------------------------------------------------------------------
+    /// Collapses and removes the embedded table view UI.
     func removeTable()
     {
         UIView.animate(withDuration: 0.3, delay: 0.01, options: .curveLinear, animations: {
@@ -1288,6 +1435,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         })
     }
     
+    /// Presents the note editor overlay for a new or existing note.
     func openNoteWindow(noteChosen: Notes)
     {
         let windowScene = UIApplication.shared.connectedScenes.first as! UIWindowScene
@@ -1295,8 +1443,8 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         
         if let window = sceneDelegate.window
         {
-            // Need to feed in here the note that you tap on, otherwise feed in a totally new note
-            // Look at the sender, either the UIButton or the UITableViewCell
+            /// Need to feed in here the note that you tap on, otherwise feed in a totally new note
+            /// Look at the sender, either the UIButton or the UITableViewCell
             addNoteDialogView = SaveNote( frame: window.bounds, content: content, oldNote: noteChosen, delegate: self )
             note = noteChosen
             addNoteDialogView.contentView.transform = CGAffineTransform( scaleX: 0, y: 0 )
@@ -1323,6 +1471,7 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         }
     }
     
+    /// Presents the feedback form overlay for the current page.
     func openFeedbackWindow(parent: String, title: String)
     {
         let windowScene = UIApplication.shared.connectedScenes.first as! UIWindowScene
@@ -1330,8 +1479,8 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         
         if let window = sceneDelegate.window
         {
-            // Need to feed in here the note that you tap on, otherwise feed-in a totally new note
-            // Look at the sender, either the UIButton or the UITableViewCell
+            /// Need to feed in here the note that you tap on, otherwise feed-in a totally new note
+            /// Look at the sender, either the UIButton or the UITableViewCell
             addFeedbackDialogView = FeedbackForm( frame: window.bounds, parent: parent, title: title )
             
             addFeedbackDialogView.contentView.transform = CGAffineTransform( scaleX: 0, y: 0 )
@@ -1343,19 +1492,22 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
                 self.addFeedbackDialogView.overlayView.alpha = 0.5
                 self.addFeedbackDialogView.contentView.transform = CGAffineTransform( scaleX: 1.0, y: 1.0 )
             }, completion: { (value: Bool) in
-                // Load the correct button sizes and shapes
+                /// Load the correct button sizes and shapes
             })
         }
     }
     
+    /// Routes from popups to the bookmarks screen.
     func didTapVisitBookmarks() {
         self.performSegue(withIdentifier: "segueFromWebToBookmarks", sender: nil)
     }
     
+    /// Routes from popups to the settings screen.
     func didTapVisitSettings() {
         self.performSegue(withIdentifier: "segueFromWebToSettings", sender: nil)
     }
     
+    /// Removes bookmark metadata and shows a temporary confirmation.
     func didTapDeleteBookmark(for url: String?) {
         let bookmarkText = NSAttributedString(
             string: "Bookmark",
@@ -1379,17 +1531,18 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
                        let sceneDelegate = windowScene.delegate as? SceneDelegate,
                        let window = sceneDelegate.window {
                         
-                        CustomPopUp.showTemporary(
-                            in: window,
-                            popupLabelText: "Bookmark \(deletedBookmarkName) deleted!",
-                            isBookmark: true,
-                            bookmarkName: deletedBookmarkName,
-                            duration: 2.0
-                        )
-                    }
+                CustomPopUp.showTemporary(
+                    in: window,
+                    popupLabelText: "Bookmark \(deletedBookmarkName) deleted!",
+                    isBookmark: true,
+                    bookmarkName: deletedBookmarkName,
+                    duration: 1.5
+                )
+            }
         }
     }
 
+    /// Auto-expands accordion toggles in HTML content.
     private func expandAllToggles() {
         let expandTogglesJS = """
         (function() {
@@ -1404,13 +1557,15 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     
     
     
-    //--------------------------------------------------------------------------------------------------
+    ///--------------------------------------------------------------------------------------------------
+    /// Dismisses the keyboard from the note editor.
     @objc func dismissKeyboard() {
-        // To hide the keyboard when the user clicks search
+        /// To hide the keyboard when the user clicks search
         self.addNoteDialogView.endEditing(true)
     }
 }
 
+// Convenience additions for WebViewViewController.
 extension WebViewViewController: UISearchBarDelegate {
 //    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
 //        guard let searchText = searchBar.text, !searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
@@ -1430,11 +1585,12 @@ extension WebViewViewController: UISearchBarDelegate {
 //        removeHighlights()
 //    }
     
+    /// Debounces in-page search and animates the search navigation UI.
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-            // Cancel any existing timer
+            /// Cancel any existing timer
             searchTimer?.invalidate()
             
-            // Clear highlights if search text is empty
+            /// Clear highlights if search text is empty
             if searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                 removeHighlights()
                 
@@ -1446,7 +1602,7 @@ extension WebViewViewController: UISearchBarDelegate {
                     self.searchNavStackView.transform = .identity
                     self.searchNavStackView.alpha = 1
                     
-                    // Animate the parent stack view layout change
+                    /// Animate the parent stack view layout change
                     UIView.animate(withDuration: 0.2, delay: 0) {
                         self.view.layoutIfNeeded() // or self.parentStackView.layoutIfNeeded() if you have a reference
                     }
@@ -1455,19 +1611,19 @@ extension WebViewViewController: UISearchBarDelegate {
                 return
             }
 
-            // Check if searchNavStackView is already visible - if so, don't animate it in again
+            /// Check if searchNavStackView is already visible - if so, don't animate it in again
             let shouldAnimateIn = searchNavStackView.isHidden
             
-            // Set up a new timer to delay the search (debounce)
+            /// Set up a new timer to delay the search (debounce)
             searchTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { [weak self] _ in
                 guard let self = self else { return }
                 
                 let current = self.search.text ?? ""
                 self.performRealTimeSearch(term: current)
                 
-                // Only animate in if it's currently hidden
+                /// Only animate in if it's currently hidden
                 if shouldAnimateIn {
-                    // Prepare for right-to-left animation
+                    /// Prepare for right-to-left animation
                     self.searchNavStackView.transform = CGAffineTransform(translationX: self.searchNavStackView.frame.width, y: 0)
                     self.searchNavStackView.alpha = 0
                     self.searchNavStackView.isHidden = false
@@ -1481,6 +1637,7 @@ extension WebViewViewController: UISearchBarDelegate {
             }
         }
         
+        /// Executes a full search when the user presses Search.
         func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
             guard let current = searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines), !current.isEmpty else { return }
             searchTimer?.invalidate()
@@ -1488,6 +1645,7 @@ extension WebViewViewController: UISearchBarDelegate {
             searchBar.resignFirstResponder()
         }
         
+        /// Clears search state and highlights when canceling.
         func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
             searchBar.text = ""
             searchBar.resignFirstResponder()
@@ -1495,7 +1653,8 @@ extension WebViewViewController: UISearchBarDelegate {
             removeHighlights()
         }
         
-        // Method for real-time search with lighter operations
+        /// Method for real-time search with lighter operations
+    /// Lightweight search used during typing to keep UI responsive.
     private func performRealTimeSearch(term: String) {
         let trimmed = term.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else {
@@ -1530,27 +1689,29 @@ extension WebViewViewController: UISearchBarDelegate {
         }
     }
     
+    /// Opens the editor for a note selected from the notes sheet.
     func didSelectNote(_ note: Notes) {
-        // This will open the note editing window when a note is selected
+        /// This will open the note editing window when a note is selected
         if let selectedNote = realm!.object(ofType: Notes.self, forPrimaryKey: note.id) {
             openNoteWindow(noteChosen: selectedNote)
         }
     }
     
+    /// Updates the notes badge count with simple show/hide animation.
     func updateNotesButton() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             let count = self.content?.notes.count ?? 0
             
             if count <= 0 {
-                // Animate fade out and scale down
+                /// Animate fade out and scale down
                 UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
                     self.viewNotesButton.alpha = 0
                     self.viewNotesButton.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
                 }, completion: { _ in
                     self.viewNotesButton.isHidden = true
                     self.viewNotesButton.setTitle("(0)", for: .normal)
-                    // Reset transform for next time it appears
+                    /// Reset transform for next time it appears
                     self.viewNotesButton.transform = .identity
                 })
             } else {
@@ -1561,14 +1722,14 @@ extension WebViewViewController: UISearchBarDelegate {
                         .replacingOccurrences(of: ")", with: "") ?? "0"
                 ) ?? 0
                 
-                // If button is hidden, show it first
+                /// If button is hidden, show it first
                 if self.viewNotesButton.isHidden {
                     self.viewNotesButton.isHidden = false
                     self.viewNotesButton.alpha = 0
                     self.viewNotesButton.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
                 }
                 
-                // Animate the count change with a pop effect
+                /// Animate the count change with a pop effect
                 UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseOut, animations: {
                     self.viewNotesButton.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
                     self.viewNotesButton.alpha = 1
@@ -1583,4 +1744,3 @@ extension WebViewViewController: UISearchBarDelegate {
         }
     }
 }
-
