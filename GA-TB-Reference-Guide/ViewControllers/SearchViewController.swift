@@ -521,29 +521,29 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 	/// 
 	/// This method handles the "Charts" tab functionality:
 	/// 
-	### State Changes:
+	/// ### State Changes:
 	/// - showAll = false, showChapters = false, showCharts = true
 	/// - Updates results to display charts only
 	/// - Sets tab button to active state
 	/// 
-	### Content Filtering:
+	/// ### Content Filtering:
 	/// - Includes tables, figures, and reference materials
 	/// - Uses chartResults array (filtered during search)
 	/// - Maintains result ordering from original search
 	/// 
-	### Chart Content Types:
+	/// ### Chart Content Types:
 	/// - Tables with "Table X:" prefix
 	/// - Figures with "Figure X." prefix
 	/// - Reference materials and appendices
 	/// - Visual aids and supplementary content
 	/// 
-	### UI Updates:
+	/// ### UI Updates:
 	/// 1. **Loading State**: Shows loader during transition
 	/// 2. **Results Update**: Switches to chartResults array
 	/// 3. **Tab Styling**: Activates "Charts" button, deactivates others
 	/// 4. **Count Display**: Updates result count for charts only
 	/// 
-	### Visual Differentiation:
+	/// ### Visual Differentiation:
 	/// - Chart results show green icons instead of blue
 	/// - Table/figure prefixes are preserved in titles
 	/// - Different metadata mapping (chartmapsubchapter vs chaptermapsubchapter)
