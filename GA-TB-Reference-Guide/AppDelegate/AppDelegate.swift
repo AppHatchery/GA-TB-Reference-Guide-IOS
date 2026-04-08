@@ -37,12 +37,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         else {
             // Generate Visitor ID Upon Initial Launch
             if UserDefaults.standard.string(forKey: "visitorId") == nil {
-                let visitorId = "Oct-25-\(UUID())"
+                let visitorId = "Apr-26-\(UUID())"
                 UserDefaults.standard.set(visitorId, forKey: "visitorId")
             }
         }
         
-        let accountId = "Test"
+//        let accountId = "Test"
+        let accountId = "GTRG"
         
         if let visitorId = UserDefaults.standard.string(forKey: "visitorId") {
             // Use visitorID in your Pendo initialization code here
