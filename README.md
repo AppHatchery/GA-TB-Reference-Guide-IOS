@@ -165,7 +165,7 @@ When you need to add new migration mappings for content changes:
 
 1. **Open** `GA-TB-Reference-Guide/Managers/FileToOpenCheckers.swift`
 2. **Locate** the `resolvedSlug(for slug: String) -> String` function
-3. **Add** new if-else conditions following the existing pattern:
+3. **Add** new if-else conditions following the existing pattern (we know, it's not the most optimal way but we plan on finding a better solution):
 
    ```swift
    } else if slug == "old_slug_name" {

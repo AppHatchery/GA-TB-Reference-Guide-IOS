@@ -12,6 +12,40 @@ import FirebaseAnalytics
 import FirebaseDynamicLinks
 import Pendo
 
+// MARK: - WebViewViewController Documentation
+//
+// ## Key Responsibilities:
+//
+// ## Key Components:
+//
+// ### WebView Configuration:
+// - Custom WKWebView with JavaScript message handlers
+// - Info icon click detection and tooltip display
+// - Dynamic CSS injection for font scaling and icon sizing
+// - Content loading and error handling
+//
+// ### UI Elements:
+// - Search bar with in-page search functionality
+// - Bookmark button with state management
+// - Notes button with count display
+// - Navigation bar with dynamic title configuration
+//
+// ### Integration Points:
+// - Migrations.swift: Handles URL resolution for migrated content
+// - ChapterIndex.swift: Provides content metadata and navigation structure
+// - Realm database: Persists user data and content access
+//
+// ## Gotchas and Important Notes:
+//
+// ### URL Handling:
+// - Internal links use custom navigation to stay within the app
+// - External links require user confirmation before opening in Safari
+// - Anchor links within the same page are handled differently than cross-page links
+// - Migration paths must be considered for legacy bookmark URLs
+//
+// ### Performance Considerations:
+// - Font scaling requires WebView reload with fade animation
+//
 /// WebViewViewController manages the Web View screen UI and interactions.
 class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, SaveFavoriteDelegate, SaveNoteDelegate, WKScriptMessageHandler, NotesBottomSheetDelegate, BookmarkSavedPopUpDelegate, NoteSavedPopUpDelegate,
     DeleteConfirmationPopUpDelegate {
@@ -96,10 +130,31 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     var currentSearchResultIndex = 0
     var totalSearchResults = 0
     
-    /// Builds the web view experience:
-    /// - Configures search UI visibility
-    /// - Creates a WKWebView with JS hooks for info icons
-    /// - Loads content and sets up analytics/user settings
+    /// Primary setup method that configures the entire web view experience
+    /// 
+    /// This method orchestrates the complete initialization of the content display:
+    /// 
+    /// ### Setup Sequence:
+    /// 1. **Search UI Configuration**: Shows/hides search bar based on navigation context
+    /// 2. **WebView Creation**: Configures WKWebView with JavaScript message handlers for info icons
+    /// 3. **Content Loading**: Loads the specified URL and sets up metadata
+    /// 4. **User Settings**: Retrieves or creates user preferences for font size
+    /// 5. **Analytics Integration**: Logs page views and tracks user interactions
+    /// 6. **UI State**: Configures bookmark/notes buttons and navigation styling
+    /// 
+    /// ### JavaScript Integration:
+    /// - Injects info icon click detection script
+    /// - Sets up message handlers for tooltip display
+    /// - Handles cross-page navigation and anchor links
+    /// 
+    /// ### Important Notes:
+    /// - Special handling for coordinator appendix
+    /// - Search bar visibility depends on `comingFromSearch` flag
+    /// - Font size is loaded from UserSettings or defaults to 100%
+    /// - Notes button shows count of existing notes for the content
+    /// 
+    /// - Warning: WebView configuration must happen before content loading
+    /// - Warning: Analytics logging should use uniqueAddress for accurate tracking
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -195,10 +250,29 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         webView.load( URLRequest( url: url ))
     }
     
-    /// Added private helper to safely fetch or create UserSettings
-    /// Fetches UserSettings from Realm or creates a default record:
-    /// - Optionally writes the provided font size
-    /// - Always returns a persisted settings object when possible
+    /// Safely retrieves or creates UserSettings with optional font size update
+    /// 
+    /// This method provides a centralized way to manage user preferences:
+    /// 
+    /// ### Behavior:
+    /// 1. **Existing Settings**: Updates font size if provided, returns existing object
+    /// 2. **New Settings**: Creates default UserSettings with optional font size
+    /// 3. **Error Handling**: Returns nil if Realm operations fail
+    /// 
+    /// ### Font Size Management:
+    /// - Persists font size changes immediately
+    /// - Uses "savedSettings" as primary key for consistency
+    /// - Handles write failures gracefully with error logging
+    /// 
+    /// ### Usage Context:
+    /// - Called during viewDidLoad to load user preferences
+    /// - Used during font size changes to persist new values
+    /// - Provides fallback when settings are corrupted or missing
+    /// 
+    /// - Parameter fontSize: Optional font size to persist (0-200 range typical)
+    /// - Returns: UserSettings object or nil if Realm operations fail
+    /// 
+    /// - Note: Font size changes are written immediately, not deferred
     private func getOrCreateUserSettings(with fontSize: Int? = nil) -> UserSettings? {
         guard let realm = realm else { return nil }
         if let existing = realm.object(ofType: UserSettings.self, forPrimaryKey: "savedSettings") {
@@ -254,9 +328,30 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
             .setClearButton(UIImage(named: "icClear"), tintColor: UIColor.colorPrimary)
     }
     
-    /// Responds to font size changes:
-    /// - Persists the new value
-    /// - Reloads the web view so CSS/JS scaling can be reapplied
+    /// Handles font size change notifications from settings or user actions
+    /// 
+    /// This method responds to font size changes and updates the display:
+    /// 
+    /// ### Update Process:
+    /// 1. **Persistence**: Saves new font size to UserSettings immediately
+    /// 2. **UI Update**: Applies fade animation during WebView reload
+    /// 3. **Content Refresh**: Reloads WebView to apply new CSS scaling
+    /// 4. **Icon Scaling**: Triggers JavaScript injection for icon resizing
+    /// 
+    /// ### Animation Details:
+    /// - WebView fades out (0.2s duration)
+    /// - Content reloads with new font size
+    /// - WebView fades back in automatically
+    /// 
+    /// ### Performance Considerations:
+    /// - Reload is necessary for CSS media queries to take effect
+    /// - Animation prevents visual flickering during reload
+    /// - JavaScript injection happens after content loads
+    /// 
+    /// - Parameter notification: Contains "fontSize" key with new value (Int)
+    /// 
+    /// - Warning: WebView must be non-nil before attempting reload
+    /// - Note: Font size range should be validated before calling this method
     @objc func fontSizeChanged(_ notification: Notification) {
         if let userInfo = notification.userInfo, let newFontSize = userInfo["fontSize"] as? Int {
             fontNumber = newFontSize
@@ -278,9 +373,36 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         }
     }
     
-    /// Scales chapter icons and decorative paragraph lines to match text zoom:
-    /// - Injects CSS variables and override rules
-    /// - Tags relevant SVGs so only chapter icons are resized
+    /// Applies dynamic scaling to chapter icons and paragraph decorations
+    /// 
+    /// This method ensures visual elements scale proportionally with text size:
+    /// 
+    /// ### Scaling Targets:
+    /// 1. **Chapter Icons**: SVG icons (ic_chapter.svg) resize with font percentage
+    /// 2. **Paragraph Lines**: Decorative lines for .uk-paragraph class elements
+    /// 3. **CSS Variables**: Sets --chapter-icon-size for responsive scaling
+    /// 
+    /// ### Scaling Logic:
+    /// - Uses 125% as baseline (matches Android implementation)
+    /// - Calculates scale factor: `fontSize / 125.0`
+    /// - Applies scaling to width, height, and positioning
+    /// 
+    /// ### JavaScript Injection Strategy:
+    /// 1. **CSS Variables**: Sets root-level CSS custom properties
+    /// 2. **Class Tagging**: Adds .ic_chapter_icon class to relevant images
+    /// 3. **Override Rules**: Injects !important CSS for guaranteed application
+    /// 4. **Inline Styles**: Fallback sizing for pages without external CSS
+    /// 5. **Paragraph Styling**: Scales decorative lines proportionally
+    /// 
+    /// ### Performance Notes:
+    /// - Multiple JavaScript calls are executed with slight delays
+    /// - DOM readiness is ensured before injection
+    /// - Error handling prevents complete failure on individual script errors
+    /// 
+    /// - Parameter fontSize: Target font size percentage (typically 50-200)
+    /// 
+    /// - Important: Must be called after WebView content loads completely
+    /// - Note: Scaling is cumulative with existing CSS sizing
     private func applyIconAndParagraphScaling(fontSize: Int) {
         /// Compute scale factor relative to 125% baseline (matching Android)
         let scaleFactor = Double(fontSize) / 125.0
@@ -643,10 +765,47 @@ class WebViewViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     }
     
     /// This function is just preventing the within the app pages to move to the web links because there is no new page that we need to call the goBack() function from
-    /// Routes web navigation for internal files vs. external links:
-    /// - Allows anchor jumps within the same file
-    /// - Cancels and pushes for new in-app pages
-    /// - Prompts before opening external URLs
+    /// Central navigation policy handler for all WebView navigation requests
+    /// 
+    /// This method is the gatekeeper for all link navigation within the WebView:
+    /// 
+    /// ### Navigation Types Handled:
+    /// 
+    /// **1. Initial Page Load (.other/.reload)**:
+    /// - Always allowed for initial content loading
+    /// - No user interaction required
+    /// 
+    /// **2. Internal App Links (file:// URLs)**:
+    /// - Extracts filename from app bundle path
+    /// - Distinguishes between anchor links and cross-page navigation
+    /// - Anchor links within same page: Allow navigation (scroll to position)
+    /// - Cross-page links: Cancel WebView navigation, push new controller
+    /// 
+    /// **3. External Links (.linkActivated)**:
+    /// - Shows confirmation dialog before opening in Safari
+    /// - Prevents accidental external navigation
+    /// - Maintains user within app ecosystem by default
+    /// 
+    /// ### Cross-Page Navigation Process:
+    /// 1. Cancel WebView's default navigation
+    /// 2. Extract target filename from URL
+    /// 3. Look up content metadata in ChapterIndex
+    /// 4. Create new WebViewViewController with proper configuration
+    /// 5. Handle anchor links if present (scroll to specific section)
+    /// 6. Push new controller onto navigation stack
+    /// 
+    /// ### Security Considerations:
+    /// - All external links require explicit user confirmation
+    /// - Internal links are validated against known content
+    /// - Malformed URLs are safely handled with fallback behavior
+    /// 
+    /// - Parameters:
+    ///   - webView: The WebView making the navigation request
+    ///   - navigationAction: Contains navigation details and target URL
+    ///   - decisionHandler: Callback to allow or cancel navigation
+    /// 
+    /// - Warning: Always call decisionHandler exactly once
+    /// - Note: This method is called for every navigation attempt
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         
         guard let url = navigationAction.request.url else {

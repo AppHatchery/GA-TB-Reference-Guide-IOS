@@ -10,6 +10,59 @@ import Foundation
 import FirebaseAnalytics
 import Pendo
 
+// MARK: - SearchViewController Documentation
+//
+// ## Key Responsibilities:
+//
+// ### Content Indexing:
+// - Loads and normalizes HTML content from bundled resources
+// - Strips HTML tags for plain-text search matching
+// - Handles special cases like downloaded TB coordinator content
+// - Maintains separate arrays for chapters, charts, and combined content
+//
+// ### Data Management:
+// - Persists recent searches using Realm database
+// - Tracks search analytics and user behavior
+// - Manages content metadata from ChapterIndex
+// - Handles large content arrays efficiently
+//
+// ## Gotchas and Important Notes:
+//
+// ### Performance Considerations:
+// - Large HTML content can impact search performance
+// - Content loading happens synchronously in viewDidLoad
+// - Search debouncing prevents excessive UI updates
+// - Memory usage can be high with full content indexing
+//
+// ### Content Handling:
+// - Downloaded TB coordinator content requires special handling
+// - HTML stripping uses regex which may not handle all edge cases
+// - Content arrays must stay synchronized with ChapterIndex
+// - Figure and table filtering uses regex patterns
+//
+// ### UI State Management:
+// - Multiple table views require careful state coordination
+// - Tab switching needs result filtering and UI updates
+// - Keyboard dismissal must handle multiple interaction scenarios
+// - Loading states need proper timing to avoid UI glitches
+//
+// ### Data Integrity:
+// - Recent searches must be properly managed to avoid duplicates
+// - Content indexing should handle missing or corrupted files
+// - Result mapping back to content metadata must be accurate
+// - Search term persistence should handle special characters
+//
+// ### Search Algorithm:
+// - Simple substring matching (no full-text search indexing)
+// - Case-insensitive search across normalized content
+// - Snippet generation provides context around matches
+// - No relevance ranking or advanced search features
+//
+// ### Search Result Types:
+// - **Chapters**: Full chapter content and subchapters
+// - **Charts**: Tables, figures, and reference materials
+// - **Combined**: All content types mixed together
+//
 /// SearchViewController manages the Search screen UI and interactions.
 class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
     
@@ -84,10 +137,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         }
     }
     
-    /// Builds the search UI and prepares data:
-    /// - Styles the search bar
-    /// - Loads/normalizes HTML content into search arrays
-    /// - Sets up tables and initial suggestion state
+    /// - Important: loadHTML() must complete before search functionality works
+    /// - Note: Search bar focus behavior depends on viewWillAppear
+    /// - Warning: Content loading may cause brief UI freeze on large content sets
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -154,12 +206,36 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         self.view.addGestureRecognizer(tap)
     }
     
-	/// Loads and normalizes chapter/chart HTML content into in-memory arrays:
-	/// - Reads bundled HTML (or downloaded coordinator appendix when present)
-	/// - Strips tags/whitespace for plain-text search matching
-	/// - Builds separate arrays for all content, chapters only, and charts only
+	/// Loads and normalizes all HTML content for search indexing
+	/// 
+	/// This critical method builds the in-memory search database:
+	/// 
+	/// ### Content Loading Process:
+	/// 1. **Special Case Handling**: Checks for downloaded TB coordinator appendix
+	/// 2. **HTML Normalization**: Strips tags and normalizes whitespace
+	/// 3. **Content Categorization**: Separates chapters, charts, and combined content
+	/// 4. **Array Population**: Builds search arrays with normalized text
+	/// 
+	/// ### Content Categories:
+	/// - **tempHTML**: All content (chapters + charts) for "All" tab
+	/// - **tempChaptersHTML**: Chapters only for "Chapters" tab
+	/// - **tempChartsHTML**: Charts only for "Charts" tab
+	/// 
+	/// ### Special Handling:
+	/// - **TB Coordinator Appendix**: Uses downloaded content if available
+	/// - **Regex Filtering**: Excludes tables/figures from chapters-only array
+	/// - **Error Fallback**: Graceful degradation if file loading fails
+	/// 
+	/// ### Content Sources:
+	/// - Bundle resources for standard content
+	/// - Documents directory for downloaded coordinator data
+	/// - ChapterIndex provides content structure and metadata
+	/// 
+	/// - Important: Must be called in viewDidLoad to initialize search
+	/// - Note: Content arrays must stay synchronized with ChapterIndex
+	/// - Warning: Large content sets may impact search performance
 	func loadHTML() {
-			/// Load the htmls on the array - needs to be on viewDidLoad otherwise it duplicates the content
+			/// ⚠️ Load the htmls on the array - needs to be on viewDidLoad otherwise it duplicates the content
 		let filename = "15_appendix_district_tb_coordinators_(by_district).html"
 		let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
 		let downloadedTbCoordinatorPath = documentsPath.appendingPathComponent(filename)
@@ -325,8 +401,36 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 	///----------------------------------------------------------------------------------------------
 	/// Search Tabs Implementation
 	
-	/// Applies active/inactive styling to a search tab button
-	/// without triggering implicit animations.
+	/// Applies visual styling to search tab buttons with animation prevention
+	/// 
+	/// This method handles the visual state of tab buttons:
+	/// 
+	/// ### Styling States:
+	/// **Active Tab**:
+	/// - Background color: Primary color (.colorPrimary)
+	/// - Text color: White (.colorWhite)
+	/// - Tint color: White
+	/// 
+	/// **Inactive Tab**:
+	/// - Background color: Secondary background (.colorBackgroundSecondary)
+	/// - Text color: Default text (.colorText)
+	/// - Tint color: Default text
+	/// 
+	/// ### Animation Prevention:
+	/// - Uses UIView.performWithoutAnimation to prevent implicit animations
+	/// - Calls layoutIfNeeded() to ensure immediate visual update
+	/// - Maintains button enabled state for user interaction
+	/// 
+	/// ### Usage Context:
+	/// - Called during tab switching to update visual states
+	/// - Used by configureTabs() to style all tabs consistently
+	/// - Prevents jarring animations during rapid tab switching
+	/// 
+	/// - Parameters:
+	///   - button: The tab button to style
+	///   - isActive: Whether the button should appear active/selected
+	/// 
+	/// - Note: This method only handles visual styling, not logic
 	private func activeTabConfig(_ button: UIButton, isActive: Bool) {
 		UIView.performWithoutAnimation {
 			button.backgroundColor = isActive ? .colorPrimary : .colorBackgroundSecondary
@@ -344,7 +448,28 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 		searchReturns.text = results.count == 1 ?  "\(results.count) result in" :  "\(results.count) results in"
 	}
 	
-	/// Shows combined chapter+chart results and updates tab state.
+	/// Displays all search results (chapters + charts) and updates UI state
+	/// 
+	/// This method handles the "All" tab functionality:
+	/// 
+	/// ### State Changes:
+	/// - showAll = true, showChapters = false, showCharts = false
+	/// - Updates results to display combined content
+	/// - Sets tab button to active state
+	/// 
+	/// ### UI Updates:
+	/// 1. **Loading State**: Shows loader during transition
+	/// 2. **Results Update**: Switches to allSearchResultsCache
+	/// 3. **Tab Styling**: Activates "All" button, deactivates others
+	/// 4. **Count Display**: Updates result count label
+	/// 
+	/// ### Performance Considerations:
+	/// - Uses cached results to avoid re-searching content
+	/// - Loader provides visual feedback during UI updates
+	/// - Tab switching is debounced to prevent rapid state changes
+	/// 
+	/// - Important: allSearchResultsCache must be populated by search
+	/// - Note: This is the default search state when no filters are applied
 	@objc private func showAllChapters() {
 		showAll = true
 		showChapters = false
@@ -355,7 +480,33 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 		}
 	}
 	
-	/// Filters results to chapter content only and updates tab state.
+	/// Displays chapter-only search results and updates UI state
+	/// 
+	/// This method handles the "Chapters" tab functionality:
+	/// 
+	/// ### State Changes:
+	/// - showAll = false, showChapters = true, showCharts = false
+	/// - Updates results to display chapters only
+	/// - Sets tab button to active state
+	/// 
+	/// ### Content Filtering:
+	/// - Excludes tables, figures, and chart content
+	/// - Uses chapterResults array (filtered during search)
+	/// - Maintains result ordering from original search
+	/// 
+	/// ### UI Updates:
+	/// 1. **Loading State**: Shows loader during transition
+	/// 2. **Results Update**: Switches to chapterResults array
+	/// 3. **Tab Styling**: Activates "Chapters" button, deactivates others
+	/// 4. **Count Display**: Updates result count for chapters only
+	/// 
+	/// ### Content Definition:
+	/// - Chapters are defined by regex filtering in loadHTML()
+	/// - Excludes content matching "^table_\d+_.*" pattern
+	/// - Excludes "fig1_factors_to_be_considered" figure
+	/// 
+	/// - Important: chapterResults must be populated during search execution
+	/// - Note: This provides focused search for textual content only
 	@objc private func showChaptersOnly() {
 		showAll = false
 		showChapters = true
@@ -366,7 +517,39 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 		}
 	}
 	
-	/// Filters results to charts only and updates tab state.
+	/// Displays chart-only search results and updates UI state
+	/// 
+	/// This method handles the "Charts" tab functionality:
+	/// 
+	### State Changes:
+	/// - showAll = false, showChapters = false, showCharts = true
+	/// - Updates results to display charts only
+	/// - Sets tab button to active state
+	/// 
+	### Content Filtering:
+	/// - Includes tables, figures, and reference materials
+	/// - Uses chartResults array (filtered during search)
+	/// - Maintains result ordering from original search
+	/// 
+	### Chart Content Types:
+	/// - Tables with "Table X:" prefix
+	/// - Figures with "Figure X." prefix
+	/// - Reference materials and appendices
+	/// - Visual aids and supplementary content
+	/// 
+	### UI Updates:
+	/// 1. **Loading State**: Shows loader during transition
+	/// 2. **Results Update**: Switches to chartResults array
+	/// 3. **Tab Styling**: Activates "Charts" button, deactivates others
+	/// 4. **Count Display**: Updates result count for charts only
+	/// 
+	### Visual Differentiation:
+	/// - Chart results show green icons instead of blue
+	/// - Table/figure prefixes are preserved in titles
+	/// - Different metadata mapping (chartmapsubchapter vs chaptermapsubchapter)
+	/// 
+	/// - Important: chartResults must be populated during search execution
+	/// - Note: This provides focused search for visual/reference content
 	@objc private func showChartsOnly() {
 		showAll = false
 		showChapters = false
